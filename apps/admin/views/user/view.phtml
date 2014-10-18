@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">View User</h2>
+                    <p>You can change user configuration right there</p>
+                </header>
+                <div class="panel-body">
+                    
+                    <!-- First Name !-->
+                    <?php $viewForm->renderDecorated("firstname"); ?>
+
+                    <!-- Last Name !-->
+                    <?php $viewForm->renderDecorated("lastname"); ?>
+
+                    <!-- Gender!-->
+                    <?php $viewForm->renderDecorated("gender"); ?>
+
+                    <!-- Email!-->
+                    <?php $viewForm->renderDecorated("email"); ?>
+
+                    <!-- Password!-->
+                    <?php $viewForm->renderDecorated("password"); ?>
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $viewForm->renderDecorated("submit"); ?>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

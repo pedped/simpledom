@@ -1,0 +1,50 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+
+        <h2 class="panel-title">User Logs</h2>
+    </header>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-condensed mb-none ">
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>User</th>
+                    <th>User Action</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach ($logs->items as $item) { ?>
+                    <tr>
+                        <td><?php echo $item->id; ?></td>
+                        <td><a href="<?php echo $this->url->get("userlogs/list/1/") . $item->userid ?>"><?php echo $item->userid; ?></a></td>
+                        <td><?php echo $item->getUser()->getFullName(); ?></td>
+                        <td><?php echo $item->action; ?></td>
+                        <td><?php echo $item->getDate(); ?></td>
+                        <td>
+                            <a href="<?php echo $this->url->get("userlogs/view/" . $item->id); ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+        <!-- Paginatoing Items !-->
+        <div class="center">
+            <div class="pagination pagination-centered">
+                <li><a class="pag" href="<?php echo $this->url->get("userlogs/list/") ?>">First</a> </li>
+                <li> <a href="<?php echo $this->url->get("userlogs/list/$logs->before") ?>">Previous</a></li>
+                <li> <a href="<?php echo $this->url->get("userlogs/list/$logs->next") ?>">Next</a></li>
+                <li> <a href="<?php echo $this->url->get("userlogs/list/$logs->last") ?>">Last</a></li>
+            </div>
+            <div>
+                <?php echo "You are in page ", $logs->current, " of ", $logs->total_pages; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+

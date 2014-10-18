@@ -1,0 +1,11 @@
+<?php
+$action = $this->dispatcher->getActionName();
+?>
+<ul class="nav nav-tabs" role="tablist">
+    <li <?php if ($action == "edit") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/edit") ?>">Basic Settings</a></li>
+    <li <?php if ($action == "editprofileimage") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editprofileimage") ?>">Profile Image</a></li>
+    <li <?php if ($action == "editabout") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editabout") ?>">About</a></li>
+    <li <?php if ($action == "editlogin") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editlogin") ?>">Login Details</a></li>
+    <li <?php if ($action == "viewlogins") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/viewlogins") ?>">Logins History</a></li>
+</ul>
+

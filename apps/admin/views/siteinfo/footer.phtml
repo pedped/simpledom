@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Website Footer Text</h2>
+                </header>
+                <div class="panel-body">
+
+                    <p>Change website footer name here</p>
+
+                    <?php $siteInfoForm->renderDecorated("footertitle"); ?>
+
+                    <?php $siteInfoForm->renderDecorated("footertext"); ?>
+
+                    <?php $siteInfoForm->renderDecorated("footermenus"); ?>
+
+                    <?php $siteInfoForm->renderDecorated("footerenablecontact"); ?>
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $siteInfoForm->renderDecorated("submit"); ?>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

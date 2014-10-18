@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-12">
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">View Visit Info</h2>
+                </header>
+                <div class="panel-body">
+
+                    <!-- User ID !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            ID
+                        </label>
+                        <p class="col-md-4"><?php echo $track->id; ?></p>
+                    </div>
+
+
+                    <!-- IP !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            IP
+                        </label>
+                        <p class="col-md-4"><?php echo $track->ip; ?></p>
+                    </div>
+
+                    <!-- Date !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            Date
+                        </label>
+                        <p class="col-md-4"><?php echo $track->getDate(); ?></p>
+                    </div>
+
+                    <!-- Agent !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            Agent
+                        </label>
+                        <p class="col-md-4"><?php echo $track->agent; ?></p>
+                    </div>
+
+                    <!-- Parameters !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            Parameters
+                        </label>
+                        <p class="col-md-4"><?php echo $track->parameters; ?></p>
+                    </div>
+
+                    <!-- Url !-->
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            Url
+                        </label>
+                        <p class="col-md-4"><?php echo $track->url; ?></p>
+                    </div>
+
+
+                    <!-- User !-->
+                    <?php if ($track->hasUser()) : ?>
+                        <hr/>
+                        <div class="form-group">
+                            <h3 class="col-md-2">
+                                User
+                            </h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">
+                                User ID
+                            </label>
+                            <p class="col-md-4"><?php echo $track->getUser()->userid; ?></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">
+                                Name
+                            </label>
+                            <p class="col-md-4"><?php echo $track->getUser()->getFullName(); ?></p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

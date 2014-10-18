@@ -1,0 +1,32 @@
+<h1>Users List</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Userid</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+    </tr>
+    <?php foreach ($users->items as $item) { ?>
+        <tr>
+            <td><?php echo $item->userid; ?></td>
+            <td><?php echo $item->fname; ?></td>
+            <td><?php echo $item->lname; ?></td>
+            <td><?php echo $item->getGenderTitle(); ?></td>
+        </tr>
+    <?php } ?>
+
+
+</table>
+<!-- Paginatoing Items !-->
+<div class="center">
+    <div class="pagination pagination-centered">
+        <li><a class="pag" href="<?php echo $this->url->get("user/list/") ?>">First</a> </li>
+        <li> <a href="<?php echo $this->url->get("user/list/$users->before") ?>">Previous</a></li>
+        <li> <a href="<?php echo $this->url->get("user/list/$users->next") ?>">Next</a></li>
+        <li> <a href="<?php echo $this->url->get("user/list/$users->last") ?>">Last</a></li>
+    </div>
+    <div>
+        <?php echo "You are in page ", $users->current, " of ", $users->total_pages; ?>
+    </div>
+</div>

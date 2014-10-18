@@ -1,0 +1,14 @@
+<h1>FAQ Lists</h1>
+<hr/>
+<div class='row'>
+    <div class='col-md-6'>
+        <?php foreach ($list as $head) : ?>
+            <h2 class="faq-head"><?= $head->head; ?></h2>
+            <?php foreach ($head->getItems() as $item) : ?>
+                <h4 class="faq-title"><?= $item->title; ?></h4>
+                <p class="faq-message"><?= $item->message; ?></p>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
+</div>
+

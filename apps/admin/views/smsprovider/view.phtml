@@ -1,0 +1,50 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View SMSProvider</h2>
+                                                <p class='panel-subtitle'Use this form to edit your SMSProvider</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD Name !-->
+                                <?php $form->renderInfo('name'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderInfo('description'); ?> 
+
+                                <!--  ADD Infos !-->
+                                <?php $form->renderInfo('infos'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+                                <!--  ADD Website URL !-->
+                                <?php $form->renderInfo('websitename'); ?> 
+
+                                <!--  ADD Enable !-->
+                                <?php $form->renderInfo('enable'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

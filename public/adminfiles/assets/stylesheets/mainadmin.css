@@ -1,0 +1,23 @@
+.header .logo{
+    font-size: 23px;
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+.element-error-messages{
+    color : #f00;
+    font-size: 12px;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+
+.paginator-header{
+    border : 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 11px 11px;
+}

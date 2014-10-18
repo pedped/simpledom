@@ -1,0 +1,38 @@
+<footer>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Us !-->
+                <div class="col-md-4">
+                    <h3 class="head"><?php echo $websiteSettings->footertitle; ?></h3>
+                    <p class="about-description">
+                        <?php echo $websiteSettings->footertext; ?>
+                    </p>
+                </div>
+                <!-- Links !-->
+                <div class="col-md-4">
+                    <h3 class="head">Useful Links</h3>
+                    <ul>
+                        <?php echo $websiteSettings->footermenus; ?>
+                    </ul>
+                </div>
+                <?php if ((bool) $websiteSettings->footerenablecontact) : ?>
+                    <!-- About Us !-->
+                    <div class="col-md-4">
+                        <form>
+                            <h3 class="head">Contact Us</h3>
+                            <p>Use this form to contact us</p>
+                            <input type="text" name="name" placeholder="Name" class="form-control">
+                            <br>
+                            <input type="text" name="email" placeholder="Email" class="form-control">
+                            <br>
+                            <textarea type="text" name="message" placeholder="Type your messages here" class="form-control"></textarea>
+                            <br>
+                            <input type="submit" name="sendcount" value="Send" class="btn btn-bootique">
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>   
+</footer>

@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Delete Message</h2>
+                </header>
+                <div class="panel-body">
+                    <p>Are you sure you want to remove this message</p>
+                    <hr/>
+                    <label class="bold">
+                        Email
+                    </label>
+                    <p>
+                        <?php echo $contactItem->email; ?>
+                    </p>
+
+                    <label  class="bold">
+                        Message
+                    </label>
+                    <p>
+                        <?php echo $contactItem->message; ?>
+                    </p>
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <form method="post">
+                        <input class="btn btn-danger" type="submit" name="delete" value="Remove" />
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

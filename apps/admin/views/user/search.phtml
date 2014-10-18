@@ -1,0 +1,60 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("user/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("user/new", "Create ")); ?>
+        </td>
+    </tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Userid</th>
+            <th>Fname</th>
+            <th>Lname</th>
+            <th>Gender</th>
+            <th>Imagelink</th>
+            <th>Regdate</th>
+            <th>Active</th>
+            <th>Verified</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $user) { ?>
+        <tr>
+            <td><?php echo $user->userid ?></td>
+            <td><?php echo $user->fname ?></td>
+            <td><?php echo $user->lname ?></td>
+            <td><?php echo $user->gender ?></td>
+            <td><?php echo $user->imagelink ?></td>
+            <td><?php echo $user->regdate ?></td>
+            <td><?php echo $user->active ?></td>
+            <td><?php echo $user->verified ?></td>
+            <td><?php echo $this->tag->linkTo(array("user/edit/" . $user->userid, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("user/delete/" . $user->userid, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("user/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("user/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("user/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("user/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

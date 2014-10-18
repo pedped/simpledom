@@ -1,0 +1,27 @@
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <h1>Search Result For : <b><?= $result->query; ?></b></h1>
+                </div>
+                <div class='col-md-6 ' style="text-align: right">
+                    <h2><?= $result->count > 1 ? "$result->count Items Found" : "$result->count Item Found"; ?></h2>
+                </div>
+            </div>
+            <hr/>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <!-- Results Goes Here !-->
+                    <?php echo $list->header; ?>
+                    <?php echo $list->table; ?>
+                    <?php echo $list->footer; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+var_dump($result);
+?>

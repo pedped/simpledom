@@ -1,0 +1,60 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+
+        <h2 class="panel-title">Users List</h2>
+    </header>
+    <div class="panel-body">
+        <div class="table-responsive">
+
+            <!-- Echo Header !-->
+            <?php
+            echo $users->header;
+            ?>
+
+            <table class="table table-bordered table-striped table-condensed mb-none ">
+                <tr>
+                    <th>Userid</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Join Date</th>
+                    <th>Total Logins</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach ($users->items as $item) { ?>
+                    <tr>
+                        <td><?php echo $item->userid; ?></td>
+                        <td><?php echo $item->fname; ?></td>
+                        <td><?php echo $item->lname; ?></td>
+                        <td><?php echo $item->email; ?></td>
+                        <td><?php echo $item->getGenderTitle(); ?></td>
+                        <td><?php echo $item->getJoinDate(); ?></td>
+                        <td><?php echo $item->logintimes; ?></td>
+                        <td>
+                            <a href="<?php echo $this->url->get("user/view/" . $item->userid); ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+        <!-- Paginatoing Items !-->
+        <div class="center">
+            <div class="pagination pagination-centered">
+                <li><a class="pag" href="<?php echo $this->url->get("user/list/") ?>">First</a> </li>
+                <li> <a href="<?php echo $this->url->get("user/list/$users->before") ?>">Previous</a></li>
+                <li> <a href="<?php echo $this->url->get("user/list/$users->next") ?>">Next</a></li>
+                <li> <a href="<?php echo $this->url->get("user/list/$users->last") ?>">Last</a></li>
+            </div>
+            <div>
+                <?php echo "You are in page ", $users->current, " of ", $users->total_pages; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+

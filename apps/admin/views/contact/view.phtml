@@ -1,0 +1,50 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <h2 class="panel-title">View Message</h2>
+    </header>
+    <div class="panel-body">
+        <?php $this->getContent(); ?>
+        <div class="form-group">
+            <label class="col-md-1">Name:</label>
+            <b class="col-md-4"><?php echo $contactItem->name; ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Email:</label>
+            <b class="col-md-4"><?php echo $contactItem->email; ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Section:</label>
+            <b class="col-md-4"><?php echo $contactItem->section; ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Date:</label>
+            <b class="col-md-4"><?php echo $contactItem->getDate(); ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Message:</label>
+            <b class="col-md-4"><?php echo $contactItem->message; ?></b>
+        </div>
+        <hr/>
+
+        <h5>Reply Message</h5>
+        <?php if ($contactItem->isReplied()) : ?>
+            <b>Replied Message</b>
+            <p><?php echo $contactItem->reply; ?></p>
+        <?php endif; ?>
+        <form method="post">
+
+            <!-- Message !-->
+            <?php $replyForm->renderDecorated("message"); ?>
+
+            <!-- Submit !-->
+            <?php $replyForm->renderDecorated("submit"); ?>
+
+        </form>
+    </div>
+</section>
+
+

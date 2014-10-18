@@ -1,0 +1,34 @@
+<h1>Register to the site</h1>
+<div class='row'>
+    <div class='col-md-6'>
+        <p>Here you can register to the site</p>
+        <?php echo $this->getContent(); ?>
+        <form method="post">
+
+            <!-- First Name !-->
+            <?php echo $registerform->renderDecorated('firstname'); ?>
+
+            <!-- Last Name!-->
+            <?php echo $registerform->renderDecorated('lastname'); ?>
+
+            <!-- Gender !-->
+            <?php echo $registerform->renderDecorated('gender'); ?>
+
+            <!-- Email !-->
+            <?php echo $registerform->renderDecorated('email'); ?>
+
+            <!-- Password !-->
+            <?php echo $registerform->renderDecorated('password'); ?>
+
+            <br/>
+            <!-- Submit !-->
+            <?php echo $registerform->renderDecorated('submit'); ?>
+
+        </form>
+
+    </div>
+    <div class='col-md-6'>
+
+    </div>
+</div>
+

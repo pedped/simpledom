@@ -1,0 +1,152 @@
+body{
+    background-color: #f0f0f0;
+    color : #999;
+    padding-top: 90px;
+    overflow-y: scroll; 
+}
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7{
+    font-family: 'Source Sans Pro';
+    font-weight: 300;
+    color:#000;
+}
+
+.navbar-brand{
+    background-color: #F00000;
+    color:#fff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #FFF;
+
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.home-carousel{
+    margin-top: 60px;
+}
+
+
+.carousel-caption {
+    right: 14%;
+    left: 40%;
+    padding-bottom: 28px;
+    top: 14%;
+}
+
+.carousel-inner .item p{
+    text-align: left;
+    color: #999;
+    font-size: 17px;
+    font-family: 'Source Sans Pro';
+    font-weight: 300;
+}
+
+.carousel-inner .item h1{
+    text-align: left;
+    font-size: 45px;
+}
+
+.page_about_acadmey .title{
+    font-size: 84px;
+}
+
+.xdebug-error {
+    color : #000;
+    font-size: 120%;
+}
+
+.element-error-messages{
+    color : #f00;
+    font-size: 12px;
+}
+
+.center {
+    text-align: center;
+}
+
+hr{
+    border-top: 1px solid #C7C7C7;
+}
+
+._account-settings-tab-content{
+    margin-top: 10px;
+}
+
+._header-profile-image{
+    width: 42px;
+    height: 42px;
+    margin-top: 4px;
+    margin-right: 8px;
+    border-radius: 5px;
+}
+
+.alert-small{
+    font-size: 80%;
+    padding: 10px 10px;
+}
+
+
+.footer .head {
+    font-size: 24px;
+    color: #ddd;
+    font-family: source sans pro;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.footer .about-description {
+    font-size: 17px;
+    font-style: italic;
+}
+
+.footer .link-item {
+    font-size: 19px;
+    color: #ddd;
+    font-family: source sans pro;
+    font-weight: 200;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 3px #000;
+}
+
+footer {
+    margin-top: 80px;
+    border-top: 2px solid #F00000;
+    background-color: #0E0E0E;
+    padding-bottom: 20px;
+}
+
+footer .form-control {
+    background-color: #000;
+    color: #eee;
+}
+
+
+footer .btn {
+    background-color: #000;
+    color: #fff;
+    border-color: #f00;
+    font-size: 120%;
+}
+
+.page-opinion ._opinion-item{
+
+}
+.page-opinion ._opinion-item ._name{
+    margin-bottom: 0px;
+}
+.page-opinion ._opinion-item ._date{
+    font-size: 80%;
+}

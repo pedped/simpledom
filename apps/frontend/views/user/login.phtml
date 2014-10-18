@@ -1,0 +1,29 @@
+<h1>Login</h1>
+<div class='row'>
+    <div class='col-md-6'>
+        <p>Please enter your information to login to site</p>
+        <?php echo $this->getContent(); ?>
+        <form method="post">
+
+            <!-- First Name !-->
+            <?php echo $loginform->renderDecorated('email'); ?>
+
+            <!-- Last Name!-->
+            <?php echo $loginform->renderDecorated('password'); ?>
+
+            <br/>
+            <p>
+                <a href="<?php echo $this->url->get("user/forgetpassword") ?>">Forget Password</a>
+            </p>
+
+            <!-- Submit !-->
+            <?php echo $loginform->renderDecorated('submit'); ?>
+
+        </form>
+
+    </div>
+    <div class='col-md-6'>
+
+    </div>
+</div>
+

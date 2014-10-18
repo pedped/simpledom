@@ -1,0 +1,187 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<!-- Specific Page Vendor CSS -->
+<link rel="stylesheet" href="<?php echo $pfurl; ?>adminfiles/assets/vendor/morris/morris.css" />
+<!-- Specific Page Vendor -->
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-appear/jquery.appear.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot-tooltip/jquery.flot.tooltip.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.pie.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.categories.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.resize.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/raphael/raphael.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/morris/morris.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/gauge/gauge.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/snap-svg/snap.svg.js"></script>
+<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/liquid-meter/liquid.meter.js"></script>
+
+
+
+<!-- User Charts !-->
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                    <a href="#" class="fa fa-times"></a>
+                </div>
+
+                <h2 class="panel-title">Visit Chart</h2>
+                <p class="panel-subtitle">You can see your visitors visit chart based on 30 days ago</p>
+            </header>
+            <div class="panel-body">
+
+                <!-- Morris: Line -->
+                <div class="chart chart-md" id="morrisLine"></div>
+                <script type="text/javascript">
+
+                    Morris.Line({
+                        element: 'morrisLine',
+                        data: [
+<?php
+foreach ($visits as $visit) {
+    echo "{y: '$visit->year', m: '$visit->month', d: '$visit->day', a: $visit->total},";
+}
+?>
+                        ],
+                        xkey: 'd',
+                        ykeys: ['a'],
+                        labels: ['Visit Per Day']
+                    });
+                </script>
+
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<div class="row">
+    <!-- Total Users !-->
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="panel panel-featured-left panel-featured-quartenary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-quartenary">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">Total Visits</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalVisits ?></strong>
+
+                            </div>
+                        </div>
+                        <div class="summary-footer">
+                            <a class="text-muted text-uppercase">(View All)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Total Contacts !-->
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-primary">
+                            <i class="fa fa-life-ring"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">Past 7 Days visit</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $last7DayVisits[0]->total; ?></strong>
+                            </div>
+                        </div>
+                        <div class="summary-footer">
+                            <a class="text-muted text-uppercase">(view all)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<!-- Last Visits !-->
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel panel-featured panel-featured-info">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                    <a href="#" class="fa fa-times"></a>
+                </div>
+
+                <h2 class="panel-title">Last 100 Visits</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        IP
+                    </th>
+                    <th>
+                        URL
+                    </th>
+                    <th>
+                        DATE
+                    </th>
+                    <th>
+                        User ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                    <?php foreach ($last100Tracks as $track) : ?>
+                        <tr>
+                            <td>
+                                <?php echo $track->id; ?>
+                            </td>
+                            <td>
+                                <?php echo $track->ip; ?>
+                            </td>
+                            <td>
+                                <?php echo $track->url; ?>
+                            </td>
+                            <td>
+                                <?php echo $track->getDate(); ?>
+                            </td>
+                            <td>
+                                <?php echo $track->userid; ?>
+                            </td>
+                            <td>
+                                <?php if ($track->hasUser()) : ?>
+                                    <?php echo $track->getUser()->getFullName(); ?>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="<?php echo $this->url->get("track/viewvisit/" . $track->id); ?>" class="on-default edit-row"><i class="fa fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

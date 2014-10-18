@@ -1,0 +1,38 @@
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <h2 class="panel-title">View User Log</h2>
+        <p class="panel-title-sign">list of user logs</p>
+    </header>
+    <div class="panel-body">
+        <?php $this->getContent(); ?>
+        <div class="form-group">
+            <label class="col-md-1">ID:</label>
+            <b class="col-md-4"><?php echo $userLog->id; ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Name:</label>
+            <b class="col-md-4"><?php echo $userLog->getUser()->getFullName(); ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Action:</label>
+            <b class="col-md-4" style="color:red"><?php echo $userLog->action; ?></b>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1">Date:</label>
+            <b class="col-md-4"><?php echo $userLog->getDate() ?></b>
+        </div>
+        <?php if (isset($userLog->info)) : ?>
+            <hr/>
+            <div class="form-group">
+                <label class="col-md-1">More Info:</label>
+                <b class="col-md-4"><?php echo $userLog->info ?></b>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+

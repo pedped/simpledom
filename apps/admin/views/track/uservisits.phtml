@@ -1,0 +1,21 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<section class='panel'>
+    <header class='panel-heading'>
+        <div class='panel-actions'>
+            <a href='#' class='fa fa-caret-down'></a>
+            <a href='#' class='fa fa-times'></a>
+        </div>
+        <h2 class='panel-title'>User Visits</h2>
+    </header>
+    <div class='panel-body'>
+        <?php
+        echo $list->header;
+        echo $list->table;
+        echo $list->footer;
+        ?>
+    </div>
+</section>

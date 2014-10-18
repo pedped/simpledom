@@ -1,0 +1,54 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit UserTransaction</h2>
+                                                <p class='panel-subtitle'Use this form to edit your UserTransaction</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderDecorated('userid'); ?> 
+
+                                <!--  ADD Amount !-->
+                                <?php $form->renderDecorated('amount'); ?> 
+
+                                <!--  ADD Currency !-->
+                                <?php $form->renderDecorated('cur'); ?> 
+
+                                <!--  ADD Type !-->
+                                <?php $form->renderDecorated('type'); ?> 
+
+                                <!--  ADD Type Name !-->
+                                <?php $form->renderDecorated('typename'); ?> 
+
+                                <!--  ADD Item ID !-->
+                                <?php $form->renderDecorated('itemid'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

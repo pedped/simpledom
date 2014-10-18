@@ -1,0 +1,29 @@
+<h1>Edit Profile Information</h1>
+<div class='row'>
+    <div class='col-md-6'>
+        <p>You can edit your basic profile information here</p>
+        <?php $this->partial("layouts/usersettingsheader") ?>
+        <div class="_account-settings-tab-content">
+            <?php echo $this->getContent(); ?>
+            <form method="post">
+
+                <!-- First Name !-->
+                <?php echo $form->renderDecorated('firstname'); ?>
+
+                <!-- Last Name!-->
+                <?php echo $form->renderDecorated('lastname'); ?>
+
+                <!-- Gender !-->
+                <?php echo $form->renderDecorated('gender'); ?>
+                <br/>
+                <!-- Submit !-->
+                <?php echo $form->renderDecorated('submit'); ?>
+
+            </form>
+        </div>
+        <div class='col-md-6'>
+
+        </div>
+    </div>
+</div>
+
