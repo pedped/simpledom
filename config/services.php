@@ -111,7 +111,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('/simpledom/');
+    $url->setBaseUri('http://melk.edspace.org/');
 
     return $url;
 };

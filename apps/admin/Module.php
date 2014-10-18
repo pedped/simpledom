@@ -104,8 +104,8 @@ class Module implements ModuleDefinitionInterface {
 
         $di->set('url', function() {
             $url = new Url();
-            $url->setBaseUri('/simpledom/admin/');
-            $url->publicurl = "http://localhost/simpledom/";
+            $url->setBaseUri('/admin/');
+            $url->publicurl = "http://melk.edspace.org/";
             return $url;
         });
 

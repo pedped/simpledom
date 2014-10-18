@@ -6,8 +6,9 @@ use AtaController;
 use BaseContact;
 use BaseUser;
 use Phalcon\Mvc\Dispatcher;
-use Phalcon\Tag;
+use Phalcon\Validation\Exception;
 use Settings;
+use Simpledom\Core\AtaForm;
 
 abstract class ControllerBase extends AtaController {
 

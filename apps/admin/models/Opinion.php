@@ -1,9 +1,5 @@
 <?php
 
-namespace Simpledom\Models;
-
-use BaseOpinion;
-
 class Opinion extends BaseOpinion {
 
     //put your code here

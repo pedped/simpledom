@@ -8,8 +8,8 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
 use Phalcon\Validation\Exception;
+use Settings;
 use Simpledom\Core\AtaForm;
-use Simpledom\Models\Settings;
 
 class ControllerBase extends Controller {
 
@@ -45,7 +45,7 @@ class ControllerBase extends Controller {
         // CSS in the header
         $this->assets
                 ->collection('header')
-                ->setPrefix('http://localhost/simpledom/')
+                ->setPrefix('http://melk.edspace.org/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true);
 
@@ -53,7 +53,7 @@ class ControllerBase extends Controller {
         //Javascripts in the footer
         $this->assets
                 ->collection('footer')
-                ->setPrefix('http://localhost/simpledom/')
+                ->setPrefix('http://melk.edspace.org/')
                 ->addJs('js/jquery/jquery.min.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
 
@@ -61,7 +61,7 @@ class ControllerBase extends Controller {
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
-                ->setPrefix('http://localhost/simpledom/');
+                ->setPrefix('http://melk.edspace.org/');
         $this->assets
                 ->collection('externalscripts');
 
