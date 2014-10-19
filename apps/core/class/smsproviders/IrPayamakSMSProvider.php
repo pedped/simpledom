@@ -1,5 +1,7 @@
 <?php
 
+use Simpledom\Core\Classes\SMSProviderInterface;
+
 class IrPayamakSMSProvider extends SmsProviderSystem implements SMSProviderInterface {
 
     public function getDelivered($referneceCode) {

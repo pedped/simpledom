@@ -1,5 +1,4 @@
 <?php
-namespace Simpledom\Core\Classes;
 
 abstract class SmsProviderSystem {
 

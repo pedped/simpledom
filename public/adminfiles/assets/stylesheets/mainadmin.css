@@ -21,3 +21,12 @@
     margin-bottom: 20px;
     padding: 11px 11px;
 }
+
+.thumb-info .thumb-info-inner{
+    font-size: small;
+    white-space: normal;
+}
+
+.ui-autocomplete.ui-widget-content{
+    z-index: 1100;
+}

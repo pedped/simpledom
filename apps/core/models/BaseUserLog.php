@@ -51,6 +51,10 @@ class BaseUserLog extends AtaModel {
         return BaseUser::findFirst($this->userid);
     }
 
+    public function getUserName() {
+        return BaseUser::findFirst($this->userid)->name;
+    }
+
     public function getDate() {
         return date("Y-m-d H:i:s", $this->date);
     }

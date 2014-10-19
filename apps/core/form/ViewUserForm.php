@@ -2,13 +2,13 @@
 
 namespace Simpledom\Core;
 
-use Phalcon\Forms\Element\Password;
+use EnableDisableElement;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use TextAreaElement;
 
 class ViewUserForm extends AtaForm {
 
@@ -22,11 +22,9 @@ class ViewUserForm extends AtaForm {
         $firstname->setAttribute("placeholder", "Enter your First Name");
         $firstname->setAttribute("class", "form-control");
         $firstname->addValidator(new PresenceOf(array(
-            'message' => 'The name is required'
         )));
         $firstname->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The name is too short'
         )));
         $this->add($firstname);
 
@@ -38,14 +36,11 @@ class ViewUserForm extends AtaForm {
         $lastname->setAttribute("placeholder", "Enter your Last Name");
         $lastname->setAttribute("class", "form-control");
         $lastname->addValidator(new PresenceOf(array(
-            'message' => 'The last name is required'
         )));
         $lastname->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The last name is too short'
         )));
         $this->add($lastname);
-
 
 
         // Gender
@@ -58,35 +53,25 @@ class ViewUserForm extends AtaForm {
         $this->add($gender);
 
 
-        // ٍEmail
-        $email = new Text("email");
-        $email->setLabel("Email");
-        $email->setAttribute("placeholder", "Enter Email");
-        $email->setAttribute("class", "form-control");
-        $email->addValidator(new PresenceOf(array(
-            'message' => 'The email is required'
-        )));
-        $email->addValidator(new Email(array(
-            'message' => 'please enter a valid email'
-        )));
-        $this->add($email);
+        // Active
+        $active = new EnableDisableElement("active");
+        $active->setLabel("Active");
+        $active->setAttribute("class", "form-control");
+        $this->add($active);
+
+        // Verify
+        $verify = new EnableDisableElement("verify");
+        $verify->setLabel("Verified");
+        $verify->setAttribute("class", "form-control");
+        $this->add($verify);
 
 
-        // Password
-        $password = new Password("password");
-        $password->setLabel("Password");
-        $password->setAttribute("placeholder", "Enter your Password");
-        $password->setAttribute("class", "form-control");
-        $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
-        )));
-//        $password->addValidator(new Between(array(
-//            'max' => 50,
-//            'min' => 8,
-//            'messageMaximum' => 'The password should be at maximum 8 characters',
-//            'messageMinimum' => 'The password should be at least 8 characters'
-//        )));
-        $this->add($password);
+        // Disable Message
+        $disablemessage = new TextAreaElement("disablemessage");
+        $disablemessage->setLabel("Disabled Account Message");
+        $disablemessage->setAttribute("placeholder", "When you make user offline, you may use offline message for the user");
+        $disablemessage->setAttribute("class", "form-control");
+        $this->add($disablemessage);
 
 
         // Submit Button

@@ -41,7 +41,7 @@ class IndexControllerBase extends ControllerBase {
 
                 // check if we have successfully sent messages
                 if ($result) {
-                    $this->flash->success("Your message has been sent successfully to thsi numberss<br/><br/>" . implode("<br/>", $phones));
+                    $this->flash->success("Your message has been sent successfully to these numbers:<br/><br/>" . implode("<br/>", $phones));
                 } else {
                     $this->flash->error("There was a problem in sending message");
                 }

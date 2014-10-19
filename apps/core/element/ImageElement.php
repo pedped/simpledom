@@ -12,6 +12,10 @@ class ImageElement extends BaseElement {
         $this->href = $href;
     }
 
+    public function setLink($link) {
+        $this->setHref($link);
+    }
+
     public function render($attributes = null) {
         $href = $this->getHref();
         $html = "<img src='$href' class='img img-responsive' />";

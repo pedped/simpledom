@@ -7,6 +7,7 @@ define("USERLEVEL_USER", 1);
 use Phalcon\Mvc\Controller;
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\SearchResult;
 
 class BaseUser extends AtaModel implements Searchable {
 
@@ -104,6 +105,12 @@ class BaseUser extends AtaModel implements Searchable {
      */
     public $logintimes;
 
+    /**
+     *
+     * @var string
+     */
+    public $disablemessage;
+
     public function getUserid() {
         return $this->userid;
     }
@@ -114,6 +121,17 @@ class BaseUser extends AtaModel implements Searchable {
 
     public function getLevel() {
         return $this->level;
+    }
+
+    public function getLevelName() {
+        switch ($this->level) {
+            case USERLEVEL_SUPERADMIN:
+                return "Super Adminstator";
+            case USERLEVEL_ADMIN:
+                return "Adminstator";
+            case USERLEVEL_USER:
+                return "General User";
+        }
     }
 
     public function getFname() {
@@ -494,7 +512,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
      * @return SearchResult
      */
     public static function RequestSearch($query, $start, $limit, &$foundedCount = -1, &$results = array(), &$viewName = "default") {
-        
+
         $users = BaseUser::find(array(
                     "fullname LIKE '%$query%'",
                     "limit" => "$start , $limit",

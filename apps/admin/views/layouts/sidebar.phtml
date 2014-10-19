@@ -211,33 +211,23 @@
                     <hr class="separator" />
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Payment Payline's</span>
+                            <i class='fa fa-money' aria-hidden='true'></i>
+                            <span>Payment's</span>
                         </a>
                         <ul class='nav nav-children'>
                             <li>
-                                <a href='<?php echo $this->url->get('paymentpayline/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
                                 <a href='<?php echo $this->url->get('paymentpayline/list'); ?>'>
-                                    List
+                                    Payline
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <i class='fa fa-dollar' aria-hidden='true'></i>
                             <span>Orders</span>
                         </a>
                         <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('userorder/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
                             <li>
                                 <a href='<?php echo $this->url->get('userorder/list'); ?>'>
                                     List
@@ -247,15 +237,10 @@
                     </li>
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <i class='fa fa-list' aria-hidden='true'></i>
                             <span>Transactions</span>
                         </a>
                         <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('usertransaction/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
                             <li>
                                 <a href='<?php echo $this->url->get('usertransaction/list'); ?>'>
                                     List
@@ -265,94 +250,71 @@
                     </li>
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>PaymentType's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('paymenttype/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('paymenttype/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>ProductType's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('producttype/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('producttype/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Transaction Type's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('transactiontype/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('transactiontype/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>UserCachChange's</span>
+                            <i class='fa fa-bars' aria-hidden='true'></i>
+                            <span>User Cach Change's</span>
                         </a>
                         <ul class='nav nav-children'>
                             <li>
                                 <a href='<?php echo $this->url->get('usercachchange/add'); ?>'>
-                                    Add
+                                    Increase Decrease User Cach
                                 </a>
                             </li>
                             <li>
                                 <a href='<?php echo $this->url->get('usercachchange/list'); ?>'>
-                                    List
+                                    View List
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>CachChangeReason's</span>
+                            <i class='fa fa-gear' aria-hidden='true'></i>
+                            <span>Payment Settings</span>
                         </a>
                         <ul class='nav nav-children'>
                             <li>
+                                <a href='<?php echo $this->url->get('paymenttype/add'); ?>'>
+                                    Add Payment Type
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('paymenttype/list'); ?>'>
+                                    View Payment Types
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('producttype/add'); ?>'>
+                                    Add Product Type
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('producttype/list'); ?>'>
+                                    View Product Types
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('transactiontype/add'); ?>'>
+                                    Add Transaction Type
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('transactiontype/list'); ?>'>
+                                    View Transaction Types
+                                </a>
+                            </li>
+                            <li>
                                 <a href='<?php echo $this->url->get('cachchangereason/add'); ?>'>
-                                    Add
+                                    Add Cach Change Reason
                                 </a>
                             </li>
                             <li>
                                 <a href='<?php echo $this->url->get('cachchangereason/list'); ?>'>
-                                    List
+                                    View User Cach Change 
                                 </a>
                             </li>
                         </ul>
                     </li>
+
                     <hr class="separator" />
                     <li class="nav-parent">
                         <a>

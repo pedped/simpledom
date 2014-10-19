@@ -18,7 +18,8 @@ class Config {
      * @return string
      */
     public static function GetImagePath() {
-        return "C:/xampp/htdocs/simpledom/public/userupload/image";
+
+        return $_SERVER["DOCUMENT_ROOT"] . "/public/userupload/image";
     }
 
     /**

@@ -3,17 +3,162 @@
 namespace Simpledom\Admin\BaseControllers;
 
 use AtaPaginator;
+use BaseUser;
+use BaseUserLog;
+use Opinion;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Text;
+use Simpledom\Core\AdminChangeLoginDetailsUserForm;
+use Simpledom\Core\AdminUserProfileImageForm;
+use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\ViewUserForm;
-use BaseUser;
+use UserOrder;
 
 class UserControllerBase extends ControllerBase {
 
-    public function viewAction($id) {
+    public function viewTabOpinions($id, $page) {
+
+        // load the users
+        $userorders = Opinion::find(
+                        array(
+                            "userid = '$id'",
+                            'order' => 'id DESC'
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $userorders,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Message', 'Rate', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'message', 'rate', 'getDate()'
+                ))->
+                setEditUrl(
+                        'view'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function viewTabOrder($id, $page) {
+
+        // load the users
+        $userorders = UserOrder::find(
+                        array(
+                            "userid = '$id'",
+                            'order' => 'id DESC'
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $userorders,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Type', 'Title', 'Item ID', 'Handler', 'Payment ID', 'price', 'Currency', 'date', 'done'
+                ))->
+                setFields(array(
+                    'id', 'getTypeName()', 'getItemTitle()', 'itemid', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
+                ))->
+                setEditUrl(
+                        'view'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function viewTabUserLogs($id, $page) {
+
+        // load the users
+        $userLogs = BaseUserLog::find(
+                        array(
+                            'order' => 'id DESC'
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $userLogs,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Action', 'Info', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'action', 'info', 'getDate()'
+                ))->
+                setEditUrl(
+                        'view'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function viewTabProfileImage($id) {
+
+        // create new login form
+        $rf = new AdminUserProfileImageForm();
+        $user = BaseUser::findFirst($id);
+        if ($this->request->isPost()) {
+            // user want to submit the post, validae the request
+            if (!$rf->isValid($_POST)) {
+                // invalid post
+            } else {
+                // valid post, we have to create new user based on the request
+                if ($this->request->hasFiles()) {
+                    $image = FileManager::HandleImageUpload($this->errors, $this->request->getUploadedFiles()[0], $outputFileName, $realtiveloaction);
+                    if (!$image) {
+                        $this->flash->error("unable to handle file upload");
+                    } else {
+                        // check if we can save user
+                        if (!$user->setImagelink($image->link)->save()) {
+                            // unable to save user
+                            $user->showErrorMessages($this);
+                        } else {
+
+                            // show the message
+                            $user->showSuccessMessages($this, "Image Changed Successfully");
+                        }
+                    }
+                }
+            }
+        }
+
+        $rf->get("image")->setLink($user->imagelink);
+        $this->view->viewForm = $rf;
+    }
+
+    public function viewTabUserInfo($id) {
+
         // create new login form
         $rf = new ViewUserForm();
-
         if ($this->request->isPost()) {
             // user want to submit the post, validae the request
             if (!$rf->isValid($_POST)) {
@@ -24,10 +169,47 @@ class UserControllerBase extends ControllerBase {
                 $user->fname = $this->request->getPost("firstname");
                 $user->lname = $this->request->getPost("lastname");
                 $user->gender = $this->request->getPost("gender");
+                $user->verified = $this->request->getPost("verify");
+                $user->active = $this->request->getPost("active");
+                $user->disablemessage = $this->request->getPost("disablemessage");
 
-                if ($this->request->hasPost("password")) {
-                    $user->password = $this->request->getPost("password");
+                if (intval($user->active) == 0 && $user->level == USERLEVEL_SUPERADMIN) {
+                    // we are not allowed to disable Super Admin Account
+                    $this->flash->error("You should not disable Super Admin Account");
+                } else {
+                    // check if we can save user
+                    if (!$user->save()) {
+                        // unable to save user
+                        $user->showErrorMessages($this);
+                    } else {
+                        $user->showSuccessMessages($this, "User saved successfully");
+                    }
                 }
+            }
+        }
+        $user = BaseUser::findFirst($id);
+        $rf->get("firstname")->setDefault($user->fname);
+        $rf->get("lastname")->setDefault($user->lname);
+        $rf->get("gender")->setDefault($user->gender);
+        $rf->get("verify")->setDefault($user->verified);
+        $rf->get("disablemessage")->setDefault($user->disablemessage);
+        $rf->get("active")->setDefault($user->active);
+        $this->view->viewForm = $rf;
+    }
+
+    public function viewTabLoginDetails($id) {
+
+        // create new login form
+        $rf = new AdminChangeLoginDetailsUserForm();
+        if ($this->request->isPost()) {
+            // user want to submit the post, validae the request
+            if (!$rf->isValid($_POST)) {
+                // invalid post
+            } else {
+                // valid post, we have to create new user based on the request
+                $user = BaseUser::findFirst($id);
+                $user->email = $this->request->getPost("email", "email");
+                $user->password = $this->request->getPost("password");
 
                 // check if we can save user
                 if (!$user->save()) {
@@ -38,14 +220,57 @@ class UserControllerBase extends ControllerBase {
                 }
             }
         }
+        $user = BaseUser::findFirst($id);
+        $rf->get("email")->setDefault($user->email);
+        $this->view->viewForm = $rf;
+    }
+
+    public function viewAction($id, $tab = "userinfo", $page = 1) {
+
+        switch ($tab) {
+            case "userinfo" :
+                $this->viewTabUserInfo($id);
+                break;
+            case "logindetails" :
+                $this->viewTabLoginDetails($id);
+                break;
+            case "profileimage" :
+                $this->viewTabProfileImage($id);
+                break;
+            case "userlogs" :
+                $this->viewTabUserLogs($id, $page);
+                break;
+            case "orders" :
+                $this->viewTabOrder($id, $page);
+                break;
+            case "opinions" :
+                $this->viewTabOpinions($id, $page);
+                break;
+
+            default :
+                var_dump("invalid tab");
+                die();
+        }
+
 
         // Load Default Information
         $user = BaseUser::findFirst($id);
-        $rf->get("firstname")->setDefault($user->fname);
-        $rf->get("lastname")->setDefault($user->lname);
-        $rf->get("gender")->setDefault($user->gender);
-        $rf->get("email")->setDefault($user->email);
-        $this->view->viewForm = $rf;
+        $this->view->tab = $tab;
+        $this->view->user = $user;
+        $this->setTitle("User Information");
+
+
+        // check if user is disabled
+        if (intval($user->active) == 0) {
+            $this->flash->error(Text::upper("<b>User Is Deactiveted</b>"));
+        }
+
+
+        // calc the more infos
+        $this->view->totalOpinions = Opinion::count("userid = '$id'");
+        $this->view->totalOrdersCost = \UserOrder::sum(array("userid = '$id' AND done = '1' ",
+                    "column" => "price"));
+        $this->view->totalOrders = \UserOrder::find("userid = '$id' AND done = '1' ")->count();
     }
 
     public function listAction($page = 1) {

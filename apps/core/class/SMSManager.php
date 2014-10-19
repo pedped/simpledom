@@ -1,9 +1,6 @@
 <?php
 
 
-namespace Simpledom\Core\Classes;
-
-
 class SMSManager {
 
     /**

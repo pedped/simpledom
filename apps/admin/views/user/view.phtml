@@ -3,41 +3,165 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<form method="post">
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
+
+<div class="row">
+    <div class="col-md-4 col-lg-3">
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="thumb-info mb-md">
+                    <img src="<?php echo $user->getImagelink(); ?>" class="rounded img-responsive">
+                    <div class="thumb-info-title">
+                        <span class="thumb-info-inner"><?php echo $user->getFullName(); ?></span>
+                        <span class="thumb-info-type"><?php echo $user->getLevelName(); ?></span>
                     </div>
-
-                    <h2 class="panel-title">View User</h2>
-                    <p>You can change user configuration right there</p>
-                </header>
-                <div class="panel-body">
-                    
-                    <!-- First Name !-->
-                    <?php $viewForm->renderDecorated("firstname"); ?>
-
-                    <!-- Last Name !-->
-                    <?php $viewForm->renderDecorated("lastname"); ?>
-
-                    <!-- Gender!-->
-                    <?php $viewForm->renderDecorated("gender"); ?>
-
-                    <!-- Email!-->
-                    <?php $viewForm->renderDecorated("email"); ?>
-
-                    <!-- Password!-->
-                    <?php $viewForm->renderDecorated("password"); ?>
-
-                    <!-- Submit Button !-->
-                    <br/>
-                    <?php $viewForm->renderDecorated("submit"); ?>
                 </div>
-            </section>
+
+                <div class="widget-toggle-expand mb-md">
+                    <div class="widget-content-expanded">
+                        <ul class="simple-todo-list">
+                            <dt>User ID</dt>
+                            <dd><?php echo $user->userid; ?></dd>
+                            <dt>First Name</dt>
+                            <dd><?php echo $user->fname; ?></dd>
+                            <dt>Last Name</dt>
+                            <dd><?php echo $user->lname; ?></dd>
+                            <dt>Gender</dt>
+                            <dd><?php echo $user->getGender() == 1 ? "Male" : "Female"; ?></dd>
+                        </ul>
+                        <hr/>
+                        <dl>
+                            <dt>Orders</dt>
+                            <dd><?php echo $totalOrders; ?></dd>
+                            <?php if (intval($totalOrders) > 0) : ?>
+                                <dt>Orders Cost</dt>
+                                <dd><?php echo $totalOrdersCost; ?></dd>
+                            <?php endif; ?>
+                            <dt>Opinions</dt>
+                            <dd><?php echo $totalOpinions; ?></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-9">
+        <div class="tabs tabs-dark">
+            <ul class="nav nav-tabs">
+                <li class="<?php echo $tab == "userinfo" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/userinfo"); ?>" >User Information</a>
+                </li>
+                <li class="<?php echo $tab == "logindetails" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/logindetails"); ?>" >Login Details</a>
+                </li>
+                <li class="<?php echo $tab == "profileimage" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/profileimage"); ?>" >Profile Image</a>
+                </li>
+                <li class="<?php echo $tab == "userlogs" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/userlogs"); ?>" >Logs</a>
+                </li>
+                <li class="<?php echo $tab == "orders" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/orders"); ?>" >Orders</a>
+                </li>
+                <li class="<?php echo $tab == "opinions" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("user/view/$user->userid/opinions"); ?>" >Opinions</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+
+                <?php if ($tab == "userinfo") : ?>
+                    <!-- User Basic Information !-->
+                    <div id="popular6" class="tab-pane <?php echo $tab == "userinfo" ? "active" : "" ?>">
+                        <form method="post">
+                            <!-- First Name !-->
+                            <?php $viewForm->renderDecorated("firstname"); ?>
+
+                            <!-- Last Name !-->
+                            <?php $viewForm->renderDecorated("lastname"); ?>
+
+                            <!-- Gender!-->
+                            <?php $viewForm->renderDecorated("gender"); ?>
+
+                            <hr/>
+
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <!-- Verifed !-->
+                                    <?php $viewForm->renderDecorated("verify"); ?>
+                                </div>
+                                <div class='col-md-6'>
+                                    <!-- Active!-->
+                                    <?php $viewForm->renderDecorated("active"); ?>
+                                </div>
+                            </div>
+
+                            <!-- Disable Message !-->
+                            <?php $viewForm->renderDecorated("disablemessage"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "logindetails") : ?>
+                    <!-- Login Details !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "logindetails" ? "active" : "" ?>">
+                        <form method="post">
+                            <!-- Email!-->
+                            <?php $viewForm->renderDecorated("email"); ?>
+
+                            <!-- Password!-->
+                            <?php $viewForm->renderDecorated("password"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "profileimage") : ?>
+                    <!-- Profile Image !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "profileimage" ? "active" : "" ?>">
+                        <form method="post" enctype="multipart/form-data">
+                            <!-- Email!-->
+                            <?php $viewForm->renderDecorated("image"); ?>
+
+                            <!-- Password!-->
+                            <?php $viewForm->renderDecorated("file"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "userlogs") : ?>
+                    <!-- User Logs !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "userlogs" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "orders") : ?>
+                    <!-- Orders !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "orders" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "opinions") : ?>
+                    <!-- Opinions !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "opinions" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</form>
+</div>
