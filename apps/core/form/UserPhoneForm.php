@@ -28,9 +28,7 @@ class UserPhoneForm extends AtaForm {
         $userid->setAttribute('class', 'form-control');
         $userid->addValidator(new PresenceOf(array(
         )));
-        $userid->addValidator(new StringLength(array(
-            'min' => 5
-        )));
+
         $this->add($userid);
 
 
@@ -40,6 +38,9 @@ class UserPhoneForm extends AtaForm {
         //$phone->setAttribute('placeholder', 'Enter your Phone');
         $phone->setAttribute('class', 'form-control');
         $phone->addValidator(new PresenceOf(array(
+        )));
+        $phone->addValidator(new StringLength(array(
+            'min' => 5
         )));
         $this->add($phone);
 

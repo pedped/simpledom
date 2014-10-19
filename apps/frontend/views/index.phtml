@@ -28,6 +28,21 @@ use Phalcon\Tag; ?>
                 </div>
             </div>
         <?php endif; ?>
+
+        <!-- Check For Verified Phone -->
+        <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
+            <div class="container-fluid">
+                <div class="col-md-12" style="text-align: left;"> 
+                    <div class='alert alert-danger'>
+                        <h4 style="margin-top: 0px;">Need Verified Phone</h4>
+                        <p>You have not verified phone, Please add and verify your phone</p>
+                        <br/>
+                        <a href='<?php echo $this->url->get("user/phones/"); ?>' class='btn btn-default btn-sm'>View My Phones</a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <!-- Page Content !-->
         <div class="container-fluid">
             <div class="col-md-12" style="text-align: left;">

@@ -7,5 +7,6 @@ $action = $this->dispatcher->getActionName();
     <li <?php if ($action == "editabout") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editabout") ?>">About</a></li>
     <li <?php if ($action == "editlogin") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editlogin") ?>">Login Details</a></li>
     <li <?php if ($action == "viewlogins") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/viewlogins") ?>">Logins History</a></li>
+    <li <?php if ($action == "phones") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/phones") ?>">Phones</a></li>
 </ul>
 

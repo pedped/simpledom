@@ -1,6 +1,5 @@
 <?php
 
-
 class SMSManager {
 
     /**
@@ -21,7 +20,22 @@ class SMSManager {
         return new $className();
     }
 
+    /**
+     * Send SMS to requested phones
+     * @param array|string $phones
+     * @param type $message
+     * @param type $smsNumberID
+     * @return boolean
+     */
     public static function SendSMS($phones, $message, $smsNumberID) {
+
+
+        // convert phones to array if it is not array
+        if (!is_array($phones)) {
+            $p = array();
+            $p[] = $phones;
+        }
+        $phones = $p;
 
         // Get SMS Number
         $smsNumber = SmsNumber::findFirst($smsNumberID);

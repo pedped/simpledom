@@ -1,6 +1,7 @@
 <?php
 
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Config;
 
 class BaseUserPhone extends AtaModel {
 
@@ -126,6 +127,9 @@ class BaseUserPhone extends AtaModel {
 
     public function beforeValidationOnCreate() {
         $this->date = time();
+        $this->lastsmsdate = time();
+        $this->verified = "0";
+        $this->verifycode = $this->generateRandomNumber(8);
     }
 
     public function beforeValidationOnSave() {
@@ -134,6 +138,15 @@ class BaseUserPhone extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    public function getVerifiedText() {
+        return intval($this->verified) == 1 ? "Yes" : "No";
+    }
+
+    public function getVerifiedLink() {
+        $publicUrl = Config::getPublicUrl();
+        return intval($this->verified) == 0 ? "<a href='$publicUrl" . "phone/verify/$this->phone' class='btn btn-primary btn-sm' >Verify Phone</a>" : "<a class='btn btn-success btn-sm disabled' >Already Verified</a>";
     }
 
 }

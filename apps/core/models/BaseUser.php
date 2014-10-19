@@ -346,6 +346,7 @@ class BaseUser extends AtaModel implements Searchable {
         $this->resetcodedate = "0";
         $this->fullname = $this->fname . " " . $this->lname;
         $this->regtime = date(time());
+        $this->logintimes = "0";
     }
 
     public function beforeValidationOnSave() {
@@ -530,7 +531,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
 
         $foundedCount = $total;
         $results = $users;
-            
+
         $result = new SearchResult();
         $result->query = $query;
         $result->count = $total;
@@ -538,6 +539,28 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         $result->start = $start;
         $result->limit = $limit;
         return $result;
+    }
+
+    public function hasVerifiedPhone() {
+        return UserPhone::count(array(
+                    "userid = :userid: AND verified = '1'",
+                    "bind" => array(
+                        "userid" => $this->userid
+                    )
+        ));
+    }
+
+    /**
+     * fetch the user verified phone
+     * @return string
+     */
+    public function getVerifiedPhone() {
+        return UserPhone::findFirst(array(
+                    "userid = :userid: AND verified = '1'",
+                    "bind" => array(
+                        "userid" => $this->userid
+                    )
+                ))->phone;
     }
 
 }

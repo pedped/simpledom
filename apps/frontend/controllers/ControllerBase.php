@@ -78,6 +78,7 @@ class ControllerBase extends Controller {
         if ($this->session->has("userid")) {
             $action->userid = $this->session->get("userid");
             $this->user = BaseUser::findFirst($action->userid);
+            $this->view->user = $this->user;
         }
 
         // set page title

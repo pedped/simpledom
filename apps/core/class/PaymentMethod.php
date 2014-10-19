@@ -2,9 +2,12 @@
 
 namespace Simpledom\Core\Classes;
 
+use BaseUser;
 use EmailItems;
 use PaymentType;
 use Settings;
+use SMSManager;
+use SmsNumber;
 
 abstract class PaymentMethod {
 
@@ -72,6 +75,27 @@ abstract class PaymentMethod {
             }
             $emailtemplate = new EmailItems();
             $emailtemplate->sendPaymentReceipt($paymentName, $userid, $name, $receiptEmail, $amount, $currency, $template, $date);
+        }
+
+        // check if we have to send receipt by sms
+        if (intval(Settings::Get()->sendpaymentreceiptbysms) == 1) {
+
+            $user = BaseUser::findFirst($userid);
+            // check if teh user has verified email
+            if ($user->hasVerifiedPhone()) {
+
+                $userPhone = $user->getVerifiedPhone();
+                // create template for items
+                $sitename = \Settings::Get()->websitename;
+                $template = "Dear $name\nHere is your $paymentName payment receipt from $sitename.\n\n";
+                $template .= "Amount: $amount\nCurrency: $currency\n";
+                foreach ($paymentDetails as $key => $value) {
+                    $template .= "$key: $value\n";
+                }
+
+                // send sms
+                SMSManager::SendSMS($userPhone, $template, SmsNumber::findFirst("enable = '1'")->id);
+            }
         }
     }
 

@@ -20,6 +20,11 @@
             <!-- Password !-->
             <?php echo $registerform->renderDecorated('password'); ?>
 
+            <?php if (intval(Settings::Get()->requestuserphoneonregister) == 1) : ?>
+                <!-- Phone !-->
+                <?php echo $registerform->renderDecorated('phone'); ?>
+            <?php endif; ?>
+
             <br/>
             <!-- Submit !-->
             <?php echo $registerform->renderDecorated('submit'); ?>

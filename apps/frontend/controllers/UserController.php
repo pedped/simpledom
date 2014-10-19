@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use AtaPaginator;
 use BaseLogins;
+use BaseSystemLog;
 use BaseUser;
 use BaseUserLog;
 use EmailItems;
@@ -17,6 +18,9 @@ use Simpledom\Core\ForgetPasswordForm;
 use Simpledom\Core\LoginForm;
 use Simpledom\Core\ProfileEditForm;
 use Simpledom\Core\RegisterForm;
+use SMSManager;
+use SmsNumber;
+use UserPhone;
 
 class UserController extends ControllerBase {
 
@@ -142,7 +146,7 @@ class UserController extends ControllerBase {
 
 
                 // check if the login is enabled
-                if (!$user->isSuperAdmin() && (bool) Settings::Get()->enabledisablesignup == false) {
+                if (Settings::Get()->enabledisablesignup === false) {
                     $this->flash->notice("Sorry!<br/>But the register system is disabled by Super Adminstator at this time.");
                     return;
                 }
@@ -162,17 +166,45 @@ class UserController extends ControllerBase {
                     // unable to save user
                     $user->showErrorMessages($this);
                 } else {
- 
+
                     // user created in database, we have to generate 
                     $email = new EmailItems();
-                    return $email->sendRegsiterNotification($user->userid, $user->getFullName(), $user->email, $user->verifycode);
+                    $email->sendRegsiterNotification($user->userid, $user->getFullName(), $user->email, $user->verifycode);
+
+                    // check if user has entered an not exist phone, add the phone
+                    // to the user phones and send sms to user
+                    $count = UserPhone::count(array(
+                                "phone = :phone:",
+                                "bind" => array(
+                                    "phone" => $this->request->getPost("phone")
+                                )
+                    ));
+                    if ($count == 0) {
+                        // we have no user based on that phone, it is valid to add
+                        // the phone to the UserPhone table and notify of the phone
+                        // with verify code
+                        $userphone = new UserPhone();
+                        $userphone->phone = $this->request->getPost("phone");
+                        $userphone->userid = $user->userid;
+                        if (!$userphone->create()) {
+                            // usre phone not created
+                            BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
+                        } else {
+                            // user phone created, we have to send the verify code to user
+                            $smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . \Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
+                            SMSManager::SendSMS($userphone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+                        }
+                    } else {
+                        // phone exist in database before
+                        $this->flash->error("Your Entered Phone was exist in database, please add another phone");
+                    }
 
                     $user->showSuccessMessages($this, "User creating was successfull");
                 }
             }
         }
 
-
+        $this->setPageTitle("Signup");
         $this->view->registerform = $rf;
     }
 
@@ -463,6 +495,46 @@ class UserController extends ControllerBase {
                     "controller" => "user",
                     "action" => "index"
         ));
+    }
+
+    public function phonesAction($page = 1) {
+        // load the users
+        $userphones = UserPhone::find(
+                        array(
+                            "userid = :userid:",
+                            'order' => 'id DESC',
+                            "bind" => array(
+                                "userid" => $this->user->userid
+                            )
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $userphones,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'Phone', 'Does Verified', 'Date', 'Verify Phone'
+                ))->
+                setFields(array(
+                    'phone', 'getVerifiedText()', 'getDate()', 'getVerifiedLink()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     /**

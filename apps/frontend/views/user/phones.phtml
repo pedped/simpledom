@@ -1,0 +1,16 @@
+<h1>Edit Profile Information</h1>
+<div class='row'>
+    <div class='col-md-6'>
+        <p>Manage Your Phones</p>
+        <?php $this->partial("layouts/usersettingsheader") ?>
+        <div class="_account-settings-tab-content">
+            <?php echo $this->getContent(); ?>
+            <?php
+            echo $list->header;
+            echo $list->table;
+            echo $list->footer;
+            ?>
+        </div>
+    </div>
+</div>
+

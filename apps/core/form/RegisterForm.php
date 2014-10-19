@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use Settings;
 
 class RegisterForm extends AtaForm {
 
@@ -64,12 +65,22 @@ class RegisterForm extends AtaForm {
         $email->setAttribute("placeholder", "Enter Email");
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
-            'message' => 'The email is required'
         )));
         $email->addValidator(new Email(array(
-            'message' => 'please enter a valid email'
         )));
         $this->add($email);
+
+
+        // Phone
+        $phone = new Text("phone");
+        $phone->setLabel("Phone");
+        $phone->setAttribute("placeholder", "Your Phone Number");
+        $phone->setAttribute("class", "form-control");
+        if (intval(Settings::Get()->requestuserphoneonregister) == 1) {
+            $phone->addValidator(new PresenceOf(array(
+            )));
+        }
+        $this->add($phone);
 
 
         // Password
