@@ -46,4 +46,8 @@ class Helper {
         die();
     }
 
+    public static function formatDate($date) {
+        return date("Y-m-d H:i:s", $date);
+    }
+
 }

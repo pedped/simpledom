@@ -132,4 +132,91 @@
             </section>
         </div>
     </div>
+
+    <!-- Payment Recipet !-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel panel-dark">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Payment Receipt</h2>
+                </header>
+                <div class="panel-body">
+                    <p>What we should do when a user finish a payment</p>
+
+                    <?php $siteInfoForm->renderDecorated("sendpaymentreceiptbyemail"); ?>
+
+                    <?php $siteInfoForm->renderDecorated("sendpaymentreceiptbysms"); ?>
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $siteInfoForm->renderDecorated("submit"); ?>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Phone Settings !-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel panel-dark">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Phone Setting</h2>
+                </header>
+                <div class="panel-body">
+
+                    <?php $siteInfoForm->renderDecorated("requestuserphoneonregister"); ?>
+
+                    <?php $siteInfoForm->renderDecorated("requestverifiedphone"); ?>
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $siteInfoForm->renderDecorated("submit"); ?>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <!-- News Settings !-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel panel-dark">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">News Setting</h2>
+                </header>
+                <div class="panel-body">
+
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $siteInfoForm->renderDecorated("shownews"); ?>
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $siteInfoForm->renderDecorated("shownewsandroid"); ?>
+                        </div>
+                    </div>
+
+                    <?php $siteInfoForm->renderDecorated("globalmessage"); ?>
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $siteInfoForm->renderDecorated("submit"); ?>
+                </div>
+            </section>
+        </div>
+    </div>
 </form>

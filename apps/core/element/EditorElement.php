@@ -28,9 +28,7 @@ class EditorElement extends BaseElement {
         $name = $this->getName();
         $text = $this->getDefault();
         $html = "
-            <textarea name='$name' id='$name' rows='10' cols='80'>
-                $text
-            </textarea>
+            <textarea name='$name' id='$name' rows='10' cols='80'>$text</textarea>
             <script>
                 CKEDITOR.replace( '$name' , {
                     language: '$this->language'

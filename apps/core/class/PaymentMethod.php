@@ -2,7 +2,9 @@
 
 namespace Simpledom\Core\Classes;
 
+use EmailItems;
 use PaymentType;
+use Settings;
 
 abstract class PaymentMethod {
 
@@ -22,29 +24,7 @@ abstract class PaymentMethod {
 
     public abstract function GetPaymentInfo($paymentitemid);
 
-//    public static function PaymentInfo($paymenttype, $paymentitemid) {
-//        switch ($paymenttype) {
-//            case __ORDERPAYMENTTYPE_PAYPAL:
-//                // it was paypal payment info]
-//                die("not implanted");
-//                break;
-//            case __ORDERPAYMENTTYPE_MELLAT:
-//                // it was mellat payment
-//                require_once 'class.payment.mellat.php';
-//                $mp = new MellatPayment(0);
-//                $paymentinfo = $mp->GetPaymentInfo($paymentitemid);
-//                return $paymentinfo;
-//            case __ORDERPAYMENTTYPE_PAYLINE:
-//                // it was mellat payment
-//                require_once 'class.payment.payline.php';
-//                $pp = new PaymentPayline(0);
-//                $paymentinfo = $pp->GetPaymentInfo($paymentitemid);
-//                return $paymentinfo;
-//            default:
-//                die("getPaymentInfo implanted");
-//                break;
-//        }
-//    }
+    public abstract function GetPaymentReceiptInfos($id);
 
     /**
      * this function will start payment
@@ -79,6 +59,20 @@ abstract class PaymentMethod {
 
     public function getPaymentTypeID() {
         return PaymentType::findFirst("key = '$this->paymentMethodName'")->id;
+    }
+
+    public function sendPaymentReceipt($paymentName, $userid, $name, $receiptEmail, $amount, $currency, $paymentDetails, $date) {
+
+        // check if we have to send receipt by email
+        if (intval(Settings::Get()->sendpaymentreceiptbyemail) == 1) {
+            // create template for items
+            $template = "";
+            foreach ($paymentDetails as $key => $value) {
+                $template .= "<p>$key : <b>$value</b></p><br/>";
+            }
+            $emailtemplate = new EmailItems();
+            $emailtemplate->sendPaymentReceipt($paymentName, $userid, $name, $receiptEmail, $amount, $currency, $template, $date);
+        }
     }
 
 }

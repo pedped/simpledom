@@ -2,6 +2,7 @@
 
 namespace Simpledom\Core;
 
+use EditorElement;
 use EnableDisableElement;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\TextArea;
@@ -10,8 +11,6 @@ use Phalcon\Validation\Validator\StringLength;
 use Simpledom\Frontend\Controllers\ControllerBase;
 use TextAreaElement;
 use TextElement;
-
-
 
 class SiteInfoForm extends AtaForm {
 
@@ -33,6 +32,57 @@ class SiteInfoForm extends AtaForm {
 
 
 
+        // Send Payment Receipt By Email
+        $sendpaymentreceiptbyemail = new EnableDisableElement("sendpaymentreceiptbyemail");
+        $sendpaymentreceiptbyemail->setLabel("Send Payment Receipt By Email");
+        $sendpaymentreceiptbyemail->setAttribute("placeholder", "");
+        $sendpaymentreceiptbyemail->setAttribute("class", "form-control");
+        $this->add($sendpaymentreceiptbyemail);
+
+        // Send Payment Receipt By Email
+        $sendpaymentreceiptbysms = new EnableDisableElement("sendpaymentreceiptbysms");
+        $sendpaymentreceiptbysms->setLabel("Send Payment Receipt By SMS");
+        $sendpaymentreceiptbysms->setAttribute("placeholder", "");
+        $sendpaymentreceiptbysms->setAttribute("class", "form-control");
+        $this->add($sendpaymentreceiptbysms);
+
+
+        // Request User Phone On Register
+        $registerphoneonregister = new EnableDisableElement("requestuserphoneonregister");
+        $registerphoneonregister->setLabel("Request User Phone On Register");
+        $registerphoneonregister->setAttribute("placeholder", "");
+        $registerphoneonregister->setAttribute("class", "form-control");
+        $this->add($registerphoneonregister);
+
+        // Request Verified Phone
+        $requestverifiedphone = new EnableDisableElement("requestverifiedphone");
+        $requestverifiedphone->setLabel("Request Verifed Phone");
+        $requestverifiedphone->setAttribute("placeholder", "");
+        $requestverifiedphone->setAttribute("class", "form-control");
+        $this->add($requestverifiedphone);
+
+        // Show News
+        $shownews = new EnableDisableElement("shownews");
+        $shownews->setLabel("Show News To Users");
+        $shownews->setAttribute("placeholder", "");
+        $shownews->setAttribute("class", "form-control");
+        $this->add($shownews);
+
+        // Send News To Android\IPhone Users
+        $sendnewstomobile = new EnableDisableElement("shownewsandroid");
+        $sendnewstomobile->setLabel("Send News To Android\IPhone Users");
+        $sendnewstomobile->setAttribute("placeholder", "");
+        $sendnewstomobile->setAttribute("class", "form-control");
+        $this->add($sendnewstomobile);
+
+        // Global Message
+        $globalmessage = new EditorElement("globalmessage");
+        $globalmessage->setLabel("Global Message");
+        $globalmessage->setAttribute("placeholder", "When you enter global message, everybody can see global message, make this form empty to disable global message showing");
+        $globalmessage->setAttribute("class", "form-control");
+        $this->add($globalmessage);
+
+
         // Enable Disable Signup
         $enabledisablesignup = new EnableDisableElement("enabledisablesignup");
         $enabledisablesignup->setLabel("Enable\Disable Signup");
@@ -47,7 +97,6 @@ class SiteInfoForm extends AtaForm {
         $enabledisablesiginin->setAttribute("placeholder", "");
         $enabledisablesiginin->setAttribute("class", "form-control");
         $this->add($enabledisablesiginin);
-
 
 
         // Website Logo

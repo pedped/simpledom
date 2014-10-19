@@ -93,7 +93,6 @@ class ControllerBase extends Controller {
             // TODO create offline mode
         }
 
-
         // save the action
         $action->create();
     }

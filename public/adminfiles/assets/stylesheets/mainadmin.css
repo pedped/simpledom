@@ -30,3 +30,21 @@
 .ui-autocomplete.ui-widget-content{
     z-index: 1100;
 }
+
+._header_search_profileimage{
+    width: 64px;
+    height: 64px; 
+    border-radius: 500px;
+}
+
+._header_search_item #title{
+    font-size: 18px;
+    margin-left: 5px;
+    text-wrap: none;
+}
+
+._header_search_item #info{
+    font-size: 14px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}

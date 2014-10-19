@@ -6,6 +6,7 @@ use AtaPaginator;
 use BaseLogins;
 use BaseUser;
 use BaseUserLog;
+use EmailItems;
 use LoginDetailsForm;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -161,6 +162,11 @@ class UserController extends ControllerBase {
                     // unable to save user
                     $user->showErrorMessages($this);
                 } else {
+ 
+                    // user created in database, we have to generate 
+                    $email = new EmailItems();
+                    return $email->sendRegsiterNotification($user->userid, $user->getFullName(), $user->email, $user->verifycode);
+
                     $user->showSuccessMessages($this, "User creating was successfull");
                 }
             }

@@ -117,6 +117,48 @@ class BaseSettings extends AtaModel {
     public $clickyanalitics;
 
     /**
+     *
+     * @var string
+     */
+    public $sendpaymentreceiptbyemail;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $sendpaymentreceiptbysms;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $requestuserphoneonregister;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $requestverifiedphone;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $shownews;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $shownewsandroid;
+
+    /**
+     *
+     * @var string
+     */
+    public $globalmessage;
+
+    /**
      * 
      * @param type $parameters
      * @return BaseSettings

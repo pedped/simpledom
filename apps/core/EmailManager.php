@@ -67,9 +67,11 @@ class EmailManager {
         try {
             // now we have email object, we have to send the email
             // Create the Transport
-            $transport = Swift_SmtpTransport::newInstance('smtp.example.org', 25)
-                    ->setUsername('your username')
-                    ->setPassword('your password');
+//            $transport = Swift_SmtpTransport::newInstance('smtp.example.org', 25)
+//                    ->setUsername('your username')
+//                    ->setPassword('your password');
+
+            $transport = Swift_MailTransport::newInstance();
 
             /*
               You could alternatively use a different transport such as Sendmail or Mail:
@@ -78,7 +80,7 @@ class EmailManager {
 
 
               // Mail
-              $transport = Swift_MailTransport::newInstance();
+
              */
 
             // Create the Mailer using your created Transport
@@ -86,9 +88,9 @@ class EmailManager {
 
             // Create a message
             $message = Swift_Message::newInstance($this->subject)
-                    ->setFrom(array('john@doe.com' => 'John Doe'))
-                    ->setTo($this->receivers)
-                    ->setBody($content);
+                            ->setFrom(array(Settings::Get()->contactemail => Settings::Get()->websitename))
+                            ->setTo($this->receivers)
+                            ->setBody($content)->setCharset("utf8")->setContentType("text/html");
 
             // Send the message
             $result = $mailer->send($message);

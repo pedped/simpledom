@@ -97,10 +97,10 @@ class BaseEmailTemplate extends AtaModel {
 
     /**
      * Method to set the value of field parameters
-     *
+     * <b>NOTICE</b> : In template file, we have to decalre [[key]] for the parameter
      * @param string $parameters
      * @return $this
-     */
+     */ 
     public function setParameters($parameters) {
         $this->parameters = $parameters;
 
@@ -142,6 +142,5 @@ class BaseEmailTemplate extends AtaModel {
     public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
     }
-
 
 }

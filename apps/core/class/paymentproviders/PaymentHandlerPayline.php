@@ -8,6 +8,7 @@ use Simpledom\Core\Classes\PaymentMethod;
 class PaymentHandlerPayline extends PaymentMethod {
 
     protected $paymentMethodName = "payline";
+    private $payment;
 
     /**
      * Check if the payment was payed before, this function will check from database, not payment server
@@ -66,6 +67,14 @@ class PaymentHandlerPayline extends PaymentMethod {
             return false;
         }
 
+        // Send Email About Payment
+        $paymentName = PaymentType::findFirst(
+                        array("key = :key:",
+                            "bind" => array(
+                                "key" => $this->paymentMethodName
+                    )))->name;
+        $receiptUser = BaseUser::findFirst($userid);
+        $this->sendPaymentReceipt($paymentName, $userid, $receiptUser->getFullName(), $receiptUser->email, $this->payment->amount, $this->payment->cur, $this->GetPaymentReceiptInfos($this->payment->id), $this->payment->date);
 
         // payment method set to done, check if this payment was belong to a order
         $order = new Order($userid);
@@ -113,6 +122,8 @@ class PaymentHandlerPayline extends PaymentMethod {
             $errors = array_merge($errors, $payment->getMessages());
             return false;
         }
+
+        $this->payment = $payment;
 
         return true;
     }
@@ -223,7 +234,8 @@ class PaymentHandlerPayline extends PaymentMethod {
     }
 
     /**
-     * this function will check if the recived payment get id is equal to waht we have saved before
+     * this function will check if the recived payment get id is equal to what
+     *  we have saved before
      * @param type $paylinePaymentID
      * @param type $paylineIDGet
      * @return boolean
@@ -231,6 +243,20 @@ class PaymentHandlerPayline extends PaymentMethod {
     public function VerifyPaylineIDGetAndPaylineID($paylinePaymentID, $paylineIDGet) {
         $payment = PaymentPayline::findFirst($paylinePaymentID);
         return intval($payment->paylineidget) == intval($paylineIDGet);
+    }
+
+    /**
+     * This function will make ready items that have to be send by email or sms 
+     * for the user who payed the payment
+     * @param type $id
+     */
+    public function GetPaymentReceiptInfos($id) {
+        $item = PaymentPayline::findFirst($id);
+        $result = array();
+        $result["Payline ID"] = $item->id;
+        $result["Payline Get ID"] = $item->paylineidget;
+        $result["Payline Transaction ID"] = $item->paylinetransactionid;
+        return $result;
     }
 
 }

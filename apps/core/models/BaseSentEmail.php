@@ -5,7 +5,7 @@ use Simpledom\Core\AtaModel;
 class BaseSentEmail extends AtaModel {
 
     public function getSource() {
-        return "Sentemail";
+        return "sentemail";
     }
 
     /**

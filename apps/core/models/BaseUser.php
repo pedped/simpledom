@@ -43,6 +43,12 @@ class BaseUser extends AtaModel implements Searchable {
      *
      * @var string
      */
+    public $verifycode;
+
+    /**
+     *
+     * @var string
+     */
     public $lname;
 
     /**
@@ -524,7 +530,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
 
         $foundedCount = $total;
         $results = $users;
-
+            
         $result = new SearchResult();
         $result->query = $query;
         $result->count = $total;

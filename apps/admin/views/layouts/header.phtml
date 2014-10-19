@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <!-- start: search & user box -->
+    <!-- start: search & user box --> 
     <div class="header-right">
 
         <div class="search nav-form">
@@ -20,6 +20,8 @@
             </div>
         </div>
 
+        <span class="separator"></span>
+        <a href='<?php echo $pfurl; ?>' class='btn btn-default'>View Website</a>
         <span class="separator"></span>
 
         <ul class="notifications">
@@ -195,30 +197,26 @@
 
 <script>
     $(function() {
-        var projects = [
-            {
-                value: "jquery",
-                label: "jQuery",
-                desc: "the write less, do more, JavaScript library",
-                icon: "jquery_32x32.png"
-            },
-            {
-                value: "jquery-ui",
-                label: "jQuery UI",
-                desc: "the official user interface library for jQuery",
-                icon: "jqueryui_32x32.png"
-            },
-            {
-                value: "sizzlejs",
-                label: "Sizzle JS",
-                desc: "a pure-JavaScript CSS selector engine",
-                icon: "sizzlejs_32x32.png"
-            }
-        ];
-
         $("#headersearchquery").autocomplete({
             minLength: 0,
-            source: projects,
+            source: function(query, response) {
+                var that = this;
+                console.log(query.term);
+                console.log("<?php echo $this->url->get("api/") ?>searchuser/" + query.term);
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo $this->url->get("api/") ?>searchuser/" + query.term,
+                    success: function(output) {
+                        response(JSON.parse(output));
+                    }
+                    ,
+                    error: function(a, b, c)
+                    {
+
+                    }
+                });
+
+            },
             focus: function(event, ui) {
                 $("#project").val(ui.item.label);
                 return false;
@@ -231,11 +229,15 @@
 
                 return false;
             }
-        })
-                .autocomplete("instance")._renderItem = function(ul, item) {
-            return $("<li>")
-                    .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-                    .appendTo(ul);
+        }).autocomplete("instance")._renderItem = function(ul, item) {
+            console.log(item);
+            var link = "<?php echo $this->url->get("user/view/") ?>" + item.userid;
+            $item = $("<div class='media _header_search_item'><a href=''><img class='media-object pull-left _header_search_profileimage'><div class='media-body'><h5 class='media-heading' id='title'>title</h5><p id='info'>body</p></div></a></div>");
+            $item.find("img").attr("src", item.imagelink);
+            $item.find("#title").html(item.fullname);
+            $item.find("#info").html("userid : " + item.userid);
+            $item.find("a").attr("href", link);
+            return $item.appendTo(ul);
         };
     });
 </script>

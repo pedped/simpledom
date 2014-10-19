@@ -33,8 +33,22 @@ class SiteinfoControllerBase extends ControllerBase {
                 $settings->longtude = $this->request->getPost("longtude");
                 $settings->enabledisablesignup = $this->request->getPost("enabledisablesignup");
                 $settings->enabledisablesignin = $this->request->getPost("enabledisablesignin");
+
+                // analytics
                 $settings->googleanalytics = $this->request->getPost("googlea");
                 $settings->clickyanalitics = $this->request->getPost("clickya");
+
+                // payment receipt
+                $settings->sendpaymentreceiptbyemail = $this->request->getPost("sendpaymentreceiptbyemail");
+                $settings->sendpaymentreceiptbysms = $this->request->getPost("sendpaymentreceiptbysms");
+
+
+                $settings->requestuserphoneonregister = $this->request->getPost("requestuserphoneonregister");
+                $settings->requestverifiedphone = $this->request->getPost("requestverifiedphone");
+                $settings->shownewsandroid = $this->request->getPost("shownews");
+                $settings->shownewsandroid = $this->request->getPost("shownewsandroid");
+                $settings->globalmessage = $this->request->getPost("globalmessage");
+
                 if (!$settings->save()) {
                     $settings->showErrorMessages($this);
                 } else {
@@ -57,6 +71,16 @@ class SiteinfoControllerBase extends ControllerBase {
         $fr->get("enabledisablesignup")->setDefault($settings->enabledisablesignup);
         $fr->get("googlea")->setDefault($settings->googleanalytics);
         $fr->get("clickya")->setDefault($settings->clickyanalitics);
+
+        $fr->get("sendpaymentreceiptbyemail")->setDefault($settings->sendpaymentreceiptbyemail);
+        $fr->get("sendpaymentreceiptbysms")->setDefault($settings->sendpaymentreceiptbysms);
+
+        // Phone settings
+        $fr->get("requestuserphoneonregister")->setDefault($settings->requestuserphoneonregister);
+        $fr->get("requestverifiedphone")->setDefault($settings->requestverifiedphone);
+        $fr->get("shownews")->setDefault($settings->shownews);
+        $fr->get("shownewsandroid")->setDefault($settings->shownewsandroid);
+        $fr->get("globalmessage")->setDefault($settings->globalmessage);
 
         $this->view->siteInfoForm = $fr;
     }

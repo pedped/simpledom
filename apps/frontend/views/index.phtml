@@ -16,12 +16,27 @@ use Phalcon\Tag; ?>
     <!-- Load The Header !-->
     <?php $this->partial("layouts/header") ?>
     <body>
+
+        <!-- Check For Global Message !-->
+        <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
+            <div class="container-fluid">
+                <div class="col-md-12" style="text-align: left;"> 
+                    <div class='alert alert-info _global-message'>
+                        <h4 style="margin-top: 0px;">Public Message</h4>
+                        <?php echo $websiteSettings->globalmessage; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+        <!-- Page Content !-->
         <div class="container-fluid">
             <div class="col-md-12" style="text-align: left;">
                 <?php echo $this->getContent(); ?>
             </div>
         </div>
+        <!-- Footer !-->
         <?php $this->partial("layouts/footer") ?>
+        <!-- Analytics Codes !-->
         <?php
         if (isset($websiteSettings->googleanalytics) && strlen($websiteSettings->googleanalytics) > 0) {
             echo $websiteSettings->googleanalytics;

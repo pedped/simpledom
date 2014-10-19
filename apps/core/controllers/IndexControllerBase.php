@@ -4,6 +4,7 @@ namespace Simpledom\Admin\BaseControllers;
 
 use BaseContact;
 use BaseUser;
+use EmailItems;
 use Opinion;
 use Simpledom\Core\SendSMSForm;
 use SMSManager;
