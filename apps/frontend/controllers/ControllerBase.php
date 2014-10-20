@@ -47,7 +47,8 @@ class ControllerBase extends Controller {
                 ->collection('header')
                 ->setPrefix('http://melk.edspace.org/')
                 ->addCss('css/bt3/bootstrap.css', true)
-                ->addCss('css/app/main.css', true);
+                ->addCss('css/app/main.css', true)
+                ->addCss('css/app/font-awesome/css/font-awesome.css', true);
 
 
         //Javascripts in the footer

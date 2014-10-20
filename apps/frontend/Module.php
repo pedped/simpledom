@@ -2,12 +2,14 @@
 
 namespace Simpledom\Frontend;
 
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Db\Profiler;
+use Phalcon\Events\Manager;
 use Phalcon\Loader;
-use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use \Phalcon\Mvc\Dispatcher as PhDispatcher;
 
 class Module implements ModuleDefinitionInterface {
 
@@ -41,11 +43,37 @@ class Module implements ModuleDefinitionInterface {
 
 
         //Registering a dispatcher
-        $di->set('dispatcher', function() {
-            $dispatcher = new Dispatcher();
+//        $di->set('dispatcher', function() {
+//            $dispatcher = new Dispatcher();
+//            $dispatcher->setDefaultNamespace("Simpledom\Frontend\Controllers");
+//            return $dispatcher;
+//        });
+
+        $di->set('dispatcher', function() use ($di) {
+
+            $evManager = $di->getShared('eventsManager');
+
+            $evManager->attach(
+                    "dispatch:beforeException", function($event, $dispatcher, $exception) {
+                switch ($exception->getCode()) {
+                    case PhDispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case PhDispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(
+                                array(
+                                    'controller' => 'error',
+                                    'action' => 'show404',
+                                )
+                        );
+                        return false;
+                }
+            }
+            );
+            $dispatcher = new PhDispatcher();
+            $dispatcher->setEventsManager($evManager);
             $dispatcher->setDefaultNamespace("Simpledom\Frontend\Controllers");
             return $dispatcher;
-        });
+        }, true
+        );
 
 
         //Registering the view component
@@ -81,7 +109,7 @@ class Module implements ModuleDefinitionInterface {
 
 
         $di->set('profiler', function() {
-            return new \Phalcon\Db\Profiler();
+            return new Profiler();
         }, true);
 
 
@@ -92,7 +120,7 @@ class Module implements ModuleDefinitionInterface {
 
 
 
-            $eventsManager = new \Phalcon\Events\Manager();
+            $eventsManager = new Manager();
 
 
             //Get a shared instance of the DbProfiler

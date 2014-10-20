@@ -150,3 +150,7 @@ footer .btn {
 .page-opinion ._opinion-item ._date{
     font-size: 80%;
 }
+
+._error-404{
+    font-size: 200px;
+}
