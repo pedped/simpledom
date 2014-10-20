@@ -2,6 +2,16 @@
 
 use Simpledom\Core\AtaModel;
 
+abstract class SystemLogType {
+
+    const Debug = 1;
+    const Info = 2;
+    const Warning = 3;
+    const Error = 4;
+    const Fatal = 5;
+
+}
+
 class BaseSystemLog extends AtaModel {
 
     public function getSource() {
@@ -37,6 +47,12 @@ class BaseSystemLog extends AtaModel {
      * @var string
      */
     public $date;
+
+    /**
+     * Type
+     * @var string
+     */
+    public $type;
 
     /**
      * Validations and business logic
@@ -108,6 +124,53 @@ class BaseSystemLog extends AtaModel {
     public function setIP($ip) {
         $this->ip = $ip;
         return $this;
+    }
+
+    /**
+     * Set type
+     * @param type $type
+     * @return BaseSystemLog
+     */
+    public function setType($type) {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getTypeIcon($includeText = true) {
+        $item = "";
+        switch ($this->type) {
+            case SystemLogType::Debug:
+                $item = '<i class="fa fa-bug fa-fw text-muted text-md va-middle"></i>';
+                if ($includeText) {
+                    $item.= "Debug";
+                }
+                break;
+            case SystemLogType::Info:
+                $item = '<i class="fa fa-info fa-fw text-info text-md va-middle"></i>';
+                if ($includeText) {
+                    $item.= "Info";
+                }
+                break;
+            case SystemLogType::Warning:
+                $item = '<i class="fa fa-warning fa-fw text-warning text-md va-middle"></i>';
+                if ($includeText) {
+                    $item.= "Warning";
+                }
+                break;
+            case SystemLogType::Error:
+                $item = '<i class="fa fa-times-circle fa-fw text-danger text-md va-middle"></i>';
+                if ($includeText) {
+                    $item.= "Error";
+                }
+                break;
+            case SystemLogType::Fatal:
+                $item = '<i class="fa fa-ban fa-fw text-danger text-md va-middle"></i>';
+                if ($includeText) {
+                    $item.= "Fatal";
+                }
+                break;
+        } 
+        return $item;
     }
 
 }

@@ -3,7 +3,6 @@
 use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Submit;
 use Simpledom\Core\AtaForm;
-use ImageElement;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

@@ -70,10 +70,10 @@ class SystemLogControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Title', 'IP', 'Message', 'Date'
+                    'ID', "Type", 'Title', 'Message', 'Date', 'IP'
                 ))->
                 setFields(array(
-                    'id', 'title', 'ip', 'message', 'getDate()'
+                    'id', 'getTypeIcon()', 'title', 'message', 'getDate()', 'ip'
                 ))->
                 setEditUrl(
                         'view'

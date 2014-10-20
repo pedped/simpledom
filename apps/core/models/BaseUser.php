@@ -479,8 +479,14 @@ class BaseUser extends AtaModel implements Searchable {
      */
     public function getLastMonthRegistarChart() {
 
-        return $this->rawQuery("SELECT  YEAR(user.regtime) as year , MONTH(user.regtime) as month , day(user.regtime) as day , count(user.userid) as total FROM `user` WHERE YEAR(user.regtime) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+        $items = $this->rawQuery("SELECT  YEAR(user.regtime) as year , MONTH(user.regtime) as month , day(user.regtime) as day , count(user.userid) as total FROM `user` WHERE YEAR(user.regtime) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
 AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(user.regtime)");
+
+        $results = array();
+        foreach ($items as $value) {
+            $results["$value->year/$value->month/$value->day"] = $value->total;
+        }
+        return $results;
     }
 
     public function getProfileImageLink() {

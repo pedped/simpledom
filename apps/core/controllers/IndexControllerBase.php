@@ -4,8 +4,9 @@ namespace Simpledom\Admin\BaseControllers;
 
 use BaseContact;
 use BaseUser;
-use EmailItems;
+use LineChartElement;
 use Opinion;
+use Simpledom\Core\AtaForm;
 use Simpledom\Core\SendSMSForm;
 use SMSManager;
 use UserOrder;
@@ -23,8 +24,8 @@ class IndexControllerBase extends ControllerBase {
         $this->view->totalOpinions = Opinion::count();
         $this->view->totalContacts = BaseContact::count();
         $this->view->totalProdcutSale = UserOrder::count("done = '1'");
-        $user = new BaseUser();
-        $this->view->registerChart = $user->getLastMonthRegistarChart();
+
+        $this->loadRegisterChart();
     }
 
     public function sendsmsaction() {
@@ -53,6 +54,29 @@ class IndexControllerBase extends ControllerBase {
 
     protected function ValidateAccess($id) {
         
+    }
+
+    public function loadRegisterChart() {
+
+        // create new form
+        $form = new AtaForm();
+        $user = new BaseUser();
+
+        // load chart box
+        // fetch data
+        $chartlement = new LineChartElement("registerchart");
+        $chartlement->setTitle("Register Chart");
+        $chartlement->setSubtitle("total register count per day");
+        $chartlement->setXName("Date");
+        $chartlement->setYAxis("Count");
+        $chartlement->setValues($user->getLastMonthRegistarChart());
+
+        // add element to form
+        $form->add($chartlement);
+
+        // set view form
+        $this->view->form = $form;
+        $this->handleFormScripts($form);
     }
 
 }

@@ -2,7 +2,9 @@
 
 namespace Simpledom\Core;
 
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
+use Simpledom\Frontend\Controllers\ControllerBase;
 
 class AtaForm extends Form {
 
