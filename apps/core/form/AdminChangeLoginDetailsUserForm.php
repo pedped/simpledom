@@ -4,6 +4,7 @@ namespace Simpledom\Core;
 
 use PasswordElement;
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use TextElement;
@@ -27,17 +28,18 @@ class AdminChangeLoginDetailsUserForm extends AtaForm {
         // Password
         $password = new PasswordElement("password");
         $password->setLabel("Password");
-        $password->setAttribute("placeholder", "Enter your Password");
+        $password->setAttribute("placeholder", "Enter New Password");
         $password->setAttribute("class", "form-control");
-        $password->addValidator(new PresenceOf(array(
+        $password->addValidator(new Confirmation(array(
+            'with' => 'confirmpassword'
         )));
-//        $password->addValidator(new Between(array(
-//            'max' => 50,
-//            'min' => 8,
-//            'messageMaximum' => 'The password should be at maximum 8 characters',
-//            'messageMinimum' => 'The password should be at least 8 characters'
-//        )));
         $this->add($password);
+
+        $confirmpassword = new PasswordElement("confirmpassword");
+        $confirmpassword->setLabel("Confirm Password");
+        $confirmpassword->setAttribute("placeholder", "Enter New Password Again");
+        $confirmpassword->setAttribute("class", "form-control");
+        $this->add($confirmpassword);
 
 
         // Submit Button

@@ -209,7 +209,10 @@ class UserControllerBase extends ControllerBase {
                 // valid post, we have to create new user based on the request
                 $user = BaseUser::findFirst($id);
                 $user->email = $this->request->getPost("email", "email");
-                $user->password = $this->request->getPost("password");
+
+                if (strlen($this->request->getPost("password")) > 0) {
+                    $user->password = md5($this->request->getPost("password"));
+                }
 
                 // check if we can save user
                 if (!$user->save()) {
@@ -217,6 +220,7 @@ class UserControllerBase extends ControllerBase {
                     $user->showErrorMessages($this);
                 } else {
                     $user->showSuccessMessages($this, "User saved successfully");
+                    $this->flash->success("Password Changed To : " . $this->request->getPost("password"));
                 }
             }
         }
