@@ -1,0 +1,13 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <h1 class='_page-title'><?php echo $agreement->title; ?></h1>
+        <hr/>
+        <div class='_page-text'><?php echo html_entity_decode(nl2br($agreement->text)); ?></div>
+        <?php if (isset($agreement->footer) & strlen($agreement->footer) > 0) : ?>
+            <hr/>
+            <blockquote >
+                <div class='_page-footer'><?php echo html_entity_decode(nl2br($agreement->footer)); ?></div>
+            </blockquote>
+        <?php endif; ?>
+    </div>
+</div>

@@ -154,3 +154,17 @@ footer .btn {
 ._error-404{
     font-size: 200px;
 }
+
+._page-footer{
+    font-size: 90%;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #F03;
+    color: #888;
+    font-size: 100%;
+}

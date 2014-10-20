@@ -2,13 +2,15 @@
 
 namespace Simpledom\Core;
 
+use CheckElement;
 use Phalcon\Forms\Element\Password;
-use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use SelectElement;
 use Settings;
 
 class RegisterForm extends AtaForm {
@@ -50,13 +52,23 @@ class RegisterForm extends AtaForm {
 
 
         // Gender
-        $gender = new Select("gender", array(
+        $gender = new SelectElement("gender", array(
             '1' => 'Male',
             '0' => 'Female'
         ));
         $gender->setLabel("Gender");
         $gender->setAttribute("class", "form-control");
         $this->add($gender);
+
+        // Agreement
+        $agreement = new CheckElement("agreement");
+        $agreement->setLabel("Agreement");
+        $agreement->setCheckboxText("I accept <a target='_blank' href='../agreement/view/1'>Signup Agreement</a>");
+        $agreement->addValidator(new Identical(array(
+            "value" => "1",
+            "message" => "You have to accept the agreement"
+        )));
+        $this->add($agreement);
 
 
         // ٍEmail

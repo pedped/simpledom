@@ -1,3 +1,7 @@
+<?php
+
+use Phalcon\Text;
+?>
 <nav class="navbar navbar-default  navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,6 +21,9 @@
                 <li><a href="<?php echo $this->url->get("contact"); ?>">CONTACT US</a></li>
                 <li><a href="<?php echo $this->url->get("faq"); ?>">FAQ</a></li>
                 <li><a href="<?php echo $this->url->get("opinion"); ?>">OPINIONS</a></li>
+                <?php foreach ($headerPages as $page) : ?>
+                    <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
+                <?php endforeach; ?>
             </ul>
             <form class="navbar-form navbar-left" role="search" action="<?php echo $this->url->get("search/request/1/all/") ?>" method="get">
                 <div class="form-group">

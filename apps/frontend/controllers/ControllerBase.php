@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use BaseTrack;
 use BaseUser;
+use Page;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
@@ -14,6 +15,8 @@ use Simpledom\Core\AtaForm;
 class ControllerBase extends Controller {
 
     private $pageTitle = "Title";
+    private $metaKeywords = "";
+    private $metaDescription = "";
     protected $errors;
 
     /**
@@ -24,6 +27,42 @@ class ControllerBase extends Controller {
 
     public function getPageTitle() {
         return $this->pageTitle;
+    }
+
+    public function getMetaKeywords() {
+        return $this->metaKeywords;
+    }
+
+    public function getMetaDescription() {
+        return $this->metaDescription;
+    }
+
+    public function getErrors() {
+        return $this->errors;
+    }
+
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function setMetaKeywords($metaKeywords) {
+        $this->metaKeywords = $metaKeywords;
+        return $this;
+    }
+
+    public function setMetaDescription($metaDescription) {
+        $this->metaDescription = $metaDescription;
+        return $this;
+    }
+
+    public function setErrors($errors) {
+        $this->errors = $errors;
+        return $this;
+    }
+
+    public function setUser(BaseUser $user) {
+        $this->user = $user;
+        return $this;
     }
 
     public function setPageTitle($pageTitle) {
@@ -39,6 +78,16 @@ class ControllerBase extends Controller {
     public function getSettings($title) {
 
         return $title;
+    }
+
+    /**
+     * show 404 not page for current view
+     */
+    public function show404() {
+        $this->dispatcher->forward(array(
+            "controller" => "error",
+            "action" => "show404"
+        ));
     }
 
     public function initialize() {
@@ -94,6 +143,14 @@ class ControllerBase extends Controller {
         if ((bool) $this->view->websiteSettings->offline) {
             // TODO create offline mode
         }
+
+        // check for meta keywords and meta descrption
+        $this->view->metaKeywords = $this->getMetaKeywords();
+        $this->view->metaDescription = $this->getMetaDescription();
+
+        // check for pages that have to be in header
+        $this->view->headerPages = array();
+        $this->view->headerPages = Page::find("showinhead = 1");
 
         // save the action
         $action->create();

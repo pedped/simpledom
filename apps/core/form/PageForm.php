@@ -1,11 +1,13 @@
 <?php
 
+namespace Simpledom\Core;
+
+use EditorElement;
+use EnableDisableElement;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
-use Simpledom\Core\AtaForm;
-
-namespace Simpledom\Core;
+use TextElement;
 
 class PageForm extends AtaForm {
 
@@ -34,7 +36,7 @@ class PageForm extends AtaForm {
 
 
         // Title
-        $title = new EditorElement('title');
+        $title = new TextElement('title');
         $title->setLabel('Title');
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
@@ -47,7 +49,7 @@ class PageForm extends AtaForm {
 
 
         // Text
-        $text = new TextElement('text');
+        $text = new EditorElement('text');
         $text->setLabel('Text');
         //$text->setAttribute('placeholder', 'Enter your Text');
         $text->setAttribute('class', 'form-control');
@@ -76,7 +78,7 @@ class PageForm extends AtaForm {
 
 
         // Show In Header
-        $showinhead = new TextElement('showinhead');
+        $showinhead = new EnableDisableElement('showinhead');
         $showinhead->setLabel('Show In Header');
         //$showinhead->setAttribute('placeholder', 'Enter your Show In Header');
         $showinhead->setAttribute('class', 'form-control');
@@ -96,8 +98,6 @@ class PageForm extends AtaForm {
         $date->setLabel('Date');
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
-        $date->addValidator(new PresenceOf(array(
-        )));
         $this->add($date);
 
         // Submit Button

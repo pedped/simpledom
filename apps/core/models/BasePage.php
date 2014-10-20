@@ -168,4 +168,13 @@ class BasePage extends AtaModel {
         
     }
 
+    /**
+     * 
+     * @param type $parameters
+     * @return Page
+     */
+    public static function findFirst($parameters = null) {
+        return parent::findFirst($parameters);
+    }
+
 }
