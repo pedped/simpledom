@@ -3,7 +3,9 @@
 namespace Simpledom\Admin\BaseControllers;
 
 use AtaPaginator;
+use BarChartElement;
 use BaseSearchHistory;
+use Simpledom\Core\AtaForm;
 use Simpledom\Core\SiteForms\SearchHistoryForm;
 
 class SearchHistoryControllerBase extends ControllerBase {
@@ -48,6 +50,71 @@ class SearchHistoryControllerBase extends ControllerBase {
             }
         }
         $this->view->form = $fr;
+    }
+
+    public function mostAction($page = 1, $pastday = 30) {
+
+        $time = time() - ($pastday * 3600 * 24);
+        // load the users
+        $searchhistorys = BaseSearchHistory::find(
+                        array(
+                            "date > $time",
+                            "columns" => "count(id) as count , id , userid , query",
+                            'group' => "query",
+                            'order' => 'id DESC',
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $searchhistorys,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'Query', 'Count'
+                ))->
+                setFields(array(
+                    'query', 'count'
+                ))->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
+        $this->view->day = $pastday;
+        $this->loadChart($searchhistorys->toArray());
+    }
+
+    public function loadChart($values) {
+
+        $items = array();
+        foreach ($values as $value) {
+            $items[$value["query"]] = (int) $value["count"];
+        }
+
+        // create new form
+        $form = new AtaForm();
+
+        // load chart box
+        // fetch data
+        $chartlement = new BarChartElement("chart");
+        $chartlement->setTitle("Most Search Queries");
+        $chartlement->setSubtitle("You can see most search quires during your selected periods");
+        $chartlement->setXName("Query");
+        $chartlement->setYAxis("Count");
+        $chartlement->setValues($items);
+        $chartlement->setTooltip(" Searchs");
+
+        // add element to form
+        $form->add($chartlement);
+
+        // set view form
+        $this->view->form = $form;
+        $this->handleFormScripts($form);
     }
 
     public function listAction($page = 1) {
