@@ -19,9 +19,8 @@ use Simpledom\Core\ProfileEditForm;
 use Simpledom\Core\RegisterForm;
 use SMSManager;
 use SmsNumber;
+use UserOrder;
 use UserPhone;
-
-
 
 class UserController extends ControllerBase {
 
@@ -33,6 +32,40 @@ class UserController extends ControllerBase {
                     "controller" => "index",
                     "action" => "index"
         ));
+    }
+
+    public function ordersAction($page = 1) {
+
+        $userid = (int) $this->user->userid;
+
+        // load the users
+        $userorders = UserOrder::find(
+                        array(
+                            "userid = '$userid'",
+                            'order' => 'id DESC'
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $userorders,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Title', 'Handler', 'Payment ID', 'price', 'Currency', 'date', 'done'
+                ))->
+                setFields(array(
+                    'id', 'getItemTitle()', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
+                ))->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     public function ForgetpasswordAction() {
