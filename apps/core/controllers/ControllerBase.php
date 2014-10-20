@@ -56,6 +56,14 @@ abstract class ControllerBase extends AtaController {
                 ->addJs('bootstrap/bootstrap.js', true);
 
 
+        //Javascripts in the footer
+        $this->assets
+                ->collection('elementscripts')
+                ->setPrefix('http://melk.edspace.org/');
+        $this->assets
+                ->collection('externalscripts');
+
+
         $this->view->pfurl = "http://melk.edspace.org/";
 
         // set default page title
