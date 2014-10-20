@@ -62,6 +62,7 @@ try {
                 dirname(__DIR__) . "/apps/core/models/",
                 dirname(__DIR__) . "/apps/admin/forms/",
                 dirname(__DIR__) . "/apps/frontend/models/",
+                dirname(__DIR__) . "/apps/frontend/forms/",
             )
     );
 

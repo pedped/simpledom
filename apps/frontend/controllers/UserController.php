@@ -10,7 +10,6 @@ use BaseUserLog;
 use EmailItems;
 use LoginDetailsForm;
 use Phalcon\Mvc\Model\Criteria;
-use Phalcon\Paginator\Adapter\Model as Paginator;
 use ProfileImageForm;
 use Settings;
 use Simpledom\Core\Classes\FileManager;
@@ -21,6 +20,8 @@ use Simpledom\Core\RegisterForm;
 use SMSManager;
 use SmsNumber;
 use UserPhone;
+
+
 
 class UserController extends ControllerBase {
 
@@ -191,7 +192,7 @@ class UserController extends ControllerBase {
                             BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
                         } else {
                             // user phone created, we have to send the verify code to user
-                            $smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . \Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
+                            $smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
                             SMSManager::SendSMS($userphone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
                         }
                     } else {
