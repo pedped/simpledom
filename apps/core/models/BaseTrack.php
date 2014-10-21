@@ -93,12 +93,12 @@ class BaseTrack extends AtaModel {
     public function getLastMonthVisitChart() {
 
         return $this->rawQuery("SELECT  YEAR(track.time) as year , MONTH(track.time) as month , day(track.time) as day , count(track.userid) as total FROM `track` WHERE YEAR(track.time) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
-AND MONTH(track.time) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(track.time)");
+AND MONTH(track.time) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(track.time) ORDER BY year, month, day ASC");
     }
 
     public function getLastSevenDaysVistCount() {
         return $this->rawQuery("SELECT  COUNT(*) as total FROM `track` WHERE YEAR(track.time) >= YEAR(CURRENT_DATE - INTERVAL 1 DAY)
-AND MONTH(track.time) >= MONTH(CURRENT_DATE - INTERVAL 1 DAY) AND DAY(track.time) >= DAY(CURRENT_DATE - INTERVAL 1 DAY)");
+AND MONTH(track.time) >= MONTH(CURRENT_DATE - INTERVAL 1 DAY) AND DAY(track.time) >= DAY(CURRENT_DATE - INTERVAL 1 DAY) ");
     }
 
     public function getPublicResponse() {

@@ -3,24 +3,6 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<!-- Specific Page Vendor CSS -->
-<link rel="stylesheet" href="<?php echo $pfurl; ?>adminfiles/assets/vendor/morris/morris.css" />
-<!-- Specific Page Vendor -->
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-appear/jquery.appear.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot-tooltip/jquery.flot.tooltip.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.pie.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.categories.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/flot/jquery.flot.resize.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/raphael/raphael.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/morris/morris.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/gauge/gauge.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/snap-svg/snap.svg.js"></script>
-<script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/liquid-meter/liquid.meter.js"></script>
-
-
 
 <!-- User Charts !-->
 <div class="row">
@@ -36,26 +18,7 @@
                 <p class="panel-subtitle">You can see your visitors visit chart based on 30 days ago</p>
             </header>
             <div class="panel-body">
-
-                <!-- Morris: Line -->
-                <div class="chart chart-md" id="morrisLine"></div>
-                <script type="text/javascript">
-
-                    Morris.Line({
-                        element: 'morrisLine',
-                        data: [
-<?php
-foreach ($visits as $visit) {
-    echo "{y: '$visit->year', m: '$visit->month', d: '$visit->day', a: $visit->total},";
-}
-?>
-                        ],
-                        xkey: 'd',
-                        ykeys: ['a'],
-                        labels: ['Visit Per Day']
-                    });
-                </script>
-
+                <?php $form->renderDecorated('visitchart'); ?> 
             </div>
         </section>
     </div>

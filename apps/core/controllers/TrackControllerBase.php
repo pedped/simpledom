@@ -5,6 +5,8 @@ namespace Simpledom\Admin\BaseControllers;
 use AtaPaginator;
 use BaseLogins;
 use BaseTrack;
+use LineChartElement;
+use Simpledom\Core\AtaForm;
 
 class TrackControllerBase extends ControllerBase {
 
@@ -20,6 +22,33 @@ class TrackControllerBase extends ControllerBase {
         $this->view->track = BaseTrack::findFirst($id);
     }
 
+    private function loadRegisterChart($baseTrack) {
+
+        // create new form
+        $form = new AtaForm();
+        $values = $baseTrack->getLastMonthVisitChart()->toArray();
+        $chartItems = array();
+        foreach ($values as $value) {
+            $chartItems[$value["year"] . "/" . $value["month"] . "/" . $value["day"]] = $value["total"];
+        }
+
+        // load chart box
+        // fetch data
+        $chartlement = new LineChartElement("visitchart");
+        $chartlement->setTitle("Track Visitors");
+        $chartlement->setSubtitle("this chart shows each day visit during last 30 days");
+        $chartlement->setXName("Date");
+        $chartlement->setYAxis("Count");
+        $chartlement->setValues($chartItems);
+
+        // add element to form
+        $form->add($chartlement);
+
+        // set view form
+        $this->view->form = $form;
+        $this->handleFormScripts($form);
+    }
+
     public function visitsAction() {
 
         // set title
@@ -29,8 +58,7 @@ class TrackControllerBase extends ControllerBase {
         $tr = new BaseTrack();
         $this->view->totalVisits = BaseTrack::count();
         $this->view->last7DayVisits = $tr->getLastSevenDaysVistCount();
-
-        $this->view->visits = $tr->getLastMonthVisitChart();
+        $this->loadRegisterChart($tr);
 
         // Load Last 100 Visits
         $this->view->last100Tracks = BaseTrack::find(array(
