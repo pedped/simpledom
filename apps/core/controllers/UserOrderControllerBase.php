@@ -82,7 +82,7 @@ class UserOrderControllerBase extends ControllerBase {
                     'id', 'userid', 'getUserName()', 'getTypeName()', 'getItemTitle()', 'itemid', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
                 ))->
                 setEditUrl(
-                        'edit'
+                        'view'
                 )->
                 setDeleteUrl(
                         'delete'

@@ -74,7 +74,7 @@ class AgreementControllerBase extends ControllerBase {
                     'ID', 'Title', 'Text', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'title', 'text', 'date'
+                    'id', 'title', 'text', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'

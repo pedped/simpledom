@@ -1,10 +1,10 @@
 <?php
+
 namespace Simpledom\Admin\BaseControllers;
 
 use AtaPaginator;
 use Page;
 use Simpledom\Core\PageForm;
-
 
 class PageControllerBase extends ControllerBase {
 
@@ -76,10 +76,10 @@ class PageControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','Key','Title','Text','Metadata Tags','Metadata Description','Show In Header','Footer Text','Date'
+                    'ID', 'Key', 'Title', 'Text', 'Metadata Tags', 'Metadata Description', 'Show In Header', 'Footer Text', 'Date'
                 ))->
                 setFields(array(
-                    'id','key','title','text','metakey','metadata','showinhead','footer','date'
+                    'id', 'key', 'title', 'text', 'metakey', 'metadata', 'showinhead', 'footer', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -145,21 +145,21 @@ class PageControllerBase extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $page = Page::findFirst($id);
-                                $page->key = $this->request->getPost('key', 'string');
+                $page->key = $this->request->getPost('key', 'string');
 
-                                $page->title = $this->request->getPost('title', 'string');
+                $page->title = $this->request->getPost('title', 'string');
 
-                                $page->text = $this->request->getPost('text', 'string');
+                $page->text = $this->request->getPost('text', 'string');
 
-                                $page->metakey = $this->request->getPost('metakey', 'string');
+                $page->metakey = $this->request->getPost('metakey', 'string');
 
-                                $page->metadata = $this->request->getPost('metadata', 'string');
+                $page->metadata = $this->request->getPost('metadata', 'string');
 
-                                $page->showinhead = $this->request->getPost('showinhead', 'string');
+                $page->showinhead = $this->request->getPost('showinhead', 'string');
 
-                                $page->footer = $this->request->getPost('footer', 'string');
+                $page->footer = $this->request->getPost('footer', 'string');
 
-                                $page->date = $this->request->getPost('date', 'string');
+                $page->date = $this->request->getPost('date', 'string');
                 if (!$page->save()) {
                     $page->showErrorMessages($this);
                 } else {
@@ -169,21 +169,20 @@ class PageControllerBase extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('key')->setDefault($pageItem->key);
-                        $fr->get('title')->setDefault($pageItem->title);
-                        $fr->get('text')->setDefault($pageItem->text);
-                        $fr->get('metakey')->setDefault($pageItem->metakey);
-                        $fr->get('metadata')->setDefault($pageItem->metadata);
-                        $fr->get('showinhead')->setDefault($pageItem->showinhead);
-                        $fr->get('footer')->setDefault($pageItem->footer);
-                        $fr->get('date')->setDefault($pageItem->date); 
-            }
-            
+            $fr->get('key')->setDefault($pageItem->key);
+            $fr->get('title')->setDefault($pageItem->title);
+            $fr->get('text')->setDefault($pageItem->text);
+            $fr->get('metakey')->setDefault($pageItem->metakey);
+            $fr->get('metadata')->setDefault($pageItem->metadata);
+            $fr->get('showinhead')->setDefault($pageItem->showinhead);
+            $fr->get('footer')->setDefault($pageItem->footer);
+            $fr->get('date')->setDefault($pageItem->date);
+        }
+
         $this->view->form = $fr;
     }
 
@@ -194,8 +193,16 @@ class PageControllerBase extends ControllerBase {
 
         $form = new PageForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('key')->setDefault($item->key);$form->get('title')->setDefault($item->title);$form->get('text')->setDefault($item->text);$form->get('metakey')->setDefault($item->metakey);$form->get('metadata')->setDefault($item->metadata);$form->get('showinhead')->setDefault($item->showinhead);$form->get('footer')->setDefault($item->footer);$form->get('date')->setDefault($item->date);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('key')->setDefault($item->key);
+        $form->get('title')->setDefault($item->title);
+        $form->get('text')->setDefault($item->text);
+        $form->get('metakey')->setDefault($item->metakey);
+        $form->get('metadata')->setDefault($item->metadata);
+        $form->get('showinhead')->setDefault($item->showinhead);
+        $form->get('footer')->setDefault($item->footer);
+        $form->get('date')->setDefault($item->date);
+        $this->view->form = $form;
     }
 
 }

@@ -77,7 +77,7 @@ class OpinionControllerBase extends ControllerBase {
                     'ID', 'User ID', 'Name', 'Email', 'Message', 'Date', 'Rating'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'name', 'email', 'message', 'date', 'rate'
+                    'id', 'userid', 'name', 'email', 'message', 'getDate()', 'rate'
                 ))->
                 setEditUrl(
                         'edit'

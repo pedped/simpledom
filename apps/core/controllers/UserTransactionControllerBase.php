@@ -78,10 +78,10 @@ class UserTransactionControllerBase extends ControllerBase {
                     'ID', 'User ID', 'Amount', 'Currency', 'Type', 'Type Name', 'Item ID', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'amount', 'cur', 'type', 'typename', 'itemid', 'date'
+                    'id', 'userid', 'amount', 'cur', 'type', 'typename', 'itemid', 'getDate()'
                 ))->
                 setEditUrl(
-                        'edit'
+                        'view'
                 )->
                 setDeleteUrl(
                         'delete'
