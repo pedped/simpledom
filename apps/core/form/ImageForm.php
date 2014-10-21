@@ -28,11 +28,9 @@ class ImageForm extends AtaForm {
         //$path->setAttribute('placeholder', 'Enter your Path');
         $path->setAttribute('class', 'form-control');
         $path->addValidator(new PresenceOf(array(
-            'message' => 'The Path is required'
         )));
         $path->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The Path is too short'
         )));
         $this->add($path);
 
@@ -52,7 +50,6 @@ class ImageForm extends AtaForm {
         )));
         $date->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The Date is too short'
         )));
         $this->add($date);
 
@@ -66,7 +63,6 @@ class ImageForm extends AtaForm {
         )));
         $mimetype->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The Mime Type is too short'
         )));
         $this->add($mimetype);
 
@@ -76,11 +72,9 @@ class ImageForm extends AtaForm {
         //$filesize->setAttribute('placeholder', 'Enter your File Size');
         $filesize->setAttribute('class', 'form-control');
         $filesize->addValidator(new PresenceOf(array(
-            'message' => 'The File Size is required'
         )));
         $filesize->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The File Size is too short'
         )));
         $this->add($filesize);
 
