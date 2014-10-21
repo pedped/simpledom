@@ -569,4 +569,12 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                 ))->phone;
     }
 
+    public function getActiveButton() {
+        return intval($this->active) == 1 ? "<div class='btn btn-sm btn-default disabled'>Active</div>" : "<div class='btn btn-sm btn-danger disabled'>Deactive</div>";
+    }
+
+    public function getVerifiedButton() {
+        return intval($this->verified) == 1 ? "<div class='btn btn-sm btn-default disabled'>Verified</div>" : "<div class='btn btn-sm btn-warning disabled'>Not Verified</div>";
+    }
+
 }

@@ -39,10 +39,10 @@ class UserControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Message', 'Rate', 'Date'
+                    'ID', 'Message', 'Rate', 'Date',
                 ))->
                 setFields(array(
-                    'id', 'message', 'rate', 'getDate()'
+                    'id', 'message', 'rate', 'getDate()',
                 ))->
                 setEditUrl(
                         'view'
@@ -309,8 +309,10 @@ class UserControllerBase extends ControllerBase {
         // load the users
         $users = BaseUser::find($parameters);
 
-
         $numberPage = $page;
+
+
+
 
         // create paginator
         $paginator = new AtaPaginator(array(
@@ -319,6 +321,17 @@ class UserControllerBase extends ControllerBase {
             "page" => $numberPage
         ));
 
+        $paginator->
+                setTableHeaders(array(
+                    'User ID', 'First Name', 'Last Name', 'Email', 'Gender', 'Active', 'Verified', 'Join Date'
+                ))->
+                setFields(array(
+                    'userid', 'fname', 'lname', 'email', 'getGenderTitle()', 'getActiveButton()', 'getVerifiedButton()', 'getJoinDate()'
+                ))->
+                setEditUrl(
+                        'view'
+                )->setListPath(
+                'list');
 
         $paginator->setSearchItemArrays(array(
             "userid" => "User ID",

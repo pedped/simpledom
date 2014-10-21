@@ -149,4 +149,8 @@ class BaseUserPhone extends AtaModel {
         return intval($this->verified) == 0 ? "<a href='$publicUrl" . "phone/verify/$this->phone' class='btn btn-primary btn-sm' >Verify Phone</a>" : "<a class='btn btn-success btn-sm disabled' >Already Verified</a>";
     }
 
+    public function getUserName() {
+        return BaseUser::findFirst($this->userid)->getFullName();
+    }
+
 }
