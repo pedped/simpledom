@@ -82,6 +82,7 @@ class SiteinfoControllerBase extends ControllerBase {
         $fr->get("shownewsandroid")->setDefault($settings->shownewsandroid);
         $fr->get("globalmessage")->setDefault($settings->globalmessage);
 
+        $this->handleFormScripts($fr);
         $this->view->siteInfoForm = $fr;
     }
 

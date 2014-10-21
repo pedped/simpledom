@@ -15,6 +15,13 @@ use Phalcon\Tag; ?>
 
         <?php echo $metaDescription; ?>
         <!-- Meta Keywords and Meta Description !-->
+        <?php if (isset($websiteSettings->metadata) && strlen($websiteSettings->metadata) > 0) : ?>
+            <meta name="description" content="<?php echo $websiteSettings->metadata; ?>">
+        <?php endif; ?>
+        <?php if (isset($websiteSettings->keywords) && strlen($websiteSettings->keywords) > 0) : ?>
+            <meta name="keywords" content="<?php echo $websiteSettings->keywords; ?>">
+        <?php endif; ?>
+        <!-- Check For Custom Pages !-->
         <?php if (isset($metaDescription) && strlen($metaDescription) > 0) : ?>
             <meta name="description" content="<?php echo $metaDescription; ?>">
         <?php endif; ?>
