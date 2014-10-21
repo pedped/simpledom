@@ -76,6 +76,9 @@ abstract class ControllerBase extends AtaController {
                     "order" => "date DESC"
         ));
         $this->view->lastMessages = $contacts;
+        $this->view->newMessageCount = BaseContact::count(array(
+                    'seen = 0'
+        ));
 
         $this->view->totalContactsUnanswered = BaseContact::count("reply IS NULL");
 
@@ -104,17 +107,17 @@ abstract class ControllerBase extends AtaController {
      */
     public function beforeExecuteRoute($dispatcher) {
         // This is executed before every found action
-        if ($dispatcher->getActionName() == 'save') {
-
-            $this->flash->error("You don't have permission to save posts");
-
-            $this->dispatcher->forward(array(
-                'controller' => 'home',
-                'action' => 'index'
-            ));
-
-            return false;
-        }
+//        if ($dispatcher->getActionName() == 'save') {
+//
+//            $this->flash->error("You don't have permission to save posts");
+//
+//            $this->dispatcher->forward(array(
+//                'controller' => 'home',
+//                'action' => 'index'
+//            ));
+//
+//            return false;
+//        }
     }
 
     /**

@@ -6,6 +6,7 @@ define("EMAILTEMPLATE_REGISTER", "REGISTER");
 define("EMAILTEMPLATE_RESETPASSWORD", "RESET_PASSWORD");
 define("EMAILTEMPLATE_BULKEMAIL", "BULK_EMAIL");
 define("EMAILTEMPLATE_PAYMENTRECEIPT", "PAYMENT_RECEIPT");
+define("EMAILTEMPLATE_REPLY", "REPLY");
 
 class EmailItems extends EmailManager {
 
@@ -99,8 +100,28 @@ class EmailItems extends EmailManager {
             "message" => $message,
         ));
 
+        // we have to send each email as seperate email in order
+        // to send each email user
+        // in each email
+        foreach ($emails as $email) {
+            // set email template
+            $this->setSubject($subject)->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
+        }
+        return TRUE;
+    }
+
+    public function sendReply($useremail, $name, $message, $repliedmessage) {
+        // load the email template from server
+        $emailTemplate = BaseEmailTemplate::findFirst("name = '" . EMAILTEMPLATE_REPLY . "'");
+        $emailTemplate->setParameters(array(
+            "message" => $message,
+            "name" => $name,
+            "useremail" => $useremail,
+            "repliedmessage" => $repliedmessage,
+        ));
+
         // set email template
-        return $this->setSubject($subject)->setEmailTemplate($emailTemplate)->setReceivers($emails)->sendEmail();
+        return $this->setSubject("Reply To Your Message")->setEmailTemplate($emailTemplate)->setReceivers($useremail)->sendEmail();
     }
 
 }

@@ -5,10 +5,49 @@ namespace Simpledom\Admin\BaseControllers;
 use AtaPaginator;
 use BaseContact;
 use BaseUser;
+use EmailItems;
 use Simpledom\Core\ContactReplyForm;
 use Simpledom\Core\SendBulkEmailForm;
 
 class ContactControllerBase extends ControllerBase {
+
+    public function unseenAction($page = 1) {
+
+        // load the unseenmessages
+        $contacts = BaseContact::find(
+                        array(
+                            'seen = 0',
+                            'order' => 'id DESC'
+        ));
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $contacts,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Name', 'Email', 'Section', 'Message', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'name', 'email', 'section', 'message', 'getDate()'
+                ))->
+                setEditUrl(
+                        'view'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
+    }
 
     public function listAction($page = 1) {
 
@@ -109,7 +148,9 @@ class ContactControllerBase extends ControllerBase {
         // set title
         $this->setTitle("View Contact");
 
-        $this->view->contactItem = BaseContact::findFirst($id);
+        $contact = BaseContact::findFirst($id);
+
+        $this->view->contactItem = $contact;
 
         // create reply form
         $fr = new ContactReplyForm();
@@ -118,15 +159,29 @@ class ContactControllerBase extends ControllerBase {
                 // form is valid
                 $contact = BaseContact::findFirst($id);
                 $contact->reply = $this->request->getPost("message", "string");
+
+
                 if (!$contact->save()) {
                     $contact->showErrorMessages($this);
                 } else {
-                    $contact->showErrorMessages($this, "Reply Message Sent Successfully");
+
+                    // Send Email
+                    $emailItems = new EmailItems();
+                    $emailItems->sendReply($contact->email, $contact->name, $contact->message, $contact->reply);
+
+                    // show the succcess mesage
+                    $contact->showSuccessMessages($this, "Reply Message Sent Successfully");
                 }
             } else {
                 // invalid
             }
         }
+
+        // set the contact item as seen
+        $contact->seen = "1";
+        $contact->save();
+
+        $this->handleFormScripts($fr);
         $this->view->replyForm = $fr;
     }
 
@@ -149,7 +204,7 @@ class ContactControllerBase extends ControllerBase {
                 $message = $this->request->getPost("message");
 
                 // send email
-                $emilItem = new \EmailItems();
+                $emilItem = new EmailItems();
                 $emilItem->sendBulkEmail($emails, $subject, $message);
             } else {
                 // invalid

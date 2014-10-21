@@ -35,7 +35,7 @@ use Phalcon\Text;
                 <!-- User Panel !-->
 
                 <?php if ($this->session->has("userid") && $this->session->get("level") == 9) : ?>
-                    <li><a href="./admin/">Administrator</a></li>
+                    <li><a href="<?php echo $this->url->get("admin/"); ?>"><?= _("Administrator"); ?></a></li>
                 <?php endif; ?>
                 <?php if ($this->session->has("userid")) : ?>
                     <li class="dropdown">

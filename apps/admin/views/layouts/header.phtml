@@ -75,7 +75,9 @@
             <li>
                 <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
                     <i class="fa fa-envelope"></i>
-                    <!--<span class="badge">4</span>-->
+                    <?php if ($newMessageCount > 0) : ?>
+                        <span class="badge"><?php echo $newMessageCount; ?></span>
+                    <?php endif; ?>
                 </a>
 
                 <div class="dropdown-menu notification-menu">

@@ -2,8 +2,8 @@
 
 namespace Simpledom\Core;
 
+use EditorElement;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\TextArea;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 
@@ -12,7 +12,7 @@ class ContactReplyForm extends AtaForm {
     public function initialize() {
 
         // Message
-        $message = new TextArea("message");
+        $message = new EditorElement("message");
         $message->setLabel("Message");
         $message->setAttribute("class", "form-control");
         $message->addValidator(new PresenceOf(array(
