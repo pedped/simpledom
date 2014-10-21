@@ -159,6 +159,18 @@ class BaseSettings extends AtaModel {
     public $globalmessage;
 
     /**
+     *
+     * @var boolean
+     */
+    public $enablesearch;
+
+    /**
+     *
+     * @var boolean
+     */
+    public $rtl;
+
+    /**
      * 
      * @param type $parameters
      * @return BaseSettings

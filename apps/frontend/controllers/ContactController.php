@@ -31,7 +31,7 @@ class ContactController extends ControllerBase {
                         BaseUserLog::byUserID($this->session->get("userid"))->setAction("Posted New Contact Message")->setInfo("contact id is " . $contact->id)->create();
                     }
 
-                    $contact->showSuccessMessages($this, "Your message has been sent successfully");
+                    $contact->showSuccessMessages($this, _("Your message has been sent successfully"));
 
                     // clear the form
                     $fr->clear();
@@ -49,7 +49,9 @@ class ContactController extends ControllerBase {
             }
         }
         $this->view->form = $fr;
-    }
 
+        // set page title
+        $this->setPageTitle(_("Contact US"));
+    }
 
 }

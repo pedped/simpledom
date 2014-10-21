@@ -2,11 +2,11 @@
 $action = $this->dispatcher->getActionName();
 ?>
 <ul class="nav nav-tabs" role="tablist">
-    <li <?php if ($action == "edit") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/edit") ?>">Basic Settings</a></li>
-    <li <?php if ($action == "editprofileimage") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editprofileimage") ?>">Profile Image</a></li>
-    <li <?php if ($action == "editlogin") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editlogin") ?>">Login Details</a></li>
-    <li <?php if ($action == "viewlogins") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/viewlogins") ?>">Logins History</a></li>
-    <li <?php if ($action == "orders") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/orders") ?>">Orders</a></li>
-    <li <?php if ($action == "phones") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/phones") ?>">Phones</a></li>
+    <li <?php if ($action == "edit") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/edit") ?>"><?= _("Basic Settings"); ?></a></li>
+    <li <?php if ($action == "editprofileimage") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editprofileimage") ?>"><?= _("Profile Image"); ?></a></li>
+    <li <?php if ($action == "editlogin") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/editlogin") ?>"><?= _("Login Details"); ?></a></li>
+    <li <?php if ($action == "viewlogins") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/viewlogins") ?>"><?= _("Logins History"); ?></a></li>
+    <li <?php if ($action == "orders") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/orders") ?>"><?= _("Orders"); ?></a></li>
+    <li <?php if ($action == "phones") echo "class='active'"; ?>><a href="<?php echo $this->url->get("user/phones") ?>"><?= _("Phones"); ?></a></li>
 </ul>
 

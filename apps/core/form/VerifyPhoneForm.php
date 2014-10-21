@@ -27,7 +27,7 @@ class VerifyPhoneForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit("submit");
-        $submit->setName("submit");
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute("class", 'btn btn-primary');
         $this->add($submit);
     }

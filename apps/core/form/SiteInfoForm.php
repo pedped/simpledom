@@ -67,6 +67,18 @@ class SiteInfoForm extends AtaForm {
         $shownews->setAttribute("placeholder", "");
         $shownews->setAttribute("class", "form-control");
         $this->add($shownews);
+        
+        // Search
+        $search = new EnableDisableElement("enablesearch");
+        $search->setLabel("Enable Search");
+        $search->setAttribute("class", "form-control");
+        $this->add($search);
+        
+        // Show News
+        $rtl = new EnableDisableElement("rtl");
+        $rtl->setLabel("RTL");
+        $rtl->setAttribute("class", "form-control");
+        $this->add($rtl);
 
         // Send News To Android\IPhone Users
         $sendnewstomobile = new EnableDisableElement("shownewsandroid");
@@ -189,7 +201,7 @@ class SiteInfoForm extends AtaForm {
         // Google Crow Days
         // Submit Button
         $submit = new Submit("submit");
-        $submit->setName("submit");
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute("class", 'btn btn-primary');
         $this->add($submit);
     }

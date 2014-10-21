@@ -24,8 +24,6 @@ class PageController extends ControllerBase {
         if (strlen($page->metadata) > 0) {
             $this->setMetaKeywords($page->metadata);
         }
-        
-        $this->setMetaKeywords("اثممخ");
     }
 
 }

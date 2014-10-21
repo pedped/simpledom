@@ -12,7 +12,7 @@ class ErrorController extends ControllerBase {
         $this->view->pick('error/404');
 
         // set title
-        $this->setPageTitle("Not Found!");
+        $this->setPageTitle(_("Not Found!"));
     }
 
 }

@@ -1,7 +1,7 @@
-<h1>Edit Profile Information</h1>
+<h1><?= _("View And Edit Login Details"); ?></h1>
 <div class='row'>
     <div class='col-md-6'>
-        <p>You can edit your basic profile information here</p>
+        <p><?= _("You can edit your basic profile information here"); ?></p>
         <?php $this->partial("layouts/usersettingsheader") ?>
         <div class="_account-settings-tab-content">
             <?php echo $this->getContent(); ?>
@@ -11,7 +11,7 @@
                 <?php echo $form->renderDecorated('email'); ?>
 
                 <hr/>
-                <p class="alert alert-info alert-small">In order to change your password, set new password and click on submit button</p>   
+                <p class="alert alert-info alert-small"><?= _("In order to change your password, set new password and click on submit button"); ?></p>   
 
                 <!-- Password !-->
                 <?php echo $form->renderDecorated('password'); ?>

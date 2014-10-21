@@ -32,7 +32,7 @@ class OpinionController extends ControllerBase {
                         BaseUserLog::byUserID($this->session->get("userid"))->setAction("Inserted New Opinion")->setInfo("opinion id is " . $opinion->id)->create();
                     }
 
-                    $opinion->showSuccessMessages($this, "Your opinion has been inserted successfully");
+                    $opinion->showSuccessMessages($this, _("Your opinion has been inserted successfully"));
 
                     // clear the form
                     $fr->clear();
@@ -54,6 +54,9 @@ class OpinionController extends ControllerBase {
         ));
 
         $this->view->form = $fr;
+
+        // set page title
+        $this->setPageTitle(_("Opinions"));
     }
 
 }

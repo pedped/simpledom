@@ -20,6 +20,10 @@ class FaqController extends ControllerBase {
                     "group" => "head",
                     "order" => "head ASC, id DESC"
         ));
+
+
+        // set page title
+        $this->setPageTitle(_("FAQ"));
     }
 
 }

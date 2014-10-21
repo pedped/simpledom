@@ -5,7 +5,9 @@ use Phalcon\Tag; ?>
 <html>
     <head>
         <meta charset="utf-8">
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,700' rel='stylesheet' type='text/css'>
+        <?php if (!$websiteSettings->rtl) : ?>
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,700' rel='stylesheet' type='text/css'>
+        <?php endif; ?>
         <?php $this->assets->outputCss('header') ?>
         <?php $this->assets->outputJs('footer') ?>
 
@@ -36,7 +38,7 @@ use Phalcon\Tag; ?>
         <!-- Check For Global Message !-->
         <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
             <div class="container-fluid">
-                <div class="col-md-12" style="text-align: left;"> 
+                <div class="col-md-12"> 
                     <div class='alert alert-info _global-message'>
                         <h4 style="margin-top: 0px;">Public Message</h4>
                         <?php echo $websiteSettings->globalmessage; ?>
@@ -48,7 +50,7 @@ use Phalcon\Tag; ?>
         <!-- Check For Verified Phone -->
         <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
             <div class="container-fluid">
-                <div class="col-md-12" style="text-align: left;"> 
+                <div class="col-md-12"> 
                     <div class='alert alert-danger'>
                         <h4 style="margin-top: 0px;">Need Verified Phone</h4>
                         <p>You have not verified phone, Please add and verify your phone</p>
@@ -61,7 +63,7 @@ use Phalcon\Tag; ?>
 
         <!-- Page Content !-->
         <div class="container-fluid">
-            <div class="col-md-12" style="text-align: left;">
+            <div class="col-md-12">
                 <?php echo $this->getContent(); ?>
             </div>
         </div>

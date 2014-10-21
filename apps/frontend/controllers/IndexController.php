@@ -18,7 +18,7 @@ class IndexController extends ControllerBase {
         $this->handleFormScripts($fr);
         $this->view->form = $fr;
 
-        $this->setPageTitle("Homepage");
+        $this->setPageTitle(_("Homepage"));
     }
 
 }

@@ -2,20 +2,20 @@
     <div class="col-md-8">
         <div class="main-error mb-xlg">
             <h2 class="text-center _error-404">404 <i class="fa fa-file"></i></h2>
-            <h3 class="error-explanation text-center">We're sorry, but the page you were looking for doesn't exist.</h3>
+            <h3 class="error-explanation text-center"><?= _("We're sorry, but the page you were looking for doesn't exist."); ?></h3>
         </div>
     </div>
     <div class="col-md-4">
-        <h2 class="text">Here are some useful links</h2>
+        <h2 class="text"><?= _("Here are some useful links"); ?></h2>
         <ul class="nav nav-list primary">
             <li>
-                <a href="<?php echo $this->url->get("contact"); ?>"><i class="fa fa-caret-right text-dark"></i> Contact Us</a>
+                <a href="<?php echo $this->url->get("contact"); ?>"><i class="fa fa-caret-right text-dark"></i> <?= _("Contact Us"); ?></a>
             </li>
             <li>
-                <a href="<?php echo $this->url->get("user/edit"); ?>"><i class="fa fa-caret-right text-dark"></i> User Profile</a>
+                <a href="<?php echo $this->url->get("user/edit"); ?>"><i class="fa fa-caret-right text-dark"></i> <?= _("User Profile"); ?></a>
             </li>
             <li>
-                <a href="<?php echo $this->url->get("faq"); ?>"><i class="fa fa-caret-right text-dark"></i> FAQ's</a>
+                <a href="<?php echo $this->url->get("faq"); ?>"><i class="fa fa-caret-right text-dark"></i> <?= _("FAQ's"); ?></a>
             </li>
         </ul>
     </div>

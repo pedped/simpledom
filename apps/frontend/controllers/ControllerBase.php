@@ -25,6 +25,12 @@ class ControllerBase extends Controller {
      */
     protected $user;
 
+    /**
+     *
+     * @var \Settings 
+     */
+    protected $websiteSettings;
+
     public function getPageTitle() {
         return $this->pageTitle;
     }
@@ -134,7 +140,8 @@ class ControllerBase extends Controller {
         // set page title
         $this->view->pageTitle = $this->pageTitle;
 
-        $this->view->websiteSettings = Settings::Get();
+        $this->websiteSettings = Settings::Get();
+        $this->view->websiteSettings = $this->websiteSettings;
 
         // set title
         Tag::setTitle(" - " . $this->view->websiteSettings->websitename);
@@ -152,8 +159,14 @@ class ControllerBase extends Controller {
         $this->view->headerPages = array();
         $this->view->headerPages = Page::find("showinhead = 1");
 
+        // check if we need to add rtl 
+        if (intval($this->websiteSettings->rtl) == 1) {
+            $this->assets
+                    ->collection('header')->addCss("css/bt3/bootstrap-rtl.css")->addCss("css/bt3/custom-rtl.css");
+        }
+
         // save the action
-        $action->create();
+        $action->create(); 
     }
 
     /**

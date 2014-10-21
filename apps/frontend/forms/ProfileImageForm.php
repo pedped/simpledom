@@ -3,6 +3,7 @@
 use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Submit;
 use Simpledom\Core\AtaForm;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,20 +21,20 @@ class ProfileImageForm extends AtaForm {
 
         // File
         $file = new File("file");
-        $file->setLabel("Choose Your File");
+        $file->setLabel(_("Choose Your File"));
         $this->add($file);
 
 
         // Image
         $image = new ImageElement("image");
-        $image->setLabel("Image");
+        $image->setLabel(_("Image"));
         $image->setAttribute("class", "img img-responsive");
         $this->add($image);
 
 
         // Submit Button
         $submit = new Submit("submit");
-        $submit->setName("submit");
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute("class", 'btn btn-primary');
         $this->add($submit);
     }

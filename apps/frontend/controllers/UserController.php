@@ -58,7 +58,7 @@ class UserController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Title', 'Handler', 'Payment ID', 'price', 'Currency', 'date', 'done'
+                    _('ID'), _('Title'), _('Handler'), _('Payment ID'), _('Price'), _('Currency'), _('Date'), _('Done')
                 ))->
                 setFields(array(
                     'id', 'getItemTitle()', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
@@ -66,6 +66,10 @@ class UserController extends ControllerBase {
                 'list');
 
         $this->view->list = $paginator->getPaginate();
+
+
+        // set page title
+        $this->setPageTitle(_("Orders"));
     }
 
     public function ForgetpasswordAction() {
@@ -78,13 +82,13 @@ class UserController extends ControllerBase {
                 $user = BaseUser::findFirst("email = '" . $email . "'");
                 if (!$user) {
                     // user not found
-                    $this->flash->error("Unable to find such user with requested email");
+                    $this->flash->error(_("Unable to find such user with requested email"));
                 } else {
                     // user found, we have to request password request for user
                     if ($user->requestResetPassword()) {
-                        $this->flash->success("Password Reset Link Sent To Your Email, Please Check Your Email");
+                        $this->flash->success(_("Password Reset Link Sent To Your Email, Please Check Your Email"));
                     } else {
-                        $this->flash->error("Unable to send password reset link");
+                        $this->flash->error(_("Unable to send password reset link"));
                     }
                 }
             } else {
@@ -92,28 +96,15 @@ class UserController extends ControllerBase {
             }
         }
         $this->view->form = $fr;
+
+
+        // set page title
+        $this->setPageTitle(_("Forget Password"));
     }
 
     public function welcomeAction() {
         $this->view->firstName = $this->session->get("fname");
         $this->view->lastName = $this->session->get("lname");
-    }
-
-    public function listAction($page = 1) {
-
-
-        // load the users
-        $users = BaseUser::find();
-
-        $numberPage = $page;
-
-        // create paginator
-        $paginator = new Paginator(array(
-            "data" => $users,
-            "limit" => 1,
-            "page" => $numberPage
-        ));
-        $this->view->users = $paginator->getPaginate();
     }
 
     public function loginAction() {
@@ -135,7 +126,7 @@ class UserController extends ControllerBase {
 
                     // check if the login is enabled
                     if (!$user->isSuperAdmin() && (bool) Settings::Get()->enabledisablesignin == false) {
-                        $this->flash->notice("Sorry!<br/>The login is disabled by adminstrator now");
+                        $this->flash->notice(_("Sorry!<br/>The login is disabled by adminstrator now"));
                         return;
                     }
 
@@ -159,10 +150,15 @@ class UserController extends ControllerBase {
                     ));
                 } else {
                     // unabel to find the user
-                    $this->flash->error("Unable to find user");
+                    $this->flash->error(_("Unable to find user"));
                 }
             }
         }
+
+
+
+        // set page title
+        $this->setPageTitle(_("Login"));
     }
 
     /**
@@ -181,7 +177,7 @@ class UserController extends ControllerBase {
 
                 // check if the login is enabled
                 if (Settings::Get()->enabledisablesignup === false) {
-                    $this->flash->notice("Sorry!<br/>But the register system is disabled by Super Adminstator at this time.");
+                    $this->flash->notice(_("Sorry!<br/>But the register system is disabled by Super Adminstator at this time."));
                     return;
                 }
 
@@ -225,15 +221,16 @@ class UserController extends ControllerBase {
                             BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
                         } else {
                             // user phone created, we have to send the verify code to user
-                            $smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
+                            $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $user->getFullName(), Settings::Get()->websitename, $userphone->verifycode);
+                            //$smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
                             SMSManager::SendSMS($userphone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
                         }
                     } else {
                         // phone exist in database before
-                        $this->flash->error("Your Entered Phone was exist in database, please add another phone");
+                        $this->flash->error(_("Your Entered Phone was exist in database, please add another phone"));
                     }
 
-                    $user->showSuccessMessages($this, "User creating was successfull");
+                    $user->showSuccessMessages($this, _("User creating was successfull"));
                 }
             }
         }
@@ -247,44 +244,6 @@ class UserController extends ControllerBase {
      */
     public function indexAction() {
         $this->persistent->parameters = null;
-    }
-
-    /**
-     * Searches for user
-     */
-    public function searchAction() {
-
-        $numberPage = 1;
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "User", $_POST);
-            $this->persistent->parameters = $query->getParams();
-        } else {
-            $numberPage = $this->request->getQuery("page", "int");
-        }
-
-        $parameters = $this->persistent->parameters;
-        if (!is_array($parameters)) {
-            $parameters = array();
-        }
-        $parameters["order"] = "userid";
-
-        $user = BaseUser::find($parameters);
-        if (count($user) == 0) {
-            $this->flash->notice("The search did not find any user");
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "index"
-            ));
-        }
-
-        $paginator = new Paginator(array(
-            "data" => $user,
-            "limit" => 10,
-            "page" => $numberPage
-        ));
-
-        $this->view->page = $paginator->getPaginate();
     }
 
     /**
@@ -328,6 +287,10 @@ class UserController extends ControllerBase {
 
 
         $this->view->form = $pef;
+
+
+        // set page title
+        $this->setPageTitle(_("Edit Profile Information"));
     }
 
     public function editprofileimageAction() {
@@ -344,7 +307,7 @@ class UserController extends ControllerBase {
                 if ($this->request->hasFiles()) {
                     $image = FileManager::HandleImageUpload($this->errors, $this->request->getUploadedFiles()[0], $outputFileName, $realtiveloaction);
                     if (!$image) {
-                        $this->flash->error("unable to handle file upload");
+                        $this->flash->error(_("unable to handle file upload"));
                     } else {
                         // check if we can save user
                         if (!$this->user->setImagelink($image->link)->save()) {
@@ -356,7 +319,7 @@ class UserController extends ControllerBase {
                             $this->user->setSession($this);
 
                             // show the message
-                            $this->user->showSuccessMessages($this, "Image Changed Successfully");
+                            $this->user->showSuccessMessages($this, _("Image Changed Successfully"));
                         }
                     }
                 }
@@ -364,6 +327,10 @@ class UserController extends ControllerBase {
         }
 
         $this->view->form = $pef;
+
+
+        // set page title
+        $this->setPageTitle(_("Edit Profile Image"));
     }
 
     public function editloginAction() {
@@ -383,15 +350,15 @@ class UserController extends ControllerBase {
                 $newpassconfirm = $this->request->getPost("newpasswordconfirm", "string");
 
                 if (!$this->user->verifyPassword($currentpass)) {
-                    $this->flash->error("Incorrect current password");
+                    $this->flash->error(_("Incorrect current password"));
                 } else {
                     // current password is cuuerct
                     if ($newpass !== $newpassconfirm) {
-                        $this->flash->error("Your new passwords are not look the same");
+                        $this->flash->error(_("Your new passwords are not look the same"));
                     } else {
                         // everything is OK
                         if ($this->user->changePassword($this->errors, $newpass)) {
-                            $this->flash->success("Your password changed successfully");
+                            $this->flash->success(_("Your password changed successfully"));
                         }
                     }
                 }
@@ -399,6 +366,10 @@ class UserController extends ControllerBase {
         }
 
         $this->view->form = $form;
+
+
+        // set page title
+        $this->setPageTitle(_("Edit Login Details"));
     }
 
     public function viewloginsAction($page = 1) {
@@ -432,105 +403,16 @@ class UserController extends ControllerBase {
                 'list');
 
         $this->view->list = $paginator->getPaginate();
-    }
-
-    /**
-     * Creates a new user
-     */
-    public function createAction() {
-
-        if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "index"
-            ));
-        }
-
-        $user = new BaseUser();
-
-        $user->fname = $this->request->getPost("fname");
-        $user->lname = $this->request->getPost("lname");
-        $user->gender = $this->request->getPost("gender");
-        $user->imagelink = $this->request->getPost("imagelink");
-        $user->regdate = $this->request->getPost("regdate");
-        $user->active = $this->request->getPost("active");
-        $user->verified = $this->request->getPost("verified");
 
 
-        if (!$user->save()) {
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "new"
-            ));
-        }
-
-        $this->flash->success("user was created successfully");
-
-        return $this->dispatcher->forward(array(
-                    "controller" => "user",
-                    "action" => "index"
-        ));
+        // set page title
+        $this->setPageTitle(_("View Logins"));
     }
 
     /**
      * Saves a user edited
      *
      */
-    public function saveAction() {
-
-        if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "index"
-            ));
-        }
-
-        $userid = $this->request->getPost("userid");
-
-        $user = BaseUser::findFirstByuserid($userid);
-        if (!$user) {
-            $this->flash->error("user does not exist " . $userid);
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "index"
-            ));
-        }
-
-        $user->fname = $this->request->getPost("fname");
-        $user->lname = $this->request->getPost("lname");
-        $user->gender = $this->request->getPost("gender");
-        $user->imagelink = $this->request->getPost("imagelink");
-        $user->regdate = $this->request->getPost("regdate");
-        $user->active = $this->request->getPost("active");
-        $user->verified = $this->request->getPost("verified");
-
-
-        if (!$user->save()) {
-
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "edit",
-                        "params" => array($user->userid)
-            ));
-        }
-
-        $this->flash->success("user was updated successfully");
-
-        return $this->dispatcher->forward(array(
-                    "controller" => "user",
-                    "action" => "index"
-        ));
-    }
-
     public function phonesAction($page = 1) {
         // load the users
         $userphones = UserPhone::find(
@@ -555,7 +437,7 @@ class UserController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'Phone', 'Does Verified', 'Date', 'Verify Phone'
+                    _('Phone'), _('Does Verified'), _('Date'), _('Verify Phone')
                 ))->
                 setFields(array(
                     'phone', 'getVerifiedText()', 'getDate()', 'getVerifiedLink()'
@@ -569,43 +451,10 @@ class UserController extends ControllerBase {
                 'list');
 
         $this->view->list = $paginator->getPaginate();
-    }
 
-    /**
-     * Deletes a user
-     *
-     * @param string $userid
-     */
-    public function deleteAction($userid) {
 
-        $user = BaseUser::findFirstByuserid($userid);
-        if (!$user) {
-            $this->flash->error("user was not found");
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "index"
-            ));
-        }
-
-        if (!$user->delete()) {
-
-            foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            return $this->dispatcher->forward(array(
-                        "controller" => "user",
-                        "action" => "search"
-            ));
-        }
-
-        $this->flash->success("user was deleted successfully");
-
-        return $this->dispatcher->forward(array(
-                    "controller" => "user",
-                    "action" => "index"
-        ));
+        // set page title
+        $this->setPageTitle(_("View Phones"));
     }
 
 }

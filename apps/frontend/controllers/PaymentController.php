@@ -21,7 +21,7 @@ class PaymentController extends ControllerBase {
             $paymentMethod = PaymentType::findFirstByKey($handler);
             if (!$paymentMethod || $paymentMethod->enable = FALSE) {
                 // the payment option is disabled
-                $this->flash->error("unable to find the payment method, may be it is disabled");
+                $this->flash->error(_("unable to find the payment method, may be it is disabled"));
                 return;
             }
 
@@ -35,9 +35,9 @@ class PaymentController extends ControllerBase {
             $handlerName = "PaymentHandler" . $handlerUpperCase;
             $this->paymentHandler = new $handlerName();
             if ($this->paymentHandler->OnFinishPayment($this->errors, $parameters)) {
-                $this->flash->success("<h3 style='margin-top:0px;'>Success</h3>Your payment was successfully");
+                $this->flash->success("<h3 style='margin-top:0px;'>" . _("Success") . "</h3>" . _("Your payment was successfully") . "");
             } else {
-                $this->flash->error("<h3 style='margin-top:0px;'>Ooops</h3>", implode("<br/>", $this->errors));
+                $this->flash->error("<h3 style='margin-top:0px;'>" . _("Ooops") . "</h3>", implode("<br/>", $this->errors));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

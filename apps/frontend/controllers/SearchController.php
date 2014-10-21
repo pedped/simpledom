@@ -60,7 +60,7 @@ class SearchController extends ControllerBase {
         $this->view->result = $results;
 
         // set page title
-        $this->setPageTitle("Search For $query");
+        $this->setPageTitle(sprintf(_('"Search For %s"'), $query));
     }
 
     public function searchAll($query, $start) {

@@ -1,6 +1,6 @@
 <div class='row'>
     <div class='col-md-6'>
-        <h1>Add Your Opinion</h1>
+        <h1><?= _("Add Your Opinion"); ?></h1>
         <hr/>
         <?php echo $this->getContent(); ?>
         <form method="post">
@@ -21,7 +21,7 @@
         </form>
     </div>
     <div class='col-md-6'>
-        <h1>People Opinions</h1>
+        <h1><?= _("People Opinions"); ?></h1>
         <hr/>
         <?php foreach ($opinions as $opinion): ?>
             <div class='_opinion-item'>

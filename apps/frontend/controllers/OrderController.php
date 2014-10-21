@@ -12,7 +12,6 @@ class OrderController extends ControllerBase {
         $order = new Order(1);
         $orderID = $order->CreateOrder($this->errors, 1, 1);
         $order->PayOrder($this->errors, $orderID, 1);
-        var_dump("done" , $this->errors);
     }
 
 }

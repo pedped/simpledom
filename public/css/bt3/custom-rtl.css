@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 21, 2014, 1:41:25 PM
+    Author     : ataalla
+*/
+@font-face {
+    font-family: 'yekan';
+    src:url('./fonts/BYekan.eot?#') format('eot'),    
+        url('./fonts/BYekan.woff') format('woff'),
+        url('./fonts/BYekan.ttf') format('truetype'); 
+}
+
+body{
+    font-family: yekan;
+}
+
+
+.navbar-nav > li > a {
+    font-size: 15px !important;
+}
+
+.footer .about-description {
+    font-size: 18px;
+}

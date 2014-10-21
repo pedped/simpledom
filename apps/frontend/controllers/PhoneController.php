@@ -26,7 +26,7 @@ class PhoneController extends ControllerBase {
         )));
 
         if ($userphone->count() == 0) {
-            $this->flash->error("Unable to find your phone number, or may be $phone is not your phone");
+            $this->flash->error(sprintf(_("Unable to find your phone number, or may be %s is not your phone"), $phone));
             $this->response->redirect("phone/invalid/" . $phone);
             $this->view->show = 0;
             return;
@@ -49,7 +49,7 @@ class PhoneController extends ControllerBase {
         // check if we have to resend the url
         if ($this->request->hasPost("resend")) {
             // CHECK limit and send message
-            $this->flash->success("SMS Message has been sent to $phone. Please check your phone and type your verification number here");
+            $this->flash->success(sprintf(_('"SMS Message has been sent to %s. Please check your phone and type your verification number here"'), $phone));
         }
 
         // check if user entered any number
@@ -65,11 +65,11 @@ class PhoneController extends ControllerBase {
                 // verification equals to user eneterd number
                 $userPhone->verified = "1";
                 $userPhone->save();
-                $this->flash->success("Your Phone Number, $phone, has been verified successfully");
+                $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
                 $this->response->redirect("user/phones");
             } else {
                 // invalid number
-                $this->flash->error("Invalid Number, Please Check Your SMS Again");
+                $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));
             }
         }
 

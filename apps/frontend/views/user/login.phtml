@@ -1,7 +1,7 @@
-<h1>Login</h1>
+<h1><?= _("Login Details"); ?></h1>
 <div class='row'>
     <div class='col-md-6'>
-        <p>Please enter your information to login to site</p>
+        <p><?= _("Please enter your information to login to site"); ?></p>
         <?php echo $this->getContent(); ?>
         <form method="post">
 
@@ -13,7 +13,7 @@
 
             <br/>
             <p>
-                <a href="<?php echo $this->url->get("user/forgetpassword") ?>">Forget Password</a>
+                <a href="<?php echo $this->url->get("user/forgetpassword") ?>"><?= _("Forget Password"); ?></a>
             </p>
 
             <!-- Submit !-->
