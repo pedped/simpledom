@@ -1,0 +1,615 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Simpledom\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-21 15:52+0330\n"
+"PO-Revision-Date: 2014-10-21 17:09+0330\n"
+"Last-Translator: Ata <convertersoft@gmail.com>\n"
+"Language-Team: Ata <convertersoft@gmail.com>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#: apps/frontend/controllers/PaymentController.php:24
+msgid "unable to find the payment method, may be it is disabled"
+msgstr ""
+
+#: apps/frontend/controllers/PaymentController.php:38
+msgid "Success"
+msgstr "موفق"
+
+#: apps/frontend/controllers/PaymentController.php:38
+msgid "Your payment was successfully"
+msgstr "پرداخت شما با موفقیت انجام شد"
+
+#: apps/frontend/controllers/PaymentController.php:40
+msgid "Ooops"
+msgstr "خطا"
+
+#: apps/frontend/controllers/ErrorController.php:15
+msgid "Not Found!"
+msgstr "صفحه مورد نظر یافت نگردید"
+
+#: apps/frontend/controllers/FaqController.php:26
+#: apps/frontend/views/layouts/header.phtml:59
+msgid "FAQ"
+msgstr "پرسش و پاسخ"
+
+#: apps/frontend/controllers/PhoneController.php:29
+#, php-format
+msgid "Unable to find your phone number, or may be %s is not your phone"
+msgstr "خطا در هنگام دریافت شماره تلفن، شاید شماره %s شماره شما نباشد"
+
+#: apps/frontend/controllers/PhoneController.php:52
+#, php-format
+msgid ""
+"\"SMS Message has been sent to %s. Please check your phone and type your "
+"verification number here\""
+msgstr ""
+
+#: apps/frontend/controllers/PhoneController.php:68
+#, php-format
+msgid "Your Phone Number, %s, has been verified successfully"
+msgstr ""
+
+#: apps/frontend/controllers/PhoneController.php:72
+msgid "Invalid Number, Please Check Your SMS Again"
+msgstr ""
+
+#: apps/frontend/controllers/SearchController.php:63
+#, php-format
+msgid "\"Search For %s\""
+msgstr ""
+
+#: apps/frontend/controllers/IndexController.php:21
+msgid "Homepage"
+msgstr "خانه"
+
+#: apps/frontend/controllers/OpinionController.php:35
+msgid "Your opinion has been inserted successfully"
+msgstr "نظر شما با موفقیت ارسال گردید"
+
+#: apps/frontend/controllers/OpinionController.php:59
+msgid "Opinions"
+msgstr "نظرات"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "ID"
+msgstr "کد"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Title"
+msgstr "تیتر"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Handler"
+msgstr "روش پرداخت"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Payment ID"
+msgstr "کد پرداخت"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Price"
+msgstr "هزینه"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Currency"
+msgstr "واحد"
+
+#: apps/frontend/controllers/UserController.php:61
+#: apps/frontend/controllers/UserController.php:440
+msgid "Date"
+msgstr "تاریخ"
+
+#: apps/frontend/controllers/UserController.php:61
+msgid "Done"
+msgstr "انجام شده"
+
+#: apps/frontend/controllers/UserController.php:72
+#: apps/frontend/views/user/orders.phtml:1
+#: apps/frontend/views/layouts/usersettingsheader.phtml:9
+msgid "Orders"
+msgstr "سفارشات"
+
+#: apps/frontend/controllers/UserController.php:85
+msgid "Unable to find such user with requested email"
+msgstr "کاربر مورد نظر با اطلاعات وارد شده یافت نگردید"
+
+#: apps/frontend/controllers/UserController.php:89
+msgid "Password Reset Link Sent To Your Email, Please Check Your Email"
+msgstr ""
+"لینک بازیابی رمز عبور برای شما ارسال گردید، لطفا ایمیل خود را چک نمایید"
+
+#: apps/frontend/controllers/UserController.php:91
+msgid "Unable to send password reset link"
+msgstr "خطا در هنگام ارسال ایمیل بازیابی رمز عبور"
+
+#: apps/frontend/controllers/UserController.php:102
+#: apps/frontend/views/user/login.phtml:16
+msgid "Forget Password"
+msgstr "فراموشی رمز عبور"
+
+#: apps/frontend/controllers/UserController.php:129
+msgid "Sorry!<br/>The login is disabled by adminstrator now"
+msgstr ""
+
+#: apps/frontend/controllers/UserController.php:153
+msgid "Unable to find user"
+msgstr "کاربر مورد نظر یافت نگردید"
+
+#: apps/frontend/controllers/UserController.php:161
+#: apps/frontend/views/layouts/header.phtml:52
+msgid "Login"
+msgstr "ورود"
+
+#: apps/frontend/controllers/UserController.php:180
+msgid ""
+"Sorry!<br/>But the register system is disabled by Super Adminstator at this "
+"time."
+msgstr ""
+
+#: apps/frontend/controllers/UserController.php:224
+#, php-format
+msgid ""
+"\"Hi %s \\nThank you for interseting in %s.\\n Please use this code to "
+"verify your phone number address :\\n %s"
+msgstr ""
+
+#: apps/frontend/controllers/UserController.php:230
+msgid "Your Entered Phone was exist in database, please add another phone"
+msgstr ""
+
+#: apps/frontend/controllers/UserController.php:233
+msgid "User creating was successfull"
+msgstr "اکانت شما با موفقیت ساخته گردید"
+
+#: apps/frontend/controllers/UserController.php:293
+#: apps/frontend/views/user/edit.phtml:1
+msgid "Edit Profile Information"
+msgstr "ویرایش اطلاعات پروفایل"
+
+#: apps/frontend/controllers/UserController.php:310
+msgid "unable to handle file upload"
+msgstr "خطا در هنگام ذخیره فایل"
+
+#: apps/frontend/controllers/UserController.php:322
+msgid "Image Changed Successfully"
+msgstr "تصویر با موفقیت تغییر یافت"
+
+#: apps/frontend/controllers/UserController.php:333
+#: apps/frontend/views/user/editprofileimage.phtml:1
+msgid "Edit Profile Image"
+msgstr "ویرایش تصویر پروفایل"
+
+#: apps/frontend/controllers/UserController.php:353
+msgid "Incorrect current password"
+msgstr "رمز عبور فعلی اشتباه است"
+
+#: apps/frontend/controllers/UserController.php:357
+msgid "Your new passwords are not look the same"
+msgstr "رمز عبور جدید و تکرار آن یکسان نیست"
+
+#: apps/frontend/controllers/UserController.php:361
+msgid "Your password changed successfully"
+msgstr "رمز  عبور شما با موفقیت تغییر یافت"
+
+#: apps/frontend/controllers/UserController.php:372
+msgid "Edit Login Details"
+msgstr "ویرایش مشخصات ورود"
+
+#: apps/frontend/controllers/UserController.php:409
+msgid "View Logins"
+msgstr "سابقه های ورود"
+
+#: apps/frontend/controllers/UserController.php:440
+msgid "Phone"
+msgstr "شماره تلفن"
+
+#: apps/frontend/controllers/UserController.php:440
+msgid "Does Verified"
+msgstr "حساب تایید شده؟"
+
+#: apps/frontend/controllers/UserController.php:440
+msgid "Verify Phone"
+msgstr "شماره خود را تایید نمایید"
+
+#: apps/frontend/controllers/UserController.php:457
+msgid "View Phones"
+msgstr "مشاهده شماره تماس ها"
+
+#: apps/frontend/controllers/ContactController.php:34
+msgid "Your message has been sent successfully"
+msgstr "پیام شما با موفقیت ارسال شد"
+
+#: apps/frontend/controllers/ContactController.php:54
+#: apps/frontend/views/contact/index.phtml:1
+msgid "Contact US"
+msgstr "تماس با ما"
+
+#: apps/frontend/forms/ProfileImageForm.php:24
+msgid "Choose Your File"
+msgstr "فایل خود را انتخاب نمایید"
+
+#: apps/frontend/forms/ProfileImageForm.php:30
+msgid "Image"
+msgstr "تصویر"
+
+#: apps/frontend/forms/ProfileImageForm.php:37
+#: apps/frontend/forms/LoginDetailsForm.php:49 apps/core/form/FaqForm.php:61
+#: apps/core/form/ViewUserForm.php:79
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:47
+#: apps/core/form/ContactForm.php:88 apps/core/form/ContactReplyForm.php:30
+#: apps/core/form/ForgetPasswordForm.php:31
+#: apps/core/form/RegisterForm.php:117
+#: apps/core/form/AdminUserProfileImageForm.php:38
+#: apps/core/form/SiteInfoForm.php:204 apps/core/form/VerifyPhoneForm.php:30
+#: apps/core/form/ProfileEditForm.php:65 apps/core/form/LoginForm.php:48
+#: apps/core/form/SendBulkEmailForm.php:62
+#: apps/core/form/FooterInfoForm.php:55
+#: apps/core/form/WebsiteOfflineForm.php:35
+msgid "Submit"
+msgstr "ارسال"
+
+#: apps/frontend/forms/LoginDetailsForm.php:24
+msgid "Current Password"
+msgstr "رمز عبور فعلی"
+
+#: apps/frontend/forms/LoginDetailsForm.php:32
+msgid "New Password"
+msgstr "رمز جدید"
+
+#: apps/frontend/forms/LoginDetailsForm.php:40
+msgid "Confirm New Password"
+msgstr "تکرار رمز جدید"
+
+#: apps/core/class/Transaction.php:51
+msgid "Invalid Transaction Type"
+msgstr "نوع تراکنش نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:37
+msgid "Unable to create new payment"
+msgstr "عدم توانایی برای ایجاد پرداخت جدید"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:66
+msgid "Unable to finish payment"
+msgstr "عدم توانایی در به پایان رساندن پرداخت"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:106
+msgid "Can not validate your payment"
+msgstr "نمیتوان پرداخت شما را تایید کرد"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:113
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:153
+msgid "Invalid User ID"
+msgstr "کد کاربر اشتباه است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:121
+msgid ""
+"Can not update database info, may be you have payed this order before or you "
+"are not authorzed to access this payment"
+msgstr ""
+"نمیتوان اطلاعات را به روز کرد، شاید شما این سفارش را قبلا پرداخت کرده اید یا "
+"حق انجام عملیات پرداخت را ندارید"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:158
+msgid "Unable to store payment info in database"
+msgstr "ذخیره اطالاعات پرداخت در دیتابیس ناموفق بود"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:169
+msgid "invalid API"
+msgstr "API نا معتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:172
+msgid "amount is lower than 1000 rials"
+msgstr "هزینه کمتر از 1000 رسال است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:175
+msgid "invalid redirect url"
+msgstr "لینک ارجاع نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:178
+msgid "can not find requested payment or waiting"
+msgstr "نمیتوان واریزی مورد نظر را پیدا کرد"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:194
+msgid "Invalid Parameters to verfiy your payment"
+msgstr "پارامتر های ارسالی برای تایید پرداخت شما نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:217
+msgid "invalid payline api"
+msgstr "API پیلان نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:220
+msgid "invalid Transaction ID"
+msgstr "کد تراکنش نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:223
+msgid "invalid Payline GetID"
+msgstr "GETID پیلان نامعتبر است"
+
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:226
+msgid "Payline can not find this transaction or is not valid"
+msgstr "تراکن پیلاین یافت نشد و یا تراکنش نامعتبر است"
+
+#: apps/core/class/Order.php:68
+msgid "We can not find any order that is for this payment"
+msgstr "ما هیچ سفارش مرتبط با پرداخت را یافت نکردیم"
+
+#: apps/core/class/Order.php:80
+msgid "Invalid Order User ID"
+msgstr "کد سفارش کاربر اشتباه است"
+
+#: apps/core/class/Order.php:86
+msgid "Invalid Request, Order has been payed before"
+msgstr "درخواست نامعتبر است، سفارش قبلا پرداخت گردیده است"
+
+#: apps/core/class/Order.php:95
+msgid ""
+"Can not update order payment information, May Be You Want to Pay Invalid "
+"Order or You want to pay the order that you have unpayed before"
+msgstr ""
+"نمیتوان پرداخت سفارش شما را به روز رسانی کرد، شاید اطلاعات سفارش یا پرداخت "
+"شما نامعتبر است و یا اینکه سفارش شما قبلا پرداخت شده است"
+
+#: apps/core/class/Order.php:126
+msgid "Unable to create order"
+msgstr "نمیتوان یک سفارش جدید ساخت"
+
+#: apps/core/class/Order.php:209
+msgid ""
+"The payment method is disabled and you are not able to proccess with this "
+"payment method"
+msgstr "روش پرداخت غیر فعال است و شما نمیتوانید از این طریق پرداخت نمایید"
+
+#: apps/core/class/Order.php:243
+msgid "Unable to create new payment transaction"
+msgstr "نمیتوان یک تراکنش  جدید ساخت"
+
+#: apps/frontend/views/error/404.phtml:5
+msgid "We're sorry, but the page you were looking for doesn't exist."
+msgstr ""
+
+#: apps/frontend/views/error/404.phtml:9
+msgid "Here are some useful links"
+msgstr "لینک های مفید"
+
+#: apps/frontend/views/error/404.phtml:12
+#: apps/frontend/views/layouts/footer.phtml:23
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: apps/frontend/views/error/404.phtml:15
+msgid "User Profile"
+msgstr "تنظیمات پروفایل"
+
+#: apps/frontend/views/error/404.phtml:18
+msgid "FAQ's"
+msgstr "سولات و جواب ها"
+
+#: apps/frontend/views/user/verify.phtml:1
+msgid "Verify Email"
+msgstr "تایید ایمیل"
+
+#: apps/frontend/views/user/register.phtml:1
+msgid "Register to the site"
+msgstr "ثبت نام در سایت"
+
+#: apps/frontend/views/user/register.phtml:4
+msgid "Here you can register to the site"
+msgstr "در اینجا می توانید خود را به عضویت سایت درآورید"
+
+#: apps/frontend/views/user/login.phtml:1
+#: apps/frontend/views/layouts/usersettingsheader.phtml:7
+msgid "Login Details"
+msgstr "مشخصات ورود"
+
+#: apps/frontend/views/user/login.phtml:4
+msgid "Please enter your information to login to site"
+msgstr ""
+
+#: apps/frontend/views/user/editlogin.phtml:1
+msgid "View And Edit Login Details"
+msgstr "ویرایش مشخصات ورود"
+
+#: apps/frontend/views/user/editlogin.phtml:4
+#: apps/frontend/views/user/editprofileimage.phtml:4
+#: apps/frontend/views/user/edit.phtml:4
+msgid "You can edit your basic profile information here"
+msgstr ""
+
+#: apps/frontend/views/user/editlogin.phtml:14
+msgid ""
+"In order to change your password, set new password and click on submit button"
+msgstr ""
+
+#: apps/frontend/views/user/phones.phtml:1
+msgid "Manage Your Phones"
+msgstr "مشاهده شماره تماس های شما"
+
+#: apps/frontend/views/user/phones.phtml:4
+msgid "you can add, delete or edit your phone numbers here"
+msgstr ""
+
+#: apps/frontend/views/user/welcome.phtml:1
+#, php-format
+msgid "Welcome %s %s"
+msgstr "خوش آمدید %s %s"
+
+#: apps/frontend/views/user/welcome.phtml:2
+msgid "You are not logged in to the system."
+msgstr ""
+
+#: apps/frontend/views/user/orders.phtml:4
+msgid "View your orders"
+msgstr "مشاهده سفارشات شما"
+
+#: apps/frontend/views/user/forgetpassword.phtml:1
+msgid "Forget Your Password"
+msgstr "رمز عبور را فراموش کرده اید؟"
+
+#: apps/frontend/views/user/forgetpassword.phtml:4
+msgid "Please enter your email address to reset your password"
+msgstr "برای تغییر رمز عبور، لطفا ایمیل خود را وارد نمایید"
+
+#: apps/frontend/views/user/viewlogins.phtml:1
+msgid "View Login History"
+msgstr "سابقه های ورود"
+
+#: apps/frontend/views/user/viewlogins.phtml:4
+msgid "You can see your login history here"
+msgstr ""
+
+#: apps/frontend/views/search/request.phtml:6
+#, php-format
+msgid "Search Result For : <b>%s</b>"
+msgstr ""
+
+#: apps/frontend/views/index/index.phtml:2
+msgid "Start Payment"
+msgstr "شروع پرداخت"
+
+#: apps/frontend/views/opinion/index.phtml:3
+msgid "Add Your Opinion"
+msgstr "نظر خود را وارد نمایید"
+
+#: apps/frontend/views/opinion/index.phtml:24
+msgid "People Opinions"
+msgstr "دیگر نظرات"
+
+#: apps/frontend/views/index.phtml:44
+msgid "Public Message"
+msgstr "پیام  همگانی"
+
+#: apps/frontend/views/index.phtml:56
+msgid "Need Verified Phone"
+msgstr "به یک شماره تماس تایید شده نیاز داریم"
+
+#: apps/frontend/views/index.phtml:57
+msgid "You have not verified phone, Please add and verify your phone"
+msgstr ""
+
+#: apps/frontend/views/index.phtml:59
+msgid "View My Phones"
+msgstr "مشاهده شماره تماس های من"
+
+#: apps/frontend/views/agreement/view.phtml:3
+msgid "Agreement"
+msgstr "توافق نامه"
+
+#: apps/frontend/views/layouts/footer.phtml:14
+msgid "Useful Links"
+msgstr "لینک های مفید"
+
+#: apps/frontend/views/layouts/footer.phtml:24
+msgid "Use this form to contact us"
+msgstr "از این فرم برای تماس با ما استفاده نمایید"
+
+#: apps/frontend/views/layouts/header.phtml:10
+msgid "Toggle navigation"
+msgstr "تغییر ناوبری"
+
+#: apps/frontend/views/layouts/header.phtml:21
+msgid "OPINIONS"
+msgstr "نظرات"
+
+#: apps/frontend/views/layouts/header.phtml:28
+msgid "?????"
+msgstr ""
+
+#: apps/frontend/views/layouts/header.phtml:38
+msgid "Administrator"
+msgstr "مدیر"
+
+#: apps/frontend/views/layouts/header.phtml:45
+msgid "Profile Settings"
+msgstr "تنظیمات پروفایل"
+
+#: apps/frontend/views/layouts/header.phtml:47
+msgid "Logout"
+msgstr "خروج"
+
+#: apps/frontend/views/layouts/header.phtml:53
+msgid "Register"
+msgstr "ثبت نام"
+
+#: apps/frontend/views/layouts/header.phtml:58
+msgid "???? ?? ??"
+msgstr ""
+
+#: apps/frontend/views/layouts/usersettingsheader.phtml:5
+msgid "Basic Settings"
+msgstr "تنظیمات پایه"
+
+#: apps/frontend/views/layouts/usersettingsheader.phtml:6
+msgid "Profile Image"
+msgstr "تصویر کاربری"
+
+#: apps/frontend/views/layouts/usersettingsheader.phtml:8
+msgid "Logins History"
+msgstr "سابقه های ورود"
+
+#: apps/frontend/views/layouts/usersettingsheader.phtml:10
+msgid "Phones"
+msgstr "شماره تماس ها"
+
+#: apps/frontend/views/phone/verify.phtml:4
+#: apps/frontend/views/phone/invalid.phtml:3
+#: apps/frontend/views/phone/alreadyverified.phtml:3
+msgid "Verify Phone Number"
+msgstr "شماره خود را تایید نمایید"
+
+#: apps/frontend/views/phone/verify.phtml:14
+msgid ""
+"If you have not received any message yet, click on this button to resend "
+"verification number again:"
+msgstr ""
+"اگر شما تاکنون هیچ پیامی دریافت نکرده اید، کلید زیر را کلیک کنید تا شماره "
+"جدید برای شما ارسال گردد"
+
+#: apps/frontend/views/phone/verify.phtml:17
+msgid "Resend Verification Number"
+msgstr "کد تایید را دوباره ارسال کن"
+
+#: apps/frontend/views/phone/invalid.phtml:7
+msgid "Invalid Phone"
+msgstr "شماره تماس نا معتبر است"
+
+#: apps/frontend/views/phone/invalid.phtml:8
+msgid "This phone is not belong to You!"
+msgstr "شماره وارد شده در لیست شماره های شما یافت نگردید"
+
+#: apps/frontend/views/phone/alreadyverified.phtml:7
+msgid "Phone Already Verified"
+msgstr "شماره تماس قبلا تایید شده است"
+
+#: apps/frontend/views/phone/alreadyverified.phtml:8
+msgid "This phone number already verified and do not need to verify again!"
+msgstr ""
+"شماره تماس مورد نظر هم اکنون تایید شده است و نیازی به تایید دوباره نیست"
+
+#: apps/admin/views/layouts/sidebar.phtml:405
+msgid "Agreements"
+msgstr "توافقنامه ها"
+
+#: apps/admin/views/layouts/sidebar.phtml:410
+#: apps/admin/views/layouts/sidebar.phtml:428
+msgid "Add"
+msgstr "افزودن"
+
+#: apps/admin/views/layouts/sidebar.phtml:415
+#: apps/admin/views/layouts/sidebar.phtml:433
+msgid "List"
+msgstr "لیست"
+
+#: apps/admin/views/layouts/sidebar.phtml:423
+msgid "Pages"
+msgstr "صفحات"

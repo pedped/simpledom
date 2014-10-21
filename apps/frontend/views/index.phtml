@@ -34,50 +34,53 @@ use Phalcon\Tag; ?>
     <!-- Load The Header !-->
     <?php $this->partial("layouts/header") ?>
     <body>
+        <div id='page-container'>
+            <div id='page-container-body'>
+                <!-- Check For Global Message !-->
+                <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
+                    <div class="container-fluid">
+                        <div class="col-md-12"> 
+                            <div class='alert alert-info _global-message'>
+                                <h4 style="margin-top: 0px;"><?= _("Public Message"); ?></h4>
+                                <?php echo $websiteSettings->globalmessage; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
-        <!-- Check For Global Message !-->
-        <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
-            <div class="container-fluid">
-                <div class="col-md-12"> 
-                    <div class='alert alert-info _global-message'>
-                        <h4 style="margin-top: 0px;">Public Message</h4>
-                        <?php echo $websiteSettings->globalmessage; ?>
+                <!-- Check For Verified Phone -->
+                <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
+                    <div class="container-fluid">
+                        <div class="col-md-12"> 
+                            <div class='alert alert-danger'>
+                                <h4 style="margin-top: 0px;"><?= _("Need Verified Phone"); ?></h4>
+                                <p><?= _("You have not verified phone, Please add and verify your phone"); ?></p>
+                                <br/>
+                                <a href='<?php echo $this->url->get("user/phones/"); ?>' class='btn btn-default btn-sm'><?= _("View My Phones"); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Page Content !-->
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <?php echo $this->getContent(); ?>
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+            <!-- Footer !-->
+            <?php $this->partial("layouts/footer") ?>
+            <!-- Analytics Codes !-->
+            <?php
+            if (isset($websiteSettings->googleanalytics) && strlen($websiteSettings->googleanalytics) > 0) {
+                echo $websiteSettings->googleanalytics;
+            }
 
-        <!-- Check For Verified Phone -->
-        <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
-            <div class="container-fluid">
-                <div class="col-md-12"> 
-                    <div class='alert alert-danger'>
-                        <h4 style="margin-top: 0px;">Need Verified Phone</h4>
-                        <p>You have not verified phone, Please add and verify your phone</p>
-                        <br/>
-                        <a href='<?php echo $this->url->get("user/phones/"); ?>' class='btn btn-default btn-sm'>View My Phones</a>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <!-- Page Content !-->
-        <div class="container-fluid">
-            <div class="col-md-12">
-                <?php echo $this->getContent(); ?>
-            </div>
+            if (isset($websiteSettings->clickyanalitics) && strlen($websiteSettings->clickyanalitics) > 0) {
+                echo $websiteSettings->googleanalytics;
+            }
+            ?>
         </div>
-        <!-- Footer !-->
-        <?php $this->partial("layouts/footer") ?>
-        <!-- Analytics Codes !-->
-        <?php
-        if (isset($websiteSettings->googleanalytics) && strlen($websiteSettings->googleanalytics) > 0) {
-            echo $websiteSettings->googleanalytics;
-        }
-
-        if (isset($websiteSettings->clickyanalitics) && strlen($websiteSettings->clickyanalitics) > 0) {
-            echo $websiteSettings->googleanalytics;
-        }
-        ?>
     </body>
 </html>

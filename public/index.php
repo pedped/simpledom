@@ -10,6 +10,13 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
+
+putenv("LC_ALL=fa_IR");
+setlocale(LC_ALL, "fa_IR");
+bindtextdomain('messages', $_SERVER["DOCUMENT_ROOT"] . "/Local/");
+textdomain('messages');
+bind_textdomain_codeset("messages", 'UTF-8');
+
 try {
 
     /**
