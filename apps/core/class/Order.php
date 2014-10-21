@@ -52,6 +52,16 @@ class Order {
 
         // check if the order id is valid, success it
         if (intval($orderid) > 0) {
+
+            // Set Payment Cost
+            $paymentHandlerName = "PaymentHandler" . Text::camelize(\PaymentType::findFirst($orderPayementType)->key);
+            $paymentHandler = new $paymentHandlerName();
+            $cost = $paymentHandler->getPaymentCost($errors, $paymentID);
+            $order = UserOrder::findFirst($orderid);
+            $order->price = $cost->Price;
+            $order->pricecurrency = $cost->Currency;
+            $order->save();
+
             return $this->OnSuccessOrder($errors, $orderid);
         } else {
             // we can not find any order that is for this payment

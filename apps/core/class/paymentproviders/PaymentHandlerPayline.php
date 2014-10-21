@@ -259,4 +259,18 @@ class PaymentHandlerPayline extends PaymentMethod {
         return $result;
     }
 
+    /**
+     * Get Payment Cost Information in Price,Curency format
+     * @param type $errors
+     * @param type $paymentid
+     * @return stdClass
+     */
+    public function getPaymentCost(&$errors, $paymentid) {
+        $payment = PaymentPayline::findFirst($paymentid);
+        $result = new stdClass();
+        $result->Price = $payment->amount;
+        $result->Currency = $payment->cur;
+        return $result;
+    }
+
 }

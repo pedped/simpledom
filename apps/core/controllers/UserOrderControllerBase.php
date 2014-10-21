@@ -76,7 +76,7 @@ class UserOrderControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Name', 'Type', 'Title', 'Item ID', 'Payment Handler', 'Payment ID', 'price', 'Price Currency', 'date', 'done'
+                    'ID', 'User ID', 'Name', 'Type', 'Title', 'Item ID', 'Payment Handler', 'Payment ID', 'Price', 'Price Currency', 'date', 'done'
                 ))->
                 setFields(array(
                     'id', 'userid', 'getUserName()', 'getTypeName()', 'getItemTitle()', 'itemid', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'

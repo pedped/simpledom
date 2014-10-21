@@ -13,6 +13,8 @@ abstract class PaymentMethod {
 
     protected $paymentMethodName;
 
+    public abstract function getPaymentCost(&$errors, $paymentid);
+
     public abstract function OnFinishPayment(&$errors, $parameters);
 
     public abstract function CheckPayed($paymentID);
