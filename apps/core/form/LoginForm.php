@@ -14,25 +14,20 @@ class LoginForm extends AtaForm {
 
         // ٍEmail
         $email = new Text("email");
-        $email->setLabel("Email");
-        $email->setAttribute("placeholder", "Enter Email");
+        $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
-            'message' => 'The email is required'
         )));
         $email->addValidator(new Email(array(
-            'message' => 'please enter a valid email'
         )));
         $this->add($email);
 
 
         // Password
         $password = new Password("password");
-        $password->setLabel("Password");
-        $password->setAttribute("placeholder", "Enter your Password");
+        $password->setLabel(_("Password"));
         $password->setAttribute("class", "form-control");
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
         )));
 //        $password->addValidator(new Between(array(
 //            'max' => 50,

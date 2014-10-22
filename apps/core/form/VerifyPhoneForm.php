@@ -14,8 +14,8 @@ class VerifyPhoneForm extends AtaForm {
 
         // Verify Code
         $verifycode = new Text("verifycode");
-        $verifycode->setLabel("Verify Code");
-        $verifycode->setAttribute("placeholder", "Enter the number you have recived in your Phone");
+        $verifycode->setLabel(_("Verify Code"));
+        $verifycode->setAttribute("placeholder", _("Enter the number you have recived in your Phone"));
         $verifycode->setAttribute("class", "form-control");
         $verifycode->addValidator(new PresenceOf(array(
         )));

@@ -24,7 +24,7 @@ class ImageForm extends AtaForm {
 
         // Path
         $path = new TextElement('path');
-        $path->setLabel('Path');
+        $path->setLabel(_('Path'));
         //$path->setAttribute('placeholder', 'Enter your Path');
         $path->setAttribute('class', 'form-control');
         $path->addValidator(new PresenceOf(array(
@@ -42,11 +42,10 @@ class ImageForm extends AtaForm {
 
         // Date
         $date = new Text('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $date->addValidator(new PresenceOf(array(
-            'message' => 'The Date is required'
         )));
         $date->addValidator(new StringLength(array(
             'min' => 2,
@@ -55,11 +54,10 @@ class ImageForm extends AtaForm {
 
         // Mime Type
         $mimetype = new TextElement('mimetype');
-        $mimetype->setLabel('Mime Type');
+        $mimetype->setLabel(_('Mime Type'));
         //$mimetype->setAttribute('placeholder', 'Enter your Mime Type');
         $mimetype->setAttribute('class', 'form-control');
         $mimetype->addValidator(new PresenceOf(array(
-            'message' => 'The Mime Type is required'
         )));
         $mimetype->addValidator(new StringLength(array(
             'min' => 2,
@@ -68,7 +66,7 @@ class ImageForm extends AtaForm {
 
         // File Size
         $filesize = new TextElement('filesize');
-        $filesize->setLabel('File Size');
+        $filesize->setLabel(_('File Size'));
         //$filesize->setAttribute('placeholder', 'Enter your File Size');
         $filesize->setAttribute('class', 'form-control');
         $filesize->addValidator(new PresenceOf(array(
@@ -80,7 +78,7 @@ class ImageForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

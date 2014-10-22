@@ -16,22 +16,20 @@ class EmailTemplateForm extends AtaForm {
 
         // ID
         $id = new Text('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
 
         // Name
         $name = new Text('name');
-        $name->setLabel('Name');
+        $name->setLabel(_('Name'));
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
         $name->addValidator(new PresenceOf(array(
-            'message' => 'The Name is required'
         )));
         $name->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The Name is too short'
         )));
         $this->add($name);
 
@@ -41,17 +39,15 @@ class EmailTemplateForm extends AtaForm {
         //$template->setAttribute('placeholder', 'Enter your Template');
         $template->setAttribute('class', 'form-control');
         $template->addValidator(new PresenceOf(array(
-            'message' => 'The Template is required'
         )));
         $template->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The Template is too short'
         )));
         $this->add($template);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

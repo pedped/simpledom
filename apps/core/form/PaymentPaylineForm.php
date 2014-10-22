@@ -17,7 +17,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -25,7 +25,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // User ID
         $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
+        $userid->setLabel(_('User ID'));
         //$userid->setAttribute('placeholder', 'Enter your User ID');
         $userid->setAttribute('class', 'form-control');
         $userid->addValidator(new PresenceOf(array(
@@ -35,7 +35,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $date->addValidator(new PresenceOf(array(
@@ -45,7 +45,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Amount
         $amount = new TextElement('amount');
-        $amount->setLabel('Amount');
+        $amount->setLabel(_('Amount'));
         //$amount->setAttribute('placeholder', 'Enter your Amount');
         $amount->setAttribute('class', 'form-control');
         $amount->addValidator(new PresenceOf(array(
@@ -55,7 +55,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Currency
         $cur = new SelectElement('cur');
-        $cur->setLabel('Currency');
+        $cur->setLabel(_('Currency'));
         $cur->setOptions(PaymentPayline::$PaylineIDGetValues);
         //$cur->setAttribute('placeholder', 'Enter your Currency');
         $cur->setAttribute('class', 'form-control');
@@ -69,7 +69,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // User Transaction ID
         $usertransactionid = new TextElement('usertransactionid');
-        $usertransactionid->setLabel('User Transaction ID');
+        $usertransactionid->setLabel(_('User Transaction ID'));
         //$usertransactionid->setAttribute('placeholder', 'Enter your User Transaction ID');
         $usertransactionid->setAttribute('class', 'form-control');
         $usertransactionid->addValidator(new PresenceOf(array(
@@ -79,7 +79,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Payline ID Get
         $paylineidget = new TextElement('paylineidget');
-        $paylineidget->setLabel('Payline ID Get');
+        $paylineidget->setLabel(_('Payline ID Get'));
         //$paylineidget->setAttribute('placeholder', 'Enter your Payline ID Get');
         $paylineidget->setAttribute('class', 'form-control');
         $paylineidget->addValidator(new PresenceOf(array(
@@ -89,7 +89,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Payline Transaction ID
         $paylinetransactionid = new TextElement('paylinetransactionid');
-        $paylinetransactionid->setLabel('Payline Transaction ID');
+        $paylinetransactionid->setLabel(_('Payline Transaction ID'));
         //$paylinetransactionid->setAttribute('placeholder', 'Enter your Payline Transaction ID');
         $paylinetransactionid->setAttribute('class', 'form-control');
         $paylinetransactionid->addValidator(new PresenceOf(array(
@@ -99,7 +99,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Done
         $done = new TextElement('done');
-        $done->setLabel('Done');
+        $done->setLabel(_('Done'));
         //$done->setAttribute('placeholder', 'Enter your Done');
         $done->setAttribute('class', 'form-control');
         $done->addValidator(new PresenceOf(array(
@@ -108,7 +108,7 @@ class PaymentPaylineForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

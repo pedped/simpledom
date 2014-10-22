@@ -14,7 +14,7 @@ class UserCachChangeForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -22,7 +22,7 @@ class UserCachChangeForm extends AtaForm {
 
         // User ID
         $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
+        $userid->setLabel(_('User ID'));
         //$userid->setAttribute('placeholder', 'Enter your User ID');
         $userid->setAttribute('class', 'form-control');
         $userid->addValidator(new PresenceOf(array(
@@ -32,7 +32,7 @@ class UserCachChangeForm extends AtaForm {
 
         // Amount
         $amount = new TextElement('amount');
-        $amount->setLabel('Amount');
+        $amount->setLabel(_('Amount'));
         //$amount->setAttribute('placeholder', 'Enter your Amount');
         $amount->setAttribute('class', 'form-control');
         $amount->addValidator(new PresenceOf(array(
@@ -42,7 +42,7 @@ class UserCachChangeForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
@@ -50,7 +50,7 @@ class UserCachChangeForm extends AtaForm {
 
         // Reason
         $reasonid = new TextElement('reasonid');
-        $reasonid->setLabel('Reason');
+        $reasonid->setLabel(_('Reason'));
         //$reasonid->setAttribute('placeholder', 'Enter your Reason');
         $reasonid->setAttribute('class', 'form-control');
         $reasonid->addValidator(new PresenceOf(array(
@@ -60,14 +60,14 @@ class UserCachChangeForm extends AtaForm {
 
         // More Info
         $more = new TextElement('more');
-        $more->setLabel('More Info');
+        $more->setLabel(_('More Info'));
         //$more->setAttribute('placeholder', 'Enter your More Info');
         $more->setAttribute('class', 'form-control');
         $this->add($more);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

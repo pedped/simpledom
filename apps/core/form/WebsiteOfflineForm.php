@@ -15,7 +15,7 @@ class WebsiteOfflineForm extends AtaForm {
 
         // Offline Mode
         $footerenablecontact = new EnableDisableElement("offline");
-        $footerenablecontact->setLabel("Offline Website ?");
+        $footerenablecontact->setLabel(_("Offline Website ?"));
         $footerenablecontact->setAttribute("class", "form-control");
         $this->add($footerenablecontact);
 
@@ -23,8 +23,8 @@ class WebsiteOfflineForm extends AtaForm {
 
         // Footer Text
         $footerText = new TextAreaElement("offlinemessage");
-        $footerText->setLabel("Footer Text");
-        $footerText->setAttribute("placeholder", "set your footer text here");
+        $footerText->setLabel(_("Footer Text"));
+        $footerText->setAttribute("placeholder", _("set your footer text here"));
         $footerText->setAttribute("class", "form-control");
         $this->add($footerText);
 

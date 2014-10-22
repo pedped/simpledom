@@ -23,7 +23,7 @@ class AdminUserProfileImageForm extends AtaForm {
 
         // File
         $file = new File("file");
-        $file->setLabel("Choose Your File");
+        $file->setLabel(_("Choose Your File"));
         $this->add($file);
 
 

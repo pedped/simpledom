@@ -32,7 +32,7 @@ class CachChangeReasonForm extends AtaForm {
 
         // Description
         $description = new TextElement('description');
-        $description->setLabel('Description');
+        $description->setLabel(_('Description'));
         //$description->setAttribute('placeholder', 'Enter your Description');
         $description->setAttribute('class', 'form-control');
         $description->addValidator(new PresenceOf(array(
@@ -42,14 +42,14 @@ class CachChangeReasonForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

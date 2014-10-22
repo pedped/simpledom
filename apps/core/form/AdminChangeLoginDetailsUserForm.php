@@ -15,8 +15,8 @@ class AdminChangeLoginDetailsUserForm extends AtaForm {
 
         // ٍEmail
         $email = new TextElement("email");
-        $email->setLabel("Email");
-        $email->setAttribute("placeholder", "Enter Email");
+        $email->setLabel(_("Email"));
+        $email->setAttribute("placeholder", _("Enter Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
         )));
@@ -27,8 +27,8 @@ class AdminChangeLoginDetailsUserForm extends AtaForm {
 
         // Password
         $password = new PasswordElement("password");
-        $password->setLabel("Password");
-        $password->setAttribute("placeholder", "Enter New Password");
+        $password->setLabel(_("Password"));
+        $password->setAttribute("placeholder", _("Enter New Password"));
         $password->setAttribute("class", "form-control");
         $password->addValidator(new Confirmation(array(
             'with' => 'confirmpassword'
@@ -36,8 +36,8 @@ class AdminChangeLoginDetailsUserForm extends AtaForm {
         $this->add($password);
 
         $confirmpassword = new PasswordElement("confirmpassword");
-        $confirmpassword->setLabel("Confirm Password");
-        $confirmpassword->setAttribute("placeholder", "Enter New Password Again");
+        $confirmpassword->setLabel(_("Confirm Password"));
+        $confirmpassword->setAttribute("placeholder",  _("Enter New Password Again"));
         $confirmpassword->setAttribute("class", "form-control");
         $this->add($confirmpassword);
 

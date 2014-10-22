@@ -21,15 +21,12 @@ class RegisterForm extends AtaForm {
 
         // First Name
         $firstname = new Text("firstname");
-        $firstname->setLabel("First Name");
-        $firstname->setAttribute("placeholder", "Enter your First Name");
+        $firstname->setLabel(_("First Name"));
         $firstname->setAttribute("class", "form-control");
         $firstname->addValidator(new PresenceOf(array(
-            'message' => 'The name is required'
         )));
         $firstname->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The name is too short'
         )));
         $this->add($firstname);
 
@@ -37,15 +34,12 @@ class RegisterForm extends AtaForm {
 
         // Last Name
         $lastname = new Text("lastname");
-        $lastname->setLabel("Last Name");
-        $lastname->setAttribute("placeholder", "Enter your Last Name");
+        $lastname->setLabel(_("Last Name"));
         $lastname->setAttribute("class", "form-control");
         $lastname->addValidator(new PresenceOf(array(
-            'message' => 'The last name is required'
         )));
         $lastname->addValidator(new StringLength(array(
             'min' => 2,
-            'messageMinimum' => 'The last name is too short'
         )));
         $this->add($lastname);
 
@@ -53,28 +47,26 @@ class RegisterForm extends AtaForm {
 
         // Gender
         $gender = new SelectElement("gender", array(
-            '1' => 'Male',
-            '0' => 'Female'
+            '1' => _('Male'),
+            '0' => _('Female')
         ));
-        $gender->setLabel("Gender");
+        $gender->setLabel(_("Gender"));
         $gender->setAttribute("class", "form-control");
         $this->add($gender);
 
         // Agreement
         $agreement = new CheckElement("agreement");
-        $agreement->setLabel("Agreement");
-        $agreement->setCheckboxText("I accept <a target='_blank' href='../agreement/view/1'>Signup Agreement</a>");
+        $agreement->setLabel(_("Agreement"));
+        $agreement->setCheckboxText(sprintf(_("I Accept %s"), sprintf(_("<a target='_blank' href='../agreement/view/1'>%s</a>"), "Signup Agreement")));
         $agreement->addValidator(new Identical(array(
             "value" => "1",
-            "message" => "You have to accept the agreement"
         )));
         $this->add($agreement);
 
 
         // ٍEmail
         $email = new Text("email");
-        $email->setLabel("Email");
-        $email->setAttribute("placeholder", "Enter Email");
+        $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
         )));
@@ -85,8 +77,7 @@ class RegisterForm extends AtaForm {
 
         // Phone
         $phone = new Text("phone");
-        $phone->setLabel("Phone");
-        $phone->setAttribute("placeholder", "Your Phone Number");
+        $phone->setLabel(_("Phone"));
         $phone->setAttribute("class", "form-control");
         if (intval(Settings::Get()->requestuserphoneonregister) == 1) {
             $phone->addValidator(new PresenceOf(array(
@@ -97,11 +88,9 @@ class RegisterForm extends AtaForm {
 
         // Password
         $password = new Password("password");
-        $password->setLabel("Password");
-        $password->setAttribute("placeholder", "Enter your Password");
+        $password->setLabel(_("Password"));
         $password->setAttribute("class", "form-control");
         $password->addValidator(new PresenceOf(array(
-            'message' => 'The password is required'
         )));
 //        $password->addValidator(new Between(array(
 //            'max' => 50,
