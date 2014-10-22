@@ -5,22 +5,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Simpledom\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-21 15:52+0330\n"
-"PO-Revision-Date: 2014-10-21 17:09+0330\n"
-"Last-Translator: Ata <convertersoft@gmail.com>\n"
-"Language-Team: Ata <convertersoft@gmail.com>\n"
+"POT-Creation-Date: 2014-10-22 12:43+0330\n"
+"PO-Revision-Date: 2014-10-22 12:47+0330\n"
+"Last-Translator: ATA <convertersoft@gmail.com>\n"
+"Language-Team: ATA <convertersoft@gmail.com>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.6.10\n"
 
 #: apps/frontend/controllers/PaymentController.php:24
 msgid "unable to find the payment method, may be it is disabled"
-msgstr ""
+msgstr "روش پرداخت شما غیر فعال میباشد"
 
 #: apps/frontend/controllers/PaymentController.php:38
 msgid "Success"
@@ -54,20 +53,22 @@ msgid ""
 "\"SMS Message has been sent to %s. Please check your phone and type your "
 "verification number here\""
 msgstr ""
+"کد تایید به شماره %s ارسال گردید، لطفا گوشی خود را چک نمایید و شماره ارسال "
+"شده را در این قسمت وارد نمایید"
 
 #: apps/frontend/controllers/PhoneController.php:68
 #, php-format
 msgid "Your Phone Number, %s, has been verified successfully"
-msgstr ""
+msgstr "شماره تماس شما %s با موفقیت تایید گردید"
 
 #: apps/frontend/controllers/PhoneController.php:72
 msgid "Invalid Number, Please Check Your SMS Again"
-msgstr ""
+msgstr "شماره وارد شده نامعتبر است، لطفا دوباره تلاش نمایید"
 
 #: apps/frontend/controllers/SearchController.php:63
 #, php-format
 msgid "\"Search For %s\""
-msgstr ""
+msgstr "جستجو برای %s"
 
 #: apps/frontend/controllers/IndexController.php:21
 msgid "Homepage"
@@ -82,10 +83,22 @@ msgid "Opinions"
 msgstr "نظرات"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/form/UserOrderForm.php:16 apps/core/form/EmailTemplateForm.php:19
+#: apps/core/form/PageForm.php:19 apps/core/form/SMSProviderForm.php:19
+#: apps/core/form/UserPhoneForm.php:18 apps/core/form/PaymentTypeForm.php:18
+#: apps/core/form/UserCachChangeForm.php:17
+#: apps/core/form/SystemLogForm.php:18 apps/core/form/SentsmsForm.php:15
+#: apps/core/form/SearchHistoryForm.php:17 apps/core/form/OpinionForm.php:22
+#: apps/core/form/UserTransactionForm.php:17
+#: apps/core/form/ProductTypeForm.php:18
+#: apps/core/form/TransactionTypeForm.php:18
+#: apps/core/form/PaymentPaylineForm.php:20
 msgid "ID"
 msgstr "کد"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/form/PageForm.php:40 apps/core/form/SystemLogForm.php:25
+#: apps/core/form/FaqForm.php:31
 msgid "Title"
 msgstr "تیتر"
 
@@ -98,19 +111,33 @@ msgid "Payment ID"
 msgstr "کد پرداخت"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/form/UserOrderForm.php:76
 msgid "Price"
 msgstr "هزینه"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/form/UserTransactionForm.php:45
+#: apps/core/form/PaymentPaylineForm.php:58
 msgid "Currency"
 msgstr "واحد"
 
 #: apps/frontend/controllers/UserController.php:61
 #: apps/frontend/controllers/UserController.php:440
+#: apps/core/form/UserOrderForm.php:92
+#: apps/core/form/CachChangeReasonForm.php:45 apps/core/form/PageForm.php:98
+#: apps/core/form/SMSProviderForm.php:57 apps/core/form/UserPhoneForm.php:80
+#: apps/core/form/UserCachChangeForm.php:45
+#: apps/core/form/SystemLogForm.php:61 apps/core/form/SentsmsForm.php:73
+#: apps/core/form/ImageForm.php:45 apps/core/form/SearchHistoryForm.php:50
+#: apps/core/form/OpinionForm.php:79 apps/core/form/UserTransactionForm.php:85
+#: apps/core/form/SmsNumberForm.php:61
+#: apps/core/form/PaymentPaylineForm.php:38
+#: apps/frontend/controllers/UserController.php:398
 msgid "Date"
 msgstr "تاریخ"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/form/PaymentPaylineForm.php:102
 msgid "Done"
 msgstr "انجام شده"
 
@@ -141,6 +168,8 @@ msgstr "فراموشی رمز عبور"
 #: apps/frontend/controllers/UserController.php:129
 msgid "Sorry!<br/>The login is disabled by adminstrator now"
 msgstr ""
+"متاسفانه در حال حاضر ورود به سیستم فعال نمیباشد، لطفا چند دقیقه بعد مجددا "
+"تلاش نمایید"
 
 #: apps/frontend/controllers/UserController.php:153
 msgid "Unable to find user"
@@ -156,6 +185,8 @@ msgid ""
 "Sorry!<br/>But the register system is disabled by Super Adminstator at this "
 "time."
 msgstr ""
+"متاسفانه در حال حاضر امکان عضویت در سایت غیر ممکن است، لطفا ساعاتی بعد "
+"مراجعه فرمایید"
 
 #: apps/frontend/controllers/UserController.php:224
 #, php-format
@@ -163,10 +194,16 @@ msgid ""
 "\"Hi %s \\nThank you for interseting in %s.\\n Please use this code to "
 "verify your phone number address :\\n %s"
 msgstr ""
+"سلام %s \n"
+" از عضویت شما در %s بسیار متشکریم، لطفا از کد \n"
+" %s \n"
+" برای تایید شماره تماس خود استفاده نمایید"
 
 #: apps/frontend/controllers/UserController.php:230
 msgid "Your Entered Phone was exist in database, please add another phone"
 msgstr ""
+"شماره که شما وارد نموده اید، هم اکنون در سیستم موجود میباشد، لطفا شماره "
+"دیگری وارد نمایید"
 
 #: apps/frontend/controllers/UserController.php:233
 msgid "User creating was successfull"
@@ -211,6 +248,10 @@ msgid "View Logins"
 msgstr "سابقه های ورود"
 
 #: apps/frontend/controllers/UserController.php:440
+#: apps/core/form/UserPhoneForm.php:37 apps/core/form/SendSMSForm.php:17
+#: apps/core/form/SentsmsForm.php:23 apps/core/form/RegisterForm.php:80
+#: apps/core/form/SiteInfoForm.php:156
+#: apps/frontend/views/contact/index.phtml:35
 msgid "Phone"
 msgstr "شماره تلفن"
 
@@ -219,6 +260,7 @@ msgid "Does Verified"
 msgstr "حساب تایید شده؟"
 
 #: apps/frontend/controllers/UserController.php:440
+#: apps/core/models/BaseUserPhone.php:149
 msgid "Verify Phone"
 msgstr "شماره خود را تایید نمایید"
 
@@ -236,6 +278,7 @@ msgid "Contact US"
 msgstr "تماس با ما"
 
 #: apps/frontend/forms/ProfileImageForm.php:24
+#: apps/core/form/AdminUserProfileImageForm.php:26
 msgid "Choose Your File"
 msgstr "فایل خود را انتخاب نمایید"
 
@@ -256,6 +299,27 @@ msgstr "تصویر"
 #: apps/core/form/SendBulkEmailForm.php:62
 #: apps/core/form/FooterInfoForm.php:55
 #: apps/core/form/WebsiteOfflineForm.php:35
+#: apps/frontend/views/layouts/header.phtml:30
+#: apps/core/form/UserOrderForm.php:99 apps/core/form/EmailTemplateForm.php:50
+#: apps/core/form/CachChangeReasonForm.php:52 apps/core/form/PageForm.php:105
+#: apps/core/form/SMSProviderForm.php:85 apps/core/form/UserPhoneForm.php:87
+#: apps/core/form/PaymentTypeForm.php:55
+#: apps/core/form/UserCachChangeForm.php:70
+#: apps/core/form/AgreementForm.php:57 apps/core/form/SystemLogForm.php:73
+#: apps/core/form/FaqForm.php:55 apps/core/form/SendSMSForm.php:48
+#: apps/core/form/SentsmsForm.php:96 apps/core/form/ImageForm.php:81
+#: apps/core/form/SearchHistoryForm.php:65 apps/core/form/ContactForm.php:80
+#: apps/core/form/OpinionForm.php:99 apps/core/form/ContactReplyForm.php:28
+#: apps/core/form/UserTransactionForm.php:94
+#: apps/core/form/ForgetPasswordForm.php:29
+#: apps/core/form/ProductTypeForm.php:55 apps/core/form/RegisterForm.php:106
+#: apps/core/form/UploadImageForm.php:21
+#: apps/core/form/TransactionTypeForm.php:45
+#: apps/core/form/SiteInfoForm.php:196 apps/core/form/SmsNumberForm.php:90
+#: apps/core/form/ProfileEditForm.php:57 apps/core/form/LoginForm.php:43
+#: apps/core/form/PaymentPaylineForm.php:111
+#: apps/core/form/SendBulkEmailForm.php:56
+#: apps/core/form/FooterInfoForm.php:54
 msgid "Submit"
 msgstr "ارسال"
 
@@ -376,7 +440,7 @@ msgstr "نمیتوان یک تراکنش  جدید ساخت"
 
 #: apps/frontend/views/error/404.phtml:5
 msgid "We're sorry, but the page you were looking for doesn't exist."
-msgstr ""
+msgstr "متاسفانه صفحه مورد نظر شما یافت نگردید"
 
 #: apps/frontend/views/error/404.phtml:9
 msgid "Here are some useful links"
@@ -414,7 +478,7 @@ msgstr "مشخصات ورود"
 
 #: apps/frontend/views/user/login.phtml:4
 msgid "Please enter your information to login to site"
-msgstr ""
+msgstr "لطفا اطلاعات ورود خود به سایت را وارد نمایید"
 
 #: apps/frontend/views/user/editlogin.phtml:1
 msgid "View And Edit Login Details"
@@ -424,12 +488,14 @@ msgstr "ویرایش مشخصات ورود"
 #: apps/frontend/views/user/editprofileimage.phtml:4
 #: apps/frontend/views/user/edit.phtml:4
 msgid "You can edit your basic profile information here"
-msgstr ""
+msgstr "شما میتوانید اطلاعات پایه خود را در این قسمت مشاهده و ویرایش نمایید"
 
 #: apps/frontend/views/user/editlogin.phtml:14
 msgid ""
 "In order to change your password, set new password and click on submit button"
 msgstr ""
+"برای تغییر رمز عبور، رمز عبور جدید را وارد نمایید و بر روی کلید ارسال کلیک "
+"کنید"
 
 #: apps/frontend/views/user/phones.phtml:1
 msgid "Manage Your Phones"
@@ -438,6 +504,7 @@ msgstr "مشاهده شماره تماس های شما"
 #: apps/frontend/views/user/phones.phtml:4
 msgid "you can add, delete or edit your phone numbers here"
 msgstr ""
+"شما در این قسمت میتوانید شماره های خود را مشاهده، اضافه و یا حذف نمایید"
 
 #: apps/frontend/views/user/welcome.phtml:1
 #, php-format
@@ -446,7 +513,7 @@ msgstr "خوش آمدید %s %s"
 
 #: apps/frontend/views/user/welcome.phtml:2
 msgid "You are not logged in to the system."
-msgstr ""
+msgstr "شما هنوز وارد سیستم نشده اید"
 
 #: apps/frontend/views/user/orders.phtml:4
 msgid "View your orders"
@@ -466,12 +533,12 @@ msgstr "سابقه های ورود"
 
 #: apps/frontend/views/user/viewlogins.phtml:4
 msgid "You can see your login history here"
-msgstr ""
+msgstr "شما میتوانید سوابق ورود خود را در این قسمت مشاهده نمایید"
 
 #: apps/frontend/views/search/request.phtml:6
 #, php-format
 msgid "Search Result For : <b>%s</b>"
-msgstr ""
+msgstr "نمایش نتایج برای <b>%s</b>"
 
 #: apps/frontend/views/index/index.phtml:2
 msgid "Start Payment"
@@ -496,12 +563,15 @@ msgstr "به یک شماره تماس تایید شده نیاز داریم"
 #: apps/frontend/views/index.phtml:57
 msgid "You have not verified phone, Please add and verify your phone"
 msgstr ""
+"شماره تماس تایید شده ای از طرف شما یافت نگردید، لطفا ابتدا شماره تماس خود را "
+"وارد نمایید و سپس آن را تایید نموده"
 
 #: apps/frontend/views/index.phtml:59
 msgid "View My Phones"
 msgstr "مشاهده شماره تماس های من"
 
 #: apps/frontend/views/agreement/view.phtml:3
+#: apps/core/form/RegisterForm.php:59
 msgid "Agreement"
 msgstr "توافق نامه"
 
@@ -523,7 +593,7 @@ msgstr "نظرات"
 
 #: apps/frontend/views/layouts/header.phtml:28
 msgid "?????"
-msgstr ""
+msgstr "؟؟؟؟؟"
 
 #: apps/frontend/views/layouts/header.phtml:38
 msgid "Administrator"
@@ -543,7 +613,7 @@ msgstr "ثبت نام"
 
 #: apps/frontend/views/layouts/header.phtml:58
 msgid "???? ?? ??"
-msgstr ""
+msgstr "؟؟؟؟"
 
 #: apps/frontend/views/layouts/usersettingsheader.phtml:5
 msgid "Basic Settings"
@@ -613,3 +683,517 @@ msgstr "لیست"
 #: apps/admin/views/layouts/sidebar.phtml:423
 msgid "Pages"
 msgstr "صفحات"
+
+#: apps/frontend/views/layouts/header.phtml:28 apps/core/AtaPaginator.php:159
+msgid "Search"
+msgstr "جستجو"
+
+#: apps/frontend/views/layouts/header.phtml:58
+msgid "CONTACT US"
+msgstr "تماس با ما"
+
+#: apps/frontend/forms/LoginDetailsForm.php:16
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:18
+#: apps/core/form/ContactForm.php:32 apps/core/form/OpinionForm.php:51
+#: apps/core/form/ForgetPasswordForm.php:16 apps/core/form/RegisterForm.php:69
+#: apps/core/form/LoginForm.php:17 apps/frontend/views/contact/index.phtml:38
+#: apps/frontend/views/layouts/footer.phtml:27
+msgid "Email"
+msgstr "ایمیل"
+
+#: apps/core/form/UserOrderForm.php:24 apps/core/form/UserPhoneForm.php:26
+#: apps/core/form/UserCachChangeForm.php:25
+#: apps/core/form/SearchHistoryForm.php:25 apps/core/form/OpinionForm.php:30
+#: apps/core/form/UserTransactionForm.php:25
+#: apps/core/form/PaymentPaylineForm.php:28
+msgid "User ID"
+msgstr "کد کاربری"
+
+#: apps/core/form/UserOrderForm.php:34
+#: apps/core/form/UserTransactionForm.php:55
+msgid "Type"
+msgstr "نوع آیتم"
+
+#: apps/core/form/UserOrderForm.php:47
+#: apps/core/form/UserTransactionForm.php:75
+msgid "Item ID"
+msgstr "کد محصول"
+
+#: apps/core/form/UserOrderForm.php:57
+msgid "Payment Product Type"
+msgstr "نوع پرداخت محصول"
+
+#: apps/core/form/UserOrderForm.php:68
+msgid "Payment Item ID"
+msgstr "کد پرداخت"
+
+#: apps/core/form/UserOrderForm.php:84
+msgid "Price Currency"
+msgstr "واحد"
+
+#: apps/core/form/EmailTemplateForm.php:26
+#: apps/core/form/SMSProviderForm.php:27 apps/core/form/PaymentTypeForm.php:36
+#: apps/core/form/OpinionForm.php:38 apps/core/form/ProductTypeForm.php:36
+#: apps/core/form/TransactionTypeForm.php:36
+#: apps/frontend/views/layouts/footer.phtml:25
+msgid "Name"
+msgstr "نام"
+
+#: apps/core/form/CachChangeReasonForm.php:35
+#: apps/core/form/SMSProviderForm.php:37 apps/core/form/SmsNumberForm.php:69
+msgid "Description"
+msgstr "توضیحات"
+
+#: apps/core/form/PageForm.php:27 apps/core/form/PaymentTypeForm.php:26
+#: apps/core/form/ProductTypeForm.php:26
+#: apps/core/form/TransactionTypeForm.php:26
+msgid "Key"
+msgstr "کلید"
+
+#: apps/core/form/PageForm.php:53
+msgid "Text"
+msgstr "متن"
+
+#: apps/core/form/PageForm.php:66
+msgid "Metadata Tags"
+msgstr "تگ های متادیتا"
+
+#: apps/core/form/PageForm.php:74
+msgid "Metadata Description"
+msgstr "توضیحات متادیتا"
+
+#: apps/core/form/PageForm.php:82
+msgid "Show In Header"
+msgstr "نمایش در هیدر"
+
+#: apps/core/form/PageForm.php:90 apps/core/form/FooterInfoForm.php:30
+#: apps/core/form/WebsiteOfflineForm.php:26
+msgid "Footer Text"
+msgstr "تیتر پانویس"
+
+#: apps/core/form/SMSProviderForm.php:47
+msgid "Infos"
+msgstr "اطلاعات"
+
+#: apps/core/form/SMSProviderForm.php:65
+msgid "Website URL"
+msgstr "لینک سایت"
+
+#: apps/core/form/SMSProviderForm.php:75 apps/core/form/PaymentTypeForm.php:46
+#: apps/core/form/ProductTypeForm.php:46 apps/core/form/SmsNumberForm.php:42
+msgid "Enable"
+msgstr "فعال"
+
+#: apps/core/form/UserPhoneForm.php:50 apps/core/form/VerifyPhoneForm.php:17
+msgid "Verify Code"
+msgstr "کد تایید"
+
+#: apps/core/form/UserPhoneForm.php:60 apps/core/form/ViewUserForm.php:64
+msgid "Verified"
+msgstr "تایید شده"
+
+#: apps/core/form/UserPhoneForm.php:70
+msgid "Last SMS Sent Date"
+msgstr "زمان ارسال آخرین پیامک"
+
+#: apps/core/form/UserCachChangeForm.php:35
+#: apps/core/form/UserTransactionForm.php:35
+#: apps/core/form/PaymentPaylineForm.php:48
+msgid "Amount"
+msgstr "هزینه"
+
+#: apps/core/form/UserCachChangeForm.php:53
+msgid "Reason"
+msgstr "دلیل"
+
+#: apps/core/form/UserCachChangeForm.php:63
+msgid "More Info"
+msgstr "اطلاعات بیشتر"
+
+#: apps/core/form/SystemLogForm.php:37 apps/core/form/SentsmsForm.php:53
+#: apps/frontend/controllers/UserController.php:398
+msgid "IP"
+msgstr "آی پی"
+
+#: apps/core/form/SystemLogForm.php:49 apps/core/form/FaqForm.php:43
+#: apps/core/form/SendSMSForm.php:27 apps/core/form/SentsmsForm.php:33
+#: apps/core/form/ContactForm.php:54 apps/core/form/OpinionForm.php:66
+#: apps/core/form/ContactReplyForm.php:16
+#: apps/core/form/SendBulkEmailForm.php:44
+msgid "Message"
+msgstr "پیام"
+
+#: apps/core/form/FaqForm.php:19
+msgid "Head"
+msgstr "سر"
+
+#: apps/core/form/SendSMSForm.php:18
+msgid "Enter comma to send more than one phone"
+msgstr "از کاما برای جدا نمودن شماره تماس ها استفاده نمایید"
+
+#: apps/core/form/SendSMSForm.php:39 apps/core/form/SentsmsForm.php:43
+msgid "From Number"
+msgstr "از شماره"
+
+#: apps/core/form/SentsmsForm.php:63
+msgid "Provider"
+msgstr "ارائه کننده"
+
+#: apps/core/form/SentsmsForm.php:81
+msgid "Result"
+msgstr "نتیجه"
+
+#: apps/core/form/SentsmsForm.php:89
+msgid "Reference Code"
+msgstr "کد ارجاع"
+
+#: apps/core/form/ViewUserForm.php:21 apps/core/form/RegisterForm.php:24
+#: apps/core/form/ProfileEditForm.php:19
+msgid "First Name"
+msgstr "نام"
+
+#: apps/core/form/ViewUserForm.php:22
+msgid "Enter your First Name"
+msgstr "نام خود را وارد نمایید"
+
+#: apps/core/form/ViewUserForm.php:35 apps/core/form/RegisterForm.php:37
+#: apps/core/form/ProfileEditForm.php:33
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: apps/core/form/ViewUserForm.php:36
+msgid "Enter your Last Name"
+msgstr "نام خانوادگی خود را وارد نمایید"
+
+#: apps/core/form/ViewUserForm.php:48 apps/core/form/RegisterForm.php:50
+#: apps/core/form/ProfileEditForm.php:46
+msgid "Male"
+msgstr "مرد"
+
+#: apps/core/form/ViewUserForm.php:49 apps/core/form/RegisterForm.php:51
+#: apps/core/form/ProfileEditForm.php:47
+msgid "Female"
+msgstr "زن"
+
+#: apps/core/form/ViewUserForm.php:51 apps/core/form/RegisterForm.php:53
+#: apps/core/form/ProfileEditForm.php:49
+msgid "Gender"
+msgstr "جنسیت"
+
+#: apps/core/form/ViewUserForm.php:58
+msgid "Active"
+msgstr "فعال"
+
+#: apps/core/form/ViewUserForm.php:71
+msgid "Disabled Account Message"
+msgstr "متن پیام بسته بودن حساب"
+
+#: apps/core/form/ViewUserForm.php:72
+msgid "When you make user offline, you may use offline message for the user"
+msgstr ""
+"هنکامی که سایت خود را در حالت آفلاین قرار میدهید، متن این قسمت برای کاربران "
+"نمایش داده میشود"
+
+#: apps/core/form/ImageForm.php:27
+msgid "Path"
+msgstr "مسیر"
+
+#: apps/core/form/ImageForm.php:57
+msgid "Mime Type"
+msgstr "نوع فایل"
+
+#: apps/core/form/ImageForm.php:69
+msgid "File Size"
+msgstr "سایز فایل"
+
+#: apps/core/form/SearchHistoryForm.php:33
+msgid "Query"
+msgstr "کلمه مورد جستجو"
+
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:19
+#: apps/core/form/ForgetPasswordForm.php:17
+msgid "Enter Email"
+msgstr "ایمیل را وارد نمایید"
+
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:30
+#: apps/core/form/RegisterForm.php:91 apps/core/form/LoginForm.php:28
+msgid "Password"
+msgstr "رمز عبور"
+
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:31
+msgid "Enter New Password"
+msgstr "لطفا رمز عبور جدید را وارد نمایید"
+
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:39
+msgid "Confirm Password"
+msgstr "تکرار رمز عبور"
+
+#: apps/core/form/AdminChangeLoginDetailsUserForm.php:40
+msgid "Enter New Password Again"
+msgstr "لطفا رمز عبور جدید را وارد نمایید"
+
+#: apps/core/form/ContactForm.php:21
+msgid "Full Name"
+msgstr "نام"
+
+#: apps/core/form/ContactForm.php:43
+msgid "Support"
+msgstr "بخش پشتیبانی"
+
+#: apps/core/form/ContactForm.php:44
+msgid "Sale"
+msgstr "فروش"
+
+#: apps/core/form/ContactForm.php:45
+msgid "Resseler"
+msgstr "عمومی"
+
+#: apps/core/form/ContactForm.php:47
+msgid "Section"
+msgstr "بخش"
+
+#: apps/core/form/ContactForm.php:69 apps/core/form/ContactForm.php:71
+msgid "Our Location"
+msgstr "موقعیت ما"
+
+#: apps/core/form/ContactForm.php:72
+msgid "We are here"
+msgstr "ما اینجا هستیم"
+
+#: apps/core/form/OpinionForm.php:87
+msgid "Rating"
+msgstr "امتیاز"
+
+#: apps/core/form/UserTransactionForm.php:65
+msgid "Type Name"
+msgstr "نام نوع"
+
+#: apps/core/form/RegisterForm.php:60
+#, php-format
+msgid "I Accept %s"
+msgstr "من %s را قبول دارم"
+
+#: apps/core/form/RegisterForm.php:60
+#, php-format
+msgid "<a target='_blank' href='../agreement/view/1'>%s</a>"
+msgstr "<a target='_blank' href='../agreement/view/1'>%s</a>"
+
+#: apps/core/form/UploadImageForm.php:16
+msgid "File"
+msgstr "فایل"
+
+#: apps/core/form/SiteInfoForm.php:21
+msgid "Website Name"
+msgstr "نام وبسایت"
+
+#: apps/core/form/SiteInfoForm.php:35
+msgid "Send Payment Receipt By Email"
+msgstr "ارسال رسید پرداخت توسط ایمیل"
+
+#: apps/core/form/SiteInfoForm.php:42
+msgid "Send Payment Receipt By SMS"
+msgstr "ارسال رسید پرداخت توسط پیامک"
+
+#: apps/core/form/SiteInfoForm.php:50
+msgid "Request User Phone On Register"
+msgstr "درخواست شماره تماس در هنگام ثبت نام"
+
+#: apps/core/form/SiteInfoForm.php:57
+msgid "Request Verifed Phone"
+msgstr "درخواست شماره تماس تایید شده"
+
+#: apps/core/form/SiteInfoForm.php:64
+msgid "Show News To Users"
+msgstr "نمایش خبر برای کاربران"
+
+#: apps/core/form/SiteInfoForm.php:71
+msgid "Enable Search"
+msgstr "فعال سازی جستجو"
+
+#: apps/core/form/SiteInfoForm.php:77
+msgid "RTL"
+msgstr "راست به چپ"
+
+#: apps/core/form/SiteInfoForm.php:83
+msgid "Send News To Android\\IPhone Users"
+msgstr "ارسال خبر به کاربران اندروید و ایفون"
+
+#: apps/core/form/SiteInfoForm.php:90
+msgid "Global Message"
+msgstr "پیام عمومی"
+
+#: apps/core/form/SiteInfoForm.php:91
+msgid ""
+"When you enter global message, everybody can see global message, make this "
+"form empty to disable global message showing"
+msgstr ""
+"در صورت ارائه متن عمومی، متن وارد شده در تمامی صفحات سایت و برای تمامی "
+"کاربران نمایش داده "
+
+#: apps/core/form/SiteInfoForm.php:98
+msgid "Enable\\Disable Signup"
+msgstr "فعال سازی عضویت"
+
+#: apps/core/form/SiteInfoForm.php:106
+msgid "Enable\\Disable Login"
+msgstr "فعال سازی ورود"
+
+#: apps/core/form/SiteInfoForm.php:115
+msgid "Metadata"
+msgstr "تگ های متادیتا"
+
+#: apps/core/form/SiteInfoForm.php:122
+msgid "Google Analytics Code"
+msgstr "کد آنالیز گوگل"
+
+#: apps/core/form/SiteInfoForm.php:129
+msgid "Clicky Analytics Code"
+msgstr "کد آنالیز کیلیکی"
+
+#: apps/core/form/SiteInfoForm.php:137
+msgid "Keywords"
+msgstr "کلمات"
+
+#: apps/core/form/SiteInfoForm.php:138
+msgid "seperate keywords by comma"
+msgstr "کلمات را با استفاده از کاما جدا نمایید"
+
+#: apps/core/form/SiteInfoForm.php:145
+#: apps/frontend/views/contact/index.phtml:32
+msgid "Address"
+msgstr "آدرس"
+
+#: apps/core/form/SiteInfoForm.php:167
+msgid "Support Email"
+msgstr "ایمیل  پشتیبانی"
+
+#: apps/core/form/SiteInfoForm.php:179
+msgid "Latitude"
+msgstr "عرض جغرافیایی"
+
+#: apps/core/form/SiteInfoForm.php:187
+msgid "Longtude"
+msgstr "طول جغرافیایی"
+
+#: apps/core/form/VerifyPhoneForm.php:18
+msgid "Enter the number you have recived in your Phone"
+msgstr "شماره ای که به گوشی شما پیامک شده است را وارد نمایید"
+
+#: apps/core/form/SmsNumberForm.php:29
+msgid "Number"
+msgstr "شماره"
+
+#: apps/core/form/SmsNumberForm.php:53
+msgid "Sent Count"
+msgstr "تعداد ارسال"
+
+#: apps/core/form/SmsNumberForm.php:81
+msgid "Provider Name"
+msgstr "نام ارائه کننده"
+
+#: apps/core/form/PaymentPaylineForm.php:72
+msgid "User Transaction ID"
+msgstr "کد تراکنش کاربری"
+
+#: apps/core/form/PaymentPaylineForm.php:82
+msgid "Payline ID Get"
+msgstr "کد دریافتی پی لاین"
+
+#: apps/core/form/PaymentPaylineForm.php:92
+msgid "Payline Transaction ID"
+msgstr "کد تراکنش پیلاین"
+
+#: apps/core/form/SendBulkEmailForm.php:17
+msgid "From"
+msgstr "از طرف"
+
+#: apps/core/form/SendBulkEmailForm.php:30
+msgid "Subject"
+msgstr "موضوع"
+
+#: apps/core/form/FooterInfoForm.php:18
+msgid "Footer Title"
+msgstr "تیتر پانویس"
+
+#: apps/core/form/FooterInfoForm.php:31
+msgid "Set your footer text here"
+msgstr "متن فوتر خود را در این قسمت تنظیم نمایید"
+
+#: apps/core/form/FooterInfoForm.php:38
+msgid "Footer Menus"
+msgstr "منوهای  پانویس"
+
+#: apps/core/form/FooterInfoForm.php:47
+msgid "Enable Footer Contact Form"
+msgstr "نمایش فرم تماس با ما در فوتر"
+
+#: apps/core/form/WebsiteOfflineForm.php:18
+msgid "Offline Website ?"
+msgstr "تغییر وضعیت سایت به آفلاین ؟"
+
+#: apps/core/form/WebsiteOfflineForm.php:27
+msgid "set your footer text here"
+msgstr "متن پانویس خود را در ای قسمت وارد نمایید"
+
+#: apps/frontend/controllers/UserController.php:238
+msgid "Signup"
+msgstr "عضویت"
+
+#: apps/frontend/controllers/UserController.php:398
+msgid "Agent"
+msgstr "ایجنت"
+
+#: apps/core/models/BaseUserOrder.php:255
+#: apps/core/models/BaseUserPhone.php:144
+msgid "Yes"
+msgstr "بله"
+
+#: apps/core/models/BaseUserOrder.php:255
+#: apps/core/models/BaseUserPhone.php:144
+msgid "No"
+msgstr "خیر"
+
+#: apps/core/models/BaseUserPhone.php:149
+msgid "Already Verified"
+msgstr "هم اکنون تایید شده است"
+
+#: apps/core/AtaPaginator.php:157
+msgid "Search Text Goes Here..."
+msgstr "متن جستجوی خود را در این قسمت وارد نمایید"
+
+#: apps/core/AtaPaginator.php:182
+msgid "First"
+msgstr "اولین"
+
+#: apps/core/AtaPaginator.php:183
+msgid "Previous"
+msgstr "قبلی"
+
+#: apps/core/AtaPaginator.php:184
+msgid "Next"
+msgstr "بعدی"
+
+#: apps/core/AtaPaginator.php:185
+msgid "Last"
+msgstr "آخرین"
+
+#: apps/core/AtaPaginator.php:188
+#, php-format
+msgid "You are in page %s of %s"
+msgstr "شما در صفحه %s از %s هستید"
+
+#: apps/core/AtaPaginator.php:244
+msgid "View/Edit"
+msgstr "مشاهده/ویرایش"
+
+#: apps/core/AtaPaginator.php:247
+msgid "Delete"
+msgstr "حذف"
+
+#: apps/frontend/views/layouts/footer.phtml:29
+msgid "Type your messages here"
+msgstr "متن خود را در این قسمت وارد نمایید"
+
+#: apps/frontend/views/layouts/footer.phtml:31
+msgid "Send"
+msgstr "ارسال"

@@ -1,13 +1,12 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use BaseUserLog;
 use Opinion;
 use Simpledom\Core\OpinionForm;
-use Simpledom\Frontend\BaseControllers\OpinionControllerBase;
 
-class OpinionController extends OpinionControllerBase {
+class OpinionControllerBase extends ControllerBase {
 
     public function indexAction() {
 

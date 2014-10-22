@@ -43,8 +43,8 @@ class ProfileEditForm extends AtaForm {
 
         // Gender
         $gender = new Select("gender", array(
-            '1' => 'Male',
-            '0' => 'Female'
+            '1' => _('Male'),
+            '0' => _('Female')
         ));
         $gender->setLabel(_("Gender"));
         $gender->setAttribute("class", "form-control");

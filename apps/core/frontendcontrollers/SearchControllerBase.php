@@ -1,14 +1,13 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use AtaPaginator;
 use BaseSearchHistory;
 use BaseUser;
-use Simpledom\Frontend\BaseControllers\PhoneControllerBase;
 use stdClass;
 
-class SearchController extends PhoneControllerBase {
+class SearchControllerBase extends ControllerBase {
 
     public function requestAction($pageNumber = 1, $type = "all") {
 

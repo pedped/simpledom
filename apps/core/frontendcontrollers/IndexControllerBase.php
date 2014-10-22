@@ -1,12 +1,11 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use BaseUserLog;
 use Simpledom\Core\MasterTutorialForm;
-use Simpledom\Frontend\BaseControllers\IndexControllerBase;
 
-class IndexController extends IndexControllerBase {
+class IndexControllerBase extends ControllerBase {
 
     public function indexAction() {
 

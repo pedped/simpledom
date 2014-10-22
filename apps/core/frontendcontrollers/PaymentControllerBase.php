@@ -1,14 +1,13 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use PaymentMethod;
 use PaymentType;
 use Phalcon\Text;
 use Phalcon\Validation\Exception;
-use Simpledom\Frontend\BaseControllers\PaymentControllerBase;
 
-class PaymentController extends PaymentControllerBase {
+class PaymentControllerBase extends ControllerBase {
 
     /**
      *

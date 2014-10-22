@@ -141,12 +141,12 @@ class BaseUserPhone extends AtaModel {
     }
 
     public function getVerifiedText() {
-        return intval($this->verified) == 1 ? "Yes" : "No";
+        return intval($this->verified) == 1 ? _("Yes") : _("No");
     }
 
     public function getVerifiedLink() {
         $publicUrl = Config::getPublicUrl();
-        return intval($this->verified) == 0 ? "<a href='$publicUrl" . "phone/verify/$this->phone' class='btn btn-primary btn-sm' >Verify Phone</a>" : "<a class='btn btn-success btn-sm disabled' >Already Verified</a>";
+        return intval($this->verified) == 0 ? "<a href='$publicUrl" . "phone/verify/$this->phone' class='btn btn-primary btn-sm' >" . _("Verify Phone") . "</a>" : "<a class='btn btn-success btn-sm disabled' >" . _("Already Verified") . "</a>";
     }
 
     public function getUserName() {

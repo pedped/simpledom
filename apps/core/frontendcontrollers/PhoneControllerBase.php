@@ -1,12 +1,11 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use Simpledom\Core\VerifyPhoneForm;
-use Simpledom\Frontend\BaseControllers\PhoneControllerBase;
 use UserPhone;
 
-class PhoneController extends PhoneControllerBase {
+class PhoneControllerBase extends ControllerBase {
 
     public function invalidAction($phone) {
         

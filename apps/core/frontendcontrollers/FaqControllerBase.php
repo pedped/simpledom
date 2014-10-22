@@ -1,12 +1,11 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use BaseFaq;
 use BaseUserLog;
-use Simpledom\Frontend\BaseControllers\FaqControllerBase;
 
-class FaqController extends FaqControllerBase {
+class FaqControllerBase extends ControllerBase {
 
     public function indexAction() {
 

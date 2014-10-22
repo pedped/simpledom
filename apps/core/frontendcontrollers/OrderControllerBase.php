@@ -1,11 +1,10 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use Simpledom\Core\Classes\Order;
-use Simpledom\Frontend\BaseControllers\OrderControllerBase;
 
-class OrderController extends OrderControllerBase {
+class OrderControllerBase extends ControllerBase {
 
     public function startAction($id) {
         $this->errors = array();

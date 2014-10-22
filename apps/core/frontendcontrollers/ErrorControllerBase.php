@@ -1,13 +1,12 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
-use Simpledom\Frontend\BaseControllers\ErrorControllerBase;
 
 /**
  * ErrorController 
  */
-class ErrorController extends ErrorControllerBase {
+class ErrorControllerBase extends ControllerBase {
 
     public function show404Action() {
         $this->response->setStatusCode(404, 'Not Found');

@@ -252,7 +252,7 @@ class BaseUserOrder extends AtaModel {
     }
 
     public function getDoneTag() {
-        return ( intval($this->done) == 1 ) ? "<div class='btn btn-sm btn-success' style='padding: 2px 10px;'>Yes</div>" : "<div class='btn btn-sm btn-danger' style='padding: 2px 10px;'>No</div>";
+        return ( intval($this->done) == 1 ) ? "<div class='btn btn-sm btn-success' style='padding: 2px 10px;'>" . _("Yes") . "</div>" : "<div class='btn btn-sm btn-danger' style='padding: 2px 10px;'>" . _("No") . "</div>";
     }
 
     public function getItemTitle() {

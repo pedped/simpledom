@@ -1,6 +1,6 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use BaseTrack;
 use BaseUser;

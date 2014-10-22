@@ -1,11 +1,10 @@
 <?php
 
-namespace Simpledom\Frontend\Controllers;
+namespace Simpledom\Frontend\BaseControllers;
 
 use Page;
-use Simpledom\Frontend\BaseControllers\PageControllerBase;
 
-class PageController extends PageControllerBase {
+class PageControllerBase extends ControllerBase {
 
     public function viewAction($id = 1) {
         $page = Page::findFirst($id);
