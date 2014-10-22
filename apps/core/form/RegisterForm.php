@@ -58,9 +58,9 @@ class RegisterForm extends AtaForm {
         $agreement = new CheckElement("agreement");
         $agreement->setLabel(_("Agreement"));
         $agreement->setCheckboxText(sprintf(_("I Accept %s"), sprintf(_("<a target='_blank' href='../agreement/view/1'>%s</a>"), _("Signup Agreement"))));
-        $agreement->addValidator(new Identical(array(
-            "value" => "1",
-        )));
+//        $agreement->addValidator(new Identical(array(
+//            "value" => "1",
+//        )));
         $this->add($agreement);
 
 

@@ -1,0 +1,18 @@
+<h1><?= _("Resend Verification Email"); ?></h1>
+<hr/>
+<div><?php echo $this->getContent(); ?></div>
+<div class='row'>
+    <div class='col-md-6'>
+        <p><?= _("If you want to receive new verification code, please enter your email address here and click on submit button"); ?></p>
+        <form method="post">
+            <!-- Email !-->
+            <?php $form->renderDecorated('email'); ?> 
+
+            <!-- Submit Button !-->
+            <?php $form->renderDecorated('submit'); ?> 
+        </form>
+    </div>
+    <div class='col-md-6'>
+
+    </div>
+</div>

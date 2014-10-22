@@ -10,8 +10,10 @@ use BaseUserLog;
 use EmailItems;
 use LoginDetailsForm;
 use ProfileImageForm;
+use ResetVerficationCode;
 use Settings;
 use Simpledom\Core\Classes\FileManager;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\ForgetPasswordForm;
 use Simpledom\Core\LoginForm;
 use Simpledom\Core\ProfileEditForm;
@@ -23,14 +25,105 @@ use UserPhone;
 
 class UserControllerBase extends ControllerBase {
 
+    public function resetverifyAction() {
+
+        $this->setPageTitle(_("Resend Verification Link"));
+        $fr = new ResetVerficationCode();
+        $this->view->form = $fr;
+
+        // check if user requested resending verification email
+        if (!$this->request->isPost()) {
+            // user did not requested resend verificaion email
+            return;
+        } else {
+            if (!$fr->isValid($_POST)) {
+                // invalid email received
+                return;
+            }
+        }
+
+        // user added his emai;
+        $email = $this->request->getPost("email");
+
+        $user = \BaseUser::findFirst(array("email = :email:", "bind" => array("email" => $email)));
+        if (!$user) {
+            $this->flash->error(_("We are not able to find user with requested email"));
+            return;
+        }
+
+        // check if the user is verified before
+        if (intval($user->verified) == 1) {
+            $this->flash->error(_("This email has verified before"));
+            return;
+        }
+
+        // Reset the verify code
+        $user->verifycode = Helper::GenerateRandomString(256);
+        if (!$user->save()) {
+            $this->flash->error(_("Internal Error, Please Try Later"));
+            return;
+        } else {
+
+            // Send email
+            $emailItems = new \EmailItems();
+            $emailItems->sendVerifyCode($user->userid, $user->getFullName(), $user->email, $user->verifycode);
+
+            // Show message
+            $this->flash->success(_("<h2>Success</h2>new verfication code has been sent to your email successfully"));
+        }
+    }
+
+    public function verifyAction($email = null, $usercode = null) {
+
+
+        $this->setPageTitle(_("Verify Email"));
+
+
+        // check if user eneterd email and user code
+        if (!isset($email) || !isset($usercode)) {
+            $this->flash->error(_("Invalid email and verification code"));
+            return;
+        }
+
+        // user want to verify his email, check if email exist in database
+        $user = \BaseUser::findFirst(array("email = :email:", "bind" => array("email" => $email)));
+        if (!$user) {
+            $this->flash->error(_("We are not able to find user with requested email"));
+            return;
+        }
+
+        // check if the user is verified before
+        if (intval($user->verified) == 1) {
+            $this->flash->error(_("This email has verified before"));
+            return;
+        }
+
+
+        // check if code equal
+        if (strval($user->verifycode) != strval($usercode)) {
+            $this->flash->error(_("Oops! your verification code is invalid"));
+            return;
+        }
+
+
+        // everything is ok, we can set the user code
+        $user->verified = 1;
+        if (!$user->save()) {
+            $this->flash->error(_("Your verification code is valid, but we are not able to change your status, please try later"));
+            return;
+        } else {
+            $this->flash->success(_("<h2>Success</h2>Your account has been changed verified successfully"));
+        }
+    }
+
     public function LogoutAction() {
         // destroy session
         $this->session->destroy();
 
-        return $this->dispatcher->forward(array(
-                    "controller" => "index",
-                    "action" => "index"
-        ));
+        // show message
+        $this->flash->success(_("You have successfully logged out from webiste"));
+
+        return $this->response->redirect("");
     }
 
     public function ordersAction($page = 1) {
@@ -144,8 +237,8 @@ class UserControllerBase extends ControllerBase {
 
                     // go to welcome page
                     return $this->dispatcher->forward(array(
-                                "controller" => "user",
-                                "action" => "welcome"
+                                "controller" => "index",
+                                "action" => "index"
                     ));
                 } else {
                     // unabel to find the user
