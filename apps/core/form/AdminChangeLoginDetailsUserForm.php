@@ -30,9 +30,9 @@ class AdminChangeLoginDetailsUserForm extends AtaForm {
         $password->setLabel(_("Password"));
         $password->setAttribute("placeholder", _("Enter New Password"));
         $password->setAttribute("class", "form-control");
-        $password->addValidator(new Confirmation(array(
-            'with' => 'confirmpassword'
-        )));
+//        $password->addValidator(new Confirmation(array(
+//            'with' => 'confirmpassword'
+//        )));
         $this->add($password);
 
         $confirmpassword = new PasswordElement("confirmpassword");
