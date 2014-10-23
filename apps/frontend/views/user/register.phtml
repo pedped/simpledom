@@ -1,3 +1,4 @@
+<?php use Simpledom\Core\Classes\Config; ?>
 <h1><?= _("Register to the site"); ?></h1>
 <div class='row'>
     <div class='col-md-6'>
@@ -29,6 +30,10 @@
 
             <!-- Agreement !-->
             <?php echo $registerform->renderDecorated('agreement'); ?>
+            
+            
+            <!-- Captcha !-->
+            <?php echo Recaptcha::get(Config::GetRecaptchaPublicKey()); ?>
 
             <!-- Submit !-->
             <?php echo $registerform->renderDecorated('submit'); ?>

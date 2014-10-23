@@ -9,9 +9,12 @@ use BaseUser;
 use BaseUserLog;
 use EmailItems;
 use LoginDetailsForm;
+use Phalcon\Filter;
 use ProfileImageForm;
+use Recaptcha;
 use ResetVerficationCode;
 use Settings;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\ForgetPasswordForm;
@@ -201,17 +204,15 @@ class UserControllerBase extends ControllerBase {
 
     public function loginAction() {
 
-
         $lf = new LoginForm();
         $this->view->loginform = $lf;
         if ($this->request->isPost()) {
+
             if (!$lf->isValid($_POST)) {
                 // invalid post
             } else {
-
                 // check if the website signin is enabled
-
-                $email = $this->request->getPost("email");
+                $email = $this->request->getPost("email", "email");
                 $password = $this->request->getPost("password");
                 $user = BaseUser::Login($email, $password);
                 if ($user) {
@@ -262,8 +263,12 @@ class UserControllerBase extends ControllerBase {
         $rf = new RegisterForm();
         if ($this->request->isPost()) {
             // user want to submit the post, validae the request
-            if (!$rf->isValid($_POST)) {
-                // invalid post
+            if (!$rf->isValid($_POST) || !Recaptcha::check(Config::GetRecaptchaPrivateKey(), $_SERVER['REMOTE_ADDR'], $this->request->getPost('recaptcha_challenge_field'), $this->request->getPost('recaptcha_response_field'))) {
+                // invalid post or recaptcha
+                if ($rf->isValid($_POST)) {
+                    //captcha was invalid
+                    $this->flash->error(_("Invalid Capctcha"));
+                }
             } else {
 
 
@@ -547,6 +552,10 @@ class UserControllerBase extends ControllerBase {
 
         // set page title
         $this->setPageTitle(_("View Phones"));
+    }
+
+    protected function ValidateAccess($id) {
+        return true;
     }
 
 }

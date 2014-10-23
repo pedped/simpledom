@@ -19,6 +19,12 @@ class BaseUser extends AtaModel implements Searchable {
      *
      * @var integer
      */
+    public $id;
+
+    /**
+     *
+     * @var integer
+     */
     public $userid;
 
     /**
@@ -127,6 +133,11 @@ class BaseUser extends AtaModel implements Searchable {
 
     public function getLevel() {
         return $this->level;
+    }
+
+    public function afterFetch() {
+        //Convert the string to an array
+        $this->id = $this->userid;
     }
 
     public function getLevelName() {

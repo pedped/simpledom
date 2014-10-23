@@ -6,9 +6,7 @@ use AtaController;
 use BaseContact;
 use BaseUser;
 use Phalcon\Mvc\Dispatcher;
-use Phalcon\Validation\Exception;
 use Settings;
-use Simpledom\Core\AtaForm;
 
 abstract class ControllerBase extends AtaController {
 
@@ -25,6 +23,12 @@ abstract class ControllerBase extends AtaController {
     protected $user;
 
     public function initialize() {
+
+        putenv("LC_ALL=en_Us");
+        setlocale(LC_ALL, "en_Us");
+        bindtextdomain('messages', $_SERVER["DOCUMENT_ROOT"] . "/Local/");
+        textdomain('messages');
+        bind_textdomain_codeset("messages", 'UTF-8');
 
         // check if user is loged in and is super admin
         if ($this->session->get("userid", -1) > 0) {
@@ -129,43 +133,6 @@ abstract class ControllerBase extends AtaController {
         // check if we have any error, show the erros
         if (isset($this->errors) && count($this->errors) > 0) {
             $this->flash->error(implode("\r\n", $this->errors));
-        }
-    }
-
-    /**
-     * this function will handle form scripts
-     * @param AtaForm $fr
-     */
-    public function handleFormScripts($fr) {
-
-        $loadedScripts = array();
-        foreach ($fr->getElements() as $element) {
-            try {
-                if (method_exists($element, "getScriptnames")) {
-
-                    // load internal scripts
-                    $scripts = $element->getScriptnames();
-                    foreach ($scripts as $scriptname) {
-                        if (!isset($loadedScripts[$scriptname])) {
-                            $loadedScripts[$scriptname] = $scriptname;
-                            $this->assets
-                                    ->collection('elementscripts')->addJs($scriptname, true);
-                        }
-                    }
-
-
-                    $externalscripts = $element->getExternalScriptNames();
-                    foreach ($externalscripts as $scriptname) {
-                        if (!isset($loadedScripts[$scriptname])) {
-                            $loadedScripts[$scriptname] = $scriptname;
-                            $this->assets
-                                    ->collection('externalscripts')->addJs($scriptname, true);
-                        }
-                    }
-                }
-            } catch (Exception $exc) {
-                echo $exc->getTraceAsString();
-            }
         }
     }
 

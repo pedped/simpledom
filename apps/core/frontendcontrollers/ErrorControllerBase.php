@@ -15,5 +15,9 @@ class ErrorControllerBase extends ControllerBase {
         // set title
         $this->setPageTitle(_("Not Found!"));
     }
+    
+     protected function ValidateAccess($id) {
+        return true;
+    }
 
 }

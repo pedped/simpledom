@@ -3,6 +3,7 @@
 namespace Simpledom\Core\Classes;
 
 use PaymentType;
+use Phalcon\Filter;
 use Phalcon\Text;
 use ProductType;
 use stdClass;
@@ -35,7 +36,12 @@ class Order {
     }
 
     public function GetOrderIDWithPaymentID($paymentType, $paymentID) {
-        return UserOrder::findFirst("paymenttype  = '$paymentType' AND paymentitemid = '$paymentID'")->id;
+        return UserOrder::findFirst(array("paymenttype  = :paymenttype: AND paymentitemid = :paymentitemid:", "bind" => array(
+                        "paymenttype" => $paymentType,
+                        "paymentitemid" => $paymentID,
+            )))->id;
+        $filter = new Filter();
+        
     }
 
     /**

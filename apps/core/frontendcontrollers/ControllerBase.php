@@ -2,17 +2,15 @@
 
 namespace Simpledom\Frontend\BaseControllers;
 
+use AtaController;
 use BaseTrack;
 use BaseUser;
 use Page;
-use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
-use Phalcon\Validation\Exception;
 use Settings;
-use Simpledom\Core\AtaForm;
 
-class ControllerBase extends Controller {
+abstract class ControllerBase extends AtaController {
 
     private $pageTitle = "Title";
     private $metaKeywords = "";
@@ -82,8 +80,7 @@ class ControllerBase extends Controller {
      * @return string
      */
     public function getSettings($title) {
-
-        return $title;
+        return $this->websiteSettings->$title;
     }
 
     /**
@@ -117,6 +114,9 @@ class ControllerBase extends Controller {
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
+                ->setPrefix('http://melk.edspace.org/');
+        $this->assets
+                ->collection('elementscss')
                 ->setPrefix('http://melk.edspace.org/');
         $this->assets
                 ->collection('externalscripts');
@@ -166,44 +166,7 @@ class ControllerBase extends Controller {
         }
 
         // save the action
-        $action->create(); 
-    }
-
-    /**
-     * this function will handle form scripts
-     * @param AtaForm $fr
-     */
-    public function handleFormScripts($fr) {
-
-        $loadedScripts = array();
-        foreach ($fr->getElements() as $element) {
-            try {
-                if (method_exists($element, "getScriptnames")) {
-
-                    // load internal scripts
-                    $scripts = $element->getScriptnames();
-                    foreach ($scripts as $scriptname) {
-                        if (!isset($loadedScripts[$scriptname])) {
-                            $loadedScripts[$scriptname] = $scriptname;
-                            $this->assets
-                                    ->collection('elementscripts')->addJs($scriptname, true);
-                        }
-                    }
-
-
-                    $externalscripts = $element->getExternalScriptNames();
-                    foreach ($externalscripts as $scriptname) {
-                        if (!isset($loadedScripts[$scriptname])) {
-                            $loadedScripts[$scriptname] = $scriptname;
-                            $this->assets
-                                    ->collection('externalscripts')->addJs($scriptname, true);
-                        }
-                    }
-                }
-            } catch (Exception $exc) {
-                echo $exc->getTraceAsString();
-            }
-        }
+        $action->create();
     }
 
 }

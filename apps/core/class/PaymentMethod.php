@@ -89,8 +89,8 @@ abstract class PaymentMethod {
                 $userPhone = $user->getVerifiedPhone();
                 // create template for items
                 $sitename = \Settings::Get()->websitename;
-                $template = "Dear $name\nHere is your $paymentName payment receipt from $sitename.\n\n";
-                $template .= "Amount: $amount\nCurrency: $currency\n";
+                $template = sprintf(_("Dear %s\nHere is your %s payment receipt from %s.\n\n"), $name, $paymentName, $sitename);
+                $template .= sprintf(_("Amount: %s\nCurrency: %s\n"), $amount, $currency);
                 foreach ($paymentDetails as $key => $value) {
                     $template .= "$key: $value\n";
                 }

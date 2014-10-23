@@ -77,4 +77,8 @@ class PhoneControllerBase extends ControllerBase {
         $this->view->requestedPhone = $phone;
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }

@@ -54,4 +54,7 @@ class ContactControllerBase extends ControllerBase {
         $this->setPageTitle(_("Contact US"));
     }
 
+     protected function ValidateAccess($id) {
+        return true;
+    }
 }

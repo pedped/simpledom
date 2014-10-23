@@ -18,4 +18,8 @@ class AgreementControllerBase extends ControllerBase {
         $this->view->agreement = $agreement;
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }

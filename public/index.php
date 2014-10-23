@@ -2,9 +2,13 @@
 
 //define("DEBUG_MODE", TRUE);
 
+
+use Phalcon\Events\Manager;
 use Phalcon\Exception;
+use Phalcon\Flash\Direct;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
+use Phalcon\Security;
 
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
@@ -73,7 +77,7 @@ try {
             )
     );
 
-    $eventsManager = new \Phalcon\Events\Manager();
+    $eventsManager = new Manager();
 
     //Listen all the loader events
     $eventsManager->attach('loader', function($event, $loader) {
@@ -90,13 +94,23 @@ try {
 
     //Register the flash service with custom CSS classes
     $di->set('flash', function() {
-        $flash = new \Phalcon\Flash\Direct(array(
+        $flash = new Direct(array(
             'error' => 'alert alert-danger',
             'success' => 'alert alert-success',
             'notice' => 'alert alert-info',
         ));
         return $flash;
     });
+
+
+    $di->set('security', function() {
+        $security = new Security();
+        
+        //Set the password hashing factor to 12 rounds
+        $security->setWorkFactor(12);
+
+        return $security;
+    }, true);
 
     /**
      * Include modules

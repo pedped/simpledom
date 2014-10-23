@@ -26,4 +26,8 @@ class PageControllerBase extends ControllerBase {
         }
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }

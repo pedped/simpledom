@@ -2,6 +2,7 @@
 
 namespace Simpledom\Core;
 
+use TagEditElement;
 use EditorElement;
 use MapElement;
 use Phalcon\Forms\Element\Select;
@@ -17,7 +18,7 @@ class ContactForm extends AtaForm {
     public function initialize() {
 
         // First Name
-        $name = new Text("name");
+        $name = new TagEditElement("name");
         $name->setLabel(_("Full Name"));
         $name->setAttribute("class", "form-control");
         $name->addValidator(new PresenceOf(array(

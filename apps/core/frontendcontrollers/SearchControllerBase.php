@@ -67,4 +67,8 @@ class SearchControllerBase extends ControllerBase {
         return BaseUser::RequestSearch($query, $start, 16);
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }

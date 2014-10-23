@@ -58,4 +58,8 @@ class OpinionControllerBase extends ControllerBase {
         $this->setPageTitle(_("Opinions"));
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }

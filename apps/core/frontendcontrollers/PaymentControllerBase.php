@@ -19,7 +19,7 @@ class PaymentControllerBase extends ControllerBase {
 
         try {
             // the payment has been finished, check for the handler
-            $paymentMethod = PaymentType::findFirstByKey($handler);
+            $paymentMethod = PaymentType::findFirst(array("key = :key:", "bind" => array("key" => $handler)));
             if (!$paymentMethod || $paymentMethod->enable = FALSE) {
                 // the payment option is disabled
                 $this->flash->error(_("unable to find the payment method, may be it is disabled"));
@@ -43,6 +43,10 @@ class PaymentControllerBase extends ControllerBase {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+
+    protected function ValidateAccess($id) {
+        return true;
     }
 
 }

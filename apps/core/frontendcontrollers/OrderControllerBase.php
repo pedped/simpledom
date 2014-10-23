@@ -13,4 +13,8 @@ class OrderControllerBase extends ControllerBase {
         $order->PayOrder($this->errors, $orderID, 1);
     }
 
+    protected function ValidateAccess($id) {
+        return true;
+    }
+
 }
