@@ -57,14 +57,6 @@ class BaseUserOrder extends AtaModel {
     }
 
     /**
-     * fetch the ProductTypes of this model based on type
-     * @return ProductType
-     */
-    public function getTypes() {
-        return ProductType::find('id = ' . $this->type . '');
-    }
-
-    /**
      * Item ID
      * @var string
      */
@@ -94,14 +86,6 @@ class BaseUserOrder extends AtaModel {
     public function setPaymenttype($paymenttype) {
         $this->paymenttype = $paymenttype;
         return $this;
-    }
-
-    /**
-     * fetch the PaymentTypes of this model based on paymenttype
-     * @return PaymentType
-     */
-    public function getPaymentProductTypes() {
-        return PaymentType::find('id = ' . $this->paymenttype . '');
     }
 
     /**

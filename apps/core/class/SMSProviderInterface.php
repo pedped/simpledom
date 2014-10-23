@@ -1,9 +1,8 @@
 <?php
 
 namespace Simpledom\Core\Classes;
-interface SMSProviderInterface {
 
-    static function getRemain();
+interface SMSProviderInterface {
 
     static function isDelivered($referneceCode);
 }

@@ -2,6 +2,8 @@
 
 abstract class SmsProviderSystem {
 
+    abstract function getRemain($includeCurrency);
+
     abstract function getProviderName();
 
     abstract function getDelivered($referneceCode);

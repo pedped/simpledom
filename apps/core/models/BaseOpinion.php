@@ -109,8 +109,8 @@ class BaseOpinion extends AtaModel {
      * fetch the Citys of this model based on date
      * @return City
      */
-    public function getDates() {
-        return City::find('id = ' . $this->date . '');
+    public function getCity() {
+        return City::findFirst(array("id = :id:", "bind" => array("id" => $this->id)));
     }
 
     /**

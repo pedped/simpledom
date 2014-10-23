@@ -125,13 +125,7 @@ class BasePaymentPayline extends AtaModel {
         return $this;
     }
 
-    /**
-     * fetch the Transactions of this model based on paylineidget
-     * @return Transaction
-     */
-    public function getPaylineIDGets() {
-        return Transaction::find('id = ' . $this->paylineidget . '');
-    }
+ 
 
     /**
      * Payline Transaction ID

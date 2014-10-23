@@ -50,4 +50,8 @@ class Config {
         return "6Lc_ffwSAAAAAJpg5DyYeRiPWhlBvBTojn8ETwUh";
     }
 
+    public static function CheckForSMSCreditOnAdminPanel() {
+        return true; 
+    }
+
 }

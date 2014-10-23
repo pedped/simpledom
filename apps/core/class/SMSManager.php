@@ -1,6 +1,6 @@
 <?php
 
-class SMSManager {
+abstract class SMSManager {
 
     /**
      * Load SMS Providers
@@ -15,7 +15,7 @@ class SMSManager {
      * @param type $name
      * @return SmsProviderSystem
      */
-    private static function getProvider($name) {
+    public static function getProvider($name) {
         $className = SMSManager::$PROVIDERS[$name];
         return new $className();
     }
