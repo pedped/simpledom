@@ -107,7 +107,10 @@ class PaymentHandlerPayline extends PaymentMethod {
             return false;
         }
         // Set Payed
-        $payment = PaymentPayline::findFirst("paylineidget = '$paylineIDGet'");
+        $payment = PaymentPayline::findFirst(array(
+                    "paylineidget = :id: ",
+                    "bind" => array("id" => $paylineIDGet)));
+
         if ($payment->userid != $userid) {
             // invalid userid
             $errors[] = _("Invalid User ID");

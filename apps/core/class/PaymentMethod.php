@@ -63,7 +63,7 @@ abstract class PaymentMethod {
     }
 
     public function getPaymentTypeID() {
-        return PaymentType::findFirst("key = '$this->paymentMethodName'")->id;
+        return PaymentType::findFirst(array("key = :key:", "bind" => array("key" => $this->paymentMethodName)))->id;
     }
 
     public function sendPaymentReceipt($paymentName, $userid, $name, $receiptEmail, $amount, $currency, $paymentDetails, $date) {

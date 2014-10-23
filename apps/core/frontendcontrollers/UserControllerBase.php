@@ -174,7 +174,7 @@ class UserControllerBase extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // valid request, we have to reset user request
                 $email = $this->request->getPost("email", "email");
-                $user = BaseUser::findFirst("email = '" . $email . "'");
+                $user = BaseUser::findFirst(array("email = :email:", "bind" => array("email" => $email)));
                 if (!$user) {
                     // user not found
                     $this->flash->error(_("Unable to find such user with requested email"));
