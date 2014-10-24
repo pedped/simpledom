@@ -35,21 +35,17 @@ class CreateMelkForm extends AtaForm {
 
         // Home Size
         $home_size = new TextElement('home_size');
-        $home_size->setLabel('سایز زیربنا');
+        $home_size->setLabel('زیربنا');
         //$home_size->setAttribute('placeholder', 'Enter your Home Size');
         $home_size->setAttribute('class', 'form-control');
-        $home_size->addValidator(new PresenceOf(array(
-        )));
         $this->add($home_size);
 
 
         // Lot Size
         $lot_size = new TextElement('lot_size');
-        $lot_size->setLabel('سایز زمین');
+        $lot_size->setLabel('متراژ زمین');
         //$lot_size->setAttribute('placeholder', 'Enter your Lot Size');
         $lot_size->setAttribute('class', 'form-control');
-        $lot_size->addValidator(new PresenceOf(array(
-        )));
         $this->add($lot_size);
 
 
@@ -58,8 +54,6 @@ class CreateMelkForm extends AtaForm {
         $sale_price->setLabel('قیمت فروش');
         //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
         $sale_price->setAttribute('class', 'form-control');
-        $sale_price->addValidator(new PresenceOf(array(
-        )));
         $this->add($sale_price);
 
 
@@ -69,8 +63,6 @@ class CreateMelkForm extends AtaForm {
         $rent_price->setLabel('قیمت اجاره');
         //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
         $rent_price->setAttribute('class', 'form-control');
-        $rent_price->addValidator(new PresenceOf(array(
-        )));
         $this->add($rent_price);
 
 
@@ -79,14 +71,12 @@ class CreateMelkForm extends AtaForm {
         $rent_pricerahn->setLabel('قیمت رهن');
         //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
         $rent_pricerahn->setAttribute('class', 'form-control');
-        $rent_pricerahn->addValidator(new PresenceOf(array(
-        )));
         $this->add($rent_pricerahn);
 
 
         // Bedrooms
         $bedroom = new SelectElement('bedroom');
-        $bedroom->setLabel('تعداد اتاق خواب');
+        $bedroom->setLabel('تعداد اتاق');
         $bedroom->setOptions(array(
             "0" => "0",
             "1" => "1",
@@ -156,14 +146,6 @@ class CreateMelkForm extends AtaForm {
         $this->add($cityid);
 
 
-        // Date
-        $date = new TextElement('date');
-        $date->setLabel('تاریخ');
-        //$date->setAttribute('placeholder', 'Enter your Date');
-        $date->setAttribute('class', 'form-control');
-        $this->add($date);
-
-
         // Address
         $address = new TextElement('address');
         $address->setLabel('خیابان اصلی');
@@ -185,7 +167,7 @@ class CreateMelkForm extends AtaForm {
 
         // Private Mobile
         $private_mobile = new TextElement('private_mobile');
-        $private_mobile->setLabel('شمره موبایل');
+        $private_mobile->setLabel('شماره موبایل');
         //$private_mobile->setAttribute('placeholder', 'Enter your Private Mobile');
         $private_mobile->setAttribute('class', 'form-control');
         $private_mobile->addValidator(new PresenceOf(array(
@@ -193,13 +175,68 @@ class CreateMelkForm extends AtaForm {
         $this->add($private_mobile);
 
         // Private Address
-        $private_address = new TextElement('private_address');
+        $private_address = new TextAreaElement('private_address');
         $private_address->setLabel('آدرس دقیق ملک');
         //$private_address->setAttribute('placeholder', 'Enter your Private Address');
         $private_address->setAttribute('class', 'form-control');
         $private_address->addValidator(new PresenceOf(array(
         )));
         $this->add($private_address);
+
+
+        // Image File One
+        $img1 = new FileElement('img1');
+        $img1->setLabel('تصویر1');
+        $this->add($img1);
+
+
+        $img2 = new FileElement('img2');
+        $img2->setLabel('تصویر1');
+        $this->add($img2);
+
+        $img3 = new FileElement('img3');
+        $img3->setLabel('تصویر1');
+        $this->add($img3);
+
+        $img4 = new FileElement('img4');
+        $img4->setLabel('تصویر1');
+        $this->add($img4);
+
+        $img5 = new FileElement('img5');
+        $img5->setLabel('تصویر1');
+        $this->add($img5);
+
+        $img6 = new FileElement('img6');
+        $img6->setLabel('تصویر1');
+        $this->add($img6);
+
+        $img7 = new FileElement('img7');
+        $img7->setLabel('تصویر1');
+        $this->add($img7);
+
+        $img8 = new FileElement('img8');
+        $img8->setLabel('تصویر1');
+        $this->add($img8);
+
+
+        $img9 = new FileElement('img9');
+        $img9->setLabel('تصویر1');
+        $this->add($img9);
+
+
+        $img10 = new FileElement('img10');
+        $img10->setLabel('تصویر1');
+        $this->add($img10);
+
+
+        $img11 = new FileElement('img11');
+        $img11->setLabel('تصویر1');
+        $this->add($img11);
+
+
+        $img12 = new FileElement('img12');
+        $img12->setLabel('تصویر1');
+        $this->add($img12);
 
         // Location ON Map
         $map = new MapPickElement('map');
@@ -210,8 +247,8 @@ class CreateMelkForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
-        $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute("value", _("Submit"));
+        $submit->setAttribute('class', 'btn btn-success btn-lg');
         $this->add($submit);
     }
 

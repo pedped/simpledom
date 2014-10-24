@@ -9,12 +9,12 @@
 
             <!-- Wizards -->
             <div class="nav nav-pills nav-justified navbar melk-wizard">
-                <li class="active"><a href="#">نوع ملک</a></li>
-                <li><a href="#">مشخصات ملک</a></li>
-                <li><a href="#">موقعیت ملک</a></li>
-                <li><a href="#">تصاویر ملک</a></li>
-                <li><a href="#">قیمت</a></li>
-                <li><a href="#">اطلاعات تماس</a></li>
+                <li data-step="1" class="melk-wizard-step active"><a href="#">نوع ملک</a></li>
+                <li data-step="2" class="melk-wizard-step "><a href="#">مشخصات ملک</a></li>
+                <li data-step="3" class="melk-wizard-step "><a href="#">موقعیت ملک</a></li>
+                <li data-step="4" class="melk-wizard-step "><a href="#">قیمت</a></li>
+                <li data-step="5" class="melk-wizard-step "><a href="#">اطلاعات تماس</a></li>
+                <li data-step="6" class="melk-wizard-step "><a href="#">تصاویر ملک</a></li>
             </div>
 
 
@@ -73,21 +73,25 @@
                 <div class="panel-body">
                     <p>در این قسمت شما میبایست محدوده و آدرس ملک را مشخص نمایید</p>
 
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!--  ADD State ID !-->
+                            <?php $form->renderDecorated('stateid'); ?> 
 
-                    <!--  ADD State ID !-->
-                    <?php $form->renderDecorated('stateid'); ?> 
+                            <!--  ADD City ID !-->
+                            <?php $form->renderDecorated('cityid'); ?> 
 
-                    <!--  ADD City ID !-->
-                    <?php $form->renderDecorated('cityid'); ?> 
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
 
-                    <!--  ADD Address !-->
-                    <?php $form->renderDecorated('address'); ?> 
-
-                    <!--  ADD Private Address !-->
-                    <?php $form->renderDecorated('private_address'); ?>
-
-                    <!--  Map !-->
-                    <?php $form->renderDecorated('map'); ?> 
+                            <!--  ADD Private Address !-->
+                            <?php $form->renderDecorated('private_address'); ?>
+                        </div>
+                        <div class='col-md-6'>
+                            <!--  Map !-->
+                            <?php $form->renderDecorated('map'); ?> 
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
                     <div id="nextbtn" data-step="3" class="btn btn-primary">مرحله بعد</div>
@@ -144,10 +148,57 @@
                 </div>
             </div>
 
-            <div class="hidden">
-                <!-- Submit Button !-->
-                <br/>
-                <?php $form->renderDecorated('submit'); ?> 
+
+            <!-- Images  !-->
+            <div data-step="6" class="panel panel-default melk-step-panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">تصاویر ملک</h3>
+                </div>
+                <div class="panel-body">
+                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                    <!--  Image !-->
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img1'); ?> 
+                            <?php $form->renderDecorated('img3'); ?> 
+                            <?php $form->renderDecorated('img5'); ?> 
+                            <?php $form->renderDecorated('img7'); ?> 
+                            <?php $form->renderDecorated('img9'); ?> 
+                            <?php $form->renderDecorated('img11'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img2'); ?> 
+                            <?php $form->renderDecorated('img4'); ?> 
+                            <?php $form->renderDecorated('img6'); ?> 
+                            <?php $form->renderDecorated('img8'); ?> 
+                            <?php $form->renderDecorated('img10'); ?> 
+                            <?php $form->renderDecorated('img12'); ?> 
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-footer panel-footer-btn-group">
+                    <div id="nextbtn" data-step="6" class="btn btn-primary">پایان</div>
+                    <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
+                </div>
+            </div>
+
+
+            <!-- Images  !-->
+            <div data-step="7" class="panel panel-default melk-step-panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">پایان</h3>
+                </div>
+                <div class="panel-body final-step">
+                    <h3>برای ارسال نهایی ملک بر روی کلید ارسال کلیک نمایید</h3>
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?> 
+                </div>
+                <div class="panel-footer panel-footer-btn-group">
+                    <div id="backbtn" data-step="7" class="btn btn-default">مرحله قبل</div>
+                </div>
             </div>
         </div>
     </div>
@@ -171,6 +222,10 @@
         $(".melk-step-panel[data-step='" + oldStep + "']").fadeOut(250, function() {
             $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250);
         });
+
+        // show in wizard mode
+        $(".melk-wizard-step[data-step='" + oldStep + "']").removeClass('active').addClass("done");
+        $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
     }
 
     /**
@@ -185,6 +240,13 @@
             // get melk type
             console.log("type", $("#melktypeid").val());
             console.log("purpose", $("#melkpurposeid").val());
+
+            // we have to show all optiosn first
+            $("#lot_size_holder").show();
+            $("#bedroom_holder").show();
+            $("#bath_holder").show();
+            $("#home_size_holder").show();
+
             switch ($("#melktypeid").val())
             {
                 case "1":
@@ -217,6 +279,34 @@
                 default:
                     // Type Is Not valid
                     alert("نوع ملک معتبر نمیباشد");
+                    break;
+            }
+
+
+            // check for purpose
+            switch ($("#melkpurposeid").val())
+            {
+                case "1":
+                    // forosh
+                    $("#sale_price_holder").show();
+                    $("#rent_price_holder").hide();
+                    $("#rent_pricerahn_holder").hide();
+                    break;
+                case "2":
+                    // ejare
+                    $("#sale_price_holder").hide();
+                    $("#rent_price_holder").show();
+                    $("#rent_pricerahn_holder").show();
+                    break;
+                case "3":
+                    // forosh va ejare
+                    $("#sale_price_holder").show();
+                    $("#rent_price_holder").show();
+                    $("#rent_pricerahn_holder").show();
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("منظور ملک معتبر نمیباشد");
                     break;
             }
         }
@@ -262,6 +352,9 @@
         {
             // step two is select information
         }
+
+
+        return true;
     }
 
 

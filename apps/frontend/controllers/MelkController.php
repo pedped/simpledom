@@ -6,6 +6,7 @@ use AtaPaginator;
 use CreateMelkForm;
 use Melk;
 use MelkForm;
+use MelkInfo;
 
 class MelkController extends ControllerBaseFrontEnd {
 
@@ -39,33 +40,44 @@ class MelkController extends ControllerBaseFrontEnd {
         $fr = new CreateMelkForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
+            var_dump($_POST);
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $melk = new Melk();
-
-                $melk->validdate = $this->request->getPost('validdate', 'string');
-                $melk->userid = $this->request->getPost('userid', 'string');
+                $melk->userid = $this->user->userid;
                 $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
                 $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
                 $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
                 $melk->home_size = $this->request->getPost('home_size', 'string');
                 $melk->lot_size = $this->request->getPost('lot_size', 'string');
                 $melk->sale_price = $this->request->getPost('sale_price', 'string');
-                $melk->price_per_unit = $this->request->getPost('price_per_unit', 'string');
                 $melk->rent_price = $this->request->getPost('rent_price', 'string');
                 $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
                 $melk->bedroom = $this->request->getPost('bedroom', 'string');
                 $melk->bath = $this->request->getPost('bath', 'string');
                 $melk->stateid = $this->request->getPost('stateid', 'string');
                 $melk->cityid = $this->request->getPost('cityid', 'string');
-                $melk->createby = $this->request->getPost('createby', 'string');
-                $melk->featured = $this->request->getPost('featured', 'string');
-                $melk->approved = $this->request->getPost('approved', 'string');
-                $melk->date = $this->request->getPost('date', 'string');
+                $melk->createby = 2;
+                $melk->featured = 0;
+                $melk->approved = 0;
                 if (!$melk->create()) {
                     $melk->showErrorMessages($this);
                 } else {
-                    $melk->showSuccessMessages($this, 'New Melk added Successfully');
+
+                    // we have to create melk info
+                    $melkinfo = new MelkInfo();
+                    $melkinfo->address = $this->request->getPost('address', 'string');
+                    $melkinfo->latitude = $this->request->getPost('map_lathitude');
+                    $melkinfo->longitude = $this->request->getPost('map_longitude');
+                    $melkinfo->melkid = $melk->id;
+                    $melkinfo->private_address = $this->request->getPost('private_address', "string");
+                    $melkinfo->private_mobile = $this->request->getPost('private_address', "string");
+                    $melkinfo->private_phone = $this->request->getPost('private_address', "string");
+                    if (!$melkinfo->create()) {
+                        $melkinfo->showErrorMessages($this);
+                    } else {
+                        $melk->showSuccessMessages($this, 'New Melk added Successfully');
+                    }
 
                     // clear the title and message so the user can add better info
                     $fr->clear();

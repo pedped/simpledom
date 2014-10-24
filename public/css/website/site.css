@@ -11,8 +11,31 @@ and open the template in the editor.
 .melk-wizard a{
     font-size: 19px;
 }
+.melk-wizard li{
+    padding: 5px;
+}
 
 .melk-step-panel .panel-body {
     padding: 15px;
     padding-bottom: 45px;
+}
+
+.nav-pills > li.done > a,
+.nav-pills > li.done > a:hover,
+.nav-pills > li.done > a:focus {
+    color: #fff;
+    background-color: #569;
+}
+
+.melk-wizard.nav-pills > li.active > a,
+.melk-wizard.nav-pills > li.active > a:hover,
+.melk-wizard.nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #DF1F1F;
+}
+
+
+.melk-step-panel .final-step{
+    padding: 50px;
+    text-align: center;
 }
