@@ -76,8 +76,8 @@ class MapPickElement extends BaseElement {
 
         $name = $this->getName();
         $html = "
-            <input type='hidden' name='#$name" . "_latitude' id='#$name" . "_latitude' value='$this->lathitude' />
-            <input type='hidden' name='#$name" . "_longitude' id='#$name" . "_longitude' value='$this->longtude' />
+            <input type='hidden' name='$name" . "_latitude' id='$name" . "_latitude' value='$this->lathitude' />
+            <input type='hidden' name='$name" . "_longitude' id='$name" . "_longitude' value='$this->longtude' />
             <div id='$name' style='width:100%;height:500px;'>
                 
             </div>
