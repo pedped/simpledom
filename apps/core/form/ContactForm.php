@@ -2,7 +2,6 @@
 
 namespace Simpledom\Core;
 
-use TagEditElement;
 use EditorElement;
 use MapElement;
 use Phalcon\Forms\Element\Select;
@@ -12,13 +11,14 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Settings;
+use TextElement;
 
 class ContactForm extends AtaForm {
 
     public function initialize() {
 
         // First Name
-        $name = new TagEditElement("name");
+        $name = new TextElement("name");
         $name->setLabel(_("Full Name"));
         $name->setAttribute("class", "form-control");
         $name->addValidator(new PresenceOf(array(

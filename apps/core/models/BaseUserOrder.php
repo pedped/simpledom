@@ -240,7 +240,7 @@ class BaseUserOrder extends AtaModel {
     }
 
     public function getItemTitle() {
-        $typename = \Phalcon\Text::camelize(ProductType::findFirst($this->type)->name);
+        $typename = ProductType::findFirst($this->type)->key;
         return $typename::GetOrderTitle($this->itemid);
     }
 

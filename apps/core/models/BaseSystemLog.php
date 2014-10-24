@@ -169,8 +169,32 @@ class BaseSystemLog extends AtaModel {
                     $item.= "Fatal";
                 }
                 break;
-        } 
+        }
         return $item;
+    }
+
+    public static function createLog($type, $title, $message, $ip = null) {
+        return BaseSystemLog::init($item)->setType($type)->setTitle($title)->setMessage($message)->setIP(isset($ip) ? $ip : $_SERVER["REMOTE_ADDR"])->create();
+    }
+
+    public static function CreateLogInfo($title, $message, $ip = null) {
+        return BaseSystemLog::createLog(SystemLogType::Info, $title, $message, $ip);
+    }
+
+    public static function CreateLogDebug($title, $message, $ip = null) {
+        return BaseSystemLog::createLog(SystemLogType::Debug, $title, $message, $ip);
+    }
+
+    public static function CreateLogError($title, $message, $ip = null) {
+        return BaseSystemLog::createLog(SystemLogType::Error, $title, $message, $ip);
+    }
+
+    public static function CreateLogFetal($title, $message, $ip = null) {
+        return BaseSystemLog::createLog(SystemLogType::Fatal, $title, $message, $ip);
+    }
+
+    public static function CreateLogWarning($title, $message, $ip = null) {
+        return BaseSystemLog::createLog(SystemLogType::Warning, $title, $message, $ip);
     }
 
 }
