@@ -15,7 +15,7 @@ class ProductTypeForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -23,7 +23,7 @@ class ProductTypeForm extends AtaForm {
 
         // Key
         $key = new TextElement('key');
-        $key->setLabel('Key');
+        $key->setLabel(_('Key'));
         //$key->setAttribute('placeholder', 'Enter your Key');
         $key->setAttribute('class', 'form-control');
         $key->addValidator(new PresenceOf(array(
@@ -33,7 +33,7 @@ class ProductTypeForm extends AtaForm {
 
         // Name
         $name = new TextElement('name');
-        $name->setLabel('Name');
+        $name->setLabel(_('Name'));
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
         $name->addValidator(new PresenceOf(array(
@@ -43,7 +43,7 @@ class ProductTypeForm extends AtaForm {
 
         // Enable
         $enable = new EnableDisableElement('enable');
-        $enable->setLabel('Enable');
+        $enable->setLabel(_('Enable'));
         //$enable->setAttribute('placeholder', 'Enter your Enable');
         $enable->setAttribute('class', 'form-control');
         $enable->addValidator(new PresenceOf(array(
@@ -52,7 +52,7 @@ class ProductTypeForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

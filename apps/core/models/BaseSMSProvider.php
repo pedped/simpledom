@@ -136,4 +136,13 @@ class BaseSMSProvider extends AtaModel {
         
     }
 
+    /**
+     * 
+     * @param type $parameters
+     * @return SMSProvider 
+     */
+    public static function findFirst($parameters = null) {
+        return parent::findFirst($parameters);
+    }
+
 }

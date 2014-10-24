@@ -16,42 +16,36 @@ class FaqForm extends AtaForm {
 
         // Head
         $name = new Text("head");
-        $name->setLabel("Head");
+        $name->setLabel(_("Head"));
         $name->setAttribute("class", "form-control");
         $name->addValidator(new PresenceOf(array(
-            'message' => 'The head is required'
         )));
         $name->addValidator(new StringLength(array(
             'min' => 6,
-            'messageMinimum' => 'The head is too short'
         )));
         $this->add($name);
 
 
         // Title
         $title = new Text("title");
-        $title->setLabel("Title");
+        $title->setLabel(_("Title"));
         $title->setAttribute("class", "form-control");
         $title->addValidator(new PresenceOf(array(
-            'message' => 'The title is required'
         )));
         $title->addValidator(new StringLength(array(
             'min' => 6,
-            'messageMinimum' => 'The title is too short'
         )));
         $this->add($title);
 
 
         // Message
         $message = new TextArea("message");
-        $message->setLabel("Message");
+        $message->setLabel(_("Message"));
         $message->setAttribute("class", "form-control");
         $message->addValidator(new PresenceOf(array(
-            'message' => 'The message is required'
         )));
         $message->addValidator(new StringLength(array(
             'min' => 10,
-            'messageMinimum' => 'The message is too short'
         )));
         $this->add($message);
 

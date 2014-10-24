@@ -3,10 +3,8 @@
 namespace Simpledom\Core;
 
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Validation\Validator\InclusionIn;
 use Phalcon\Validation\Validator\PresenceOf;
-use TextElement;
-use UserOrder;
+use Simpledom\Core\AtaForm;
 
 class UserOrderForm extends AtaForm {
 
@@ -15,7 +13,7 @@ class UserOrderForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -23,7 +21,7 @@ class UserOrderForm extends AtaForm {
 
         // User ID
         $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
+        $userid->setLabel(_('User ID'));
         //$userid->setAttribute('placeholder', 'Enter your User ID');
         $userid->setAttribute('class', 'form-control');
         $userid->addValidator(new PresenceOf(array(
@@ -33,7 +31,7 @@ class UserOrderForm extends AtaForm {
 
         // Type
         $type = new TextElement('type');
-        $type->setLabel('Type');
+        $type->setLabel(_('Type'));
         //$type->setAttribute('placeholder', 'Enter your Type');
         $type->setAttribute('class', 'form-control');
         $type->addValidator(new PresenceOf(array(
@@ -46,7 +44,7 @@ class UserOrderForm extends AtaForm {
 
         // Item ID
         $itemid = new TextElement('itemid');
-        $itemid->setLabel('Item ID');
+        $itemid->setLabel(_('Item ID'));
         //$itemid->setAttribute('placeholder', 'Enter your Item ID');
         $itemid->setAttribute('class', 'form-control');
         $itemid->addValidator(new PresenceOf(array(
@@ -56,7 +54,7 @@ class UserOrderForm extends AtaForm {
 
         // Payment Product Type
         $paymenttype = new TextElement('paymenttype');
-        $paymenttype->setLabel('Payment Product Type');
+        $paymenttype->setLabel(_('Payment Product Type'));
         //$paymenttype->setAttribute('placeholder', 'Enter your Payment Product Type');
         $paymenttype->setAttribute('class', 'form-control');
 //        $paymenttype->addValidator(new InclusionIn(array(
@@ -67,7 +65,7 @@ class UserOrderForm extends AtaForm {
 
         // Payment Item ID
         $paymentitemid = new TextElement('paymentitemid');
-        $paymentitemid->setLabel('Payment Item ID');
+        $paymentitemid->setLabel(_('Payment Item ID'));
         //$paymentitemid->setAttribute('placeholder', 'Enter your Payment Item ID');
         $paymentitemid->setAttribute('class', 'form-control');
         $this->add($paymentitemid);
@@ -75,7 +73,7 @@ class UserOrderForm extends AtaForm {
 
         // price
         $price = new TextElement('price');
-        $price->setLabel('price');
+        $price->setLabel(_('Price'));
         //$price->setAttribute('placeholder', 'Enter your price');
         $price->setAttribute('class', 'form-control');
         $this->add($price);
@@ -83,7 +81,7 @@ class UserOrderForm extends AtaForm {
 
         // Price Currency
         $pricecurrency = new TextElement('pricecurrency');
-        $pricecurrency->setLabel('Price Currency');
+        $pricecurrency->setLabel(_('Price Currency'));
         //$pricecurrency->setAttribute('placeholder', 'Enter your Price Currency');
         $pricecurrency->setAttribute('class', 'form-control');
         $this->add($pricecurrency);
@@ -91,14 +89,14 @@ class UserOrderForm extends AtaForm {
 
         // date
         $date = new TextElement('date');
-        $date->setLabel('date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

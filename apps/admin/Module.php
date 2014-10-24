@@ -38,7 +38,6 @@ class Module implements ModuleDefinitionInterface {
      */
     public function registerServices($di) {
 
-
         $config = require_once 'config/config.php';
 
 

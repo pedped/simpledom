@@ -13,7 +13,7 @@ class LoginDetailsForm extends AtaForm {
 
         // ٍEmail
         $email = new Text("email");
-        $email->setLabel("Email");
+        $email->setLabel(_("Email"));
         $email->setAttribute("disabled", "true");
         $email->setAttribute("class", "form-control disabled");
         $this->add($email);

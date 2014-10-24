@@ -7,8 +7,10 @@ use BaseUser;
 use LineChartElement;
 use Opinion;
 use Simpledom\Core\AtaForm;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\SendSMSForm;
 use SMSManager;
+use SMSProvider;
 use UserOrder;
 
 class IndexControllerBase extends ControllerBase {
@@ -24,6 +26,13 @@ class IndexControllerBase extends ControllerBase {
         $this->view->totalOpinions = Opinion::count();
         $this->view->totalContacts = BaseContact::count();
         $this->view->totalProdcutSale = UserOrder::count("done = '1'");
+
+        // check if we have to fetch user credit on admin panel
+        if (Config::CheckForSMSCreditOnAdminPanel()) {
+            $providerName = SMSProvider::findFirst();
+            $provider = SMSManager::getProvider($providerName->name)->init($providerName->infos);
+            $this->view->remainingSMSCredit = $provider->getRemain();
+        }
 
         $this->loadRegisterChart();
     }

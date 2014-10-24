@@ -3,7 +3,6 @@
 namespace Simpledom\Admin\BaseControllers;
 
 use AtaPaginator;
-use IrPayamakSMSProvider;
 use Sentsms;
 use Simpledom\Core\SentsmsForm;
 
@@ -12,7 +11,6 @@ class SentsmsControllerBase extends ControllerBase {
     public function initialize() {
         parent::initialize();
         $this->setTitle('Sentsms');
-        IrPayamakSMSProvider::getRemain();
     }
 
     /**

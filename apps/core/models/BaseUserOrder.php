@@ -57,14 +57,6 @@ class BaseUserOrder extends AtaModel {
     }
 
     /**
-     * fetch the ProductTypes of this model based on type
-     * @return ProductType
-     */
-    public function getTypes() {
-        return ProductType::find('id = ' . $this->type . '');
-    }
-
-    /**
      * Item ID
      * @var string
      */
@@ -94,14 +86,6 @@ class BaseUserOrder extends AtaModel {
     public function setPaymenttype($paymenttype) {
         $this->paymenttype = $paymenttype;
         return $this;
-    }
-
-    /**
-     * fetch the PaymentTypes of this model based on paymenttype
-     * @return PaymentType
-     */
-    public function getPaymentProductTypes() {
-        return PaymentType::find('id = ' . $this->paymenttype . '');
     }
 
     /**
@@ -252,11 +236,11 @@ class BaseUserOrder extends AtaModel {
     }
 
     public function getDoneTag() {
-        return ( intval($this->done) == 1 ) ? "<div class='btn btn-sm btn-success' style='padding: 2px 10px;'>Yes</div>" : "<div class='btn btn-sm btn-danger' style='padding: 2px 10px;'>No</div>";
+        return ( intval($this->done) == 1 ) ? "<div class='btn btn-sm btn-success' style='padding: 2px 10px;'>" . _("Yes") . "</div>" : "<div class='btn btn-sm btn-danger' style='padding: 2px 10px;'>" . _("No") . "</div>";
     }
 
     public function getItemTitle() {
-        $typename = \Phalcon\Text::camelize(ProductType::findFirst($this->type)->name);
+        $typename = ProductType::findFirst($this->type)->key;
         return $typename::GetOrderTitle($this->itemid);
     }
 

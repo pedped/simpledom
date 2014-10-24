@@ -154,9 +154,9 @@ class AtaPaginator extends Paginator {
             $result.="</select>";
             $result .= "
                 <div class='input-group'>
-                    <input class='form-control' type='text' name='searchquery' placeholder='Search Text Goes Here...' />
+                    <input class='form-control' type='text' name='searchquery' placeholder='" . _("Search Text Goes Here...") . "' />
                     <span class='input-group-btn'>
-                      <input type='submit' value='Search' class='btn btn-primary'>Search</button>
+                      <input type='submit' value='Search' class='btn btn-primary'>" . _("Search") . "</button>
                     </span>
                 </div>
             </div>";
@@ -179,13 +179,13 @@ class AtaPaginator extends Paginator {
             <!-- Pagination Items !-->
             <div class='center'>
                 <div class='pagination pagination-centered'>
-                    <li> <a class='pag' href='$listPath/'>First</a></li>
-                    <li> <a href='$listPath/$paginate->before'>Previous</a></li>
-                    <li> <a href='$listPath/$paginate->next'>Next</a></li>
-                    <li> <a href='$listPath/$paginate->last'>Last</a></li>
+                    <li> <a class='pag' href='$listPath/'>" . _("First") . "</a></li>
+                    <li> <a href='$listPath/$paginate->before'>" . _("Previous") . "</a></li>
+                    <li> <a href='$listPath/$paginate->next'>" . _("Next") . "</a></li>
+                    <li> <a href='$listPath/$paginate->last'>" . _("Last") . "</a></li>
                 </div>
                 <div>
-                    You are in page $paginate->current of $paginate->total_pages
+                 " . sprintf(_("You are in page %s of %s"), $paginate->current, $paginate->total_pages) . "  
                 </div>
             </div>";
     }
@@ -205,7 +205,7 @@ class AtaPaginator extends Paginator {
         }
 
         // add action box
-        $result .= "<th>Action</th>";
+        $result .= "<th>" . _("Action") . "</th>";
 
         // close the table fields
         $result .= "<tr>";
@@ -228,9 +228,9 @@ class AtaPaginator extends Paginator {
                     $text = call_user_func(array($item, substr($value, 0, $s)));
                     if (is_bool($text)) {
                         if ((boolval($text))) {
-                            $result .= "<td>Yes</td>";
+                            $result .= "<td>" . _("Yes") . "</td>";
                         } else {
-                            $result .= "<td>No</td>";
+                            $result .= "<td>" . _("No") . "</td>";
                         }
                     } else {
                         $result .= "<td>$text</td>";
@@ -241,10 +241,10 @@ class AtaPaginator extends Paginator {
             $result .= "
                 <td>";
             if (isset($this->editUrl)) {
-                $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row'><i class='fa fa-pencil' title='View/Edit'></i></a>";
+                $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row'><i class='fa fa-pencil' title='" . _("View/Edit") . "'></i></a>";
             }
             if (isset($this->deleteUrl)) {
-                $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='delete'></i></a>";
+                $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='" . _("Delete") . "'></i></a>";
             }
 
             $result .= "</td>";

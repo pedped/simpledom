@@ -6,7 +6,6 @@ use EnableDisableElement;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
-use Simpledom\Admin\BaseControllers\ControllerBase;
 use TextAreaElement;
 use TextElement;
 
@@ -16,7 +15,7 @@ class FooterInfoForm extends AtaForm {
 
         // Website name
         $footertitle = new TextElement("footertitle");
-        $footertitle->setLabel("Footer Title");
+        $footertitle->setLabel(_("Footer Title"));
         //$name->setAttribute("placeholder", "Enter your Full Name");
         $footertitle->setAttribute("class", "form-control");
         $footertitle->addValidator(new PresenceOf(array(
@@ -28,15 +27,15 @@ class FooterInfoForm extends AtaForm {
 
         // Footer Text
         $footerText = new TextAreaElement("footertext");
-        $footerText->setLabel("Footer Text");
-        $footerText->setAttribute("placeholder", "set your footer text here");
+        $footerText->setLabel(_("Footer Text"));
+        $footerText->setAttribute("placeholder", _("Set your footer text here"));
         $footerText->setAttribute("class", "form-control");
         $this->add($footerText);
 
 
         // Address
         $footermenus = new TextAreaElement("footermenus");
-        $footermenus->setLabel("Footer Menus");
+        $footermenus->setLabel(_("Footer Menus"));
         $footermenus->setAttribute("class", "form-control");
         $footermenus->addValidator(new StringLength(array(
             'min' => 10,
@@ -45,7 +44,7 @@ class FooterInfoForm extends AtaForm {
 
 
         $footerenablecontact = new EnableDisableElement("footerenablecontact");
-        $footerenablecontact->setLabel("Enable Footer Contact Form");
+        $footerenablecontact->setLabel(_("Enable Footer Contact Form"));
         $footerenablecontact->setAttribute("class", "form-control");
         $this->add($footerenablecontact);
 

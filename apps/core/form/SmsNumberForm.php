@@ -26,7 +26,7 @@ class SmsNumberForm extends AtaForm {
 
         // Number
         $number = new TextElement('number');
-        $number->setLabel('Number');
+        $number->setLabel(_('Number'));
         //$number->setAttribute('placeholder', 'Enter your Number');
         $number->setAttribute('class', 'form-control');
         $number->addValidator(new PresenceOf(array(
@@ -39,7 +39,7 @@ class SmsNumberForm extends AtaForm {
 
         // Enable
         $enable = new EnableDisableElement('enable');
-        $enable->setLabel('Enable');
+        $enable->setLabel(_('Enable'));
         $enable->setDefault("1");
         //$enable->setAttribute('placeholder', 'Enter your Enable');
         $enable->setAttribute('class', 'form-control');
@@ -50,7 +50,7 @@ class SmsNumberForm extends AtaForm {
 
         // Sent Count
         $sentcount = new TextElement('sentcount');
-        $sentcount->setLabel('Sent Count');
+        $sentcount->setLabel(_('Sent Count'));
         //$sentcount->setAttribute('placeholder', 'Enter your Sent Count');
         $sentcount->setAttribute('class', 'form-control');
         $this->add($sentcount);
@@ -58,7 +58,7 @@ class SmsNumberForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
@@ -66,7 +66,7 @@ class SmsNumberForm extends AtaForm {
 
         // Description
         $description = new TextAreaElement('description');
-        $description->setLabel('Description');
+        $description->setLabel(_('Description'));
         //$description->setAttribute('placeholder', 'Enter your Description');
         $description->setAttribute('class', 'form-control');
         $description->addValidator(new PresenceOf(array(
@@ -78,7 +78,7 @@ class SmsNumberForm extends AtaForm {
         $providerid = new SelectElement('providerid', SMSProvider::find(), array(
             'using' => array('id', 'name')
         ));
-        $providerid->setLabel('Provider Name');
+        $providerid->setLabel(_('Provider Name'));
         //$providerid->setAttribute('placeholder', 'Enter your Provider Name');
         $providerid->setAttribute('class', 'form-control');
         $providerid->addValidator(new PresenceOf(array(
@@ -87,7 +87,7 @@ class SmsNumberForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

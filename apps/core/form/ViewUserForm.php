@@ -18,8 +18,8 @@ class ViewUserForm extends AtaForm {
 
         // First Name
         $firstname = new Text("firstname");
-        $firstname->setLabel("First Name");
-        $firstname->setAttribute("placeholder", "Enter your First Name");
+        $firstname->setLabel(_("First Name"));
+        $firstname->setAttribute("placeholder", _("Enter your First Name"));
         $firstname->setAttribute("class", "form-control");
         $firstname->addValidator(new PresenceOf(array(
         )));
@@ -32,8 +32,8 @@ class ViewUserForm extends AtaForm {
 
         // Last Name
         $lastname = new Text("lastname");
-        $lastname->setLabel("Last Name");
-        $lastname->setAttribute("placeholder", "Enter your Last Name");
+        $lastname->setLabel(_("Last Name"));
+        $lastname->setAttribute("placeholder", _("Enter your Last Name"));
         $lastname->setAttribute("class", "form-control");
         $lastname->addValidator(new PresenceOf(array(
         )));
@@ -45,31 +45,31 @@ class ViewUserForm extends AtaForm {
 
         // Gender
         $gender = new Select("gender", array(
-            '1' => 'Male',
-            '0' => 'Female'
+            '1' => _('Male'),
+            '0' => _('Female')
         ));
-        $gender->setLabel("Gender");
+        $gender->setLabel(_("Gender"));
         $gender->setAttribute("class", "form-control");
         $this->add($gender);
 
 
         // Active
         $active = new EnableDisableElement("active");
-        $active->setLabel("Active");
+        $active->setLabel(_("Active"));
         $active->setAttribute("class", "form-control");
         $this->add($active);
 
         // Verify
         $verify = new EnableDisableElement("verify");
-        $verify->setLabel("Verified");
+        $verify->setLabel(_("Verified"));
         $verify->setAttribute("class", "form-control");
         $this->add($verify);
 
 
         // Disable Message
         $disablemessage = new TextAreaElement("disablemessage");
-        $disablemessage->setLabel("Disabled Account Message");
-        $disablemessage->setAttribute("placeholder", "When you make user offline, you may use offline message for the user");
+        $disablemessage->setLabel(_("Disabled Account Message"));
+        $disablemessage->setAttribute("placeholder", _("When you make user offline, you may use offline message for the user"));
         $disablemessage->setAttribute("class", "form-control");
         $this->add($disablemessage);
 

@@ -25,7 +25,6 @@ class AgreementForm extends AtaForm {
         // Title
         $title = new TextElement('title');
         $title->setLabel('Title');
-        //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
         )));
@@ -38,7 +37,6 @@ class AgreementForm extends AtaForm {
         // Text
         $text = new EditorElement('text');
         $text->setLabel('Text');
-        //$text->setAttribute('placeholder', 'Enter your Text');
         $text->setAttribute('class', 'form-control');
         $text->addValidator(new PresenceOf(array(
         )));
@@ -51,13 +49,12 @@ class AgreementForm extends AtaForm {
         // Date
         $date = new TextElement('date');
         $date->setLabel('Date');
-        //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

@@ -13,14 +13,12 @@ class ContactReplyForm extends AtaForm {
 
         // Message
         $message = new EditorElement("message");
-        $message->setLabel("Message");
+        $message->setLabel(_("Message"));
         $message->setAttribute("class", "form-control");
         $message->addValidator(new PresenceOf(array(
-            'message' => 'The message is required'
         )));
         $message->addValidator(new StringLength(array(
             'min' => 32,
-            'messageMinimum' => 'The message is too short'
         )));
         $this->add($message);
 

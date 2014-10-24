@@ -15,7 +15,7 @@ class UserPhoneForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -23,7 +23,7 @@ class UserPhoneForm extends AtaForm {
 
         // User ID
         $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
+        $userid->setLabel(_('User ID'));
         //$userid->setAttribute('placeholder', 'Enter your User ID');
         $userid->setAttribute('class', 'form-control');
         $userid->addValidator(new PresenceOf(array(
@@ -34,7 +34,7 @@ class UserPhoneForm extends AtaForm {
 
         // Phone
         $phone = new TextElement('phone');
-        $phone->setLabel('Phone');
+        $phone->setLabel(_('Phone'));
         //$phone->setAttribute('placeholder', 'Enter your Phone');
         $phone->setAttribute('class', 'form-control');
         $phone->addValidator(new PresenceOf(array(
@@ -47,7 +47,7 @@ class UserPhoneForm extends AtaForm {
 
         // Verify Code
         $verifycode = new TextElement('verifycode');
-        $verifycode->setLabel('Verify Code');
+        $verifycode->setLabel(_('Verify Code'));
         //$verifycode->setAttribute('placeholder', 'Enter your Verify Code');
         $verifycode->setAttribute('class', 'form-control');
         $verifycode->addValidator(new PresenceOf(array(
@@ -57,7 +57,7 @@ class UserPhoneForm extends AtaForm {
 
         // Verified
         $verified = new EnableDisableElement('verified');
-        $verified->setLabel('Verified');
+        $verified->setLabel(_('Verified'));
         //$verified->setAttribute('placeholder', 'Enter your Verified');
         $verified->setAttribute('class', 'form-control');
         $verified->addValidator(new PresenceOf(array(
@@ -67,7 +67,7 @@ class UserPhoneForm extends AtaForm {
 
         // Last SMS Sent Date
         $lastsmsdate = new TextElement('lastsmsdate');
-        $lastsmsdate->setLabel('Last SMS Sent Date');
+        $lastsmsdate->setLabel(_('Last SMS Sent Date'));
         //$lastsmsdate->setAttribute('placeholder', 'Enter your Last SMS Sent Date');
         $lastsmsdate->setAttribute('class', 'form-control');
         $lastsmsdate->addValidator(new PresenceOf(array(
@@ -77,14 +77,14 @@ class UserPhoneForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

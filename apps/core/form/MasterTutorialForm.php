@@ -12,7 +12,7 @@ class MasterTutorialForm extends AtaForm {
 
         // Line Chart
         $linechart = new LineChartElement("linechart");
-        $linechart->setLabel("Line Chart");
+        $linechart->setLabel("Line Chart"); 
         $this->add($linechart);
 
         // Area Chart

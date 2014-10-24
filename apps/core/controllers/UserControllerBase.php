@@ -271,10 +271,16 @@ class UserControllerBase extends ControllerBase {
 
 
         // calc the more infos
-        $this->view->totalOpinions = Opinion::count("userid = '$id'");
-        $this->view->totalOrdersCost = \UserOrder::sum(array("userid = '$id' AND done = '1' ",
-                    "column" => "price"));
-        $this->view->totalOrders = \UserOrder::find("userid = '$id' AND done = '1' ")->count();
+        $this->view->totalOpinions = Opinion::count(array("userid = :userid:", "bind" => array("userid" => $id)));
+
+        $this->view->totalOrdersCost = UserOrder::sum(
+                        array(
+                            "userid = :userid: AND done = '1' ",
+                            "bind" => array("userid" => $id),
+                            "column" => "price"));
+
+
+        $this->view->totalOrders = UserOrder::find(array("userid = :userid: AND done = '1' ", "bind" => array("userid" => $id)))->count();
     }
 
     public function listAction($page = 1) {

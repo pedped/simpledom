@@ -16,8 +16,19 @@ class IrPayamakSMSProvider extends SmsProviderSystem implements SMSProviderInter
         
     }
 
-    public static function getRemain() {
-        
+    public function getRemain($includeCurrency = true) {
+
+        $soapClient = new SoapClient("http://login.irpayamak.com/API/Send.asmx?wsdl");
+        $result = $soapClient->Credit(array(
+            "username" => $this->parameters["username"],
+            "password" => $this->parameters["password"],
+        ));
+
+        if ($includeCurrency) {
+            return intval($result->CreditResult) . " " . _("SMS Messages") . "";
+        } else {
+            return intval($result->CreditResult);
+        }
     }
 
     public static function isDelivered($referneceCode) {

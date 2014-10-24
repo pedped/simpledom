@@ -13,6 +13,7 @@ use Phalcon\Tag; ?>
 
         <?php $this->assets->outputJs('externalscripts') ?>
         <?php $this->assets->outputJs('elementscripts') ?>
+        <?php $this->assets->outputCss('elementscss') ?>
         <?php echo Tag::getTitle() ?>
 
         <?php echo $metaDescription; ?>

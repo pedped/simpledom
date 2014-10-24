@@ -16,7 +16,7 @@ class PageForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel(_('ID'));
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -24,7 +24,7 @@ class PageForm extends AtaForm {
 
         // Key
         $key = new TextElement('key');
-        $key->setLabel('Key');
+        $key->setLabel(_('Key'));
         //$key->setAttribute('placeholder', 'Enter your Key');
         $key->setAttribute('class', 'form-control');
         $key->addValidator(new PresenceOf(array(
@@ -37,7 +37,7 @@ class PageForm extends AtaForm {
 
         // Title
         $title = new TextElement('title');
-        $title->setLabel('Title');
+        $title->setLabel(_('Title'));
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
@@ -50,7 +50,7 @@ class PageForm extends AtaForm {
 
         // Text
         $text = new EditorElement('text');
-        $text->setLabel('Text');
+        $text->setLabel(_('Text'));
         //$text->setAttribute('placeholder', 'Enter your Text');
         $text->setAttribute('class', 'form-control');
         $text->addValidator(new PresenceOf(array(
@@ -63,7 +63,7 @@ class PageForm extends AtaForm {
 
         // Metadata Tags
         $metakey = new TextElement('metakey');
-        $metakey->setLabel('Metadata Tags');
+        $metakey->setLabel(_('Metadata Tags'));
         //$metakey->setAttribute('placeholder', 'Enter your Metadata Tags');
         $metakey->setAttribute('class', 'form-control');
         $this->add($metakey);
@@ -71,7 +71,7 @@ class PageForm extends AtaForm {
 
         // Metadata Description
         $metadata = new TextElement('metadata');
-        $metadata->setLabel('Metadata Description');
+        $metadata->setLabel(_('Metadata Description'));
         //$metadata->setAttribute('placeholder', 'Enter your Metadata Description');
         $metadata->setAttribute('class', 'form-control');
         $this->add($metadata);
@@ -79,7 +79,7 @@ class PageForm extends AtaForm {
 
         // Show In Header
         $showinhead = new EnableDisableElement('showinhead');
-        $showinhead->setLabel('Show In Header');
+        $showinhead->setLabel(_('Show In Header'));
         //$showinhead->setAttribute('placeholder', 'Enter your Show In Header');
         $showinhead->setAttribute('class', 'form-control');
         $this->add($showinhead);
@@ -87,7 +87,7 @@ class PageForm extends AtaForm {
 
         // Footer Text
         $footer = new TextElement('footer');
-        $footer->setLabel('Footer Text');
+        $footer->setLabel(_('Footer Text'));
         //$footer->setAttribute('placeholder', 'Enter your Footer Text');
         $footer->setAttribute('class', 'form-control');
         $this->add($footer);
@@ -95,14 +95,14 @@ class PageForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel(_('Date'));
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

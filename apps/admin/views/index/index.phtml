@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(View All)</a>
+                            <a href="<?php echo $this->url->get("user/list"); ?>" class="text-muted text-uppercase">(View All)</a>
                         </div>
                     </div>
                 </div>
@@ -130,4 +130,32 @@
             </div>
         </section>
     </div>
+
+
+    <!-- Remaining SMS !-->
+    <?php if (isset($remainingSMSCredit)) : ?>
+        <div class="col-md-12 col-lg-6 col-xl-6">
+            <section class="panel panel-featured-left panel-featured-primary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-info">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title">SMS Credit</h4>
+                                <div class="info">
+                                    <strong class="amount"><?php echo $remainingSMSCredit; ?></strong>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    <?php endif; ?>
 </div>

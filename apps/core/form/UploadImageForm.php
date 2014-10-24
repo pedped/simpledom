@@ -13,12 +13,12 @@ class UploadImageForm extends AtaForm {
 
         // Path
         $file = new File('file');
-        $file->setLabel('File');
+        $file->setLabel(_('File'));
         $this->add($file);
 
         // Submit Button
         $submit = new Submit('submit');
-        $submit->setName('submit');
+        $submit->setAttribute("value", _("Submit"));
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }

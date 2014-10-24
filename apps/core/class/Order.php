@@ -3,6 +3,7 @@
 namespace Simpledom\Core\Classes;
 
 use PaymentType;
+use Phalcon\Filter;
 use Phalcon\Text;
 use ProductType;
 use stdClass;
@@ -35,7 +36,11 @@ class Order {
     }
 
     public function GetOrderIDWithPaymentID($paymentType, $paymentID) {
-        return UserOrder::findFirst("paymenttype  = '$paymentType' AND paymentitemid = '$paymentID'")->id;
+        return UserOrder::findFirst(array("paymenttype  = :paymenttype: AND paymentitemid = :paymentitemid:", "bind" => array(
+                        "paymenttype" => $paymentType,
+                        "paymentitemid" => $paymentID,
+            )))->id;
+        $filter = new Filter();
     }
 
     /**
@@ -54,7 +59,7 @@ class Order {
         if (intval($orderid) > 0) {
 
             // Set Payment Cost
-            $paymentHandlerName = "PaymentHandler" . Text::camelize(\PaymentType::findFirst($orderPayementType)->key);
+            $paymentHandlerName = "PaymentHandler" . \PaymentType::findFirst($orderPayementType)->key;
             $paymentHandler = new $paymentHandlerName();
             $cost = $paymentHandler->getPaymentCost($errors, $paymentID);
             $order = UserOrder::findFirst($orderid);
@@ -148,7 +153,7 @@ class Order {
     private function getOrderObjectInfo($productTypeID, $itemID) {
 
         // TODO, we have to allow orderable object find this
-        $productClassName = Text::camelize(ProductType::findFirst($productTypeID)->key);
+        $productClassName = ProductType::findFirst($productTypeID)->key;
         $productable = new $productClassName();
         return $productable->getOrderObjectInfo($itemID);
     }
@@ -188,11 +193,15 @@ class Order {
      * @return type
      */
     public function GetOrderAmountCurrency($orderid) {
-        $userorder = UserOrder::findFirst($orderid);
-        $productTypeID = $userorder->type;
-        $productClassName = Text::camelize(ProductType::findFirst($productTypeID)->key);
-        $productable = new $productClassName();
-        return $productable->GetCost($userorder->itemid);
+        try {
+            $userorder = UserOrder::findFirst($orderid);
+            $productTypeID = $userorder->type;
+            $productClassName = ProductType::findFirst($productTypeID)->key;
+            $productable = new $productClassName();
+            return $productable->GetCost($userorder->itemid);
+        } catch (Exception $exc) {
+            return null;
+        }
     }
 
     /**
@@ -219,6 +228,10 @@ class Order {
 
         // get amount and currency of the order
         $info = $this->GetOrderAmountCurrency($orderid);
+        if (!isset($info)) {
+            $errors[] = _("Unable to fetch order price");
+            return;
+        }
 
         // we are able to prccess order, Create new transaction for its
         $transaction = new Transaction($this->userid);
@@ -265,7 +278,7 @@ class Order {
 
 
         // now we have to get the item and call the onSuccessOrder
-        $productTypeName = Text::camelize(ProductType::findFirst($order->type)->key);
+        $productTypeName = ProductType::findFirst($order->type)->key;
         $productTypeName::onSuccessOrder($errors, $order->userid, $order->itemid);
 
         return true;
@@ -282,7 +295,7 @@ class Order {
 
         $type = ProductType::findFirst($productTypeID);
         // TODO, we have to allow orderable object find this
-        $productClassName = Text::camelize(ProductType::findFirst($productTypeID)->key);
+        $productClassName = ProductType::findFirst($productTypeID)->key;
         $productable = new $productClassName();
         return $productable->ValidateOrderCreateRequest($errors, $itemID);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
 
 define("EMAILTEMPLATE_REGISTER", "REGISTER");
@@ -7,6 +8,7 @@ define("EMAILTEMPLATE_RESETPASSWORD", "RESET_PASSWORD");
 define("EMAILTEMPLATE_BULKEMAIL", "BULK_EMAIL");
 define("EMAILTEMPLATE_PAYMENTRECEIPT", "PAYMENT_RECEIPT");
 define("EMAILTEMPLATE_REPLY", "REPLY");
+define("EMAILTEMPLATE_VERIFY", "VERIFY");
 
 class EmailItems extends EmailManager {
 
@@ -78,6 +80,7 @@ class EmailItems extends EmailManager {
             "name" => $name,
             "email" => $email,
             "verifycode" => $verifycode,
+            "url" => Config::getPublicUrl(),
         ));
 
         // set email template
@@ -122,6 +125,29 @@ class EmailItems extends EmailManager {
 
         // set email template
         return $this->setSubject("Reply To Your Message")->setEmailTemplate($emailTemplate)->setReceivers($useremail)->sendEmail();
+    }
+
+    /**
+     * Send Verify Code to email
+     * @param type $userid
+     * @param type $name
+     * @param type $email
+     * @param type $verifycode
+     * @return type
+     */
+    public function sendVerifyCode($userid, $name, $email, $verifycode) {
+        // load the email template from server
+        $emailTemplate = BaseEmailTemplate::findFirst("name = '" . EMAILTEMPLATE_VERIFY . "'");
+        $emailTemplate->setParameters(array(
+            "userid" => $userid,
+            "name" => $name,
+            "email" => $email,
+            "verifycode" => $verifycode,
+            "url" => Config::getPublicUrl(),
+        ));
+
+        // set email template
+        return $this->setSubject("Verify Your Email")->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
     }
 
 }
