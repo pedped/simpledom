@@ -17,6 +17,7 @@ bindtextdomain('messages', $_SERVER["DOCUMENT_ROOT"] . "/Local/");
 textdomain('messages');
 bind_textdomain_codeset("messages", 'UTF-8');
 
+ 
 try {
 
     /**

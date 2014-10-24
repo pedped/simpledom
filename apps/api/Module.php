@@ -115,7 +115,7 @@ class Module implements ModuleDefinitionInterface {
 
         $di->set('url', function() {
             $url = new Url();
-            $url->setBaseUri('http://melk.edspace.org/');
+            $url->setBaseUri('http://amlak.edspace.org/');
             return $url;
         });
 

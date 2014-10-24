@@ -100,7 +100,7 @@ class ControllerBase extends Controller {
         // CSS in the header
         $this->assets
                 ->collection('header')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://amlak.edspace.org/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
@@ -109,7 +109,7 @@ class ControllerBase extends Controller {
         //Javascripts in the footer
         $this->assets
                 ->collection('footer')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://amlak.edspace.org/')
                 ->addJs('js/jquery/jquery.min.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
 
@@ -117,7 +117,7 @@ class ControllerBase extends Controller {
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
-                ->setPrefix('http://melk.edspace.org/');
+                ->setPrefix('http://amlak.edspace.org/');
         $this->assets
                 ->collection('externalscripts');
 
