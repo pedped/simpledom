@@ -1,0 +1,63 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit MelkInfo</h2>
+                                                <p class='panel-subtitle'Use this form to edit your MelkInfo</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD Melk ID !-->
+                                <?php $form->renderDecorated('melkid'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderDecorated('address'); ?> 
+
+                                <!--  ADD Latitude !-->
+                                <?php $form->renderDecorated('latitude'); ?> 
+
+                                <!--  ADD Longitude !-->
+                                <?php $form->renderDecorated('longitude'); ?> 
+
+                                <!--  ADD Facilities !-->
+                                <?php $form->renderDecorated('facilities'); ?> 
+
+                                <!--  ADD Total View !-->
+                                <?php $form->renderDecorated('total_view'); ?> 
+
+                                <!--  ADD Search Meta Information !-->
+                                <?php $form->renderDecorated('search_meta'); ?> 
+
+                                <!--  ADD Private Phone !-->
+                                <?php $form->renderDecorated('private_phone'); ?> 
+
+                                <!--  ADD Private Mobile !-->
+                                <?php $form->renderDecorated('private_mobile'); ?> 
+
+                                <!--  ADD Private Address !-->
+                                <?php $form->renderDecorated('private_address'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

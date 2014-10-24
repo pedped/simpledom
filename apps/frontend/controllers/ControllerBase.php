@@ -103,6 +103,7 @@ class ControllerBase extends Controller {
                 ->setPrefix('http://amlak.edspace.org/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true)
+                ->addCss('css/website/site.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
 
 

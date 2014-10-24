@@ -38,7 +38,7 @@ use Phalcon\Tag; ?>
             <div id='page-container-body'>
                 <!-- Check For Global Message !-->
                 <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="col-md-12"> 
                             <div class='alert alert-info _global-message'>
                                 <h4 style="margin-top: 0px;"><?= _("Public Message"); ?></h4>
@@ -50,7 +50,7 @@ use Phalcon\Tag; ?>
 
                 <!-- Check For Verified Phone -->
                 <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="col-md-12"> 
                             <div class='alert alert-danger'>
                                 <h4 style="margin-top: 0px;"><?= _("Need Verified Phone"); ?></h4>
@@ -63,7 +63,7 @@ use Phalcon\Tag; ?>
                 <?php endif; ?>
 
                 <!-- Page Content !-->
-                <div class="container-fluid">
+                <div class="container">
                     <div class="col-md-12">
                         <?php echo $this->getContent(); ?>
                     </div>

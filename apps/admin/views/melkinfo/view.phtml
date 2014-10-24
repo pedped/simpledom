@@ -1,0 +1,62 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View MelkInfo</h2>
+                                                <p class='panel-subtitle'Use this form to edit your MelkInfo</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD Melk ID !-->
+                                <?php $form->renderInfo('melkid'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderInfo('address'); ?> 
+
+                                <!--  ADD Latitude !-->
+                                <?php $form->renderInfo('latitude'); ?> 
+
+                                <!--  ADD Longitude !-->
+                                <?php $form->renderInfo('longitude'); ?> 
+
+                                <!--  ADD Facilities !-->
+                                <?php $form->renderInfo('facilities'); ?> 
+
+                                <!--  ADD Total View !-->
+                                <?php $form->renderInfo('total_view'); ?> 
+
+                                <!--  ADD Search Meta Information !-->
+                                <?php $form->renderInfo('search_meta'); ?> 
+
+                                <!--  ADD Private Phone !-->
+                                <?php $form->renderInfo('private_phone'); ?> 
+
+                                <!--  ADD Private Mobile !-->
+                                <?php $form->renderInfo('private_mobile'); ?> 
+
+                                <!--  ADD Private Address !-->
+                                <?php $form->renderInfo('private_address'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

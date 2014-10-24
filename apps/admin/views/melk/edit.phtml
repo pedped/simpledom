@@ -1,0 +1,90 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit Melk</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Melk</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD Valid Date !-->
+                                <?php $form->renderDecorated('validdate'); ?> 
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderDecorated('userid'); ?> 
+
+                                <!--  ADD Type !-->
+                                <?php $form->renderDecorated('melktypeid'); ?> 
+
+                                <!--  ADD Purpose !-->
+                                <?php $form->renderDecorated('melkpurposeid'); ?> 
+
+                                <!--  ADD Condition !-->
+                                <?php $form->renderDecorated('melkconditionid'); ?> 
+
+                                <!--  ADD Home Size !-->
+                                <?php $form->renderDecorated('home_size'); ?> 
+
+                                <!--  ADD Lot Size !-->
+                                <?php $form->renderDecorated('lot_size'); ?> 
+
+                                <!--  ADD Sale Price !-->
+                                <?php $form->renderDecorated('sale_price'); ?> 
+
+                                <!--  ADD Price Per Unit !-->
+                                <?php $form->renderDecorated('price_per_unit'); ?> 
+
+                                <!--  ADD Ejare !-->
+                                <?php $form->renderDecorated('rent_price'); ?> 
+
+                                <!--  ADD Rahn !-->
+                                <?php $form->renderDecorated('rent_pricerahn'); ?> 
+
+                                <!--  ADD Bedrooms !-->
+                                <?php $form->renderDecorated('bedroom'); ?> 
+
+                                <!--  ADD Bath !-->
+                                <?php $form->renderDecorated('bath'); ?> 
+
+                                <!--  ADD State ID !-->
+                                <?php $form->renderDecorated('stateid'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+
+                                <!--  ADD Create By !-->
+                                <?php $form->renderDecorated('createby'); ?> 
+
+                                <!--  ADD Featured !-->
+                                <?php $form->renderDecorated('featured'); ?> 
+
+                                <!--  ADD Approved !-->
+                                <?php $form->renderDecorated('approved'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+
