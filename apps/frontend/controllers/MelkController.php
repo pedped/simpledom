@@ -5,8 +5,9 @@ namespace Simpledom\Frontend\Controllers;
 use AtaPaginator;
 use CreateMelkForm;
 use Melk;
+use MelkForm;
 
-class MelkController extends ControllerBase {
+class MelkController extends ControllerBaseFrontEnd {
 
     public function initialize() {
         parent::initialize();
@@ -269,6 +270,10 @@ class MelkController extends ControllerBase {
         $form->get('approved')->setDefault($item->approved);
         $form->get('date')->setDefault($item->date);
         $this->view->form = $form;
+    }
+
+    protected function ValidateAccess($id) {
+        
     }
 
 }
