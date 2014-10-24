@@ -19,7 +19,7 @@
 
 
             <!-- Noe Melk  !-->
-            <div class="panel panel-default melk-step-panel">
+            <div data-step="1" class="panel panel-default melk-step-panel" >
                 <div class="panel-heading">
                     <h3 class="panel-title">نوع ملک</h3>
                 </div>
@@ -32,14 +32,13 @@
                     <?php $form->renderDecorated('melkpurposeid'); ?> 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" class="btn btn-default">مرحله قبل</div>
+                    <div id="nextbtn" data-step="1" class="btn btn-primary">مرحله بعد</div>
                 </div>
             </div>
 
 
             <!-- Moshakasate Melk !-->
-            <div class="panel panel-default melk-step-panel">
+            <div data-step="2" class="panel panel-default melk-step-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">مشخصات ملک</h3>
                 </div>
@@ -60,19 +59,26 @@
                     <?php $form->renderDecorated('bath'); ?> 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" class="btn btn-default">مرحله قبل</div>
+                    <div id="nextbtn" data-step="2" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="2" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
 
 
             <!--Moghiyate Melk !-->
-            <div class="panel panel-default melk-step-panel">
+            <div data-step="3" class="panel panel-default melk-step-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">موقعیت ملک</h3>
                 </div>
                 <div class="panel-body">
                     <p>در این قسمت شما میبایست محدوده و آدرس ملک را مشخص نمایید</p>
+
+
+                    <!--  ADD State ID !-->
+                    <?php $form->renderDecorated('stateid'); ?> 
+
+                    <!--  ADD City ID !-->
+                    <?php $form->renderDecorated('cityid'); ?> 
 
                     <!--  ADD Address !-->
                     <?php $form->renderDecorated('address'); ?> 
@@ -84,91 +90,203 @@
                     <?php $form->renderDecorated('map'); ?> 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" class="btn btn-default">مرحله قبل</div>
+                    <div id="nextbtn" data-step="3" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="3" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
 
 
+            <!--Gheymat !-->
+            <div data-step="4" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">قیمت</h3>
+                </div>
+                <div class="panel-body">
+                    <p> هزینه ای که برای فروش یا اجاره بر روی ملک گزاشتید را وارد نمایید </p>
+
+                    <!--  ADD Sale Price !-->
+                    <?php $form->renderDecorated('sale_price'); ?> 
+
+                    <!--  ADD Ejare !-->
+                    <?php $form->renderDecorated('rent_price'); ?> 
+
+                    <!--  ADD Rahn !-->
+                    <?php $form->renderDecorated('rent_pricerahn'); ?> 
+
+                </div>
+                <div class="panel-footer panel-footer-btn-group">
+                    <div id="nextbtn" data-step="4" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="4" class="btn btn-default">مرحله قبل</div>
+                </div>
+            </div>
 
 
-
-            <!--  ADD Valid Date !-->
-            <?php $form->renderDecorated('validdate'); ?> 
-
-            <!--  ADD User ID !-->
-            <?php $form->renderDecorated('userid'); ?> 
-
-
-
-            <!--  ADD Condition !-->
-            <?php $form->renderDecorated('melkconditionid'); ?> 
+            <!-- Contact !-->
+            <div data-step="5" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">اطلاعات تماس</h3>
+                </div>
+                <div class="panel-body">
+                    <p>اطلاعات تماس مستقیم خودتان را وارد نمایید تا در صورت نیاز مشتریان بتوانند با شما تماس داشته باشند</p>
 
 
+                    <!--  ADD Private Phone !-->
+                    <?php $form->renderDecorated('private_phone'); ?> 
 
-            <!--  ADD Sale Price !-->
-            <?php $form->renderDecorated('sale_price'); ?> 
-
-            <!--  ADD Price Per Unit !-->
-            <?php $form->renderDecorated('price_per_unit'); ?> 
-
-            <!--  ADD Ejare !-->
-            <?php $form->renderDecorated('rent_price'); ?> 
-
-            <!--  ADD Rahn !-->
-            <?php $form->renderDecorated('rent_pricerahn'); ?> 
-
-            <!--  ADD State ID !-->
-            <?php $form->renderDecorated('stateid'); ?> 
-
-            <!--  ADD City ID !-->
-            <?php $form->renderDecorated('cityid'); ?> 
-
-            <!--  ADD Create By !-->
-            <?php $form->renderDecorated('createby'); ?> 
-
-            <!--  ADD Featured !-->
-            <?php $form->renderDecorated('featured'); ?> 
-
-            <!--  ADD Approved !-->
-            <?php $form->renderDecorated('approved'); ?> 
-
-            <!--  ADD Date !-->
-            <?php $form->renderDecorated('date'); ?> 
+                    <!--  ADD Private Mobile !-->
+                    <?php $form->renderDecorated('private_mobile'); ?> 
 
 
-            <!--  ADD Melk ID !-->
-            <?php $form->renderDecorated('melkid'); ?> 
+                </div>
+                <div class="panel-footer panel-footer-btn-group">
+                    <div id="nextbtn" data-step="5" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
+                </div>
+            </div>
 
-
-            <!--  ADD Latitude !-->
-            <?php $form->renderDecorated('latitude'); ?> 
-
-            <!--  ADD Longitude !-->
-            <?php $form->renderDecorated('longitude'); ?> 
-
-            <!--  ADD Facilities !-->
-            <?php $form->renderDecorated('facilities'); ?> 
-
-            <!--  ADD Total View !-->
-            <?php $form->renderDecorated('total_view'); ?> 
-
-            <!--  ADD Search Meta Information !-->
-            <?php $form->renderDecorated('search_meta'); ?> 
-
-            <!--  ADD Private Phone !-->
-            <?php $form->renderDecorated('private_phone'); ?> 
-
-            <!--  ADD Private Mobile !-->
-            <?php $form->renderDecorated('private_mobile'); ?> 
-
-
-
-            <!-- Submit Button !-->
-            <br/>
-            <?php $form->renderDecorated('submit'); ?>
+            <div class="hidden">
+                <!-- Submit Button !-->
+                <br/>
+                <?php $form->renderDecorated('submit'); ?> 
+            </div>
         </div>
     </div>
 </form>
+<script>
 
+
+    // hide all steps at start
+    $(".melk-step-panel").hide();
+
+
+    /**
+     * this function will go to the requestd step without any validate
+     * @param {type} newStep
+     * @param {type} oldStep
+     * @returns {undefined}
+     */
+    function showStep(newStep, oldStep)
+    {
+        // hide all steps at first time
+        $(".melk-step-panel[data-step='" + oldStep + "']").fadeOut(250, function() {
+            $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250);
+        });
+    }
+
+    /**
+     * this function will ready step
+     * @param {type} step
+     * @returns {undefined}
+     */
+    function readyStep(step)
+    {
+        if (step == 2)
+        {
+            // get melk type
+            console.log("type", $("#melktypeid").val());
+            console.log("purpose", $("#melkpurposeid").val());
+            switch ($("#melktypeid").val())
+            {
+                case "1":
+                    // khane
+                    break;
+                case "2":
+                    // aparteman
+                    $("#lot_size_holder").hide();
+                    break;
+                case "3":
+                    // daftar kar
+                    $("#bath_holder").hide();
+                    $("#lot_size_holder").hide();
+                    break;
+                case "4":
+                    // vila
+                    break;
+                case "5":
+                    // zamin
+                    $("#bedroom_holder").hide();
+                    $("#bath_holder").hide();
+                    $("#home_size_holder").hide();
+                    break;
+                case "6":
+                    // otaghe kar
+                    $("#lot_size_holder").hide();
+                    $("#bedroom_holder").hide();
+                    $("#bath_holder").hide();
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("نوع ملک معتبر نمیباشد");
+                    break;
+            }
+        }
+
+
+        if (step == 3)
+        {
+
+        }
+
+
+
+        if (step == 4)
+        {
+
+        }
+
+
+        if (step == 5)
+        {
+
+        }
+
+
+        if (step == 6)
+        {
+
+        }
+    }
+
+    /**
+     * this function will validate step
+     * @param {type} step
+     * @returns {undefined}
+     */
+    function validStep(step) {
+
+        // step one is choose type and purpose
+        if (step == 1)
+        {
+            return true;
+        } else if (step == 2)
+        {
+            // step two is select information
+        }
+    }
+
+
+    // add event on next button click
+    $('body').on('click', '#nextbtn', function() {
+        // get step
+        var currenctStep = $(this).data('step');
+        if (validStep(currenctStep))
+        {
+            readyStep(currenctStep + 1);
+            showStep(currenctStep + 1, currenctStep);
+        }
+
+    });
+    // add event on next button click
+    $('body').on('click', '#backbtn', function() {
+        // get step
+        var currenctStep = $(this).data('step');
+        showStep(currenctStep - 1, currenctStep);
+    });
+
+
+    // show step 1
+    showStep(1, 1);
+
+
+</script>
 
