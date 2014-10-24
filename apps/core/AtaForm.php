@@ -32,7 +32,8 @@ class AtaForm extends Form {
         if (defined("DEBUG_MODE")) {
             $elementName = '<span class="bold red">( ' . $element->getName() . ' )</span>';
         }
-
+        
+        echo '<div id="', $element->getName(), '_holder">';
         echo '<p>';
         echo '<label for="', $element->getName(), '">', $element->getLabel(), $elementName, '</label>';
         echo '<div style="width:' . $width . ';height:' . $height . '">';
@@ -47,6 +48,7 @@ class AtaForm extends Form {
             echo '</div>';
         }
         echo '</p>';
+        echo '</div>';
     }
 
     public function renderInfo($name) {
