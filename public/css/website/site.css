@@ -39,3 +39,27 @@ and open the template in the editor.
     padding: 50px;
     text-align: center;
 }
+
+.plan-thumbnail{
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.plan-thumbnail .price{
+    margin-top: 12px;
+}
+.plan-thumbnail hr{
+    margin: 10px 90px;
+    border-top: 1px dotted #C7C7C7;
+}
+
+.plan-thumbnail.plan-3{
+    color: #fff;
+    background-color: #FF1F5B;
+}
+
+.plan-thumbnail.plan-3 .price,
+.plan-thumbnail.plan-3 .title
+{
+    color : #fff !important;
+}

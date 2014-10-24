@@ -361,4 +361,20 @@ class Melk extends AtaModel {
         
     }
 
+    public function getTypeName() {
+        return MelkType::findFirst($this->melktypeid)->name;
+    }
+
+    public function getPurposeType() {
+        return MelkPurpose::findFirst($this->melkpurposeid)->name;
+    }
+
+    public function getCondiationType() {
+        return MelkCondition::findFirst($this->melkconditionid)->name;
+    }
+    
+    public function getCityName() {
+        return City::findFirst($this->cityid)->name;
+    }
+
 }

@@ -1,0 +1,29 @@
+<div class='row'>
+    <?php foreach ($plans as $plan) : ?>
+        <div class="col-md-3">
+            <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
+                <!-- Title !-->
+                <h3 class="title">
+                    <?php echo $plan->name; ?>
+                </h3>
+                <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
+                <p>نمایش ملک به مدت <?php echo $plan->validdate; ?> روز</p>
+                <hr/>
+                <?php if ($plan->sendmessagetousers == 1) : ?>
+                    <b>ارسال پیامک به کاربران</b>
+                    <p>ملک شما بعد از تایید توسط مدیر، به صورت سراسری برای افرادی که به دنبال ملک با مشخصات شما هستند ارسال می شود</p>
+                    <hr/>
+                <?php endif; ?>
+                <?php if ($plan->featured == 1) : ?>
+                    <b>نمایش ملک به صورت ویژه</b>
+                    <p>ملک شما در لیست به صورت ویژه نمایش داده خواهد شد</p>
+                    <hr/>
+                <?php endif; ?>
+
+                <!-- Button !-->
+                <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("usersubscribe/purchase/" . $plan->id); ?>">سفارش</a>
+            </div>
+
+        </div>
+    <?php endforeach; ?>
+</div>

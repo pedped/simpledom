@@ -40,7 +40,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $fr = new CreateMelkForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
-            var_dump($_POST);
+            //var_dump($_POST);
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $melk = new Melk();
@@ -67,7 +67,7 @@ class MelkController extends ControllerBaseFrontEnd {
                     // we have to create melk info
                     $melkinfo = new MelkInfo();
                     $melkinfo->address = $this->request->getPost('address', 'string');
-                    $melkinfo->latitude = $this->request->getPost('map_lathitude');
+                    $melkinfo->latitude = $this->request->getPost('map_latitude');
                     $melkinfo->longitude = $this->request->getPost('map_longitude');
                     $melkinfo->melkid = $melk->id;
                     $melkinfo->private_address = $this->request->getPost('private_address', "string");
@@ -76,11 +76,11 @@ class MelkController extends ControllerBaseFrontEnd {
                     if (!$melkinfo->create()) {
                         $melkinfo->showErrorMessages($this);
                     } else {
-                        $melk->showSuccessMessages($this, 'New Melk added Successfully');
-                    }
+                        $melk->showSuccessMessages($this, 'ملک شما با موفقیت اضافه گردید');
 
-                    // clear the title and message so the user can add better info
-                    $fr->clear();
+                        // clear the title and message so the user can add better info
+                        $fr->clear();
+                    }
                 }
             } else {
                 // invalid
@@ -111,17 +111,11 @@ class MelkController extends ControllerBaseFrontEnd {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Valid Date', 'User ID', 'Type', 'Purpose', 'Condition', 'Home Size', 'Lot Size', 'Sale Price', 'Price Per Unit', 'Ejare', 'Rahn', 'Bedrooms', 'Bath', 'State ID', 'City ID', 'Create By', 'Featured', 'Approved', 'Date'
+                    'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
                 ))->
                 setFields(array(
-                    'id', 'validdate', 'userid', 'melktypeid', 'melkpurposeid', 'melkconditionid', 'home_size', 'lot_size', 'sale_price', 'price_per_unit', 'rent_price', 'rent_pricerahn', 'bedroom', 'bath', 'stateid', 'cityid', 'createby', 'featured', 'approved', 'getDate()'
-                ))->
-                setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'home_size', 'lot_size', 'sale_price', 'rent_price', 'rent_pricerahn', 'bedroom', 'bath', 'getCityName()', 'createby', 'getDate()'
+                ))->setListPath(
                 'list');
 
         $this->view->list = $paginator->getPaginate();

@@ -60,4 +60,12 @@ class Helper {
         return $randomString;
     }
 
+    public static function getHumanPriceToman($priceInRials) {
+        if ($priceInRials == 0) {
+            return "رایگان";
+        } else {
+            return ( $priceInRials / 10000 ) . " هزار تومان";
+        }
+    }
+
 }
