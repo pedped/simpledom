@@ -3,8 +3,88 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<form method="post">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">جستجو در املاک</h3>
+        </div>
+        <div class="panel-body">
+            <div class='col-md-12'>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <?php $form->renderDecorated('stateid'); ?> 
+                    </div>
+                    <div class='col-md-6'>
+                        <?php $form->renderDecorated('cityid'); ?> 
+                    </div>
+                </div>
+                <hr/>
+                <div class='row'>
+                    <div data-colname="melktypeid" class='col-md-3'>
+                        <?php $form->renderDecorated('melktypeid'); ?> 
+                    </div>
+                    <div data-colname="melkpurposeid" class='col-md-3'>
+                        <?php $form->renderDecorated('melkpurposeid'); ?> 
+                    </div>
+                    <div data-colname="sale_price_start" class='col-md-3'>
+                        <?php $form->renderDecorated('sale_price_start'); ?> 
+                    </div>
+                    <div data-colname="sale_price_end" class='col-md-3'>
+                        <?php $form->renderDecorated('sale_price_end'); ?> 
+                    </div>
+                    <div data-colname="rent_pricerahn_start" class='col-md-3'>
+                        <?php $form->renderDecorated('rent_pricerahn_start'); ?> 
+                    </div>
+                    <div data-colname="rent_pricerahn_end" class='col-md-3'>
+                        <?php $form->renderDecorated('rent_pricerahn_end'); ?> 
+                    </div>
+                    <div data-colname="rent_price_start" class='col-md-3'>
+                        <?php $form->renderDecorated('rent_price_start'); ?> 
+                    </div>
+                    <div data-colname="rent_price_end" class='col-md-3'>
+                        <?php $form->renderDecorated('rent_price_end'); ?> 
+                    </div>
+                    <div data-colname="bedroom_start" class='col-md-3'>
+                        <?php $form->renderDecorated('bedroom_start'); ?> 
+                    </div>
+                    <div data-colname="bedroom_end" class='col-md-3'>
+                        <?php $form->renderDecorated('bedroom_end'); ?> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer search-footer">
+            <div class='row'>
+                <div class='col-md-3'>
+                    <?php $form->renderDecorated('submit'); ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if (isset($showMobileForm)) : ?>
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="alert alert-success">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p style="margin-top: 8px;margin-bottom: 0;">شماره تماس خود را وارد نمایید تا املاک جدید مطابق با جستجوی شما توسط پیامک برای شما ارسال گردد</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" name="subscribephone" class="form-control" placeholder="شماره موبایل" required="true">
+                                <div class="input-group-btn">
+                                    <input type="submit" name="search" class="btn btn-primary" value="دریافت">
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</form>
 <div class='row'>
-    <div class='col-md-12'>
+    <div class='col-md-12 search-result-list'>
         <?php
         echo $list->header;
         echo $list->table;
@@ -12,3 +92,178 @@
         ?>
     </div>
 </div>
+
+<script>
+
+
+    function onBedroomChange() {
+        // get start
+        var val = $("#bedroom_start").val();
+        $.each($("#bedroom_end").children('option'), function(index, item) {
+            $(item).show();
+        });
+        var selected = false;
+        $.each($("#bedroom_end").children('option'), function(index, item) {
+            if (index < val) {
+                $(item).hide();
+            } else
+            {
+                if (selected == false) {
+                    selected = true;
+                    $(item).attr('selected', 'selected');
+                }
+            }
+        });
+    }
+
+    function onSaleStartChange() {
+        // get start
+        var val = parseInt($("#sale_price_start").val());
+        $.each($("#sale_price_end").children('option'), function(index, item) {
+            $(item).show();
+        });
+        var selected = false;
+        $.each($("#sale_price_end").children('option'), function(index, item) {
+            if (parseInt($(item).val()) < val) {
+                $(item).hide();
+            } else
+            {
+                if (selected == false) {
+                    selected = true;
+                    $(item).attr('selected', 'selected');
+                }
+            }
+
+        });
+    }
+
+    function onEjareStartChange() {
+        // get start
+        var val = parseInt($("#rahn_pricerahn_start").val());
+        $.each($("#rahn_pricerahn_end").children('option'), function(index, item) {
+            $(item).show();
+        });
+        $.each($("#rahn_pricerahn_end").children('option'), function(index, item) {
+            if (parseInt($(item).val()) < val) {
+                $(item).hide();
+            }
+        });
+    }
+
+
+    function onRahnStartChange() {
+        // get start
+        var val = parseInt($("#rahn_price_start").val());
+        $.each($("#rahn_price_end").children('option'), function(index, item) {
+            $(item).show();
+        });
+        $.each($("#rahn_price_end").children('option'), function(index, item) {
+            if (parseInt($(item).val()) < val) {
+                $(item).hide();
+            }
+        });
+    }
+
+    function onPurposeChange() {
+        $("div[data-colname='sale_price_start']").hide();
+        $("div[data-colname='sale_price_end']").hide();
+
+        $("div[data-colname='rent_price_start']").hide();
+        $("div[data-colname='rent_price_end']").hide();
+
+        $("div[data-colname='rent_pricerahn_start']").hide();
+        $("div[data-colname='rent_pricerahn_end']").hide();
+
+
+        switch ($("#melkpurposeid").val())
+        {
+            case "1":
+                // forosh
+                $("div[data-colname='sale_price_start']").show().focus();
+                $("div[data-colname='sale_price_end']").show();
+                break;
+            case "2":
+                //  ejare
+                $("div[data-colname='rent_price_start']").show().focus();
+                $("div[data-colname='rent_price_end']").show();
+
+                $("div[data-colname='rent_pricerahn_start']").show();
+                $("div[data-colname='rent_pricerahn_end']").show();
+                break;
+            default:
+                // Type Is Not valid
+                alert("منظور ملک معتبر نمیباشد");
+                break;
+        }
+    }
+
+    function onMelkTypeChange() {
+        // hide all fields 
+        hideAll();
+
+        switch ($("#melktypeid").val())
+        {
+            case "1":
+                // khane
+                $("div[data-colname='bedroom_start']").show();
+                $("div[data-colname='bedroom_end']").show();
+                break;
+            case "2":
+                // aparteman
+                $("div[data-colname='bedroom_start']").show();
+                $("div[data-colname='bedroom_end']").show();
+                break;
+            case "3":
+                // daftar kar
+                $("div[data-colname='bedroom_start']").show();
+                $("div[data-colname='bedroom_end']").show();
+                break;
+            case "4":
+                // vila
+                break;
+            case "5":
+                // zamin
+                break;
+            case "6":
+                // otaghe kar
+                $("div[data-colname='bedroom_start']").show();
+                $("div[data-colname='bedroom_end']").show();
+                break;
+            default:
+                // Type Is Not valid
+                alert("نوع ملک معتبر نمیباشد");
+                break;
+        }
+
+    }
+
+    function hideAll() {
+
+
+        $("div[data-colname='bedroom_start']").hide();
+        $("div[data-colname='bedroom_end']").hide();
+    }
+
+    $("#melkpurposeid").change(function() {
+        onPurposeChange();
+    });
+
+
+    $("#melktypeid").change(function() {
+        onMelkTypeChange();
+
+        // focous on purpose
+        $("#melkpurposeid").focus();
+    });
+
+    $("#bedroom_start").change(function() {
+        onBedroomChange();
+    });
+    $("#sale_price_start").change(function() {
+        onSaleStartChange();
+    });
+
+    onPurposeChange();
+    onMelkTypeChange();
+
+</script>

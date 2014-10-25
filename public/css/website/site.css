@@ -63,3 +63,34 @@ and open the template in the editor.
 {
     color : #fff !important;
 }
+
+footer{
+    bottom : auto !important;
+}
+
+.melk-search-holder
+{
+    padding: 25px 25px;
+    background-color: #fff;
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    margin-bottom: 35px;
+}
+
+label{
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.search-result-list{
+    padding: 15px;
+}
+
+body{
+    color : #333;
+}
+
+.search-footer p
+{
+    display: none;
+}

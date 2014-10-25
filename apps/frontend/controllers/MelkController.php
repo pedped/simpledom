@@ -7,6 +7,7 @@ use CreateMelkForm;
 use Melk;
 use MelkForm;
 use MelkInfo;
+use MelkSearch;
 
 class MelkController extends ControllerBaseFrontEnd {
 
@@ -92,9 +93,88 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function listAction($page = 1) {
 
+
+
+        // search form
+        $form = new MelkSearch();
+        // we have to create query for item
+        $query = "";
+        $bindparams = array();
+
+        // check if user submiteted search query
+        if ($this->request->isPost()) {
+
+            // allow user to show his phone
+            $this->view->showMobileForm = 1;
+
+            // add default parameters
+            switch ($this->request->getPost("melkpurposeid")) {
+                case 1:
+                    // SALE
+                    $query .= "melktypeid = :melktypeid: AND melkpurposeid = :melkpurposeid: AND cityid = :cityid: AND sale_price >= :sale_price_start: AND sale_price <= :sale_price_end: ";
+                    $bindparams["melktypeid"] = $this->request->getPost("melktypeid");
+                    $bindparams["melkpurposeid"] = $this->request->getPost("melkpurposeid");
+                    $bindparams["cityid"] = $this->request->getPost("cityid");
+                    $bindparams["sale_price_start"] = $this->request->getPost("sale_price_start");
+                    $bindparams["sale_price_end"] = $this->request->getPost("sale_price_end");
+                    break;
+                case 2:
+                    // RENT
+                    $query .= "melktypeid = :melktypeid: AND melkpurposeid = :melkpurposeid: AND cityid = :cityid: AND rent_price >= :rent_price_start: AND rent_price <= :rent_price_end: AND rent_pricerahn >= :rent_pricerahn_start: AND rent_pricerahn <= :rent_pricerahn_end: ";
+                    $bindparams["melktypeid"] = $this->request->getPost("melktypeid");
+                    $bindparams["melkpurposeid"] = $this->request->getPost("melkpurposeid");
+                    $bindparams["cityid"] = $this->request->getPost("cityid");
+                    $bindparams["rent_price_start"] = $this->request->getPost("rent_price_start");
+                    $bindparams["rent_price_end"] = $this->request->getPost("rent_price_end");
+                    $bindparams["rent_pricerahn_start"] = $this->request->getPost("rent_pricerahn_start");
+                    $bindparams["rent_pricerahn_end"] = $this->request->getPost("rent_pricerahn_end");
+                    break;
+            }
+
+
+            switch ($this->request->getPost("melktypeid")) {
+                case 1 :
+                case 2 :
+                case 3 :
+                case 6 :
+                    // khane
+                    // apartemnatn
+                    // daftar kar
+                    // otaghe kar
+                    $query.= " AND bedroom >= :bedroom_start: AND bedroom <= :bedroom_end: ";
+                    $bindparams["bedroom_start"] = $this->request->getPost("bedroom_start");
+                    $bindparams["bedroom_end"] = $this->request->getPost("bedroom_end");
+                    break;
+                case 4 :
+                    break;
+                case 5 :
+                    break;
+                default:
+                    $this->LogError("Invalid Melk Type", "Melk type has invalid value");
+                    break;
+            }
+
+            // check if user posted mobile phone
+            if ($this->request->hasPost("subscribephone")) {
+                // user want to subscribe to phone
+                $phone = $this->request->getPost("subscribephone");
+                if (strlen($phone) != 11 && strlen($phone) != 12) {
+                    // user enetred invalid phone number
+                    $this->flash->error("شماره موبایل وارد شده نامعتبر است");
+                } else {
+                    // valid phone number
+                    
+                }
+            }
+        }
+
+
+        $this->view->form = $form;
+
         // load the users
         $melks = Melk::find(
-                        array(
+                        array($query,
+                            "bind" => $bindparams,
                             'order' => 'id DESC'
         ));
 

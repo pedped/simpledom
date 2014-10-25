@@ -6,8 +6,8 @@
             <name>AmlakGostar</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>Captcha</word>
             <word>php</word>
+            <word>قی</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
