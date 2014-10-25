@@ -155,7 +155,7 @@ class BaseUserPhone extends AtaModel {
 
     public function sendVerificationNumber() {
         $message = "Verfication Number:\n" . $this->verifycode;
-        $this->LogInfo("Verification Number Sent", "verification Number Sent to User : " . $this->user->userid);
+        $this->LogInfo("Verification Number Sent", "verification Number Sent to User : " . $this->userid);
         return SMSManager::SendSMS($this->phone, $message, SmsNumber::findFirst("enable = 1"));
     }
 
