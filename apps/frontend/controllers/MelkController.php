@@ -7,7 +7,9 @@ use CreateMelkForm;
 use Melk;
 use MelkForm;
 use MelkInfo;
+use MelkPhoneListner;
 use MelkSearch;
+use UserPhone;
 
 class MelkController extends ControllerBaseFrontEnd {
 
@@ -162,8 +164,7 @@ class MelkController extends ControllerBaseFrontEnd {
                     // user enetred invalid phone number
                     $this->flash->error("شماره موبایل وارد شده نامعتبر است");
                 } else {
-                    // valid phone number
-                    
+                    $this->subscribeUserPhone($phone);
                 }
             }
         }
@@ -360,6 +361,75 @@ class MelkController extends ControllerBaseFrontEnd {
 
     protected function ValidateAccess($id) {
         
+    }
+
+    public function subscribeUserPhone($phone) {
+        // valid phone number, we have to check if the phone number is exist
+        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
+
+
+        // check for userid
+        if ($userPhone && intval($userPhone->userid) != intval($this->user->userid)) {
+            // user is ot valid
+            $this->flash->error("شماره تماس شما توسط شخص دیگری ثبت گردیده است، در صورت اطمینان از شماره خود، توسط فرم تماس با ما این مهم را در جریان بگزارید");
+            return;
+        }
+
+        if ($userPhone && intval($userPhone->userid) == intval($this->user->userid)) {
+            
+        } else if (!$userPhone) {
+            // create user phone
+            $userPhone = new UserPhone();
+            $userPhone->phone = $phone;
+            $userPhone->userid = $this->user->userid;
+            if (!$userPhone->create()) {
+                $this->flash->success("خطا در هنگام اضافه کردن شماره تماس");
+                $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane shomare shaks : " . $userPhone->getMessagesAsLines());
+                return;
+            }
+        }
+
+
+        $melkListner = new MelkPhoneListner();
+
+        $melkListner->cityid = $this->request->getPost("cityid");
+        $melkListner->melkpurposeid = $this->request->getPost("melkpurposeid");
+        $melkListner->melktypeid = $this->request->getPost("melktypeid");
+
+        $melkListner->phoneid = $userPhone->id;
+
+        $melkListner->bedroom_start = $this->request->getPost("bedroom_start");
+        $melkListner->bedroom_end = $this->request->getPost("bedroom_end");
+
+        $melkListner->rent_price_start = $this->request->getPost("rent_price_start");
+        $melkListner->rent_price_end = $this->request->getPost("rent_price_end");
+
+        $melkListner->rent_pricerahn_start = $this->request->getPost("rent_pricerahn_start");
+        $melkListner->rent_pricerahn_end = $this->request->getPost("rent_pricerahn_end");
+
+        $melkListner->sale_price_start = $this->request->getPost("sale_price_start");
+        $melkListner->sale_price_end = $this->request->getPost("sale_price_end");
+
+        if (!$melkListner->create()) {
+            $this->flash->success("خطا در هنگام اضافه کردن شماره تماس");
+            $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane agahsaz : " . $melkListner->getMessagesAsLines());
+            return;
+        }
+
+
+        // check if the phone is valid
+        if (!$userPhone->verified) {
+            $this->flash->success("برای دریافت املاک، نیاز است تا شماره خود را تایید نمایید");
+            $this->dispatcher->forward(array(
+                "controller" => "phone",
+                "action" => "verify",
+                "params" => array(
+                    $phone
+                )
+            ));
+        } else {
+            $this->flash->success("شماره شما با موفقیت به سامانه اضافه گردید، املاک جدید برای شما ارسال خواهد گردید");
+        }
     }
 
 }
