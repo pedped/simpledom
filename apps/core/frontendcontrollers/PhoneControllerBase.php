@@ -48,8 +48,10 @@ class PhoneControllerBase extends ControllerBase {
 
         // check if we have to resend the url
         if ($this->request->hasPost("resend")) {
-            // CHECK limit and send message
-            $this->flash->success(sprintf(_('"SMS Message has been sent to %s. Please check your phone and type your verification number here"'), $phone));
+            // send phone number
+            if ($uphone->sendVerificationNumber()) {
+                $this->flash->success(sprintf(_('"SMS Message has been sent to %s. Please check your phone and type your verification number here"'), $phone));
+            }
         }
 
         // check if user entered any number
