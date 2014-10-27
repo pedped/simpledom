@@ -1,0 +1,126 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+
+            <!--  Moshaksate   !-->
+            <div data-step="1" class="panel panel-default melk-step-panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">مشخصات بنگاه و مالک بنگاه</h3>
+                </div>
+                <div class="panel-body">
+                    <p>در این قسمت مشخصات خواسته شده را وارد نمایید</p>
+
+                    <?php $form->renderDecorated('title'); ?> 
+
+                    <?php $form->renderDecorated('fname'); ?> 
+
+                    <?php $form->renderDecorated('lname'); ?> 
+
+                    <?php $form->renderDecorated('peygiri'); ?> 
+                </div>
+            </div>
+
+            <!--Moghiyate !-->
+            <div data-step="2" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">موقعیت بنگاه</h3>
+                </div>
+                <div class="panel-body">
+                    <p>در این قسمت شما میبایست محدوده و آدرس ملک را مشخص نمایید</p>
+
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!--  ADD State ID !-->
+                            <?php $form->renderDecorated('stateid'); ?> 
+
+                            <!--  ADD City ID !-->
+                            <?php $form->renderDecorated('cityid'); ?> 
+
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
+
+                        </div>
+                        <div class='col-md-6'>
+                            <!--  Map !-->
+                            <?php $form->renderDecorated('map'); ?> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Manategeh Ghabel Poshesh !-->
+            <div data-step="3" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">مناطق قابل پوشش</h3>
+                </div>
+                <div class="panel-body">
+
+                    <?php $form->renderDecorated('locationscansupport'); ?> 
+
+                </div>
+            </div>
+
+
+            <!-- Contact !-->
+            <div data-step="4" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">اطلاعات تماس</h3>
+                </div>
+                <div class="panel-body">
+
+                    <!--  ADD Private Phone !-->
+                    <?php $form->renderDecorated('phone'); ?> 
+
+                    <!--  ADD Private Mobile !-->
+                    <?php $form->renderDecorated('mobile'); ?> 
+
+                </div>
+            </div>
+
+
+
+            <!-- Images  !-->
+            <div data-step="5" class="panel panel-default melk-step-panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">تصاویر ملک</h3>
+                </div>
+                <div class="panel-body">
+                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                    <!--  Image !-->
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img1'); ?> 
+                            <?php $form->renderDecorated('img3'); ?> 
+                            <?php $form->renderDecorated('img5'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img2'); ?> 
+                            <?php $form->renderDecorated('img4'); ?> 
+                            <?php $form->renderDecorated('img6'); ?> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Finish  !-->
+            <div data-step="6" class="panel panel-default melk-step-panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">پایان</h3>
+                </div>
+                <div class="panel-body final-step">
+                    <h3>بعد از ارسال، مشخصات شما توسط املاک گستر بررسی و تایید قرار خواهد گرفت</h3>
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

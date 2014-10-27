@@ -94,3 +94,25 @@ body{
 {
     display: none;
 }
+
+.bongah-panel li a{
+    font-size: 15px;
+}
+
+
+.bongah-panel.nav-pills > li > a {
+    background-color: #E5E5E5;
+    padding: 12px;
+}
+
+.bongah-panel.nav-pills > li.active > a {
+    background-color: #848;
+}
+
+.bongah-panel.nav-pills > li + li{
+    padding: 5px;
+}
+
+.bold{
+    font-weight : bold !important;
+}

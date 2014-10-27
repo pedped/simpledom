@@ -1,0 +1,72 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+
+            <?php if ($hadSMSCredit): ?>
+                <?php if ($totalSMSCanSend > 0) : ?>
+                    <!-- user credit is enough !-->
+                    <div class="alert alert-success">
+                        <h4>  تعداد پیامک های قابل ارسال : <?php echo $totalSMSCanSend; ?></h4>
+                        <p>برای افزایش اعتبار پیامک میتوانید <a href="<?php echo $this->url->get("smscredit/plans"); ?>">پلان های پیامک</a> را خریداری نمایید</p>
+                    </div>
+                <?php else : ?>
+                    <!-- user credit is low !-->
+                    <div class="alert alert-danger">
+                        <h4>  تعداد پیامک های قابل ارسال : <?php echo $totalSMSCanSend; ?></h4>
+                        <p>اعتبار پیامکی شما تمام شده است، لطفا یکی از <a href="<?php echo $this->url->get("smscredit/plans"); ?>">بسته های پیامکی</a> را خرید نمایید</p>
+                    </div>
+
+                <?php endif; ?>
+            <?php else : ?>
+                <!-- User did not purchased any credit yet !-->
+                <div class="alert alert-danger">
+                    <h4>  تعداد پیامک های قابل ارسال : <?php echo $totalSMSCanSend; ?></h4>
+                    <p>برای ارسال پیامک، شما میبایست یکی از <a href="<?php echo $this->url->get("smscredit/plans"); ?>">بسته های پیامکی</a > را خریداری نمایید</p>
+                </div>
+            <?php endif ?>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ارسال پیامک</h3>
+                </div>
+                <div class="panel-body">
+                    <p>شما بنگاه داران گرامی میتوانید به راحتی به افراد تحت پوشش خود پیامک ارسال نمایید</p>
+
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <?php $form->renderDecorated('area'); ?> 
+                                    <?php $form->renderDecorated('message'); ?> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!-- Send To Users Who Have Melk Listner  !-->
+                            <?php $form->renderDecorated('sendtolistners'); ?> 
+                            <!-- Send To Users Who Have Melk !-->
+                            <?php $form->renderDecorated('sendtomelkusers'); ?> 
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <?php $form->renderDecorated('submit'); ?> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

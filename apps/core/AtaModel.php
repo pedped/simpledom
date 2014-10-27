@@ -4,7 +4,6 @@ namespace Simpledom\Core;
 
 use BaseSystemLog;
 use Phalcon\Mvc\Model;
-use Phalcon\Mvc\Model\Resultset\Simple;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SystemLogType;
@@ -25,7 +24,7 @@ abstract class AtaModel extends Model {
      * Create Custom Query
      * @param type $sql
      * @param type $params
-     * @return Simple
+     * @return Resultset
      */
     public function rawQuery($sql, $params = null) {
         return new Resultset(null, $this, $this->getReadConnection()->query($sql, $params));

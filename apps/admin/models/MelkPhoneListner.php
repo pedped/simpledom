@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
 
 class MelkPhoneListner extends AtaModel {
@@ -294,6 +295,34 @@ class MelkPhoneListner extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    /**
+     * melkphonelistner
+     * @param type $cityID
+     * @param type $latitude
+     * @param type $longitude
+     * @param type $maxDistance
+     * @return Resultset
+     */
+    public static function getNearest($cityID, $latitude, $longitude, $maxDistance) {
+        return null;
+    }
+
+    public function getPurposeTitle() {
+        return MelkPurpose::findFirst($this->melkpurposeid)->name;
+    }
+
+    public function getTypeTitle() {
+        return MelkType::findFirst($this->melktypeid)->name;
+    }
+
+    public function getPhoneNumber() {
+        return UserPhone::findFirst($this->phoneid)->phone;
+    }
+
+    public function getCityName() {
+        return City::findFirst($this->cityid)->name;
     }
 
 }

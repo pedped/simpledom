@@ -1,0 +1,21 @@
+<?php $actionName = $this->dispatcher->getActionName(); ?>
+<!-- Header !-->
+<div class='row'>
+    <div class='col-md-8'>
+        <h2 style="margin-bottom: 20px;">پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
+    </div>
+    <div class='col-md-4' style="text-align: left">
+        <h2 style="margin-bottom: 20px;">وضعیت اشتراک: <?php echo $subscribeText; ?></h2>
+    </div>
+</div>
+<ul class="nav nav-pills nav-justified bongah-panel">
+    <li class="<?php echo $actionName == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah"); ?>">املاک ما</a></li> 
+    <li class="<?php echo $actionName == "melkcansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/melkcansupport/$currentBongah->id"); ?>">املاک تحت پوشش ما</a></li> 
+    <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/userscansupport/$currentBongah->id"); ?>">کاربران قابل پوشش</a></li> 
+    <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/settings/$currentBongah->id"); ?>">تنظیمات بنگاه</a></li> 
+    <li class="<?php echo ($actionName == "sendsms" || $actionName == "checksms") ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/sendsms"); ?>">ارسال پیامک</a></li> 
+</ul>
+<hr/>    
+<div class='page-bongah'>
+    <?php echo $this->getContent(); ?>
+</div>

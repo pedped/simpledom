@@ -74,8 +74,8 @@ class MelkController extends ControllerBaseFrontEnd {
                     $melkinfo->longitude = $this->request->getPost('map_longitude');
                     $melkinfo->melkid = $melk->id;
                     $melkinfo->private_address = $this->request->getPost('private_address', "string");
-                    $melkinfo->private_mobile = $this->request->getPost('private_address', "string");
-                    $melkinfo->private_phone = $this->request->getPost('private_address', "string");
+                    $melkinfo->private_mobile = $this->request->getPost('private_mobile', "string");
+                    $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
                     if (!$melkinfo->create()) {
                         $melkinfo->showErrorMessages($this);
                     } else {

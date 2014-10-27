@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
 
 class Melk extends AtaModel {
@@ -372,9 +373,36 @@ class Melk extends AtaModel {
     public function getCondiationType() {
         return MelkCondition::findFirst($this->melkconditionid)->name;
     }
-    
+
     public function getCityName() {
         return City::findFirst($this->cityid)->name;
+    }
+
+    /**
+     * Get Nearset Melks
+     * @param type $cityID
+     * @param type $latitude
+     * @param type $longitude
+     * @param type $minDistance
+     * @return Resultset
+     */
+    public static function getNearest($cityID, $latitude, $longitude, $minDistance) {
+        $melk = new Melk();
+        $result = $melk->rawQuery("select melk.* ,  
+                                ( 3959 * acos( cos( radians(?) ) 
+                                       * cos( radians( melkinfo.latitude ) ) 
+                                       * cos( radians( melkinfo.longitude ) - radians(?) ) 
+                                       + sin( radians(?) ) 
+                                       * sin( radians( melkinfo.latitude ) ) ) ) AS distance 
+                         FROM melk JOIN melkinfo ON  melk.id = melkinfo.melkid WHERE melk.cityid = ?
+                         having distance < ? ORDER BY distance", array(
+            $latitude, $longitude, $latitude, $cityID, $minDistance
+        ));
+        return $result;
+    }
+
+    public function getInfo() {
+        return MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
     }
 
 }

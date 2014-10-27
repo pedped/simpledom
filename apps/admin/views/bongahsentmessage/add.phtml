@@ -1,0 +1,63 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+
+                                                <h2 class='panel-title'>Add BongahSentMessage</h2>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD Bongah ID !-->
+                                <?php $form->renderDecorated('bongahid'); ?> 
+
+                                <!--  ADD Bongah Title !-->
+                                <?php $form->renderDecorated('bongahtitle'); ?> 
+
+                                <!--  ADD To Phone !-->
+                                <?php $form->renderDecorated('tophone'); ?> 
+
+                                <!--  ADD Message !-->
+                                <?php $form->renderDecorated('message'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+                                <!--  ADD SMS Message ID !-->
+                                <?php $form->renderDecorated('smsmessageid'); ?> 
+
+                                <!--  ADD Received !-->
+                                <?php $form->renderDecorated('received'); ?> 
+
+                                <!--  ADD Bongah Phone !-->
+                                <?php $form->renderDecorated('bongahphone'); ?> 
+
+                                <!--  ADD Distance !-->
+                                <?php $form->renderDecorated('distance'); ?> 
+
+                                <!--  ADD Type !-->
+                                <?php $form->renderDecorated('type'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

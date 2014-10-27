@@ -1,0 +1,47 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-lg-12'>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">تایید پیامک</h3>
+            </div>
+            <div class="panel-body">
+                <p>در صورت تایید، بر روی گزینه ارسال کلیک نمایید</p>
+                <hr/>
+                <label class="bold">متن پیامک</label>
+                <p><?php echo $message; ?></p>
+
+                <label class="bold">مناطق ارسالی</label>
+                <ul>
+                    <?php foreach ($areas as $area) : ?>
+                        <li><?php echo $area; ?> </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <?php if ($toAllUsers == TRUE) : ?>
+                    <label class="bold">ارسال پیامک به صاحبان املاک</label>
+                    <p>متن شما به تمامی صاحبان ملکی که در فاصله 5 کیلومتری از بنگاه شما باشند ارسال میگردد</p>
+                <?php endif; ?>
+
+
+                <?php if ($toPhoneListners == TRUE) : ?>
+                    <label class="bold">ارسال پیامک به کاربران گوش به زنگ</label>
+                    <p>متن شما برای تمامی کاربران گوش به زنگ در منطقه مورد نظر ارسال خواهد شد</p>
+                <?php endif; ?>
+
+                <hr/>
+                <form method="post" action="<?php echo $this->url->get("bongah/smssent"); ?>">
+                    <input type="hidden" name="message" value="<?php echo $message; ?>" />
+                    <input type="hidden" name="areas" value="<?php echo implode(",", $areas); ?>" />
+                    <input type="hidden" name="toalluser" value="<?php echo $toAllUsers ? "1" : "0"; ?>" />
+                    <input type="hidden" name="tophonelistner" value="<?php echo $toPhoneListners ? "1" : "0"; ?>" />
+                    <?php $form->renderDecorated('submit'); ?> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
