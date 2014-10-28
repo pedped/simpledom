@@ -1,12 +1,27 @@
 <div class='row center'>
-
-    <div class='col-md-4'>
-    </div>
-    <div class='col-md-4'>
-        <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("melk/start"); ?>">اضافه کردن ملک</a>
-        <a class="btn btn-lg btn-primary" href="link">جستجوی ملک</a>
-        <a class="btn btn-lg btn-warning" href="link">بنگاه داران</a>
-    </div>
-    <div class='col-md-4'>
+    <div class='col-md-12'>
+        <div class="btn-group btn-group-lg" style="width: 100%">
+            <a href="<?php echo $this->url->get("melk/start"); ?>" class='btn btn-default index-large-button'><span class="fa fa-home"></span>&nbsp;اضافه کردن ملک </a>
+            <a href="<?php echo $this->url->get("bongah"); ?>" class='btn btn-default index-large-button' ><span class="fa fa-user"></span>&nbsp;پنل بنگاه داران</a>
+        </div>
+    </div> 
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <div class='row cities-holder'>
+            <?php foreach ($cities as $city): ?>            
+                <div class="col-md-3">
+                    <a class="cityname" href="<?php echo $this->url->get("$city->id" . "/" . "املاک-$city->name") . "/"; ?>">املاک <?php echo $city->name; ?></a>
+                    <?php
+                    $areas = array();
+                    foreach ($cityAreas[$city->id] as $area) {
+                        $areas[] = "<a href='#'>$area->name ($area->total)</a>";
+                    }
+                    $areas = implode("-", $areas);
+                    ?>
+                    <p class="cityareas"><?php echo $areas; ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>

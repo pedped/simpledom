@@ -184,6 +184,27 @@ class MelkInfo extends AtaModel {
         return $this;
     }
 
+    public $canreferbongah;
+    public $description;
+
+    public function getCanreferbongah() {
+        return $this->canreferbongah;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setCanreferbongah($canreferbongah) {
+        $this->canreferbongah = $canreferbongah;
+        return $this;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
+
     /**
      *
      * @param type $parameters
@@ -197,6 +218,7 @@ class MelkInfo extends AtaModel {
         $this->total_view = 0;
         $this->facilities = "";
         $this->search_meta = "";
+        $this->canreferbongah = "0";
     }
 
     public function beforeValidationOnSave() {

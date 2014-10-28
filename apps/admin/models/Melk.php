@@ -2,6 +2,8 @@
 
 use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 
 class Melk extends AtaModel {
 
@@ -330,7 +332,7 @@ class Melk extends AtaModel {
     }
 
     public function getDate() {
-        return date('Y-m-d H:m:s', $this->date);
+        return Jalali::date("Y/m/d-H:i:s", $this->date);
     }
 
     public function getUserName() {
@@ -403,6 +405,53 @@ class Melk extends AtaModel {
 
     public function getInfo() {
         return MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
+    }
+
+    public function getCreateByTilte() {
+        return MelkCreatedBy::findFirst($this->createby)->name;
+    }
+
+    public function getViewButton() {
+        $purl = Config::getPublicUrl();
+        $html = "<a href='$purl" . "melk/view/" . $this->id . "'>مشاهده ملک</a>";
+        return $html;
+    }
+
+    /**
+     * 
+     * @return Resultset
+     */
+    public function getImages() {
+        return MelkImage::find(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
+    }
+
+    public function getZirbana() {
+        return Helper::GetSpace($this->home_size);
+    }
+
+    public function getMetraj() {
+        return Helper::GetSpace($this->lot_size);
+    }
+
+    public function getSalePrice() {
+        return Helper::GetPrice($this->sale_price);
+    }
+
+    public function getEjarePrice() {
+        return Helper::GetPrice($this->rent_price);
+    }
+
+    public function getRahnPrice() {
+        return Helper::GetPrice($this->rent_pricerahn);
+    }
+
+    /**
+     * 
+     * @param type $maxDistance
+     * @return Resultset
+     */
+    public function getNearsetBongahs($maxDistance = 10) {
+        return Bongah::getNearestBongahs($this->cityid, $this->getInfo()->latitude, $this->getInfo()->longitude, $maxDistance);
     }
 
 }

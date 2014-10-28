@@ -1,13 +1,8 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Oct 24, 2014, 3:08:02 PM
-    Author     : ataalla
-*/
-
+@media (min-width: 768px){
+    .dl-horizontal dd {
+        margin-right: 110px !important;
+    }
+}
 .melk-wizard a{
     font-size: 19px;
 }
@@ -115,4 +110,48 @@ body{
 
 .bold{
     font-weight : bold !important;
+}
+
+.cities-holder{
+    background-color: #fff;
+    padding: 10px;
+    margin: 0;
+    margin-top: 12px;
+    border-radius: 3px;
+    border: 1px solid #E2E2E2;
+    color: #323232;
+    font-size: 25px;
+}
+
+
+.cities-holder a{
+    color : #333;
+    text-decoration: none;
+}
+.cities-holder a:hover{
+    color : #45a;
+}
+
+.cities-holder .cityareas{
+    font-size: 14px;
+}
+
+.melk-quick-info dt{
+    width: 100px ;
+}
+
+.melk-quick-info{
+    font-size: 16px;
+}
+
+.navbar-brand{
+    background-color: #F9F9F9 !important;
+    color: #D200FF !important;
+    font-size: 29px !important;
+}
+
+.index-large-button{
+    width: 50%!important;
+    padding: 15px !important;
+    font-size: 25px !important;
 }

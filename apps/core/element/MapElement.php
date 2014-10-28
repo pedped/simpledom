@@ -74,8 +74,10 @@ class MapElement extends BaseElement {
     }
 
     public function render($attributes = null) {
+        
+        $name = $this->getName();
         $html = "
-            <div id='maploader' style='width:100%;height:500px;'>
+            <div id='$name' style='width:100%;height:500px;'>
             </div>
             <script>
                 var locations = [  {
@@ -87,7 +89,7 @@ class MapElement extends BaseElement {
                 new Maplace({
                    
                     locations: locations,
-                    map_div: '#maploader',
+                    map_div: '#$name',
                     controls_type: 'list',
                     map_options : {
                           zoom : $this->zoom,

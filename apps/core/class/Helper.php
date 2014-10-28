@@ -68,4 +68,24 @@ class Helper {
         }
     }
 
+    public static function GetSpace($size) {
+        return $size . " متر مربع";
+    }
+
+    public static function GetPrice($price) {
+        if ($price == 0) {
+            // should be hezar toman
+            return "0";
+        } else if ($price < 1) {
+            // should be hezar toman
+            return number_format($price * 1000) . " " . "هزار تومان";
+        } else if ($price == 1) {
+            return "یک میلیون تومان";
+        } else if ($price > 1 && $price < 1000) {
+            return number_format($price) . " " . "میلیون تومان";
+        } else {
+            return number_format($price / 1000, 2) . " " . "میلیارد تومان";
+        }
+    }
+
 }

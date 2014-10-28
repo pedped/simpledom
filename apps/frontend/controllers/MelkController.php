@@ -3,18 +3,28 @@
 namespace Simpledom\Frontend\Controllers;
 
 use AtaPaginator;
+use City;
 use CreateMelkForm;
 use Melk;
+use MelkContactForm;
 use MelkForm;
+use MelkImage;
 use MelkInfo;
+use MelkInfoViewForm;
 use MelkPhoneListner;
 use MelkSearch;
+use Simpledom\Core\Classes\FileManager;
 use UserPhone;
 
 class MelkController extends ControllerBaseFrontEnd {
 
     public function initialize() {
         parent::initialize();
+
+        $cityID = $this->dispatcher->getParam("cityid");
+        if (isset($cityID)) {
+            $this->setPageTitle("املاک" . " " . City::findFirst($cityID)->name);
+        }
     }
 
     public function startAction() {
@@ -40,11 +50,16 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function createAction() {
 
+
+        // show cities to view
+        $this->view->cities = City::find();
+
         $fr = new CreateMelkForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
+
                 // form is valid
                 $melk = new Melk();
                 $melk->userid = $this->user->userid;
@@ -69,6 +84,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
                     // we have to create melk info
                     $melkinfo = new MelkInfo();
+                    $melkinfo->description = $this->request->getPost('description', 'string');
                     $melkinfo->address = $this->request->getPost('address', 'string');
                     $melkinfo->latitude = $this->request->getPost('map_latitude');
                     $melkinfo->longitude = $this->request->getPost('map_longitude');
@@ -79,6 +95,22 @@ class MelkController extends ControllerBaseFrontEnd {
                     if (!$melkinfo->create()) {
                         $melkinfo->showErrorMessages($this);
                     } else {
+
+
+                        // save images
+                        if ($this->request->hasFiles()) {
+                            // valid request, load the files
+                            foreach ($this->request->getUploadedFiles() as $file) {
+                                $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                                if ($image) {
+                                    $melkImage = new MelkImage();
+                                    $melkImage->imageid = $image->id;
+                                    $melkImage->melkid = $melk->id;
+                                    $melkImage->create();
+                                }
+                            }
+                        }
+
                         $melk->showSuccessMessages($this, 'ملک شما با موفقیت اضافه گردید');
 
                         // clear the title and message so the user can add better info
@@ -95,6 +127,10 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function listAction($page = 1) {
 
+        $cityID = $this->dispatcher->getParam("cityid");
+        if (!isset($cityID)) {
+            $cityID = 1;
+        }
 
 
         // search form
@@ -102,6 +138,7 @@ class MelkController extends ControllerBaseFrontEnd {
         // we have to create query for item
         $query = "";
         $bindparams = array();
+
 
         // check if user submiteted search query
         if ($this->request->isPost()) {
@@ -167,6 +204,9 @@ class MelkController extends ControllerBaseFrontEnd {
                     $this->subscribeUserPhone($phone);
                 }
             }
+        } else {
+            $query = "cityid = :cityid:";
+            $bindparams["cityid"] = $cityID;
         }
 
 
@@ -195,7 +235,7 @@ class MelkController extends ControllerBaseFrontEnd {
                     'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
                 ))->
                 setFields(array(
-                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'home_size', 'lot_size', 'sale_price', 'rent_price', 'rent_pricerahn', 'bedroom', 'bath', 'getCityName()', 'createby', 'getDate()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
                 ))->setListPath(
                 'list');
 
@@ -332,31 +372,25 @@ class MelkController extends ControllerBaseFrontEnd {
     public function viewAction($id) {
 
         $item = Melk::findFirst($id);
-        $this->view->item = $item;
-
-        $form = new MelkForm();
+        $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $item->id)));
+        $form = new MelkInfoViewForm();
+        $contactForm = new MelkContactForm();
         $this->handleFormScripts($form);
-        $form->get('id')->setDefault($item->id);
-        $form->get('validdate')->setDefault($item->validdate);
-        $form->get('userid')->setDefault($item->userid);
-        $form->get('melktypeid')->setDefault($item->melktypeid);
-        $form->get('melkpurposeid')->setDefault($item->melkpurposeid);
-        $form->get('melkconditionid')->setDefault($item->melkconditionid);
-        $form->get('home_size')->setDefault($item->home_size);
-        $form->get('lot_size')->setDefault($item->lot_size);
-        $form->get('sale_price')->setDefault($item->sale_price);
-        $form->get('price_per_unit')->setDefault($item->price_per_unit);
-        $form->get('rent_price')->setDefault($item->rent_price);
-        $form->get('rent_pricerahn')->setDefault($item->rent_pricerahn);
-        $form->get('bedroom')->setDefault($item->bedroom);
-        $form->get('bath')->setDefault($item->bath);
-        $form->get('stateid')->setDefault($item->stateid);
-        $form->get('cityid')->setDefault($item->cityid);
-        $form->get('createby')->setDefault($item->createby);
-        $form->get('featured')->setDefault($item->featured);
-        $form->get('approved')->setDefault($item->approved);
-        $form->get('date')->setDefault($item->date);
+        $this->handleFormScripts($contactForm);
+
+        $form->get('map')->setLathitude($melkInfo->latitude);
+        $form->get('map')->setLongtude($melkInfo->longitude);
+        $form->get('map')->setMarkTitle("موقعیت ملک");
+        $form->get('map')->setMarkDescription("موقعیت ملک");
+
+
+        // get nearser bongahs
+        $this->view->bongahs = $item->getNearsetBongahs();
+
         $this->view->form = $form;
+        $this->view->contactform = $contactForm;
+        $this->view->melk = $item;
+        $this->view->item = $item;
     }
 
     protected function ValidateAccess($id) {

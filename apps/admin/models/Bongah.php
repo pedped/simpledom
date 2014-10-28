@@ -327,7 +327,7 @@ class Bongah extends AtaModel {
     public static function getNearestBongahs($cityID, $latitude, $longitude, $minDistance) {
 
         $bongah = new Bongah();
-        $result = $bongah->rawQuery("select id , title, 
+        $result = $bongah->rawQuery("select bongah.* ,  
                                 ( 3959 * acos( cos( radians(?) ) 
                                        * cos( radians( bongah.latitude ) ) 
                                        * cos( radians( bongah.longitude ) - radians(?) ) 

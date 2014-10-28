@@ -1,11 +1,12 @@
 <?php
 
+use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
 
-class MelkImage extends AtaModel {
+class MelkArea extends AtaModel {
 
     public function getSource() {
-        return 'melkimage';
+        return 'melkarea';
     }
 
     /**
@@ -17,7 +18,7 @@ class MelkImage extends AtaModel {
     /**
      * Set ID
      * @param type $id
-     * @return MelkImage
+     * @return MelkArea
      */
     public function setId($id) {
         $this->id = $id;
@@ -33,7 +34,7 @@ class MelkImage extends AtaModel {
     /**
      * Set Melk ID
      * @param type $melkid
-     * @return MelkImage
+     * @return MelkArea
      */
     public function setMelkid($melkid) {
         $this->melkid = $melkid;
@@ -41,18 +42,66 @@ class MelkImage extends AtaModel {
     }
 
     /**
-     * Image ID
+     * Area ID
      * @var string
      */
-    public $imageid;
+    public $areaid;
 
     /**
-     * Set Image ID
-     * @param type $imageid
-     * @return MelkImage
+     * Set Area ID
+     * @param type $areaid
+     * @return MelkArea
      */
-    public function setImageid($imageid) {
-        $this->imageid = $imageid;
+    public function setAreaid($areaid) {
+        $this->areaid = $areaid;
+        return $this;
+    }
+
+    /**
+     * City ID
+     * @var string
+     */
+    public $cityid;
+
+    /**
+     * Set City ID
+     * @param type $cityid
+     * @return MelkArea
+     */
+    public function setCityid($cityid) {
+        $this->cityid = $cityid;
+        return $this;
+    }
+
+    /**
+     * By User ID
+     * @var string
+     */
+    public $byuserid;
+
+    /**
+     * Set By User ID
+     * @param type $byuserid
+     * @return MelkArea
+     */
+    public function setByuserid($byuserid) {
+        $this->byuserid = $byuserid;
+        return $this;
+    }
+
+    /**
+     * IP
+     * @var string
+     */
+    public $ip;
+
+    /**
+     * Set IP
+     * @param type $ip
+     * @return MelkArea
+     */
+    public function setIp($ip) {
+        $this->ip = $ip;
         return $this;
     }
 
@@ -65,7 +114,7 @@ class MelkImage extends AtaModel {
     /**
      * Set Date
      * @param type $date
-     * @return MelkImage
+     * @return MelkArea
      */
     public function setDate($date) {
         $this->date = $date;
@@ -81,25 +130,9 @@ class MelkImage extends AtaModel {
     }
 
     /**
-     * return the image object
-     * @return BaseImage
-     */
-    public function getImage() {
-        return BaseImage::findFirst($this->imageid);
-    }
-
-    /**
-     * return the image link
-     * @return String imagelink
-     */
-    public function getImageLink() {
-        return $this->getImage()->link;
-    }
-
-    /**
      *
      * @param type $parameters
-     * @return MelkImage
+     * @return MelkArea
      */
     public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
@@ -116,5 +149,6 @@ class MelkImage extends AtaModel {
     public function getPublicResponse() {
         
     }
+
 
 }

@@ -57,6 +57,13 @@ class CreateMelkForm extends AtaForm {
         $this->add($sale_price);
 
 
+        // Sale Price
+        $description = new TextAreaElement('description');
+        $description->setLabel('توضیحات ملک');
+        //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
+        $description->setAttribute('class', 'form-control');
+        $this->add($description);
+
 
         // Ejare
         $rent_price = new TextElement('rent_price');

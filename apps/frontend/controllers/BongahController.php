@@ -11,6 +11,7 @@ use CreateBongahForm;
 use Melk;
 use MelkPhoneListner;
 use SendBongahSmsForm;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 
@@ -37,8 +38,10 @@ class BongahController extends ControllerBase {
                     "order" => "id DESC"
         ));
 
+        $publicUrl = Config::getPublicUrl();
         if (!$subscription) {
-            $this->subscriptionText = "<b style='color:#e30'>رایگان</b>";
+
+            $this->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><b style='color:#e30'>رایگان</b></a>";
         }
 
         // set view

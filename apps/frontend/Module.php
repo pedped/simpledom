@@ -163,6 +163,9 @@ class Module implements ModuleDefinitionInterface {
         $di->set("debug", true);
 
         $di['router']->setDefaultNamespace("Simpledom\Frontend\Controllers");
+
+
+        
     }
 
 }

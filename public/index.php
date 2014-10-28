@@ -1,6 +1,6 @@
 <?php
 
-//define("DEBUG_MODE", TRUE);
+define("DEBUG_MODE", TRUE);
 
 
 use Phalcon\Events\Manager;
@@ -21,7 +21,7 @@ bindtextdomain('messages', $_SERVER["DOCUMENT_ROOT"] . "/Local/");
 textdomain('messages');
 bind_textdomain_codeset("messages", 'UTF-8');
 
- 
+
 try {
 
     /**
@@ -106,12 +106,22 @@ try {
 
     $di->set('security', function() {
         $security = new Security();
-        
+
         //Set the password hashing factor to 12 rounds
         $security->setWorkFactor(12);
 
         return $security;
     }, true);
+
+
+    //Define a route
+    $di['router']->add("/([0-9]+)/{cityname}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+        "params" => 3
+            )
+    );
 
     /**
      * Include modules
