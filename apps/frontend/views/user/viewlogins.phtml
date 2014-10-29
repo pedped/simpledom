@@ -1,6 +1,8 @@
-<h1><?= _("View Login History"); ?></h1>
-<div class='row'>
-    <div class='col-md-6'>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title"><?= _("View Login History"); ?></h1>
+    </div>
+    <div class="panel-body">
         <p><?= _("You can see your login history here"); ?></p>
         <?php $this->partial("layouts/usersettingsheader") ?>
         <div class="_account-settings-tab-content">
@@ -8,9 +10,6 @@
             echo $list->table;
             echo $list->footer;
             ?>
-        </div>
-        <div class='col-md-6'>
-
         </div>
     </div>
 </div>
