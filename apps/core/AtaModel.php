@@ -69,7 +69,7 @@ abstract class AtaModel extends Model {
     }
 
     private function log($type, $title, $message, $ip = null) {
-        return BaseSystemLog::log($type, $title, $message, $ip);
+        return BaseSystemLog::createLog($type, $title, $message, $ip);
     }
 
     protected function LogInfo($title, $message, $ip = null) {
