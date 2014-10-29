@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Helper;
 
 class MelkPhoneListner extends AtaModel {
 
@@ -221,7 +222,7 @@ class MelkPhoneListner extends AtaModel {
      * Sale End
      * @var string
      */
-    public $sale_price_end;
+    public $Ssale_price_end;
 
     /**
      * Set Sale End
@@ -266,7 +267,7 @@ class MelkPhoneListner extends AtaModel {
     }
 
     public function getDate() {
-        return date('Y-m-d H:m:s', $this->date);
+        return Helper::GetPersianDate($this->date);
     }
 
     public function getUserName() {
@@ -323,6 +324,30 @@ class MelkPhoneListner extends AtaModel {
 
     public function getCityName() {
         return City::findFirst($this->cityid)->name;
+    }
+
+    public function getRentPriceStartHuman() {
+        return $this->rent_price_start <= 0 ? "-" : Helper::GetPrice($this->rent_price_start);
+    }
+
+    public function getRentPriceEndHuman() {
+        return $this->rent_price_end <= 0 ? "-" : Helper::GetPrice($this->rent_price_end);
+    }
+
+    public function getRentPriceRahnStartHuman() {
+        return $this->rent_pricerahn_start <= 0 ? "-" : Helper::GetPrice($this->rent_pricerahn_start);
+    }
+
+    public function getRentPriceRahnEndHuman() {
+        return $this->rent_pricerahn_end <= 0 ? "-" : Helper::GetPrice($this->rent_pricerahn_end);
+    }
+
+    public function getSalePriceStartHuman() {
+        return $this->sale_price_start <= 0 ? "-" : Helper::GetPrice($this->sale_price_start);
+    }
+
+    public function getSalePriceEndHuman() {
+        return $this->sale_price_end <= 0 ? "-" : Helper::GetPrice($this->sale_price_end);
     }
 
 }

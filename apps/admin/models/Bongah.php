@@ -255,6 +255,17 @@ class Bongah extends AtaModel {
 
     public $userid;
     public $validdate;
+    public $bongahsubscribeitemid;
+    public $planvaliddate;
+
+    public function getBongahsubscribeitemid() {
+        return $this->bongahsubscribeitemid;
+    }
+
+    public function setBongahsubscribeitemid($bongahsubscribeitemid) {
+        $this->bongahsubscribeitemid = $bongahsubscribeitemid;
+        return $this;
+    }
 
     public function getUserid() {
         return $this->userid;
@@ -300,7 +311,9 @@ class Bongah extends AtaModel {
     public function beforeValidationOnCreate() {
         $this->date = time();
         $this->featured = "0";
-        $this->enable = "0";
+        $this->enable = "-1"; // wait for approve
+        $this->bongahsubscribeitemid = "0";
+        $this->planvaliddate = "0";
     }
 
     public function beforeValidationOnSave() {

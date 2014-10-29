@@ -2,7 +2,7 @@
 
 namespace Simpledom\Core\Classes;
 
-use Phalcon\Http\Response;
+use Jalali;
 
 class Helper {
 
@@ -60,14 +60,6 @@ class Helper {
         return $randomString;
     }
 
-    public static function getHumanPriceToman($priceInRials) {
-        if ($priceInRials == 0) {
-            return "رایگان";
-        } else {
-            return ( $priceInRials / 10000 ) . " هزار تومان";
-        }
-    }
-
     public static function GetSpace($size) {
         return $size . " متر مربع";
     }
@@ -86,6 +78,10 @@ class Helper {
         } else {
             return number_format($price / 1000, 2) . " " . "میلیارد تومان";
         }
+    }
+
+    public static function GetPersianDate($time) {
+        return Jalali::date("Y/m/d H:i:s", $time);
     }
 
 }

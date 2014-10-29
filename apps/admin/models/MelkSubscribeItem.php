@@ -176,7 +176,7 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
     }
 
     public function getHumanPrice() {
-        return Helper::getHumanPriceToman($this->price);
+        return Helper::GetPrice($this->price / 10000000);
     }
 
     /*     * *******************************************************************

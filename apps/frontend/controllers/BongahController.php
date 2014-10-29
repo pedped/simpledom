@@ -6,12 +6,13 @@ use AtaPaginator;
 use Bongah;
 use BongahForm;
 use BongahSentMessage;
-use BongahSubscriber;
+use BongahSubscribeItem;
 use CreateBongahForm;
 use Melk;
 use MelkPhoneListner;
 use SendBongahSmsForm;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 
@@ -33,23 +34,49 @@ class BongahController extends ControllerBase {
             return;
         }
 
-        // fetch user subscription
-        $subscription = BongahSubscriber::findFirst(array(
-                    "order" => "id DESC"
-        ));
-
-        $publicUrl = Config::getPublicUrl();
-        if (!$subscription) {
-
-            $this->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><b style='color:#e30'>رایگان</b></a>";
-        }
-
-        // set view
-        $this->view->subscribeText = $this->subscriptionText;
 
         // get bongah id
-        $this->bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+        $bongahID = $this->dispatcher->getParam("bongahid");
+        if (!$bongahID) {
+            $this->bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+            if (!$this->bongah) {
+                $this->show404();
+                return;
+            }
+            $bongahID = $this->bongah->id;
+        } else {
+            $this->bongah = Bongah::findFirst(array("id = :id:", "bind" => array("id" => $bongahID)));
+            if (!$this->bongah || intval($this->bongah->userid) != intval($this->user->userid)) {
+                $this->show404();
+                return;
+            }
+        }
+
+        // bongah found
+        if ($this->dispatcher->getActionName() != "waitforapprove") {
+            if (intval($this->bongah->enable) == -1) {
+                Helper::RedirectToURL("bongah/$bongahID/waitforapprove");
+                return;
+            } else if (intval($this->bongah->enable) == 0) {
+                $this->show404();
+                return;
+            }
+        }
+
+        // fetch user subscription
+        $publicUrl = Config::getPublicUrl();
+        if (intval($this->bongah->bongahsubscribeitemid) == 0) {
+            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><b style='color:#e30'>رایگان</b></a>";
+        } else {
+            $subscriptionTitle = BongahSubscribeItem::findFirst($this->bongah->bongahsubscribeitemid)->name;
+            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><span style='color:#EE22BD'>" . $subscriptionTitle . "</span></a>";
+        }
+
         $this->view->currentBongah = $this->bongah;
+    }
+
+    public function waitforapproveAction() {
+        
     }
 
     /**
@@ -164,7 +191,7 @@ class BongahController extends ControllerBase {
                     'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
                 ))->
                 setFields(array(
-                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'home_size', 'lot_size', 'sale_price', 'rent_price', 'rent_pricerahn', 'bedroom', 'bath', 'getCityName()', 'createby', 'getDate()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
                 ))->setListPath(
                 'list');
 
@@ -179,11 +206,18 @@ class BongahController extends ControllerBase {
                             'order' => $order
         ));
 
-        $this->getMelkPaginator($page, $melks);
+        $this->
+                getMelkPaginator($page, $melks);
     }
 
     public function indexAction($page = 1) {
-        $this->getMelksList($page);
+
+        $this->getMelksList($page, "cityid = :cityid:", array("cityid" => $this->bongah->cityid));
+    }
+
+    public function melksAction($page = 1) {
+
+        $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid));
     }
 
     public function melkcansupportAction($bongahID, $page = 1, $maxDistance = 10) {
@@ -192,7 +226,7 @@ class BongahController extends ControllerBase {
         $bongah = Bongah::findFirst($bongahID);
 
         // find nearset melks
-        $melks = Melk::getNearest(1, $bongah->latitude, $bongah->longitude, $maxDistance);
+        $melks = Melk::getNearest($this->bongah->cityid, $bongah->latitude, $bongah->longitude, $maxDistance);
 
         // load paginate
         $this->getMelkPaginator($page, $melks);
@@ -230,7 +264,7 @@ class BongahController extends ControllerBase {
                     'کد', 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'شماره تماس', 'پیامک های دریافتی', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر'
                 ))->
                 setFields(array(
-                    'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getPhoneNumber(', 'receivedcount', 'rent_price_start', 'rent_price_end', 'rent_pricerahn_start', 'rent_pricerahn_end', 'sale_price_start', 'sale_price_end', 'getDate()', 'getCityName()'
+                    'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getPhoneNumber()', 'receivedcount', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()'
                 ))->setListPath(
                 'list');
 
@@ -242,7 +276,8 @@ class BongahController extends ControllerBase {
      * @param type $id
      * @return boolean
      */
-    protected function ValidateAccess($id) {
+    protected function ValidateAccess
+    ($id) {
         return true;
     }
 
@@ -281,6 +316,7 @@ class BongahController extends ControllerBase {
                 $fr->flashErrors($this);
             }
         }
+
         $this->view->form = $fr;
     }
 
@@ -318,7 +354,8 @@ class BongahController extends ControllerBase {
                 )->setListPath(
                 'list');
 
-        $this->view->list = $paginator->getPaginate();
+        $this->view->
+                list = $paginator->getPaginate();
     }
 
     public function deleteAction($id) {

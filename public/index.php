@@ -1,6 +1,6 @@
 <?php
 
-define("DEBUG_MODE", TRUE);
+//define("DEBUG_MODE", TRUE);
 
 use Phalcon\Events\Manager;
 use Phalcon\Exception;
@@ -129,6 +129,23 @@ try {
         "params" => 4
             )
     );
+
+    $di['router']->add("/bongah/([0-9]+)/:action/:params", array(
+        "controller" => "bongah",
+        "action" => 2,
+        "bongahid" => 1,
+        "params" => 3
+            )
+    );
+
+
+    $di['router']->add("/bongah/([0-9]+)/", array(
+        "controller" => "bongah",
+        "action" => "index",
+        "bongahid" => 1,
+            )
+    );
+
 
     /**
      * Include modules

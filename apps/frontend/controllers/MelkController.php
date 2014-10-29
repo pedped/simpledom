@@ -88,11 +88,19 @@ class MelkController extends ControllerBaseFrontEnd {
         }
     }
 
+    private function findUserSubscription() {
+        $subscriptionID = $this->user->melksubscriberplanid;
+        $this->melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
+    }
+
     public function loginfirstAction() {
         $this->setPageTitle("اضافه کردن ملک");
     }
 
     public function createAction() {
+
+        // find user subscription
+        $this->findUserSubscription();
 
         // show cities to view
         $this->view->cities = City::find();
@@ -186,11 +194,11 @@ class MelkController extends ControllerBaseFrontEnd {
 
 
                         // check if we have user phone
-                        $userPhone = UserPhone::findFirst($melkinfo->private_phone);
+                        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $melkinfo->private_mobile)));
                         if (!$userPhone) {
                             // user phone is not exist
                             $userPhone = new UserPhone();
-                            $userPhone->phone = $melkinfo->private_phone;
+                            $userPhone->phone = $melkinfo->private_mobile;
                             $userPhone->userid = $this->user->userid;
                             if ($userPhone->create()) {
                                 $userPhone->sendVerificationNumber();
@@ -229,9 +237,11 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     public function verifyphoneAction($melkid, $phone) {
+
+        // find user subscription
+        $this->findUserSubscription();
+
         $fr = new VerifyPhoneForm();
-
-
         // check if user entered any number
         if ($this->request->hasPost("verifycode")) {
             $userverifycode = $this->request->getPost("verifycode");
@@ -248,8 +258,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
 
                 // user phone verificaed, we have to choose the buy option
-                $this->redirectAfterMelkCreating($phone
-                );
+                $this->redirectAfterMelkCreating($phone);
             } else {
                 // invalid number
                 $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));
@@ -259,6 +268,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $this->handleFormScripts($fr);
         $this->view->form = $fr;
         $this->view->phoneNumber = $phone;
+        $this->view->melkID = $melkid;
     }
 
     public function listAction($page = 1) {
@@ -537,12 +547,14 @@ class MelkController extends ControllerBaseFrontEnd {
         $this->view->item = $item;
     }
 
-    protected
-            function ValidateAccess($id) {
+    protected function ValidateAccess($id) {
         
     }
 
     public function subscribeUserPhone($phone) {
+
+
+
         // valid phone number, we have to check if the phone number is exist
         $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
 
@@ -627,6 +639,9 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     public function redirectAfterMelkCreating($phone) {
+
+        // find user subscription
+        $this->findUserSubscription();
 
         // Send SMS
         if (isset($this->melkSubscription)) {

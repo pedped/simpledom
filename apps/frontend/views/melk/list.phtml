@@ -4,9 +4,9 @@
     </div>
 </div>
 <form method="post">
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="box-shadow: 0px 0px 6px #D0BFBF;">
         <div class="panel-heading">
-            <h3 class="panel-title">جستجو در املاک</h3>
+            <h class="panel-title"><span class="glyphicon glyphicon-search" style="top: 5px;padding-left: 10px;"></span>جستجو در املاک</h2>
         </div>
         <div class="panel-body">
             <div class='col-md-12'>
@@ -60,6 +60,12 @@
                 </div>
             </div>
         </div>
+        <div class='search-result-list'>
+            <?php
+            echo $list->table;
+            echo $list->footer;
+            ?>
+        </div>
     </div>
     <?php if (isset($showMobileForm)) : ?>
         <div class='row'>
@@ -83,15 +89,7 @@
         </div>
     <?php endif; ?>
 </form>
-<div class='row'>
-    <div class='col-md-12 search-result-list'>
-        <?php
-        echo $list->header;
-        echo $list->table;
-        echo $list->footer;
-        ?>
-    </div>
-</div>
+
 
 <script>
 
