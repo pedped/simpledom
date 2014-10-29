@@ -613,7 +613,7 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     public function redirectToPhoneVerifyPage($melkid, $phone) {
-        $this->flash->success($this, 'برای تایید ملک خود نیاز است تا شماره تماس خود را تایید نمایید، لطفا کد ارسال شده به شماره خود را وارد نمایید');
+        $this->flash->success('برای تایید ملک خود نیاز است تا شماره تماس خود را تایید نمایید، لطفا کد ارسال شده به شماره خود را وارد نمایید');
 
         // forward user to phone verification page 
         $this->dispatcher->forward(array(
@@ -638,8 +638,8 @@ class MelkController extends ControllerBaseFrontEnd {
             } else {
                 $name = "سرکار خانم " . $username;
             }
-            SMSManager::SendSMS($phone, "$name، ملک شما با موفقیت اضافه گردید", SmsNumber::findFirst()->id);
-            $this->flash->success($this, 'ملک شما با موفقیت اضافه گردید');
+            SMSManager::SendSMS($phone, $name . "،" . " " . "ملک شما با موفقیت اضافه گردید", SmsNumber::findFirst()->id);
+            $this->flash->success('ملک شما با موفقیت اضافه گردید');
         } else {
             
         }
