@@ -1,4 +1,9 @@
 <div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
     <?php foreach ($plans as $plan) : ?>
         <div class="col-md-3">
             <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
@@ -8,6 +13,8 @@
                 </h3>
                 <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
                 <p>نمایش ملک به مدت <?php echo $plan->validdate; ?> روز</p>
+                <hr/>
+                <p>تعداد املاک قابل مجاز: <?php echo $plan->melkscanadd; ?></p>
                 <hr/>
                 <?php if ($plan->sendmessagetousers == 1) : ?>
                     <b>ارسال پیامک به کاربران</b>

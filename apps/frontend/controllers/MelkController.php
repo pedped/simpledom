@@ -2,10 +2,12 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Area;
 use AtaPaginator;
 use City;
 use CreateMelkForm;
 use Melk;
+use MelkArea;
 use MelkContactForm;
 use MelkForm;
 use MelkImage;
@@ -13,10 +15,20 @@ use MelkInfo;
 use MelkInfoViewForm;
 use MelkPhoneListner;
 use MelkSearch;
+use MelkSubscribeItem;
 use Simpledom\Core\Classes\FileManager;
+use Simpledom\Core\VerifyPhoneForm;
+use SMSManager;
+use SmsNumber;
 use UserPhone;
 
 class MelkController extends ControllerBaseFrontEnd {
+
+    /**
+     *
+     * @var MelkSubscribeItem 
+     */
+    private $melkSubscription;
 
     public function initialize() {
         parent::initialize();
@@ -39,6 +51,38 @@ class MelkController extends ControllerBaseFrontEnd {
             return;
         } else {
 
+            // check if user need subscription
+            $userMelksCount = Melk::find(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->count();
+            if ($userMelksCount > 0) {
+                // check if user has any valid suscription
+                if (intval($this->user->melksubscriberplanid) == 0) {
+                    // user has one melk before and now wants to add new melk, but 
+                    // he do not have any valid subscription, he has to buy subscriptipn
+                    $this->flash->error("برای افزودن ملک، نیاز است تا یکی از پلان های عضویت را خریداری نمایید");
+                    $this->dispatcher->forward(array(
+                        "controller" => "usersubscribe",
+                        "action" => "plans"
+                    ));
+                    return;
+                } else {
+                    // we have to fetch user subscription
+                    $subscriptionID = $this->user->melksubscriberplanid;
+                    $melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
+                    if ($melkSubscription->melkscanadd < $userMelksCount + 1) {
+                        // user need to purchase more account
+                        $this->flash->error("تعداد املاک شما در حال حاضر از تعداد املاک مجاز برای افزودن بیشتر است، لطفا پلان بالاتری خریداری نمایید");
+                        $this->dispatcher->forward(array(
+                            "controller" => "usersubscribe",
+                            "action" => "plans"
+                        ));
+                        return;
+                    }
+
+                    $this->melkSubscription = $melkSubscription;
+                }
+            } else {
+                
+            }
             // this function will create new melk 
             $this->response->redirect("melk/create");
         }
@@ -50,12 +94,12 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function createAction() {
 
-
         // show cities to view
         $this->view->cities = City::find();
 
         $fr = new CreateMelkForm();
         $this->handleFormScripts($fr);
+
         if ($this->request->isPost()) {
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
@@ -78,6 +122,15 @@ class MelkController extends ControllerBaseFrontEnd {
                 $melk->createby = 2;
                 $melk->featured = 0;
                 $melk->approved = 0;
+
+                // calc teh valid date
+                if (isset($this->melkSubscription)) {
+                    $this->validdate = time() + 3600 * 24 * $this->melkSubscription->validdate;
+                } else {
+                    $this->validdate = time() + 3600 * 24 * 1;
+                }
+
+
                 if (!$melk->create()) {
                     $melk->showErrorMessages($this);
                 } else {
@@ -111,7 +164,56 @@ class MelkController extends ControllerBaseFrontEnd {
                             }
                         }
 
-                        $melk->showSuccessMessages($this, 'ملک شما با موفقیت اضافه گردید');
+                        // create area if not exist
+                        $area = Area::findFirst(array("name = :name:", "bind" => array("name" => $melkinfo->address)));
+                        if (!$area) {
+                            // area is not exist
+                            $area = new Area();
+                            $area->byuserid = $this->user->userid;
+                            $area->cityid = $melk->cityid;
+                            $area->name = trim($melkinfo->address);
+                            $area->create();
+                        }
+
+                        // add melk area
+                        $melkArea = new MelkArea();
+                        $melkArea->areaid = $area->id;
+                        $melkArea->byuserid = $this->user->userid;
+                        $melkArea->cityid = $melk->cityid;
+                        $melkArea->ip = $_SERVER["REMOTE_ADDR"];
+                        $melkArea->melkid = $melk->id;
+                        $melkArea->create();
+
+
+                        // check if we have user phone
+                        $userPhone = UserPhone::findFirst($melkinfo->private_phone);
+                        if (!$userPhone) {
+                            // user phone is not exist
+                            $userPhone = new UserPhone();
+                            $userPhone->phone = $melkinfo->private_phone;
+                            $userPhone->userid = $this->user->userid;
+                            if ($userPhone->create()) {
+                                $userPhone->sendVerificationNumber();
+                                $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                            }
+                        } else {
+                            if (intval($userPhone->userid) == intval($this->user->userid)) {
+                                // user phone is for the user
+                                if (intval($userPhone->verified) == 1) {
+                                    // redirect to after melk create
+                                    $this->redirectAfterMelkCreating($melkinfo->private_mobile);
+                                } else {
+                                    // user phone is not verified yet
+                                    $userPhone->sendVerificationNumber();
+                                    $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                                }
+                            } else {
+                                // shomare tamase shakse digar
+                                $USERID = $this->user->userid;
+                                $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
+                                $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
+                            }
+                        }
 
                         // clear the title and message so the user can add better info
                         $fr->clear();
@@ -122,7 +224,41 @@ class MelkController extends ControllerBaseFrontEnd {
                 $fr->flashErrors($this);
             }
         }
+
         $this->view->form = $fr;
+    }
+
+    public function verifyphoneAction($melkid, $phone) {
+        $fr = new VerifyPhoneForm();
+
+
+        // check if user entered any number
+        if ($this->request->hasPost("verifycode")) {
+            $userverifycode = $this->request->getPost("verifycode");
+            $userPhone = UserPhone::findFirst(array("userid = :userid: AND phone = :phone:", "bind" => array(
+                            "userid" => $this->user->userid,
+                            "phone" => $phone
+            )));
+
+            // check if both items are equal
+            if (intval($userverifycode) === intval($userPhone->verifycode)) {
+                // verification equals to user eneterd number
+                $userPhone->verified = "1";
+                $userPhone->save();
+                $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
+
+                // user phone verificaed, we have to choose the buy option
+                $this->redirectAfterMelkCreating($phone
+                );
+            } else {
+                // invalid number
+                $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));
+            }
+        }
+
+        $this->handleFormScripts($fr);
+        $this->view->form = $fr;
+        $this->view->phoneNumber = $phone;
     }
 
     public function listAction($page = 1) {
@@ -212,13 +348,19 @@ class MelkController extends ControllerBaseFrontEnd {
 
         $this->view->form = $form;
 
-        // load the users
-        $melks = Melk::find(
-                        array($query,
-                            "bind" => $bindparams,
-                            'order' => 'id DESC'
-        ));
-
+        $areaid = $this->dispatcher->getParam("areaid");
+        if (isset($areaid)) {
+            //$query .= " AND melk.id IN ( SELECT melkid FROM melkarea WHERE melkarea.cityid = :cityid: AND melkarea.areaid = :areaid:)";
+            $m = new Melk();
+            $melks = $m->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id  = melkarea.melkid AND melkarea.areaid = ? ", array($areaid));
+        } else {
+            // load the users
+            $melks = Melk::find(
+                            array($query,
+                                "bind" => $bindparams,
+                                'order' => 'id DESC'
+            ));
+        }
 
         $numberPage = $page;
 
@@ -382,6 +524,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setLongtude($melkInfo->longitude);
         $form->get('map')->setMarkTitle("موقعیت ملک");
         $form->get('map')->setMarkDescription("موقعیت ملک");
+        $form->get('map')->setZoom(13);
 
 
         // get nearser bongahs
@@ -390,10 +533,12 @@ class MelkController extends ControllerBaseFrontEnd {
         $this->view->form = $form;
         $this->view->contactform = $contactForm;
         $this->view->melk = $item;
+
         $this->view->item = $item;
     }
 
-    protected function ValidateAccess($id) {
+    protected
+            function ValidateAccess($id) {
         
     }
 
@@ -462,7 +607,41 @@ class MelkController extends ControllerBaseFrontEnd {
                 )
             ));
         } else {
-            $this->flash->success("شماره شما با موفقیت به سامانه اضافه گردید، املاک جدید برای شما ارسال خواهد گردید");
+            $this->flash->success(
+                    "شماره شما با موفقیت به سامانه اضافه گردید، املاک جدید برای شما ارسال خواهد گردید");
+        }
+    }
+
+    public function redirectToPhoneVerifyPage($melkid, $phone) {
+        $this->flash->success($this, 'برای تایید ملک خود نیاز است تا شماره تماس خود را تایید نمایید، لطفا کد ارسال شده به شماره خود را وارد نمایید');
+
+        // forward user to phone verification page 
+        $this->dispatcher->forward(array(
+            "controller" => "melk",
+            "action" => "verifyphone",
+            "params" => array(
+                $melkid,
+                $phone
+            )
+        ));
+    }
+
+    public function redirectAfterMelkCreating($phone) {
+
+        // Send SMS
+        if (isset($this->melkSubscription)) {
+            $username = $this->user->getFullName();
+            $gender = $this->user->gender;
+            $name = "";
+            if (intval($gender) == 1) {
+                $name = "جناب آقای " . $username;
+            } else {
+                $name = "سرکار خانم " . $username;
+            }
+            SMSManager::SendSMS($phone, "$name، ملک شما با موفقیت اضافه گردید", SmsNumber::findFirst()->id);
+            $this->flash->success($this, 'ملک شما با موفقیت اضافه گردید');
+        } else {
+            
         }
     }
 

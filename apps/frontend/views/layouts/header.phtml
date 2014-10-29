@@ -19,6 +19,7 @@ use Phalcon\Text;
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="<?php echo $this->url->get("opinion"); ?>"><?= _("OPINIONS"); ?></a></li>
+                <li><a href="<?php echo $this->url->get("melk/start"); ?>">افزودن ملک</a></li>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
                 <?php endforeach; ?>

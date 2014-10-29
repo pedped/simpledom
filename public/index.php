@@ -2,7 +2,6 @@
 
 define("DEBUG_MODE", TRUE);
 
-
 use Phalcon\Events\Manager;
 use Phalcon\Exception;
 use Phalcon\Flash\Direct;
@@ -120,6 +119,14 @@ try {
         "action" => "list",
         "cityid" => 1,
         "params" => 3
+            )
+    );
+    $di['router']->add("/منطقه/([0-9]+)/([0-9]+)/{cityname}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+        "areaid" => 2,
+        "params" => 4
             )
     );
 

@@ -7,80 +7,6 @@
     <div class='col-lg-12'>
         <!-- Load Images !-->
         <div class='row'>
-            <div class='col-md-8'>
-                <!-- Images !-->
-                <?php if ($melk->getImages()->count() > 0) : ?>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">تصاویر ملک </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="slider" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <?php $isFirst = true; ?>
-                                    <?php foreach ($melk->getImages() as $image) : ?>
-                                        <li data-target="#slider" data-slide-to="0" class="<?php
-                                        if ($isFirst) {
-                                            echo "active";
-                                            $isFirst = false;
-                                        }
-                                        ?>">
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ol>
-
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <?php $isFirst = true; ?>
-                                    <?php foreach ($melk->getImages() as $image) : ?>
-                                        <div class="item <?php
-                                        if ($isFirst) {
-                                            echo "active";
-                                            $isFirst = false;
-                                        }
-                                        ?>">
-                                            <img style="width: 100%;" src="<?php echo $image->getImage()->link; ?>">
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right carousel-control" href="#slider" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-
-                <!-- Description !-->
-                <?php if (isset($melk->getInfo()->description)) : ?>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">توضیحات</h3>
-                        </div>
-                        <div class="panel-body">
-                            <?php echo $melk->getInfo()->description; ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-
-                <!-- Map !-->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">موقعیت ملک</h3>
-                    </div>
-                    <div class="panel-body">
-                        <?php $form->renderDecorated('map'); ?> 
-                    </div>
-                </div>
-            </div>
             <div class='col-md-4'>
                 <!-- Quick Review !-->
                 <div class="panel panel-success melk-quick-info">
@@ -179,23 +105,25 @@
                                     <dd><?php echo $melk->getSalePrice(); ?></dd>
                                     <?php break; ?>
                                 <?php case 2: ?>
-                                    <!-- Rent !-->
-                                    <dt>اجاره</dt>
-                                    <dd><?php echo $melk->getEjarePrice(); ?></dd>
 
                                     <dt>رهن</dt>
                                     <dd><?php echo $melk->getRahnPrice(); ?></dd>
+
+                                    <!-- Rent !-->
+                                    <dt>اجاره</dt>
+                                    <dd><?php echo $melk->getEjarePrice(); ?></dd>
                                     <?php break; ?>
                                 <?php case 3: ?>
                                     <!-- Sale AND Rent !-->
                                     <dt>قیمت فروش</dt>
                                     <dd><?php echo $melk->getSalePrice(); ?></dd>
 
+                                    <dt>رهن</dt>
+                                    <dd><?php echo $melk->getRahnPrice(); ?></dd>
+
                                     <dt>اجاره</dt>
                                     <dd><?php echo $melk->getEjarePrice(); ?></dd>
 
-                                    <dt>رهن</dt>
-                                    <dd><?php echo $melk->getRahnPrice(); ?></dd>
                                     <?php break; ?>
                                 <?php default : ?>
                                     <?php BaseSystemLog::init($item)->setTitle("Problem in Purpose")->setMessage("Invalid Melk Porpuse")->setIP($_SERVER["REMOTE_ADDR"])->setType(SystemLogType::Error)->create(); ?>
@@ -227,6 +155,81 @@
                 </div>
 
             </div>
+            <div class='col-md-8'>
+                <!-- Images !-->
+                <?php if ($melk->getImages()->count() > 0) : ?>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">تصاویر ملک </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="slider" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <?php $isFirst = true; ?>
+                                    <?php foreach ($melk->getImages() as $image) : ?>
+                                        <li data-target="#slider" data-slide-to="0" class="<?php
+                                        if ($isFirst) {
+                                            echo "active";
+                                            $isFirst = false;
+                                        }
+                                        ?>">
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <?php $isFirst = true; ?>
+                                    <?php foreach ($melk->getImages() as $image) : ?>
+                                        <div class="item <?php
+                                        if ($isFirst) {
+                                            echo "active";
+                                            $isFirst = false;
+                                        }
+                                        ?>">
+                                            <img style="width: 100%;" src="<?php echo $image->getImage()->link; ?>">
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#slider" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- Description !-->
+                <?php if (isset($melk->getInfo()->description) && strlen($melk->getInfo()->description) > 0) : ?>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">توضیحات</h3>
+                        </div>
+                        <div class="panel-body">
+                            <?php echo $melk->getInfo()->description; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- Map !-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">موقعیت ملک</h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php $form->renderDecorated('map'); ?> 
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- Bongah Ha !-->
         <div class='row'>

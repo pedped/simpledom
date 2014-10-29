@@ -1,0 +1,23 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <form method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">تایید شماره موبایل</h3>
+                </div>
+                <div class="panel-body">
+                    <p>جهت تایید ملک، نیاز است تا شماره موبایل خود را تایید نمایید، لطفا کد تاییدی که به شماره <?php echo $phoneNumber; ?> ارسال گردیده است را وارد نمایید</p>
+                    <?php $form->renderDecorated('verifycode'); ?> 
+                </div>
+                <div class="panel-footer">
+                    <?php $form->renderDecorated('submit'); ?> 
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

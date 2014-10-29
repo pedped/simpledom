@@ -1,9 +1,10 @@
 <?php
 
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
 
-class MelkSubscribeItem extends AtaModel {
+class MelkSubscribeItem extends AtaModel implements Orderable {
 
     public function getSource() {
         return 'melksubscribeitem';
@@ -178,4 +179,56 @@ class MelkSubscribeItem extends AtaModel {
         return Helper::getHumanPriceToman($this->price);
     }
 
+    /*     * *******************************************************************
+     * ORDER INFO
+     * ******************************************************************* */
+
+    public static function CheckAvailableToOrder($id) {
+        return true;
+    }
+
+    public static function GetCost($id) {
+        $result = new stdClass();
+        $result->Price = MelkSubscribeItem::findFirst($id)->price;
+        $result->Currency = "IRR";
+        return $result;
+    }
+
+    public static function GetOrderTitle($id) {
+        return MelkSubscribeItem::findFirst($id)->name;
+    }
+
+    public static function ValidateOrderCreateRequest(&$errors, $id) {
+        return true;
+    }
+
+    public static function getOrderObjectInfo($id) {
+        $object = MelkSubscribeItem::findFirst($id);
+        $item = new stdClass();
+        $item->title = $object->name;
+        $item->description = $object->description;
+        $item->Cost = new stdClass();
+        $item->Cost->Price = $object->price;
+        $item->Cost->Currency = "IRR";
+        return $item;
+    }
+
+    public static function onSuccessOrder(&$errors, $userid, $id) {
+        $user = BaseUser::findFirst($userid);
+        $user->melksubscriberplanid = $id;
+        if (!$user->save()) {
+            $errors[] = "خطا در هنگام پایان سفارش";
+
+            $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای کاربر $userid خطایی رخ داده است");
+            return false;
+        } else {
+            // saved successfully
+            Helper::RedirectToURL(Config::getPublicUrl() . "melk/start");
+        }
+        return true;
+    }
+
+    /*     * ********************************************************************
+     * ORDER INFO
+     * ******************************************************************* */
 }

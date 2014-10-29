@@ -150,5 +150,4 @@ class MelkArea extends AtaModel {
         
     }
 
-
 }

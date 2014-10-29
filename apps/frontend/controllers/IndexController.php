@@ -10,7 +10,7 @@ class IndexController extends IndexControllerBase {
 
     public function indexAction() {
         parent::indexAction();
-        $cities = City::find("captial = 1");
+        $cities = City::find(array("captial = 1", "order" => "name DESC"));
         $this->view->cities = $cities;
 
         // load area for cities

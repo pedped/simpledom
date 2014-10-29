@@ -15,7 +15,8 @@
                     <?php
                     $areas = array();
                     foreach ($cityAreas[$city->id] as $area) {
-                        $areas[] = "<a href='#'>$area->name ($area->total)</a>";
+                        $url = $this->url->get("منطقه" . "/" . $area->cityid . "/" . $area->id . "/" . "املاک-$city->name");
+                        $areas[] = "<a href='" . $url . "'>$area->name ($area->total)</a>";
                     }
                     $areas = implode("-", $areas);
                     ?>

@@ -358,6 +358,7 @@ class BaseUser extends AtaModel implements Searchable {
         $this->fullname = $this->fname . " " . $this->lname;
         $this->regtime = date(time());
         $this->logintimes = "0";
+        $this->melksubscriberplanid = "0";
     }
 
     public function beforeValidationOnSave() {
@@ -587,5 +588,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
     public function getVerifiedButton() {
         return intval($this->verified) == 1 ? "<div class='btn btn-sm btn-default disabled'>Verified</div>" : "<div class='btn btn-sm btn-warning disabled'>Not Verified</div>";
     }
+
+    public $melksubscriberplanid;
 
 }

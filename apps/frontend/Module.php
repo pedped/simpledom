@@ -119,12 +119,7 @@ class Module implements ModuleDefinitionInterface {
          * Database connection is created based in the parameters defined in the configuration file
          */
         $di->set('db', function () use ($config, $di) {
-
-
-
             $eventsManager = new Manager();
-
-
             //Get a shared instance of the DbProfiler
             $profiler = $di->getProfiler();
 
@@ -142,7 +137,8 @@ class Module implements ModuleDefinitionInterface {
                 'host' => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname' => $config->database->dbname
+                'dbname' => $config->database->dbname,
+                'charset' => 'utf8'
             ));
 
             //Assign the eventsManager to the db adapter instance
@@ -163,9 +159,6 @@ class Module implements ModuleDefinitionInterface {
         $di->set("debug", true);
 
         $di['router']->setDefaultNamespace("Simpledom\Frontend\Controllers");
-
-
-        
     }
 
 }
