@@ -6,7 +6,6 @@ use BaseSystemLog;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
-use SystemLogType;
 
 abstract class AtaModel extends Model {
 
@@ -73,23 +72,23 @@ abstract class AtaModel extends Model {
     }
 
     protected function LogInfo($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Info, $title, $message, $ip);
+        return $this->log(2, $title, $message, $ip);
     }
 
     protected function LogDebug($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Debug, $title, $message, $ip);
+        return $this->log(1, $title, $message, $ip);
     }
 
     protected function LogError($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Error, $title, $message, $ip);
+        return $this->log(4, $title, $message, $ip);
     }
 
     protected function LogFetal($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Fatal, $title, $message, $ip);
+        return $this->log(5, $title, $message, $ip);
     }
 
     protected function LogWarning($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Warning, $title, $message, $ip);
+        return $this->log(3, $title, $message, $ip);
     }
 
 }
