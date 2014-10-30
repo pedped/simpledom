@@ -9,6 +9,7 @@ define("EMAILTEMPLATE_BULKEMAIL", "BULK_EMAIL");
 define("EMAILTEMPLATE_PAYMENTRECEIPT", "PAYMENT_RECEIPT");
 define("EMAILTEMPLATE_REPLY", "REPLY");
 define("EMAILTEMPLATE_VERIFY", "VERIFY");
+define("EMAILTEMPLATE_MELKCONTACTEMAIL", "MELKCONTACTEMAIL");
 
 class EmailItems extends EmailManager {
 
@@ -148,6 +149,32 @@ class EmailItems extends EmailManager {
 
         // set email template
         return $this->setSubject("Verify Your Email")->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
+    }
+
+    /**
+     * Send Contact Email
+     * @param type $melkID
+     * @param type $melkEmail
+     * @param type $melkPhone
+     * @param type $name
+     * @param type $phone
+     * @param type $message
+     * @return type
+     */
+    public function sendMelkContact($melkID, $melkEmail, $melkPhone, $name, $phone, $message) {
+        // load the email template from server
+        $emailTemplate = BaseEmailTemplate::findFirst("name = '" . EMAILTEMPLATE_MELKCONTACTEMAIL . "'");
+        $emailTemplate->setParameters(array(
+            "melkid" => $melkID,
+            "melkemail" => $melkEmail,
+            "name" => $name,
+            "phone" => $phone,
+            "message" => $message,
+            "url" => Config::getPublicUrl(),
+        ));
+
+        // set email template
+        return $this->setSubject("پیام جدید در ارتباط با ملک شما")->setEmailTemplate($emailTemplate)->setReceivers($melkEmail)->sendEmail();
     }
 
 }

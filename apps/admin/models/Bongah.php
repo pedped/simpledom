@@ -330,6 +330,14 @@ class Bongah extends AtaModel {
 
     /**
      * 
+     * @return BaseUser
+     */
+    public function getUser() {
+        return BaseUser::findFirst($this->userid);
+    }
+
+    /**
+     * 
      * find nearset bongah to specefic location
      * @param int $cityID
      * @param double $latitude

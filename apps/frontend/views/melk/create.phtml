@@ -13,8 +13,9 @@
                 <li data-step="2" class="melk-wizard-step "><a href="#">مشخصات ملک</a></li>
                 <li data-step="3" class="melk-wizard-step "><a href="#">موقعیت ملک</a></li>
                 <li data-step="4" class="melk-wizard-step "><a href="#">قیمت</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#">اطلاعات تماس</a></li>
-                <li data-step="6" class="melk-wizard-step "><a href="#">تصاویر ملک</a></li>
+                <li data-step="5" class="melk-wizard-step "><a href="#">امکانات ملک</a></li>
+                <li data-step="6" class="melk-wizard-step "><a href="#">اطلاعات تماس</a></li>
+                <li data-step="7" class="melk-wizard-step "><a href="#">تصاویر ملک</a></li>
             </div>
 
 
@@ -128,8 +129,39 @@
             </div>
 
 
-            <!-- Contact !-->
+            <!-- Emlkanate Melk !-->
             <div data-step="5" class="panel panel-default melk-step-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">امکانات ملک</h3>
+                </div>
+                <div class="panel-body">
+                    <p>تمامی امکاناتی که ملک شما دارد را وارد نمایید</p>
+
+                    <br/>
+                    <?php
+                    $facilites = MelkFacilities::find();
+                    ?>
+                    <div class='row'>
+                        <?php foreach ($facilites as $facilty) : ?>
+                            <div class='col-md-3'>
+                                <label for='facilities[]'>
+                                    <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
+                                    <?php echo $facilty->name; ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <br/>
+
+                </div>
+                <div class="panel-footer panel-footer-btn-group">
+                    <div id="nextbtn" data-step="5" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
+                </div>
+            </div>
+
+            <!-- Contact !-->
+            <div data-step="6" class="panel panel-default melk-step-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">اطلاعات تماس</h3>
                 </div>
@@ -146,14 +178,14 @@
 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="5" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
+                    <div id="nextbtn" data-step="6" class="btn btn-primary">مرحله بعد</div>
+                    <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
 
 
             <!-- Images  !-->
-            <div data-step="6" class="panel panel-default melk-step-panel" >
+            <div data-step="7" class="panel panel-default melk-step-panel" >
                 <div class="panel-heading">
                     <h3 class="panel-title">تصاویر ملک</h3>
                 </div>
@@ -182,14 +214,14 @@
 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="6" class="btn btn-primary">پایان</div>
-                    <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
+                    <div id="nextbtn" data-step="7" class="btn btn-primary">پایان</div>
+                    <div id="backbtn" data-step="7" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
 
 
-            <!-- Images  !-->
-            <div data-step="7" class="panel panel-default melk-step-panel" >
+            <!-- Finish  !-->
+            <div data-step="8" class="panel panel-default melk-step-panel" >
                 <div class="panel-heading">
                     <h3 class="panel-title">پایان</h3>
                 </div>
@@ -200,7 +232,7 @@
                     <?php $form->renderDecorated('submit'); ?> 
                 </div>
                 <div class="panel-footer panel-footer-btn-group">
-                    <div id="backbtn" data-step="7" class="btn btn-default">مرحله قبل</div>
+                    <div id="backbtn" data-step="8" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
         </div>
@@ -485,7 +517,7 @@
             }
         }
 
-        if (step == 5)
+        if (step == 6)
         {
             // Etelate Tamas
             if ($("#private_phone").val() == "")

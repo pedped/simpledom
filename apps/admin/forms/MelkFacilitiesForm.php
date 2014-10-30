@@ -40,8 +40,6 @@ class MelkFacilitiesForm extends AtaForm {
         $imageid->setLabel('Image');
         //$imageid->setAttribute('placeholder', 'Enter your Image');
         $imageid->setAttribute('class', 'form-control');
-        $imageid->addValidator(new PresenceOf(array(
-        )));
         $this->add($imageid);
 
         // Submit Button

@@ -322,6 +322,12 @@ class Melk extends AtaModel {
     public $date;
 
     /**
+     * Hidden value of melkinfo
+     * @var MelkInfo 
+     */
+    private $melkinfo;
+
+    /**
      * Set Date
      * @param type $date
      * @return Melk
@@ -403,8 +409,17 @@ class Melk extends AtaModel {
         return $result;
     }
 
+    /**
+     * Get Melk Information
+     * @return MelkInfo
+     */
     public function getInfo() {
-        return MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
+        if (isset($this->melkinfo)) {
+            return $this->melkinfo;
+        } else {
+            $this->melkinfo = MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
+            return $this->melkinfo;
+        }
     }
 
     public function getCreateByTilte() {
@@ -452,6 +467,84 @@ class Melk extends AtaModel {
      */
     public function getNearsetBongahs($maxDistance = 10) {
         return Bongah::getNearestBongahs($this->cityid, $this->getInfo()->latitude, $this->getInfo()->longitude, $maxDistance);
+    }
+
+    /**
+     * return The Bongah who created the melk
+     * @return null|Bongah
+     */
+    public function getBongah() {
+        if (intval($this->createby) == 1) {
+            return Bongah::findFirst(array("id = :id:", "bind" => array("id" => $this->getInfo()->bongahid)));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get Contact Email
+     */
+    public function getContactEmail() {
+        switch ($this->createby) {
+            case 1:
+                // bongah dar
+                return $this->getBongah()->getUser()->email;
+            case 2:
+                // karbare site
+                return $this->getUser()->email;
+            case 3:
+                // modiriyate site
+                return Settings::Get()->contactemail;
+            default :
+                $this->LogError("Invalid Type", "Invalid getContactEmail()");
+                break;
+        }
+    }
+
+    /**
+     * Get Contact Phone Number For Melk
+     * @return type
+     */
+    public function getContactPhone() {
+        switch ($this->createby) {
+            case 1:
+                // bongah dar
+                return $this->getBongah()->mobile;
+            case 2:
+                // karbare site
+                return $this->getInfo()->private_mobile;
+            case 3:
+                // modiriyate site
+                return Settings::$mobilephonenumber;
+            default :
+                $this->LogError("Invalid Type", "Invalid getContactPhone()");
+                break;
+        }
+    }
+
+    /**
+     * 
+     * @return BaseUser 
+     */
+    public function getUser() {
+        return BaseUser::findFirst($this->userid);
+    }
+
+    /**
+     * check if the melk has facility based on facility id
+     * @param int $facilityID
+     * @return boolean
+     */
+    public function hasFacility($facilityID) {
+        $melkinfo = $this->getInfo();
+        $facilities = explode(",", $melkinfo->facilities);
+        foreach ($facilities as $item) {
+            if (intval($facilityID) == intval($item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

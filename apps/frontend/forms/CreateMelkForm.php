@@ -250,8 +250,13 @@ class CreateMelkForm extends AtaForm {
         $map->setLabel('موقعیت روی نقشه');
         $map->setLathitude("29.5");
         $map->setLongtude("52.6");
+        $map->setZoom(11);
         $this->add($map);
 
+
+        // facilites
+
+        // 
         // Submit Button
         $submit = new Submit('submit');
         $submit->setAttribute("value", _("Submit"));

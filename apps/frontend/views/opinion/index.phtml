@@ -1,34 +1,49 @@
 <div class='row'>
-    <div class='col-md-6'>
-        <h1><?= _("Add Your Opinion"); ?></h1>
-        <hr/>
+    <div class='col-md-12'>
         <?php echo $this->getContent(); ?>
-        <form method="post">
-            <!-- Name !-->
-            <?php echo $form->renderDecorated('name'); ?>
-
-            <!-- Email !-->
-            <?php echo $form->renderDecorated('email'); ?>
-
-            <!-- Rate !-->
-            <?php echo $form->renderDecorated('rate'); ?>
-
-            <!-- Message !-->
-            <?php echo $form->renderDecorated('message'); ?>
-
-            <!-- Submit !-->
-            <?php echo $form->renderDecorated('submit'); ?>
-        </form>
     </div>
-    <div class='col-md-6'>
-        <h1><?= _("People Opinions"); ?></h1>
-        <hr/>
-        <?php foreach ($opinions as $opinion): ?>
-            <div class='_opinion-item'>
-                <h3 class='_name'><?= $opinion->name; ?></h3>
-                <p class='_message'><?= $opinion->message; ?></p>
-                <p class='_date'><?= $opinion->getDate(); ?></p>
+</div>
+<div class='row'>
+    <div class='col-md-8'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 style="margin: 0px;color: #F019A4;"><span style="top:3px;margin-left: 8px;font-size: 80%;" class="glyphicon glyphicon-comment"></span> نظر کاربران</h3>
             </div>
-        <?php endforeach; ?>
+            <div class="panel-body">
+                <?php foreach ($opinions as $opinion): ?>
+                    <div class='_opinion-item'>
+                        <h3 class='_name'><?= $opinion->name; ?> <small class='_date'><?= $opinion->getDate(); ?></small></h3>
+                        <p class='_message'><?= $opinion->message; ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-4'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 style="margin: 0px;color: #F019A4;"><span style="top:3px;margin-left: 8px;font-size: 80%;"  class="glyphicon glyphicon-plus"></span><?= _("Add Your Opinion"); ?></h3>
+            </div>
+            <div class="panel-body">
+                <form method="post">
+                    <!-- Name !-->
+                    <?php echo $form->renderDecorated('name'); ?>
+
+                    <!-- Email !-->
+                    <?php echo $form->renderDecorated('email'); ?>
+
+                    <div style="display: none;">
+                        <!-- Rate !-->
+                        <?php echo $form->renderDecorated('rate'); ?>
+                    </div>
+
+                    <!-- Message !-->
+                    <?php echo $form->renderDecorated('message'); ?>
+
+                    <!-- Submit !-->
+                    <?php echo $form->renderDecorated('submit'); ?>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

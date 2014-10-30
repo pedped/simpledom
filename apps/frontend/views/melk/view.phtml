@@ -32,6 +32,8 @@
                             <dt>شهر</dt>
                             <dd><?php echo $melk->getCityName(); ?></dd>
 
+                            <dt>شماره تماس</dt>
+                            <dd><?php echo $melk->getContactPhone(); ?></dd>
                             <hr/>
                             <?php switch ($melk->melktypeid) : case 1: ?>
                                     <!-- Khane !-->
@@ -147,10 +149,12 @@
                         <h3 class="panel-title">تماس با مالک</h3>
                     </div>
                     <div class="panel-body">
-                        <?php $contactform->renderDecorated('name'); ?> 
-                        <?php $contactform->renderDecorated('phone'); ?> 
-                        <?php $contactform->renderDecorated('message'); ?> 
-                        <?php $contactform->renderDecorated('submit'); ?> 
+                        <form method="post">
+                            <?php $contactform->renderDecorated('name'); ?> 
+                            <?php $contactform->renderDecorated('phone'); ?> 
+                            <?php $contactform->renderDecorated('message'); ?> 
+                            <?php $contactform->renderDecorated('submit'); ?> 
+                        </form>
                     </div>
                 </div>
 
@@ -228,39 +232,106 @@
                         <?php $form->renderDecorated('map'); ?> 
                     </div>
                 </div>
+
+                <!-- Facilties -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">امکانات ملک</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class='row'>
+                            <?php $facilties = MelkFacilities::find(); ?>
+                            <?php foreach ($facilties as $facilityItem) : ?>
+                                <div class='col-md-3'>
+                                    <p class='facility-item '><?php echo $melk->hasFacility($facilityItem->id) ? "<span class='glyphicon glyphicon-check'></span>" : "<span class='glyphicon glyphicon-unchecked'></span>" ?> <?php echo $facilityItem->name; ?></p>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
         <!-- Bongah Ha !-->
-        <div class='row'>
-            <div class='col-md-12'>
-                <h3>بنگاه های قابل مراجعه</h3>
-                <hr/>
-                <div class='row'>
-                    <?php foreach ($bongahs as $bongah) : ?>
-                        <div class='col-md-4'>
-                            <div class="thumbnail">
-                                <h4><?php echo $bongah->title; ?> (<small>فاصله تا بنگاه : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
-                                <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
-                                <p>شماره تماس: <?php echo $bongah->phone; ?></p>
-                                <div>
-                                    <?php
-                                    $mapElement = new MapElement("bongah_" . $bongah->id);
-                                    $mapElement->setLathitude($bongah->latitude);
-                                    $mapElement->setLongtude($bongah->longitude);
-                                    $mapElement->setName("melk");
-                                    $mapElement->setZoom(14);
-                                    $mapElement->setMarkTitle("بنگاه " . $bongah->title);
-                                    $mapElement->setMarkDescription("بنگاه " . $bongah->title);
-                                    echo $mapElement;
-                                    ?>
-                                </div>
-                            </div>
+        <?php if ($melk->createby == 1) : ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">بنگاه ارائه کننده</h3>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    $bongah = $melk->getBongah();
+                    ?>
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <dl class="dl-horizontal bongah-info">
+
+                                <dt>کد بنگاه</dt>
+                                <dd><?php echo $bongah->id; ?></dd>
+
+                                <dt>نام بنگاه</dt>
+                                <dd><?php echo $bongah->title; ?></dd>
+
+                                <dt>مسئول بنگاه</dt>
+                                <dd><?php echo $bongah->fname . " " . $bongah->lname; ?></dd>
+
+                                <dt>شماره تلفن بنگاه</dt>
+                                <dd><?php echo $bongah->phone; ?></dd>
+
+                                <dt>شماره موبایل بنگاه</dt>
+                                <dd><?php echo $bongah->mobile; ?></dd>
+
+                            </dl>
                         </div>
-                    <?php endforeach; ?>
+                        <div class='col-md-6'>
+                            <?php
+                            //create map
+                            $map = new MapElement("bongah_map");
+                            $map->setLathitude($bongah->latitude);
+                            $map->setLongtude($bongah->longitude);
+                            $map->setZoom(13);
+                            $map->setMarkDescription($bongah->title);
+                            $map->setMarkTitle("موقعیت بنگاه");
+                            echo $map;
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php else : ?>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <h3>بنگاه های قابل مراجعه</h3>
+                    <hr/>
+                    <div class='row'>
+                        <?php foreach ($bongahs as $bongah) : ?>
+                            <div class='col-md-4'>
+                                <div class="thumbnail">
+                                    <h4><?php echo $bongah->title; ?> (<small>فاصله تا بنگاه : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
+                                    <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
+                                    <p>شماره تماس: <?php echo $bongah->phone; ?></p>
+                                    <div>
+                                        <?php
+                                        $mapElement = new MapElement("bongah_" . $bongah->id);
+                                        $mapElement->setLathitude($bongah->latitude);
+                                        $mapElement->setLongtude($bongah->longitude);
+                                        $mapElement->setName("melk");
+                                        $mapElement->setZoom(14);
+                                        $mapElement->setMarkTitle("بنگاه " . $bongah->title);
+                                        $mapElement->setMarkDescription("بنگاه " . $bongah->title);
+                                        echo $mapElement;
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?> 
+
     </div>
 </div>
 

@@ -156,7 +156,15 @@ try {
 
     //Get the generated profiles from the profiler
     $profiles = $di->get('profiler')->getProfiles();
-    if (false && isset($profiles)) {
+    if (isset($profiles)) {
+        $totalSecound = 0;
+        foreach ($profiles as $profile) {
+            $totalSecound += $profile->getTotalElapsedSeconds();
+        }
+        echo "<pre>TOTAL DATABASE EXECUTION TIME : " . $totalSecound;
+        echo "<br>TOTAL DATABASE QUERIES : " . count($profiles);
+        echo "</pre><hr/>";
+
         foreach ($profiles as $profile) {
             echo "<pre>";
             echo("<b>" . $profile->getSQLStatement() . "</b>");

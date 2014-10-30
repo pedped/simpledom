@@ -6,6 +6,7 @@ use Area;
 use AtaPaginator;
 use City;
 use CreateMelkForm;
+use EmailItems;
 use Melk;
 use MelkArea;
 use MelkContactForm;
@@ -51,38 +52,49 @@ class MelkController extends ControllerBaseFrontEnd {
             return;
         } else {
 
-            // check if user need subscription
-            $userMelksCount = Melk::find(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->count();
-            if ($userMelksCount > 0) {
-                // check if user has any valid suscription
-                if (intval($this->user->melksubscriberplanid) == 0) {
-                    // user has one melk before and now wants to add new melk, but 
-                    // he do not have any valid subscription, he has to buy subscriptipn
-                    $this->flash->error("برای افزودن ملک، نیاز است تا یکی از پلان های عضویت را خریداری نمایید");
-                    $this->dispatcher->forward(array(
-                        "controller" => "usersubscribe",
-                        "action" => "plans"
-                    ));
-                    return;
-                } else {
-                    // we have to fetch user subscription
-                    $subscriptionID = $this->user->melksubscriberplanid;
-                    $melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
-                    if ($melkSubscription->melkscanadd < $userMelksCount + 1) {
-                        // user need to purchase more account
-                        $this->flash->error("تعداد املاک شما در حال حاضر از تعداد املاک مجاز برای افزودن بیشتر است، لطفا پلان بالاتری خریداری نمایید");
+
+            // check if the user is super admin, do not make any limit for him
+            if ($this->user->isSuperAdmin()) {
+                // user is super admin and do not need to do anything
+            } else {
+
+                // TODO check if user have bongah
+                // check if user need subscription
+                $userMelksCount = Melk::find(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->count();
+                if ($userMelksCount > 0) {
+                    // check if user has any valid suscription
+                    if (intval($this->user->melksubscriberplanid) == 0) {
+                        // user has one melk before and now wants to add new melk, but 
+                        // he do not have any valid subscription, he has to buy subscriptipn
+                        $this->flash->error("برای افزودن ملک، نیاز است تا یکی از پلان های عضویت را خریداری نمایید");
                         $this->dispatcher->forward(array(
                             "controller" => "usersubscribe",
                             "action" => "plans"
                         ));
                         return;
-                    }
+                    } else {
+                        // we have to fetch user subscription
+                        $subscriptionID = $this->user->melksubscriberplanid;
+                        $melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
+                        if ($melkSubscription->melkscanadd < $userMelksCount + 1) {
+                            // user need to purchase more account
+                            $this->flash->error("تعداد املاک شما در حال حاضر از تعداد املاک مجاز برای افزودن بیشتر است، لطفا پلان بالاتری خریداری نمایید");
+                            $this->dispatcher->forward(array(
+                                "controller" => "usersubscribe",
+                                "action" => "plans"
+                            ));
+                            return;
+                        }
 
-                    $this->melkSubscription = $melkSubscription;
+                        $this->melkSubscription = $melkSubscription;
+                    }
+                } else {
+                    
                 }
-            } else {
-                
             }
+
+
+
             // this function will create new melk 
             $this->response->redirect("melk/create");
         }
@@ -109,6 +121,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $this->handleFormScripts($fr);
 
         if ($this->request->isPost()) {
+
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
 
@@ -130,6 +143,9 @@ class MelkController extends ControllerBaseFrontEnd {
                 $melk->createby = 2;
                 $melk->featured = 0;
                 $melk->approved = 0;
+
+
+
 
                 // calc teh valid date
                 if (isset($this->melkSubscription)) {
@@ -153,6 +169,7 @@ class MelkController extends ControllerBaseFrontEnd {
                     $melkinfo->private_address = $this->request->getPost('private_address', "string");
                     $melkinfo->private_mobile = $this->request->getPost('private_mobile', "string");
                     $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
+                    $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
                     if (!$melkinfo->create()) {
                         $melkinfo->showErrorMessages($this);
                     } else {
@@ -191,6 +208,9 @@ class MelkController extends ControllerBaseFrontEnd {
                         $melkArea->ip = $_SERVER["REMOTE_ADDR"];
                         $melkArea->melkid = $melk->id;
                         $melkArea->create();
+
+
+
 
 
                         // check if we have user phone
@@ -523,8 +543,8 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function viewAction($id) {
 
-        $item = Melk::findFirst($id);
-        $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $item->id)));
+        $melk = Melk::findFirst($id);
+        $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $melk->id)));
         $form = new MelkInfoViewForm();
         $contactForm = new MelkContactForm();
         $this->handleFormScripts($form);
@@ -536,15 +556,44 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setMarkDescription("موقعیت ملک");
         $form->get('map')->setZoom(13);
 
+        $this->view->contactform = $contactForm;
+        if ($this->request->isPost()) {
+            // check for contact message
+            if ($contactForm->isValid($_POST)) {
+
+                // we have to send email to the user
+                $name = $this->request->getPost("name", "string");
+                $phone = $this->request->getPost("phone", "int");
+                $message = trim($this->request->getPost("message", "string"));
+
+                // get melk contact form
+                $melkEmail = $melk->getContactEmail();
+                $melkPhone = $melk->getContactPhone();
+
+                // send message
+                $emailItems = new EmailItems();
+                $emailItems->sendMelkContact($melk->id, $melkEmail, $melkPhone, $name, $phone, $message);
+                SMSManager::SendSMS($melkPhone, "شما یک پیام جدید از شماره $phone  در مورد ملک خود دارید، لطفا ایمیل خود را چک نمایید", SmsNumber::findFirst()->id);
+
+                // log this message
+                $this->LogInfo("User send message", "user send new message via"
+                        . " contact form in Melk View");
+
+                $this->flash->success("پیام شما با موفقیت ارسال گردید");
+
+                // clear the form
+                $contactForm->clear();
+            }
+        }
+
 
         // get nearser bongahs
-        $this->view->bongahs = $item->getNearsetBongahs();
+        $this->view->bongahs = $melk->getNearsetBongahs();
 
         $this->view->form = $form;
-        $this->view->contactform = $contactForm;
-        $this->view->melk = $item;
+        $this->view->melk = $melk;
 
-        $this->view->item = $item;
+        $this->view->item = $melk;
     }
 
     protected function ValidateAccess($id) {

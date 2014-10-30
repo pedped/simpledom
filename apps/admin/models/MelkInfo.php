@@ -186,6 +186,7 @@ class MelkInfo extends AtaModel {
 
     public $canreferbongah;
     public $description;
+    public $bongahid;
 
     public function getCanreferbongah() {
         return $this->canreferbongah;
@@ -216,9 +217,10 @@ class MelkInfo extends AtaModel {
 
     public function beforeValidationOnCreate() {
         $this->total_view = 0;
-        $this->facilities = "";
+        $this->facilities = isset($this->facilities) && strlen($this->facilities) > 0 ? $this->facilities : "";
         $this->search_meta = "";
         $this->canreferbongah = "0";
+        $this->bongahid = isset($this->bongahid) && intval($this->bongahid) > 0 ? $this->bongahid : "0";
     }
 
     public function beforeValidationOnSave() {
