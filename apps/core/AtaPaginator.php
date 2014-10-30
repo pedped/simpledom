@@ -205,8 +205,9 @@ class AtaPaginator extends Paginator {
         }
 
         // add action box
-        $result .= "<th>" . _("Action") . "</th>";
-
+        if (isset($this->editUrl) && strlen($this->editUrl) > 0 && isset($this->deleteUrl) && strlen($this->deleteUrl) > 0) {
+            $result .= "<th>" . _("Action") . "</th>";
+        }
         // close the table fields
         $result .= "<tr>";
 
@@ -238,16 +239,17 @@ class AtaPaginator extends Paginator {
                 }
             }
             // add action bar
-            $result .= "
+            if (isset($this->editUrl) && strlen($this->editUrl) > 0 && isset($this->deleteUrl) && strlen($this->deleteUrl) > 0) {
+                $result .= "
                 <td>";
-            if (isset($this->editUrl)) {
-                $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row'><i class='fa fa-pencil' title='" . _("View/Edit") . "'></i></a>";
+                if (isset($this->editUrl)) {
+                    $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row'><i class='fa fa-pencil' title='" . _("View/Edit") . "'></i></a>";
+                }
+                if (isset($this->deleteUrl)) {
+                    $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='" . _("Delete") . "'></i></a>";
+                }
+                $result .= "</td>";
             }
-            if (isset($this->deleteUrl)) {
-                $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='" . _("Delete") . "'></i></a>";
-            }
-
-            $result .= "</td>";
             $result .= "</tr>";
             $i++;
         }
