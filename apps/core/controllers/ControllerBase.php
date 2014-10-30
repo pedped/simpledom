@@ -5,6 +5,7 @@ namespace Simpledom\Admin\BaseControllers;
 use AtaController;
 use BaseContact;
 use BaseUser;
+use Melk;
 use Phalcon\Mvc\Dispatcher;
 use Settings;
 
@@ -98,6 +99,11 @@ abstract class ControllerBase extends AtaController {
         if ((bool) $this->view->websiteSettings->offline) {
             $this->flash->notice("<h3 style='margin-top: 0px;margin-bottom: 0px;'>Attention!</h3>website is in offline mode");
         }
+
+
+        // get the real estates wait for approve
+        $this->view->estateWaitForApproveCount = Melk::find("approved = 0")->count();
+        $this->view->amlaksWaitForApprove = Melk::find(array("approved = 0", "order" => "id DESC", "limit" => "5"));
     }
 
     protected function setTitle($title) {

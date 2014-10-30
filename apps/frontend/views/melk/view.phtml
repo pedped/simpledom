@@ -3,6 +3,16 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<?php if ($canRemove) : ?>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='alert alert-info'>
+                <p> ملک شما به مدت <?php echo $validDate; ?> روز قابل نمایش است، در صورتی که قصد حذف این ملک را دارید، بر روی گزینه حذف کلیک نمایید</p>
+                <a href="<?php echo $this->url->get("melk/delete/$melk->id"); ?>">حذف ملک</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class='row'>
     <div class='col-lg-12'>
         <!-- Load Images !-->
@@ -22,6 +32,9 @@
 
                             <dt>نوع ملک</dt>
                             <dd><?php echo $melk->getTypeName(); ?></dd>
+
+                            <dt>منطقه</dt>
+                            <dd><?php echo $melk->getInfo()->address; ?></dd>
 
                             <dt>منظور</dt>
                             <dd><?php echo $melk->getPurposeType(); ?></dd>
@@ -226,7 +239,8 @@
                 <!-- Map !-->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">موقعیت ملک</h3>
+
+                        <h3 class="panel-title"><i class="fa fa-map-marker"></i>موقعیت ملک</h3>
                     </div>
                     <div class="panel-body">
                         <?php $form->renderDecorated('map'); ?> 
@@ -243,7 +257,7 @@
                             <?php $facilties = MelkFacilities::find(); ?>
                             <?php foreach ($facilties as $facilityItem) : ?>
                                 <div class='col-md-3'>
-                                    <p class='facility-item '><?php echo $melk->hasFacility($facilityItem->id) ? "<span class='glyphicon glyphicon-check'></span>" : "<span class='glyphicon glyphicon-unchecked'></span>" ?> <?php echo $facilityItem->name; ?></p>
+                                    <p class='facility-item <?php echo $melk->hasFacility($facilityItem->id) ? "active" : "" ?>'><?php echo $melk->hasFacility($facilityItem->id) ? "<span class='glyphicon glyphicon-check'></span>" : "<span class='glyphicon glyphicon-unchecked'></span>" ?> <?php echo $facilityItem->name; ?></p>
                                 </div>
                             <?php endforeach; ?>
 

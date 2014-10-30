@@ -547,4 +547,71 @@ class Melk extends AtaModel {
         return false;
     }
 
+    public function getQuickInfo() {
+        $message = "";
+
+        // add type
+        $message.= $this->getTypeName();
+
+
+        switch (intval($this->melktypeid)) {
+            case 1:
+                // home
+                $message.= $this->bedroom . " خوابه" . "،";
+                $message.= "متراژ" . $this->lot_size . " مترمربع" . "،";
+                $message.= "زیربنا" . $this->home_size . " مترمربع" . "،";
+                break;
+            case 2:
+                // apartment
+                $message.= $this->bedroom . " خوابه" . "،";
+                $message.= "زیربنا" . $this->home_size . " مترمربع" . "،";
+                break;
+            case 3:
+                // daftare kar
+                $message.="دفتر کار" . "،";
+                $message.= "متراژ" . $this->home_size . " مترمربع" . "،";
+                break;
+            case 4:
+                // villa
+                $message.= $this->bedroom . " خوابه" . "،";
+                $message.= $this->lot_size . " متری" . "،";
+                break;
+            case 5:
+                //zamin
+                $message.= $this->lot_size . " متری" . "،";
+                break;
+            case 6:
+                // oraghe kar
+                $message .= $this->bedroom . " اتاقه" . "،";
+                break;
+            default:
+                $this->LogError("Invalid Melk Type", "getQuickInfo()");
+                break;
+        }
+
+
+        switch ($this->melkpurposeid) {
+            case 1 :
+                $message.= "جهت فروش" . " ";
+                $message .= "به مبلغ " . Helper::GetPrice($this->sale_price) . " ،";
+                break;
+            case 2 :
+                $message .= "جهت رهن و اجاره" . " ";
+                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ،";
+                break;
+            case 3 :
+                $message.= "جهت اجاره و فروش" . " ";
+                $message .= "به مبلغ " . Helper::GetPrice($this->sale_price) . " ";
+                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ،";
+                break;
+            default:
+                break;
+        }
+
+
+        $message.= "واقع در" . " " . $this->getInfo()->address . "." . " کد ملک: " . $this->id;
+
+        return $message;
+    }
+
 }

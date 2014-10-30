@@ -259,3 +259,7 @@ footer .btn {
 .facility-item{
     font-size: 16px;
 }
+
+.facility-item.active{
+    color: #13A013;
+}

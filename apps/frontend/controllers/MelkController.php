@@ -371,7 +371,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 }
             }
         } else {
-            $query = "cityid = :cityid:";
+            $query = "cityid = :cityid: AND approved = 1";
             $bindparams["cityid"] = $cityID;
         }
 
@@ -433,11 +433,12 @@ class MelkController extends ControllerBaseFrontEnd {
 
         // check if user want to remove it
         if ($this->request->isPost()) {
-            $result = Melk::findFirst($id)->delete();
-            if (!$result) {
-                $this->flash->error('unable to remove this Melk item');
+            $result = Melk::findFirst($id);
+            $result->approved = "-2";
+            if (!$result->save()) {
+                $this->flash->error('خطا در هنگاه حذف ملک');
             } else {
-                $this->flash->success('Melk item deleted successfully');
+                $this->flash->success('ملک با موفقیت حذف گردید و دیگر برای کاربران قابل مشاهده نمی باشد');
                 return $this->dispatcher->forward(array(
                             'controller' => 'melk',
                             'action' => 'list'
@@ -556,6 +557,24 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setMarkDescription("موقعیت ملک");
         $form->get('map')->setZoom(13);
 
+
+        // check if user can remove the melk
+        $this->view->canRemove = isset($this->user) && intval($melk->userid) == intval($this->user->userid);
+        if ($this->view->canRemove == TRUE) {
+            $validdate = $melk->validdate - time();
+            if ($validdate < 0) {
+                // melk expired
+                $this->flash->error("مدت زمان قابل نمایش ملک شما تمام شده است، برای نمایش ملک به مدت زمان بیشتر، یکی از پلان های مورد زیر را خریداری نمایید");
+                $this->dispatcher->forward(array(
+                    "controller" => "usersubscribe",
+                    "action" => "plans"
+                ));
+                return;
+            } else {
+                $this->view->validDate = (int) ( $validdate / (3600 * 24));
+            }
+        }
+
         $this->view->contactform = $contactForm;
         if ($this->request->isPost()) {
             // check for contact message
@@ -573,7 +592,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 // send message
                 $emailItems = new EmailItems();
                 $emailItems->sendMelkContact($melk->id, $melkEmail, $melkPhone, $name, $phone, $message);
-                SMSManager::SendSMS($melkPhone, "شما یک پیام جدید از شماره $phone  در مورد ملک خود دارید، لطفا ایمیل خود را چک نمایید", SmsNumber::findFirst()->id);
+                SMSManager::SendSMS($melkPhone, "شما یک پیام جدید از شماره  $phone  در مورد ملک خود دارید، لطفا ایمیل خود را چک نمایید", SmsNumber:: findFirst()->id);
 
                 // log this message
                 $this->LogInfo("User send message", "user send new message via"
@@ -597,12 +616,10 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     protected function ValidateAccess($id) {
-        
+        return intval(Melk::findFirst($id)->userid) == intval($this->user->userid);
     }
 
     public function subscribeUserPhone($phone) {
-
-
 
         // valid phone number, we have to check if the phone number is exist
         $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
