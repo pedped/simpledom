@@ -9,6 +9,7 @@ use Page;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
 use Settings;
+use User;
 
 abstract class ControllerBase extends AtaController {
 
@@ -19,7 +20,7 @@ abstract class ControllerBase extends AtaController {
 
     /**
      * Get User
-     * @var BaseUser 
+     * @var User 
      */
     protected $user;
 

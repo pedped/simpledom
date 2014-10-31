@@ -17,7 +17,9 @@ use MelkInfoViewForm;
 use MelkPhoneListner;
 use MelkSearch;
 use MelkSubscribeItem;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\VerifyPhoneForm;
 use SMSManager;
 use SmsNumber;
@@ -311,12 +313,6 @@ class MelkController extends ControllerBaseFrontEnd {
         $bindparams = array();
 
 
-        // we have to send cityid and state id to the view
-        $form->get("cityid")->setDefault($cityID);
-        $form->get("stateid")->setDefault($stateID);
-        $this->view->currentStateID = City::findFirst($cityID)->stateid;
-
-
         // check if user submiteted search query
         if ($this->request->isPost()) {
 
@@ -391,7 +387,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
         $areaid = $this->dispatcher->getParam("areaid");
         if (isset($areaid)) {
-            //$query .= " AND melk.id IN ( SELECT melkid FROM melkarea WHERE melkarea.cityid = :cityid: AND melkarea.areaid = :areaid:)";
+            $cityID = Area::findFirst($areaid)->cityid;
             $m = new Melk();
             $melks = $m->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id  = melkarea.melkid AND melkarea.areaid = ? ", array($areaid));
         } else {
@@ -411,6 +407,12 @@ class MelkController extends ControllerBaseFrontEnd {
             'limit' => 10,
             'page' => $numberPage
         ));
+
+
+        // we have to send cityid and state id to the view
+        $form->get("cityid")->setDefault($cityID);
+        $form->get("stateid")->setDefault($stateID);
+        $this->view->cityName = City::findFirst($cityID)->name;
 
 
         $paginator->
@@ -556,6 +558,12 @@ class MelkController extends ControllerBaseFrontEnd {
     public function viewAction($id) {
 
         $melk = Melk::findFirst($id);
+        if (intval($melk->approved) == -2) {
+            Helper::RedirectToURL(Config::getPublicUrl() . "error/404");
+            return;
+        }
+        
+        
         $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $melk->id)));
         $form = new MelkInfoViewForm();
         $contactForm = new MelkContactForm();
@@ -719,21 +727,45 @@ class MelkController extends ControllerBaseFrontEnd {
         // find user subscription
         $this->findUserSubscription();
 
-        // Send SMS
-        if (isset($this->melkSubscription)) {
-            $username = $this->user->getFullName();
-            $gender = $this->user->gender;
-            $name = "";
-            if (intval($gender) == 1) {
-                $name = "جناب آقای " . $username;
-            } else {
-                $name = "سرکار خانم " . $username;
-            }
-            SMSManager::SendSMS($phone, $name . "،" . " " . "ملک شما با موفقیت اضافه گردید", SmsNumber::findFirst()->id);
-            $this->flash->success('ملک شما با موفقیت اضافه گردید');
+        // user do not have subscription check for user type
+        if ($this->user->isSuperAdmin()) {
+            $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index",
+                "params" => array()
+            ));
+        } else if ($this->user->isBongahDar()) {
+            // user is bongah dar
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "index",
+                "params" => array()
+            ));
         } else {
-            
+            // user is normal user
+            if (isset($this->melkSubscription)) {
+                // user has subscription and we have to show the message about melk add
+                $this->flash->success("ملک شما با موفقیت اضافه گردید، منتظر تایید از طرف مدیر سایت بمانید");
+
+                // forward user to the melkview page
+                $this->dispatcher->forward(array(
+                    "controller" => "melk",
+                    "action" => "view",
+                    "params" => array($melkid)
+                ));
+            }
         }
+
+        // Send SMS
+        $username = $this->user->getFullName();
+        $gender = $this->user->gender;
+        $name = "";
+        if (intval($gender) == 1) {
+            $name = "جناب آقای " . $username;
+        } else {
+            $name = "سرکار خانم " . $username;
+        }
+        SMSManager::SendSMS($phone, $name . "،" . " " . "ملک شما با موفقیت اضافه گردید" . "\nکد ملک شما: " . $melkid, SmsNumber::findFirst()->id);
     }
 
 }
