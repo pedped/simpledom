@@ -199,3 +199,13 @@ blockquote {
     line-height: normal !important;
     width: 100%;
 }
+
+
+.elementholder{
+    margin-bottom: 10px;
+}
+
+.elementfooter{
+    font-size: 90%;
+    color: #aaa;
+}
