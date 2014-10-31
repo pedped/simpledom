@@ -32,12 +32,42 @@ class AtaForm extends Form {
         if (defined("DEBUG_MODE")) {
             $elementName = '<span class="bold red">( ' . $element->getName() . ' )</span>';
         }
-        
-        echo '<div id="', $element->getName(), '_holder">';
-        echo '<p>';
-        echo '<label for="', $element->getName(), '">', $element->getLabel(), $elementName, '</label>';
+
+        echo '<div class="elementholder" id="', $element->getName(), '_holder">';
+        $elementLable = $element->getLabel();
+        if (isset($elementLable) && strlen($elementLable) > 0) {
+            echo '<label class="elementlabel" for="', $element->getName(), '">', $element->getLabel(), $elementName, '</label>';
+        } else if (defined("DEBUG_MODE")) {
+            echo '<label class="elementlabel" for="', $element->getName(), '">', $elementName, '</label>';
+        }
+
+
+        // check if we need to add element info
+        try {
+            if (method_exists($element, "getInfo")) {
+                $elementInfo = $element->getInfo();
+                if (isset($elementInfo) && strlen($elementInfo) > 0) {
+                    echo '<p class="elementinfo">', $elementInfo, '</p>';
+                }
+            }
+        } catch (Exception $exc) {
+            
+        }
+
         echo '<div style="width:' . $width . ';height:' . $height . '">';
         echo $element;
+
+        // check if we need to add element info
+        try {
+            if (method_exists($element, "getFooter")) {
+                $elementFooter = $element->getFooter();
+                if (isset($elementFooter) && strlen($elementFooter) > 0) {
+                    echo '<p class="elementfooter">', $elementFooter, '</p>';
+                }
+            }
+        } catch (Exception $exc) {
+            
+        }
         echo '</div>';
         if (count($messages)) {
             //Print each element
@@ -47,7 +77,6 @@ class AtaForm extends Form {
             }
             echo '</div>';
         }
-        echo '</p>';
         echo '</div>';
     }
 
