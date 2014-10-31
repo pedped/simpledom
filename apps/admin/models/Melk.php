@@ -402,7 +402,7 @@ class Melk extends AtaModel {
                                        * cos( radians( melkinfo.longitude ) - radians(?) ) 
                                        + sin( radians(?) ) 
                                        * sin( radians( melkinfo.latitude ) ) ) ) AS distance 
-                         FROM melk JOIN melkinfo ON  melk.id = melkinfo.melkid WHERE melk.cityid = ?
+                         FROM melk JOIN melkinfo ON  melk.id = melkinfo.melkid WHERE melk.cityid = ? AND melk.approved = 1
                          having distance < ? ORDER BY distance", array(
             $latitude, $longitude, $latitude, $cityID, $minDistance
         ));

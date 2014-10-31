@@ -212,7 +212,7 @@ class BongahController extends ControllerBase {
 
     public function indexAction($page = 1) {
 
-        $this->getMelksList($page, "cityid = :cityid:", array("cityid" => $this->bongah->cityid));
+        $this->getMelksList($page, "cityid = :cityid: AND approved = 1", array("cityid" => $this->bongah->cityid));
     }
 
     public function melksAction($page = 1) {
@@ -276,9 +276,8 @@ class BongahController extends ControllerBase {
      * @param type $id
      * @return boolean
      */
-    protected function ValidateAccess
-    ($id) {
-        return true;
+    protected function ValidateAccess($id) {
+        return intval($this->bongah->userid) == intval($this->user->userid);
     }
 
     public function addAction() {
@@ -325,6 +324,7 @@ class BongahController extends ControllerBase {
         // load the users
         $bongahs = Bongah::find(
                         array(
+                            'approved = 1',
                             'order' => 'id DESC'
         ));
 
