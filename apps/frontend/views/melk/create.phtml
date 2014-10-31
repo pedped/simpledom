@@ -110,7 +110,7 @@
                     <h3 class="panel-title">قیمت</h3>
                 </div>
                 <div class="panel-body">
-                    <p> هزینه ای که برای فروش یا اجاره بر روی ملک گزاشتید را وارد نمایید </p>
+                    <p> هزینه ای که برای فروش یا اجاره بر روی ملک گذاشته اید را وارد نمایید </p>
 
                     <!--  ADD Sale Price !-->
                     <?php $form->renderDecorated('sale_price'); ?> 
@@ -144,7 +144,7 @@
                     <div class='row'>
                         <?php foreach ($facilites as $facilty) : ?>
                             <div class='col-md-3'>
-                                <label for='facilities[]'>
+                                <label class="create-melk-facility-item" for='facilities[]'>
                                     <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
                                     <?php echo $facilty->name; ?>
                                 </label>

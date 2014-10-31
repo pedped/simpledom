@@ -51,6 +51,7 @@ class CreateMelkForm extends AtaForm {
 
         // Sale Price
         $sale_price = new TextElement('sale_price');
+        $sale_price->setInfo("قیمت فروش را به میلیون وارد نمایید مانند '250' که نمایانگر 250 میلیون تومان است");
         $sale_price->setLabel('قیمت فروش');
         //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
         $sale_price->setAttribute('class', 'form-control');
@@ -68,6 +69,7 @@ class CreateMelkForm extends AtaForm {
         // Ejare
         $rent_price = new TextElement('rent_price');
         $rent_price->setLabel('قیمت اجاره');
+        $rent_price->setInfo("قیمت اجاره را به میلیون وارد نمایید مانند '2' که نمایانگر دو میلیون تومان است");
         //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
         $rent_price->setAttribute('class', 'form-control');
         $this->add($rent_price);
@@ -76,6 +78,7 @@ class CreateMelkForm extends AtaForm {
         // Rahn
         $rent_pricerahn = new TextElement('rent_pricerahn');
         $rent_pricerahn->setLabel('قیمت رهن');
+        $rent_pricerahn->setInfo("قیمت رهن را به میلیون وارد نمایید مانند '60' که نمایانگر 60 میلیون تومان است");
         //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
         $rent_pricerahn->setAttribute('class', 'form-control');
         $this->add($rent_pricerahn);
@@ -156,6 +159,7 @@ class CreateMelkForm extends AtaForm {
         // Address
         $address = new TextElement('address');
         $address->setLabel('خیابان اصلی');
+        $address->setInfo("نام بلوار اصلی شهر که ملک در آن میباشد را وارد نمایید");
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(
@@ -166,6 +170,7 @@ class CreateMelkForm extends AtaForm {
         // Private Phone
         $private_phone = new TextElement('private_phone');
         $private_phone->setLabel('تلفن تماس');
+        $private_phone->setInfo("شماره تماس خود را به همراه پیش شماره شهر خود وارد نمایید");
         //$private_phone->setAttribute('placeholder', 'Enter your Private Phone');
         $private_phone->setAttribute('class', 'form-control');
         $private_phone->addValidator(new PresenceOf(array(
@@ -175,6 +180,7 @@ class CreateMelkForm extends AtaForm {
         // Private Mobile
         $private_mobile = new TextElement('private_mobile');
         $private_mobile->setLabel('شماره موبایل');
+        $private_mobile->setInfo("کد تایید ملک به شماره شما ارسال خواهد گردید، پس در وارد کردن آن دقت نمایید");
         //$private_mobile->setAttribute('placeholder', 'Enter your Private Mobile');
         $private_mobile->setAttribute('class', 'form-control');
         $private_mobile->addValidator(new PresenceOf(array(
@@ -184,6 +190,7 @@ class CreateMelkForm extends AtaForm {
         // Private Address
         $private_address = new TextAreaElement('private_address');
         $private_address->setLabel('آدرس دقیق ملک');
+        $private_address->setFooter("آدرس ملک شما در هیچ قسمت از سایت نمایش داده نخواهد شد");
         //$private_address->setAttribute('placeholder', 'Enter your Private Address');
         $private_address->setAttribute('class', 'form-control');
         $private_address->addValidator(new PresenceOf(array(
@@ -248,14 +255,14 @@ class CreateMelkForm extends AtaForm {
         // Location ON Map
         $map = new MapPickElement('map');
         $map->setLabel('موقعیت روی نقشه');
+        $map->setInfo("به وسیله ماوس، موقعیت ملک خود را بر روی نقشه مشخص نمایید");
         $map->setLathitude("29.5");
         $map->setLongtude("52.6");
-        $map->setZoom(11);
+        $map->setZoom(12);
         $this->add($map);
 
 
         // facilites
-
         // 
         // Submit Button
         $submit = new Submit('submit');

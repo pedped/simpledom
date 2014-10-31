@@ -209,3 +209,36 @@ blockquote {
     font-size: 90%;
     color: #aaa;
 }
+
+.panel-default > .panel-heading {
+    color: #E71C78;
+    background-color: #f5f5f5;
+    border-color: #EC0D8C;
+}
+
+.panel-default > .panel-heading > .panel-title {
+    font-size:22px; 
+}
+
+.panel-default > .panel-heading > .panel-title .glyphicon{
+    top: 8px;
+    padding-left: 10px;
+    padding-bottom: 11px;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #EF2C7D;
+    border-color: #E21563;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #E80D69;
+    border-color: #EF1571;
+}

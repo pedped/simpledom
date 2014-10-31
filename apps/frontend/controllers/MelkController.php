@@ -125,6 +125,7 @@ class MelkController extends ControllerBaseFrontEnd {
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
 
+
                 // form is valid
                 $melk = new Melk();
                 $melk->userid = $this->user->userid;
@@ -229,7 +230,7 @@ class MelkController extends ControllerBaseFrontEnd {
                                 // user phone is for the user
                                 if (intval($userPhone->verified) == 1) {
                                     // redirect to after melk create
-                                    $this->redirectAfterMelkCreating($melkinfo->private_mobile);
+                                    $this->redirectAfterMelkCreating($melk->id, $melkinfo->private_mobile);
                                 } else {
                                     // user phone is not verified yet
                                     $userPhone->sendVerificationNumber();
@@ -278,7 +279,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
 
                 // user phone verificaed, we have to choose the buy option
-                $this->redirectAfterMelkCreating($phone);
+                $this->redirectAfterMelkCreating($melkid, $phone);
             } else {
                 // invalid number
                 $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));
@@ -294,8 +295,12 @@ class MelkController extends ControllerBaseFrontEnd {
     public function listAction($page = 1) {
 
         $cityID = $this->dispatcher->getParam("cityid");
+        $stateID = 1;
         if (!isset($cityID)) {
             $cityID = 1;
+        } else {
+            // we have to send cityid and state id to the view
+            $stateID = City::findFirst($cityID)->stateid;
         }
 
 
@@ -304,6 +309,12 @@ class MelkController extends ControllerBaseFrontEnd {
         // we have to create query for item
         $query = "";
         $bindparams = array();
+
+
+        // we have to send cityid and state id to the view
+        $form->get("cityid")->setDefault($cityID);
+        $form->get("stateid")->setDefault($stateID);
+        $this->view->currentStateID = City::findFirst($cityID)->stateid;
 
 
         // check if user submiteted search query
@@ -691,7 +702,6 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     public function redirectToPhoneVerifyPage($melkid, $phone) {
-        $this->flash->success('برای تایید ملک خود نیاز است تا شماره تماس خود را تایید نمایید، لطفا کد ارسال شده به شماره خود را وارد نمایید');
 
         // forward user to phone verification page 
         $this->dispatcher->forward(array(
@@ -704,7 +714,7 @@ class MelkController extends ControllerBaseFrontEnd {
         ));
     }
 
-    public function redirectAfterMelkCreating($phone) {
+    public function redirectAfterMelkCreating($melkid, $phone) {
 
         // find user subscription
         $this->findUserSubscription();

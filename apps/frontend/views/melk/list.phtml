@@ -4,13 +4,13 @@
     </div>
 </div>
 <form method="post">
-    <div class="panel panel-primary" style="box-shadow: 0px 0px 6px #D0BFBF;">
+    <div class="panel panel-default" style="box-shadow: 0px 0px 6px #D0BFBF;">
         <div class="panel-heading">
-            <h class="panel-title"><span class="glyphicon glyphicon-search" style="top: 5px;padding-left: 10px;"></span>جستجو در املاک</h2>
+            <h1 class="panel-title"><span class="glyphicon glyphicon-search"></span>جستجو در املاک</h1>
         </div>
         <div class="panel-body">
             <div class='col-md-12'>
-                <div class='row'>
+                <div  class='row hidden'>
                     <div class='col-md-6'>
                         <?php $form->renderDecorated('stateid'); ?> 
                     </div>
@@ -18,7 +18,7 @@
                         <?php $form->renderDecorated('cityid'); ?> 
                     </div>
                 </div>
-                <hr/>
+                <hr class="hidden"/>
                 <div class='row'>
                     <div data-colname="melktypeid" class='col-md-3'>
                         <?php $form->renderDecorated('melktypeid'); ?> 
