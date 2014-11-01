@@ -6,6 +6,20 @@ use Simpledom\Core\AtaForm;
 abstract class AtaController extends Controller {
 
     /**
+     * hold the errors about controller
+     * @var ArrayObject 
+     */
+    protected $errors = array();
+
+    /**
+     * this function will check if we have any error
+     * @return type
+     */
+    protected function hasError() {
+        return count($this->errors) == 0;
+    }
+
+    /**
      * this function will validate read, delete, remove, Saccess
      */
     protected abstract function ValidateAccess($id);
