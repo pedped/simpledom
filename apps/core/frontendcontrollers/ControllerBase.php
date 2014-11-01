@@ -4,7 +4,6 @@ namespace Simpledom\Frontend\BaseControllers;
 
 use AtaController;
 use BaseTrack;
-use BaseUser;
 use Page;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
@@ -64,7 +63,7 @@ abstract class ControllerBase extends AtaController {
         return $this;
     }
 
-    public function setUser(BaseUser $user) {
+    public function setUser(User $user) {
         $this->user = $user;
         return $this;
     }
@@ -134,7 +133,7 @@ abstract class ControllerBase extends AtaController {
 
         if ($this->session->has("userid")) {
             $action->userid = $this->session->get("userid");
-            $this->user = BaseUser::findFirst($action->userid);
+            $this->user = User::findFirst($action->userid);
             $this->view->user = $this->user;
         }
 

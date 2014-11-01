@@ -4,22 +4,15 @@ namespace Simpledom\Admin\BaseControllers;
 
 use AtaController;
 use BaseContact;
-use BaseUser;
 use Melk;
 use Phalcon\Mvc\Dispatcher;
 use Settings;
-
+use User;
 abstract class ControllerBase extends AtaController {
 
     /**
-     * Errors holder
-     * @var Array 
-     */
-    public $errors = array();
-
-    /**
      * Get User
-     * @var BaseUser 
+     * @var User 
      */
     protected $user;
 
@@ -35,7 +28,7 @@ abstract class ControllerBase extends AtaController {
         if ($this->session->get("userid", -1) > 0) {
             // get the user to know he is admin
             $userid = $this->session->get("userid");
-            $user = BaseUser::findFirst($userid);
+            $user = User::findFirst($userid);
             if (!$user->isSuperAdmin()) {
                 // invalid request
                 die("You are not authrized to see this page");
@@ -88,7 +81,7 @@ abstract class ControllerBase extends AtaController {
         $this->view->totalContactsUnanswered = BaseContact::count("reply IS NULL");
 
         if ($this->session->has("userid")) {
-            $this->user = BaseUser::findFirst($this->session->get("userid"));
+            $this->user = User::findFirst($this->session->get("userid"));
             $this->view->loggedInUser = $this->user;
         }
 
