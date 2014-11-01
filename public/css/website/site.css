@@ -27,15 +27,26 @@
 .nav-pills > li.done > a:hover,
 .nav-pills > li.done > a:focus {
     color: #fff;
-    background-color: #499403;
+    background-color: #499403 !important;
+}
+
+.melk-wizard.nav-pills .fa,
+.melk-wizard.nav-pills .glyphicon{
+    padding-left: 6px;
+    top: 4px;
+}
+
+.melk-wizard.nav-pills > li:not(.active) > a{
+    background: #E8E8E8;
 }
 
 .melk-wizard.nav-pills > li.active > a,
 .melk-wizard.nav-pills > li.active > a:hover,
 .melk-wizard.nav-pills > li.active > a:focus {
     color: #fff;
-    background-color: #DF1F1F;
+    background-color: #DF1F1F !important;
 }
+
 
 
 .melk-step-panel .final-step{
@@ -121,7 +132,7 @@ body{
 }
 
 .cities-holder{
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 10px;
     margin: 0;
     margin-top: 12px;
@@ -133,15 +144,17 @@ body{
 
 
 .cities-holder a{
-    color : #333;
+    color : #331098;
     text-decoration: none;
 }
 .cities-holder a:hover{
-    color : #45a;
+    color: #561BFA;
 }
 
-.cities-holder .cityareas{
+.cities-holder .cityareas,
+.cities-holder .cityareas a{
     font-size: 14px;
+    color : #555;
 }
 
 .melk-quick-info dt{
@@ -153,7 +166,7 @@ body{
 }
 
 .navbar-brand{
-    background-color: #B10BD5 !important;
+    background-color: #D50B95 !important;
     color: #fff !important;
     font-size: 29px !important;
 }
@@ -275,3 +288,23 @@ footer .btn {
 .page-verify-phone-melk .fa-mobile{
     font-size: 225px;
 }
+
+.melk-subscribe-phone{
+    padding: 12px;
+    color: #FFFFFF;
+    font-size: 16px;
+    background: #289DFF;
+}
+.panel .panel-heading .fa,
+.panel .panel-heading .glyphicon{
+    padding-left: 7px;
+    position: relative;
+    top: 3px;
+}
+
+.footer .glyphicon,
+.footer .fa{
+    top: 5px;
+    padding-left: 10px;
+}
+

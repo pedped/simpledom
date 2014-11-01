@@ -232,20 +232,17 @@ class BongahController extends ControllerBase {
         $this->getMelkPaginator($page, $melks);
     }
 
-    public function userscansupportAction($bongahID, $page = 1, $maxDistance = 10) {
+    public function userscansupportAction($page = 1, $maxDistance = 10) {
 
-//        // find bongah location
-//        $bongah = Bongah::findFirst($bongahID);
-//
-//        // find neasrset users
-//        $users = MelkPhoneListner::getNearest(1, $bongah->latitude, $bongah->longitude, $maxDistance);
-//        var_dump($users);
-        // load paginate
-        // load the users
+
+        // find all city
         $melkphonelistners = MelkPhoneListner::find(
                         array(
-                            'status = "1"',
-                            'order' => 'id DESC'
+                            'cityid = :cityid: AND status = "1"',
+                            'order' => 'id DESC',
+                            "bind" => array(
+                                "cityid" => $this->bongah->cityid
+                            )
         ));
 
 
@@ -261,10 +258,10 @@ class BongahController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'شماره تماس', 'پیامک های دریافتی', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر'
+                    'کد', 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'پیامک های دریافتی', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس'
                 ))->
                 setFields(array(
-                    'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getPhoneNumber()', 'receivedcount', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()'
+                    'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'receivedcount', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()',
                 ))->setListPath(
                 'list');
 

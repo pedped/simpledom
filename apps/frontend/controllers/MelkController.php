@@ -113,6 +113,8 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function createAction() {
 
+        $this->setPageTitle("افزودن ملک");
+
         // find user subscription
         $this->findUserSubscription();
 
@@ -562,8 +564,8 @@ class MelkController extends ControllerBaseFrontEnd {
             Helper::RedirectToURL(Config::getPublicUrl() . "error/404");
             return;
         }
-        
-        
+
+
         $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $melk->id)));
         $form = new MelkInfoViewForm();
         $contactForm = new MelkContactForm();

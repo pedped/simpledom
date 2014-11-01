@@ -26,13 +26,13 @@ class Helper {
     }
 
     public static function RedirectToURL($url) {
-        // add the website link
+// add the website link
         $urlinof = parse_url($url);
         if (!isset($urlinof["host"])) {
             $url = Config::getPublicUrl() . $url;
         }
 
-        // now redrct the user
+// now redrct the user
         if (!headers_sent())
             header("Location: $url");
         else {
@@ -66,10 +66,10 @@ class Helper {
 
     public static function GetPrice($price) {
         if ($price == 0) {
-            // should be hezar toman
+// should be hezar toman
             return "0";
         } else if ($price < 1) {
-            // should be hezar toman
+// should be hezar toman
             return number_format($price * 1000) . " " . "هزار تومان";
         } else if ($price == 1) {
             return "یک میلیون تومان";
@@ -82,6 +82,24 @@ class Helper {
 
     public static function GetPersianDate($time) {
         return Jalali::date("Y/m/d H:i:s", $time);
+    }
+
+    public static function getDistance($lat1, $lon1, $lat2, $lon2, $unit = "K") {
+
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+
+        if ($unit == "K") {
+            return ($miles * 1.609344);
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
     }
 
 }

@@ -614,4 +614,14 @@ class Melk extends AtaModel {
         return $message;
     }
 
+    /**
+     * find distance between melk and location
+     * @param type $latitude
+     * @param type $longitude
+     * @return double disatnce in Killometer
+     */
+    public function getDistanceFromLocation($latitude, $longitude) {
+        return Helper::getDistance($this->getInfo()->latitude, $this->getInfo()->longitude, $latitude, $longitude);
+    }
+
 }

@@ -9,13 +9,13 @@
 
             <!-- Wizards -->
             <div class="nav nav-pills nav-justified navbar melk-wizard">
-                <li data-step="1" class="melk-wizard-step active"><a href="#">نوع ملک</a></li>
-                <li data-step="2" class="melk-wizard-step "><a href="#">مشخصات ملک</a></li>
-                <li data-step="3" class="melk-wizard-step "><a href="#">موقعیت ملک</a></li>
-                <li data-step="4" class="melk-wizard-step "><a href="#">قیمت</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#">امکانات ملک</a></li>
-                <li data-step="6" class="melk-wizard-step "><a href="#">اطلاعات تماس</a></li>
-                <li data-step="7" class="melk-wizard-step "><a href="#">تصاویر ملک</a></li>
+                <li data-step="1" class="melk-wizard-step active"><a href="#"><span class="glyphicon glyphicon-home"></span>نوع ملک</a></li>
+                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-pencil"></span>مشخصات ملک</a></li>
+                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-map-marker"></span>موقعیت ملک</a></li>
+                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-dollar"></span>قیمت</a></li>
+                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="fa fa-check"></span>امکانات ملک</a></li>
+                <li data-step="6" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-phone"></span>اطلاعات تماس</a></li>
+                <li data-step="7" class="melk-wizard-step "><a href="#"><span class="fa fa-camera"></span>تصاویر ملک</a></li>
             </div>
 
 
@@ -239,8 +239,8 @@
     </div>
 </form>
 <script>
-
-
+    
+    
     // hide all steps at start
     $(".melk-step-panel").hide();
     /**
@@ -259,7 +259,7 @@
         $(".melk-wizard-step[data-step='" + oldStep + "']").removeClass('active').addClass("done");
         $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
     }
-
+    
     /**
      * this function will ready step
      * @param {type} step
@@ -311,8 +311,8 @@
                     alert("نوع ملک معتبر نمیباشد");
                     break;
             }
-
-
+            
+            
             // check for purpose
             switch ($("#melkpurposeid").val())
             {
@@ -340,40 +340,40 @@
                     break;
             }
         }
-
-
+        
+        
         if (step == 3)
         {
-
+            
         }
-
-
-
+        
+        
+        
         if (step == 4)
         {
-
+            
         }
-
-
+        
+        
         if (step == 5)
         {
-
+            
         }
-
-
+        
+        
         if (step == 6)
         {
-
+            
         }
     }
-
+    
     /**
      * this function will validate step
      * @param {type} step
      * @returns {undefined}
      */
     function validStep(step) {
-
+        
         // step one is choose type and purpose
         if (step == 2)
         {
@@ -387,13 +387,13 @@
                         alert("مقدار سایز خانه را وارد نمایید");
                         return false;
                     }
-
+                    
                     if ($("#lot_size").val() == "")
                     {
                         alert("مقدار متراژ زمین را وارد نمایید");
                         return false;
                     }
-
+                    
                     break;
                 case "2":
                     // aparteman
@@ -402,7 +402,7 @@
                         alert("متراژ آپارتمان را وارد نمایید");
                         return false;
                     }
-
+                    
                     break;
                 case "3":
                     // daftar kar
@@ -441,9 +441,9 @@
                     alert("نوع ملک معتبر نمیباشد");
                     break;
             }
-
-
-
+            
+            
+            
         }
         if (step == 3)
         {
@@ -476,19 +476,19 @@
                     break;
                 case "2":
                     // ejare
-
+                    
                     if ($("#rent_pricerahn").val() == "")
                     {
                         alert("قیمت رهن را وارد نمایید");
                         return false;
                     }
-
+                    
                     if ($("#rent_price").val() == "")
                     {
                         alert("قیمت اجاره را وارد نمایید");
                         return false;
                     }
-
+                    
                     break;
                 case "3":
                     // forosh va ejare
@@ -497,13 +497,13 @@
                         alert("قیمت ملک را وارد نمایید");
                         return false;
                     }
-
+                    
                     if ($("#rent_pricerahn").val() == "")
                     {
                         alert("قیمت رهن را وارد نمایید");
                         return false;
                     }
-
+                    
                     if ($("#rent_price").val() == "")
                     {
                         alert("قیمت اجاره را وارد نمایید");
@@ -516,7 +516,7 @@
                     break;
             }
         }
-
+        
         if (step == 6)
         {
             // Etelate Tamas
@@ -525,18 +525,18 @@
                 alert("تلفن تماس را وارد نمایید");
                 return false;
             }
-
+            
             if ($("#private_mobile").val() == "")
             {
                 alert("شماره موبایل را وارد نمایید");
                 return false;
             }
         }
-
+        
         return true;
     }
-
-
+    
+    
     // add event on next button click
     $('body').on('click', '#nextbtn', function() {
         // get step
@@ -546,7 +546,7 @@
             readyStep(currenctStep + 1);
             showStep(currenctStep + 1, currenctStep);
         }
-
+        
     });
     // add event on next button click
     $('body').on('click', '#backbtn', function() {
@@ -558,7 +558,7 @@
     showStep(1, 1);</script>
 
 <script>
-
+    
     var citiesid = [];
     var cities = [];
 <?php
@@ -568,8 +568,8 @@ foreach ($cities as $city) {
     echo "cities[$city->stateid] = \"$ci\";\n";
 }
 ?>
-
-
+    
+    
     function onstatechange(selectedstate)
     {
         console.log(selectedstate);
@@ -589,7 +589,7 @@ foreach ($cities as $city) {
             citylisteleemnt.append('<option value="' + id + '">' + citiesid[id] + '</option>');
         });
     }
-
+    
     function locatteToAddress(address)
     {
         geocoder.geocode({'address': address}, function(results, status) {
@@ -603,7 +603,7 @@ foreach ($cities as $city) {
             }
         });
     }
-
+    
     function oncitychange(city)
     {
         var state = $("#stateid").find("option:selected").text();
@@ -611,13 +611,13 @@ foreach ($cities as $city) {
         console.log(address);
         locatteToAddress(address);
     }
-
+    
     $("#stateid").change(function() {
         onstatechange(this.value);
     });
     var addressChangeTimeOut = 0;
     $("#address").change(function() {
-
+        
         clearTimeout(addressChangeTimeOut);
         addressChangeTimeOut = setTimeout(function() {
             var city = $("#cityid").find("option:selected").text();
