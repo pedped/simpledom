@@ -16,7 +16,6 @@ abstract class ControllerBase extends AtaController {
     private $pageTitle = "Title";
     private $metaKeywords = "";
     private $metaDescription = "";
-    protected $errors;
 
     /**
      * Get User

@@ -80,6 +80,7 @@ class CreateMelkForm extends AtaForm {
         $home_size->setLabel('زیربنا');
         //$home_size->setAttribute('placeholder', 'Enter your Home Size');
         $home_size->setAttribute('class', 'form-control');
+        $home_size->setInfo('مقدار زیربنا را به متر مربع وارد نمایید');
         $this->add($home_size);
 
 

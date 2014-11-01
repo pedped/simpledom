@@ -16,7 +16,7 @@ abstract class AtaController extends Controller {
      * @return type
      */
     protected function hasError() {
-        return count($this->errors) == 0;
+        return count($this->errors) > 0;
     }
 
     /**

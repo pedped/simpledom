@@ -159,138 +159,131 @@ class MelkController extends ControllerBaseFrontEnd {
                     $password = $this->request->getPost("password");
                     $phone = $this->request->getPost("phone");
                     $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone);
-                    if (count($this->errors) == 0 && $result == 1) {
+                    if (!$this->hasError() && $result == true) {
                         // user successfully created 
                         $this->user = $user;
                         $user->setSession($this);
-                    } else {
-                        // there is a problem, just show the problem
-                        return;
                     }
                 }
 
+                // check if we have any error
+                if (!$this->hasError()) {
 
-                if ($this->hasError()) {
-                    
-                }
-                // form is valid
-                $melk = new Melk();
-                $melk->userid = $this->user->userid;
-                $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
-                $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
-                $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
-                $melk->home_size = $this->request->getPost('home_size', 'string');
-                $melk->lot_size = $this->request->getPost('lot_size', 'string');
-                $melk->sale_price = $this->request->getPost('sale_price', 'string');
-                $melk->rent_price = $this->request->getPost('rent_price', 'string');
-                $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
-                $melk->bedroom = $this->request->getPost('bedroom', 'string');
-                $melk->bath = $this->request->getPost('bath', 'string');
-                $melk->stateid = $this->request->getPost('stateid', 'string');
-                $melk->cityid = $this->request->getPost('cityid', 'string');
-                $melk->createby = 2;
-                $melk->featured = 0;
-                $melk->approved = 0;
-
-
-                // calc teh valid date
-                if (isset($this->melkSubscription)) {
-                    $this->validdate = time() + 3600 * 24 * $this->melkSubscription->validdate;
-                } else {
-                    $this->validdate = time() + 3600 * 24 * 1;
-                }
+                    // form is valid
+                    $melk = new Melk();
+                    $melk->userid = $this->user->userid;
+                    $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
+                    $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
+                    $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
+                    $melk->home_size = $this->request->getPost('home_size', 'string');
+                    $melk->lot_size = $this->request->getPost('lot_size', 'string');
+                    $melk->sale_price = $this->request->getPost('sale_price', 'string');
+                    $melk->rent_price = $this->request->getPost('rent_price', 'string');
+                    $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
+                    $melk->bedroom = $this->request->getPost('bedroom', 'string');
+                    $melk->bath = $this->request->getPost('bath', 'string');
+                    $melk->stateid = $this->request->getPost('stateid', 'string');
+                    $melk->cityid = $this->request->getPost('cityid', 'string');
+                    $melk->createby = 2;
+                    $melk->featured = 0;
+                    $melk->approved = 0;
 
 
-                if (!$melk->create()) {
-                    $melk->showErrorMessages($this);
-                } else {
+                    // calc teh valid date
+                    if (isset($this->melkSubscription)) {
+                        $this->validdate = time() + 3600 * 24 * $this->melkSubscription->validdate;
+                    } else {
+                        $this->validdate = time() + 3600 * 24 * 1;
+                    }
 
-                    // we have to create melk info
-                    $melkinfo = new MelkInfo();
-                    $melkinfo->description = $this->request->getPost('description', 'string');
-                    $melkinfo->address = $this->request->getPost('address', 'string');
-                    $melkinfo->latitude = $this->request->getPost('map_latitude');
-                    $melkinfo->longitude = $this->request->getPost('map_longitude');
-                    $melkinfo->melkid = $melk->id;
-                    $melkinfo->private_address = $this->request->getPost('private_address', "string");
-                    $melkinfo->private_mobile = $this->request->getPost('private_mobile', "string");
-                    $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
-                    $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
-                    if (!$melkinfo->create()) {
-                        $melkinfo->showErrorMessages($this);
+
+                    if (!$melk->create()) {
+                        $melk->showErrorMessages($this);
                     } else {
 
+                        // we have to create melk info
+                        $melkinfo = new MelkInfo();
+                        $melkinfo->description = $this->request->getPost('description', 'string');
+                        $melkinfo->address = $this->request->getPost('address', 'string');
+                        $melkinfo->latitude = $this->request->getPost('map_latitude');
+                        $melkinfo->longitude = $this->request->getPost('map_longitude');
+                        $melkinfo->melkid = $melk->id;
+                        $melkinfo->private_address = $this->request->getPost('private_address', "string");
+                        $melkinfo->private_mobile = $this->request->getPost('private_mobile', "string");
+                        $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
+                        $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
+                        if (!$melkinfo->create()) {
+                            $melkinfo->showErrorMessages($this);
+                        } else {
 
-                        // save images
-                        if ($this->request->hasFiles()) {
-                            // valid request, load the files
-                            foreach ($this->request->getUploadedFiles() as $file) {
-                                $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
-                                if ($image) {
-                                    $melkImage = new MelkImage();
-                                    $melkImage->imageid = $image->id;
-                                    $melkImage->melkid = $melk->id;
-                                    $melkImage->create();
+
+                            // save images
+                            if ($this->request->hasFiles()) {
+                                // valid request, load the files
+                                foreach ($this->request->getUploadedFiles() as $file) {
+                                    $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                                    if ($image) {
+                                        $melkImage = new MelkImage();
+                                        $melkImage->imageid = $image->id;
+                                        $melkImage->melkid = $melk->id;
+                                        $melkImage->create();
+                                    }
                                 }
                             }
-                        }
 
-                        // create area if not exist
-                        $area = Area::findFirst(array("name = :name:", "bind" => array("name" => $melkinfo->address)));
-                        if (!$area) {
-                            // area is not exist
-                            $area = new Area();
-                            $area->byuserid = $this->user->userid;
-                            $area->cityid = $melk->cityid;
-                            $area->name = trim($melkinfo->address);
-                            $area->create();
-                        }
-
-                        // add melk area
-                        $melkArea = new MelkArea();
-                        $melkArea->areaid = $area->id;
-                        $melkArea->byuserid = $this->user->userid;
-                        $melkArea->cityid = $melk->cityid;
-                        $melkArea->ip = $_SERVER["REMOTE_ADDR"];
-                        $melkArea->melkid = $melk->id;
-                        $melkArea->create();
-
-
-
-
-
-                        // check if we have user phone
-                        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $melkinfo->private_mobile)));
-                        if (!$userPhone) {
-                            // user phone is not exist
-                            $userPhone = new UserPhone();
-                            $userPhone->phone = $melkinfo->private_mobile;
-                            $userPhone->userid = $this->user->userid;
-                            if ($userPhone->create()) {
-                                $userPhone->sendVerificationNumber();
-                                $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                            // create area if not exist
+                            $area = Area::findFirst(array("name = :name:", "bind" => array("name" => $melkinfo->address)));
+                            if (!$area) {
+                                // area is not exist
+                                $area = new Area();
+                                $area->byuserid = $this->user->userid;
+                                $area->cityid = $melk->cityid;
+                                $area->name = trim($melkinfo->address);
+                                $area->create();
                             }
-                        } else {
-                            if (intval($userPhone->userid) == intval($this->user->userid)) {
-                                // user phone is for the user
-                                if (intval($userPhone->verified) == 1) {
-                                    // redirect to after melk create
-                                    $this->redirectAfterMelkCreating($melk->id, $melkinfo->private_mobile);
-                                } else {
-                                    // user phone is not verified yet
+
+                            // add melk area
+                            $melkArea = new MelkArea();
+                            $melkArea->areaid = $area->id;
+                            $melkArea->byuserid = $this->user->userid;
+                            $melkArea->cityid = $melk->cityid;
+                            $melkArea->ip = $_SERVER["REMOTE_ADDR"];
+                            $melkArea->melkid = $melk->id;
+                            $melkArea->create();
+
+                            // check if we have user phone
+                            $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $melkinfo->private_mobile)));
+                            if (!$userPhone) {
+                                // user phone is not exist
+                                $userPhone = new UserPhone();
+                                $userPhone->phone = $melkinfo->private_mobile;
+                                $userPhone->userid = $this->user->userid;
+                                if ($userPhone->create()) {
                                     $userPhone->sendVerificationNumber();
                                     $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
                                 }
                             } else {
-                                // shomare tamase shakse digar
-                                $USERID = $this->user->userid;
-                                $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
-                                $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
+                                if (intval($userPhone->userid) == intval($this->user->userid)) {
+                                    // user phone is for the user
+                                    if (intval($userPhone->verified) == 1) {
+                                        // redirect to after melk create
+                                        $this->redirectAfterMelkCreating($melk->id, $melkinfo->private_mobile);
+                                    } else {
+                                        // user phone is not verified yet
+                                        $userPhone->sendVerificationNumber();
+                                        $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                                    }
+                                } else {
+                                    // shomare tamase shakse digar
+                                    $USERID = $this->user->userid;
+                                    $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
+                                    $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
+                                }
                             }
-                        }
 
-                        // clear the title and message so the user can add better info
-                        $fr->clear();
+                            // clear the title and message so the user can add better info
+                            $fr->clear();
+                        }
                     }
                 }
             } else {
