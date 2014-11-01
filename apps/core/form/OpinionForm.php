@@ -35,8 +35,6 @@ class OpinionForm extends AtaForm {
 
         // Name
         $name = new TextElement('name');
-        $name->setInfo("name info goes here");
-        $name->setFooter("name footer goes here");
         $name->setLabel(_('Name'));
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');

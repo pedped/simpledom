@@ -17,12 +17,14 @@ use MelkInfoViewForm;
 use MelkPhoneListner;
 use MelkSearch;
 use MelkSubscribeItem;
+use Phalcon\Validation\Validator\PresenceOf;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\VerifyPhoneForm;
 use SMSManager;
 use SmsNumber;
+use User;
 use UserPhone;
 
 class MelkController extends ControllerBaseFrontEnd {
@@ -46,12 +48,14 @@ class MelkController extends ControllerBaseFrontEnd {
 
         // check if user is logged in 
         if (!$this->session->has("userid")) {
-            // user have to login first
-            $this->dispatcher->forward(array(
-                "controller" => "melk",
-                "action" => "loginfirst",
-            ));
-            return;
+//            // user have to login first
+//            $this->dispatcher->forward(array(
+//                "controller" => "melk",
+//                "action" => "loginfirst",
+//            ));
+//            return;
+            // this function will create new melk 
+            $this->response->redirect("melk/create");
         } else {
 
 
@@ -103,8 +107,11 @@ class MelkController extends ControllerBaseFrontEnd {
     }
 
     private function findUserSubscription() {
-        $subscriptionID = $this->user->melksubscriberplanid;
-        $this->melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
+
+        if (isset($this->user)) {
+            $subscriptionID = $this->user->melksubscriberplanid;
+            $this->melkSubscription = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $subscriptionID)));
+        }
     }
 
     public function loginfirstAction() {
@@ -124,12 +131,48 @@ class MelkController extends ControllerBaseFrontEnd {
         $fr = new CreateMelkForm();
         $this->handleFormScripts($fr);
 
+        // check if user is not logged in, set the reuqired for email and password
+        if (!isset($this->user)) {
+            $fr->get("email")->addValidator(new PresenceOf(array(
+            )));
+            $fr->get("password")->addValidator(new PresenceOf(array(
+            )));
+        } else {
+            $fr->remove("email");
+            $fr->remove("password");
+            $fr->remove("fname");
+            $fr->remove("lname");
+        }
         if ($this->request->isPost()) {
 
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
 
 
+                // we have to check if the user is logged in
+                if (!isset($this->user)) {
+                    // we need to create an account for the user
+                    $user = new User();
+                    $fname = $this->request->getPost("fname");
+                    $lname = $this->request->getPost("lname");
+                    $email = $this->request->getPost("email", "email");
+                    $password = $this->request->getPost("password");
+                    $phone = $this->request->getPost("phone");
+                    $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone);
+                    if (count($this->errors) == 0 && $result == 1) {
+                        // user successfully created 
+                        $this->user = $user;
+                        $user->setSession($this);
+                    } else {
+                        // there is a problem, just show the problem
+                        return;
+                    }
+                }
+
+
+                if ($this->hasError()) {
+                    
+                }
                 // form is valid
                 $melk = new Melk();
                 $melk->userid = $this->user->userid;
@@ -148,8 +191,6 @@ class MelkController extends ControllerBaseFrontEnd {
                 $melk->createby = 2;
                 $melk->featured = 0;
                 $melk->approved = 0;
-
-
 
 
                 // calc teh valid date

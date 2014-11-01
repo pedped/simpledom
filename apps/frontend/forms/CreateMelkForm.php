@@ -1,12 +1,54 @@
 <?php
 
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\StringLength;
 use Simpledom\Core\AtaForm;
 
 class CreateMelkForm extends AtaForm {
 
     public function initialize() {
+
+
+        // First Name
+        $firstname = new TextElement("fname");
+        $firstname->setLabel(_("First Name"));
+        $firstname->setAttribute("class", "form-control");
+        $firstname->addValidator(new StringLength(array(
+            'min' => 2,
+        )));
+        $this->add($firstname);
+
+
+        // Last Name
+        $lastname = new TextElement("lname");
+        $lastname->setLabel(_("Last Name"));
+        $lastname->setAttribute("class", "form-control");
+        $lastname->addValidator(new StringLength(array(
+            'min' => 2,
+        )));
+        $this->add($lastname);
+
+        // ٍEmail
+        $email = new TextElement("email");
+        $email->setFooter("تماس های کاربران برای شما ارسال خواهد گردید");
+        $email->setLabel(_("Email"));
+        $email->setAttribute("class", "form-control");
+        $email->addValidator(new Email(array(
+        )));
+        $this->add($email);
+
+
+        // Password
+        $password = new PasswordElement("password");
+        $password->setLabel(_("Password"));
+        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
+        $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
+        $password->setAttribute("class", "form-control");
+        $this->add($password);
+
+
 
         // Type
         $melktypeid = new SelectElement('melktypeid', MelkType::find(), array(
@@ -44,6 +86,7 @@ class CreateMelkForm extends AtaForm {
         // Lot Size
         $lot_size = new TextElement('lot_size');
         $lot_size->setLabel('متراژ زمین');
+        $lot_size->setInfo('مقدار متراژ را به متر مربع وارد نمایید');
         //$lot_size->setAttribute('placeholder', 'Enter your Lot Size');
         $lot_size->setAttribute('class', 'form-control');
         $this->add($lot_size);
