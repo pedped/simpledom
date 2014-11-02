@@ -23,39 +23,39 @@
         </div>
     <?php endif; ?>
 <?php endif; ?>
-<div class='row'>
-    <div class='col-lg-12'>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-building-o"></span> &nbsp;مشاهده ملک</h3>
+    </div>
+    <div class="panel-body">
         <!-- Load Images !-->
         <div class='row'>
             <div class='col-md-4'>
                 <!-- Quick Review !-->
-                <div class="panel panel-success melk-quick-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">در یک نگاه</h3>
-                    </div>
+                <div class="panel panel-default melk-quick-info">
                     <div class="panel-body">
                         <!-- Melk Info !-->
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal melk-quick-info">
 
-                            <dt>کد ملک</dt>
+                            <dt><span class="fa fa-navicon"></span> کد ملک</dt>
                             <dd><?php echo $melk->id; ?></dd>
 
-                            <dt>نوع ملک</dt>
+                            <dt><span class="fa fa-building"></span> نوع ملک</dt>
                             <dd><?php echo $melk->getTypeName(); ?></dd>
 
-                            <dt>منطقه</dt>
+                            <dt><span class="fa fa-map-marker"></span> منطقه</dt>
                             <dd><?php echo $melk->getInfo()->address; ?></dd>
 
-                            <dt>منظور</dt>
+                            <dt><span class="fa fa-adn"></span> منظور</dt>
                             <dd><?php echo $melk->getPurposeType(); ?></dd>
 
-                            <dt>وضعیت</dt>
+                            <dt><span class="fa fa-thumbs-o-up"></span> وضعیت</dt>
                             <dd><?php echo $melk->getCondiationType(); ?></dd>
 
-                            <dt>شهر</dt>
+                            <dt><span class="fa fa-location-arrow"></span> شهر</dt>
                             <dd><?php echo $melk->getCityName(); ?></dd>
 
-                            <dt>شماره تماس</dt>
+                            <dt><span class="fa fa-phone"></span> شماره تماس</dt>
                             <dd><?php echo $melk->getContactPhone(); ?></dd>
                             <hr/>
                             <?php switch ($melk->melktypeid) : case 1: ?>
@@ -185,10 +185,7 @@
             <div class='col-md-8'>
                 <!-- Images !-->
                 <?php if ($melk->getImages()->count() > 0) : ?>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">تصاویر ملک </h3>
-                        </div>
+                    <div class="panel  panel-default">
                         <div class="panel-body">
                             <div id="slider" class="carousel slide" data-ride="carousel">
                                 <!-- Indicators -->
@@ -278,6 +275,11 @@
             </div>
 
         </div>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-lg-12'>
+
         <!-- Bongah Ha !-->
         <?php if ($melk->createby == 1) : ?>
             <div class="panel panel-default">
@@ -327,35 +329,39 @@
         <?php else : ?>
             <div class='row'>
                 <div class='col-md-12'>
-                    <h3>بنگاه های قابل مراجعه</h3>
-                    <hr/>
-                    <div class='row'>
-                        <?php foreach ($bongahs as $bongah) : ?>
-                            <div class='col-md-4'>
-                                <div class="thumbnail">
-                                    <h4><?php echo $bongah->title; ?> (<small>فاصله تا بنگاه : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
-                                    <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
-                                    <p>شماره تماس: <?php echo $bongah->phone; ?></p>
-                                    <div>
-                                        <?php
-                                        $mapElement = new MapElement("bongah_" . $bongah->id);
-                                        $mapElement->setLathitude($bongah->latitude);
-                                        $mapElement->setLongtude($bongah->longitude);
-                                        $mapElement->setName("melk");
-                                        $mapElement->setZoom(14);
-                                        $mapElement->setMarkTitle("بنگاه " . $bongah->title);
-                                        $mapElement->setMarkDescription("بنگاه " . $bongah->title);
-                                        echo $mapElement;
-                                        ?>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3  class="panel-title">بنگاه های قابل مراجعه</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class='row'>
+                                <?php foreach ($bongahs as $bongah) : ?>
+                                    <div class='col-md-4'>
+                                        <div class="thumbnail">
+                                            <h4><?php echo $bongah->title; ?> (<small>فاصله تا بنگاه : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
+                                            <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
+                                            <p>شماره تماس: <?php echo $bongah->phone; ?></p>
+                                            <div>
+                                                <?php
+                                                $mapElement = new MapElement("bongah_" . $bongah->id);
+                                                $mapElement->setLathitude($bongah->latitude);
+                                                $mapElement->setLongtude($bongah->longitude);
+                                                $mapElement->setName("melk");
+                                                $mapElement->setZoom(14);
+                                                $mapElement->setMarkTitle("بنگاه " . $bongah->title);
+                                                $mapElement->setMarkDescription("بنگاه " . $bongah->title);
+                                                echo $mapElement;
+                                                ?>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>
         <?php endif; ?> 
-
     </div>
 </div>
 

@@ -367,3 +367,18 @@ footer .btn {
     box-shadow: inset 8px 0px 16px -9px;
     background-color: #aaa;
 }*/
+
+.melk-quick-info .fa{
+    margin-left: 0px;
+    float: left;
+    margin-right: 7px;
+    top: 3px;
+    position: relative;
+}
+
+.melk-quick-info dd{
+    margin-bottom: 8px;
+}
+
+.melk-quick-info dt{
+}
