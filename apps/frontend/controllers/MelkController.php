@@ -232,19 +232,11 @@ class MelkController extends ControllerBaseFrontEnd {
                             }
 
                             // create area if not exist
-                            $area = Area::findFirst(array("name = :name:", "bind" => array("name" => $melkinfo->address)));
-                            if (!$area) {
-                                // area is not exist
-                                $area = new Area();
-                                $area->byuserid = $this->user->userid;
-                                $area->cityid = $melk->cityid;
-                                $area->name = trim($melkinfo->address);
-                                $area->create();
-                            }
+                            $areaid = Area::GetID($melk->cityid, $melkinfo->address);
 
                             // add melk area
                             $melkArea = new MelkArea();
-                            $melkArea->areaid = $area->id;
+                            $melkArea->areaid = $areaid;
                             $melkArea->byuserid = $this->user->userid;
                             $melkArea->cityid = $melk->cityid;
                             $melkArea->ip = $_SERVER["REMOTE_ADDR"];

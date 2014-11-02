@@ -123,4 +123,49 @@ class Area extends AtaModel {
         ));
     }
 
+    /**
+     * This function will check if we have no area, create new area and return id
+     * else, it return the id of current area in city
+     * @param type $cityid City iD
+     * @param string $name area name
+     * @return int ID of area
+     */
+    public static function GetID($cityid, $name) {
+        $area = Area::findFirst(array("cityid = :cityid: AND name = :name: ", "bind" => array("name" => $name, "cityid" => $cityid)));
+        if (!$area) {
+            // area is not exist
+            $area = new Area();
+            $area->byuserid = "0";
+            $area->cityid = $cityid;
+            $area->name = trim($name);
+            $area->create();
+        }
+        return $area->id;
+    }
+
+    /**
+     * Find IDs with names
+     * @param type $cityid
+     * @param string|Array $names
+     * @return type
+     */
+    public static function GetMultiID($cityid, $names) {
+        $ids = array();
+        // explode items
+        $items = array();
+        if (is_array($names)) {
+            $items = $names;
+        } else {
+            $items = explode(",", $names);
+        }
+
+
+        foreach ($items as $item) {
+            $ids[] = Area::GetID($cityid, $item);
+        }
+
+
+        return $ids;
+    }
+
 }

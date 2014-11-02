@@ -11,6 +11,33 @@
         margin-left: 0px;
     }
 }
+
+
+@media (max-width: 1200px){
+    .nav-pills > li > a{
+        font-size: 100%;
+    }
+}
+
+
+@media (max-width: 768px){
+    .bongah-cuurent-subscription{
+        float: right  !important;
+    }
+    .bongah-cuurent-subscription > *{
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        margin-top: 0px;
+    }
+}
+
+
+.bongah-cuurent-subscription{
+    float: left  !important;
+}
+
+
+
 .melk-wizard a{
     font-size: 19px;
 }
@@ -271,6 +298,7 @@ footer .btn {
 
 .facility-item{
     font-size: 16px;
+
 }
 
 .facility-item.active{
@@ -283,6 +311,7 @@ footer .btn {
 }
 .create-melk-facility-item{
     font-size: 22px;
+    margin-bottom: 20px;
 }
 
 .page-verify-phone-melk .fa-mobile{

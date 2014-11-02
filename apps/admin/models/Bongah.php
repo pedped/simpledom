@@ -361,4 +361,13 @@ class Bongah extends AtaModel {
         return $result;
     }
 
+    public function getSupporrtedLocationsName() {
+        $supportsName = array();
+        $k = explode(",", $this->locationscansupport);
+        foreach ($k as $value) {
+            $supportsName[] = Area::findFirst($value)->name;
+        }
+        return $supportsName;
+    }
+
 }

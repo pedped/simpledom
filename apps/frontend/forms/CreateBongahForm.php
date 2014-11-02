@@ -91,7 +91,8 @@ class CreateBongahForm extends AtaForm {
 
 
         // Locations Can Support
-        $locationscansupport = new TagEditElement('locationscansupport');
+        $locationscansupport = new CityAreaSelector('locationscansupport');
+        $locationscansupport->setCityID('$("#cityid").val()');
         $locationscansupport->setLabel('مناطق قابل پوشش');
         $locationscansupport->setInfo("نام بلوار های قابل پوشش را وارد نمایید");
         $locationscansupport->setFooter("برای تفکیک بلوار ها از کاما استفاده نمایید");

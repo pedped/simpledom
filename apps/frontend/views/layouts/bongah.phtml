@@ -1,13 +1,13 @@
 <?php $actionName = $this->dispatcher->getActionName(); ?>
 <!-- Header !-->
-<?php if (isset($currentBongah)) : ?>
+<?php if ($actionName != "add") : ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class='row'>
-                <div class='col-md-8'>
+                <div class='col-md-7'>
                     <h2 style="margin-bottom: 20px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
                 </div>
-                <div class='col-md-4' style="text-align: left">
+                <div class='col-md-5 bongah-cuurent-subscription'>
                     <h2 style="margin-bottom: 20px;">وضعیت اشتراک: <?php echo $subscriptionText; ?></h2>
                 </div>
             </div>

@@ -2,9 +2,9 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Area;
 use AtaPaginator;
 use Bongah;
-use BongahForm;
 use BongahSentMessage;
 use BongahSubscribeItem;
 use City;
@@ -16,6 +16,8 @@ use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
+use SMSManager;
+use SmsNumber;
 
 class BongahController extends ControllerBase {
 
@@ -23,7 +25,7 @@ class BongahController extends ControllerBase {
 
     /**
      *
-     * @var \Bongah 
+     * @var Bongah 
      */
     private $bongah;
 
@@ -314,7 +316,8 @@ class BongahController extends ControllerBase {
                 $bongah->cityid = $this->request->getPost('cityid', 'string');
                 $bongah->latitude = $this->request->getPost('map_latitude');
                 $bongah->longitude = $this->request->getPost('map_longitude');
-                $bongah->locationscansupport = $this->request->getPost('locationscansupport', 'string');
+                $areaIDs = Area::GetMultiID($bongah->cityid, $this->request->getPost('locationscansupport', 'string'));
+                $bongah->locationscansupport = implode(',', $areaIDs);
                 $bongah->mobile = $this->request->getPost('mobile', 'string');
                 $bongah->phone = $this->request->getPost('phone', 'string');
 
@@ -333,6 +336,10 @@ class BongahController extends ControllerBase {
                             "bongahid" => $bongah->id
                         )
                     ));
+
+
+                    // send sms about add
+                    SMSManager::SendSMS($bongah->mobile, "بنگاه دار گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
                 }
             } else {
                 // invalid
@@ -340,12 +347,14 @@ class BongahController extends ControllerBase {
             }
         }
 
+
+
         $this->view->form = $fr;
     }
 
     public function settingsAction($id) {
 
-        $bongahItem = Bongah::findFirst($id);
+        $bongah = Bongah::findFirst($id);
 
         if (!$this->ValidateAccess($id)) {
             // user do not have permission to edut this object
@@ -359,8 +368,8 @@ class BongahController extends ControllerBase {
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
+                //  var_dump($_POST);
                 // form is valid
-                $bongah = $bongahItem;
                 $bongah->userid = $this->user->userid;
                 $bongah->title = $this->request->getPost('title', 'string');
                 $bongah->peygiri = $this->request->getPost('peygiri', 'string');
@@ -370,7 +379,8 @@ class BongahController extends ControllerBase {
                 $bongah->cityid = $this->request->getPost('cityid', 'string');
                 $bongah->latitude = $this->request->getPost('map_latitude');
                 $bongah->longitude = $this->request->getPost('map_longitude');
-                $bongah->locationscansupport = $this->request->getPost('locationscansupport', 'string');
+                $areaIDs = Area::GetMultiID($bongah->cityid, $this->request->getPost('locationscansupport', 'string'));
+                $bongah->locationscansupport = implode(',', $areaIDs);
                 $bongah->mobile = $this->request->getPost('mobile', 'string');
                 $bongah->phone = $this->request->getPost('phone', 'string');
 
@@ -383,21 +393,21 @@ class BongahController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-        } else {
-
-            // set default values
-            $fr->get('title')->setDefault($bongahItem->title);
-            $fr->get('peygiri')->setDefault($bongahItem->peygiri);
-            $fr->get('fname')->setDefault($bongahItem->fname);
-            $fr->get('lname')->setDefault($bongahItem->lname);
-            $fr->get('address')->setDefault($bongahItem->address);
-            $fr->get('cityid')->setDefault($bongahItem->cityid);
-            $fr->get('map')->setLathitude($bongahItem->latitude);
-            $fr->get('map')->setLongtude($bongahItem->longitude);
-            $fr->get('locationscansupport')->setDefault($bongahItem->locationscansupport);
-            $fr->get('mobile')->setDefault($bongahItem->mobile);
-            $fr->get('phone')->setDefault($bongahItem->phone);
         }
+
+        // set default values
+        $fr->get('title')->setDefault($bongah->title);
+        $fr->get('peygiri')->setDefault($bongah->peygiri);
+        $fr->get('fname')->setDefault($bongah->fname);
+        $fr->get('lname')->setDefault($bongah->lname);
+        $fr->get('address')->setDefault($bongah->address);
+        $fr->get('cityid')->setDefault($bongah->cityid);
+        $fr->get('map')->setLathitude($bongah->latitude);
+        $fr->get('map')->setLongtude($bongah->longitude);
+        $fr->get('locationscansupport')->setDefault(implode(",", $bongah->getSupporrtedLocationsName()));
+        $fr->get('mobile')->setDefault($bongah->mobile);
+        $fr->get('phone')->setDefault($bongah->phone);
+
 
         $this->view->form = $fr;
     }
