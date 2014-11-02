@@ -209,3 +209,17 @@ blockquote {
     font-size: 90%;
     color: #aaa;
 }
+
+ul.tagit li{
+    float: right !important;
+    display: block;
+    margin: 4px 5px 3px 0 !important;
+}
+
+.tagit-new,
+.tagit-choice{
+    font-family: yekan;
+    font-weight: normal !important;
+    font-size: 20px;
+    float: right  !important;
+}
