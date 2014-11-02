@@ -21,7 +21,7 @@ class Module implements ModuleDefinitionInterface {
         $loader->registerNamespaces(
                 array(
                     'Simpledom\Api\Controllers' => __DIR__ . '/controllers/',
-                    'Simpledom\Core' => dirname(__DIR__) . '/frontend/core/',
+                    'Simpledom\Core' => dirname(__DIR__) . '/core/',
                 )
         );
 

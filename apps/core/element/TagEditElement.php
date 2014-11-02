@@ -2,13 +2,75 @@
 
 /**
  * 
- * Uses CKEDITOR
+ * https://github.com/aehlke/tag-it
  */
 class TagEditElement extends BaseElement {
 
-    protected $source = "['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']";
-    protected $itemText = "'label'";
-    protected $itemValue = "'id'";
+    protected $autocompleteSource = "";
+    protected $allowSpaces = true;
+    protected $readOnly = false;
+    protected $tagLimit = 500;
+    protected $singleField = false;
+    protected $placeholderText = null;
+
+    public function getAutocompleteSource() {
+        return $this->autocompleteSource;
+    }
+
+    public function getReadOnly() {
+        return $this->readOnly ? "true" : "false";
+    }
+
+    public function getTagLimit() {
+        return $this->tagLimit;
+    }
+
+    public function getSingleField() {
+        return $this->singleField ? "true" : "false";
+    }
+
+    public function getPlaceholderText() {
+        return isset($this->placeholderText) && strlen($this->placeholderText) > 0 ?  "'$this->placeholderText'" : "''";
+    }
+
+    public function setAutocompleteSource($autocompleteSource) {
+        $this->autocompleteSource = $autocompleteSource;
+        return $this;
+    }
+
+    public function setReadOnly($readOnly) {
+        $this->readOnly = $readOnly;
+        return $this;
+    }
+
+    public function setTagLimit($tagLimit) {
+        $this->tagLimit = $tagLimit;
+        return $this;
+    }
+
+    public function setSingleField($singleField) {
+        $this->singleField = $singleField;
+        return $this;
+    }
+
+    public function setPlaceholderText($placeholderText) {
+        $this->placeholderText = $placeholderText;
+        return $this;
+    }
+
+    public function getAllowSpaces() {
+        return $this->allowSpaces ? "true" : 'false';
+    }
+
+    /**
+     * 
+     * @param boolean $allowSpaces
+     * @return TagEditElement
+     */
+    public function setAllowSpaces($allowSpaces) {
+        $this->allowSpaces = $allowSpaces;
+        return $this;
+    }
 
     public function getItemText() {
         return $this->itemText;
@@ -61,23 +123,40 @@ class TagEditElement extends BaseElement {
 
         // we have to add the javascript and css for the item
         $this->setScriptnames(array(
-            "js/bootstrap-tagsinput/bootstrap-tagsinput.js"
+            "jquery-ui/jquery-ui.min.js",
+            "jquery-tagit/js/tag-it.min.js",
         ));
         $this->setCssnames(array(
-            "js/bootstrap-tagsinput/bootstrap-tagsinput.css"
+            "jquery-ui/jquery-ui.min.css",
+            "jquery-tagit/css/jquery.tagit.css",
         ));
     }
 
     public function render($attributes = null) {
 
+        $defaults = $this->getDefault();
+        $allowSpaces = $this->getAllowSpaces();
+        $autoCompleteSource = $this->autocompleteSource;
+
         $name = $this->getName();
-        $html = "<input type='text' name='$name' id='$name' class='form-control' />"
+        $html = "<input type='text' name='$name' id='$name' class='form-control' value='$defaults' />"
                 . "\n<script>"
-                . "$('#$name').tagsinput({
-                        tagClass : function(item) {
-                            return (item.length > 10 ? 'small' : 'small');
-                        }
-                      });"
+                . "$('#$name').tagit({
+                        allowSpaces : $allowSpaces,
+                        taglimit : " . $this->getTagLimit() . ",
+                        singlefield : " . $this->getSingleField() . ",
+                        placeholdertext : " . $this->getPlaceholderText() . ",
+                  ";
+
+
+        if (isset($autoCompleteSource) && strlen($autoCompleteSource) > 0) {
+            $html .= "autocomplete : {"
+                    . "delay: 0, minLength: 2,"
+                    . "source : $autoCompleteSource"
+                    . "}";
+        }
+
+        $html .= "});"
                 . "</script>";
         return $html;
     }
