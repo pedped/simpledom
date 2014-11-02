@@ -354,7 +354,7 @@ class Bongah extends AtaModel {
                                        * cos( radians( bongah.longitude ) - radians(?) ) 
                                        + sin( radians(?) ) 
                                        * sin( radians( bongah.latitude ) ) ) ) AS distance 
-                         from bongah WHERE cityid = ?
+                         from bongah WHERE cityid = ? AND bongah.enable = 1
                          having distance < ? ORDER BY distance", array(
             $latitude, $longitude, $latitude, $cityID, $minDistance
         ));

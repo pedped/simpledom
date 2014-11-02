@@ -12,11 +12,21 @@ class BongahsubscribeController extends ControllerBaseFrontEnd {
     }
 
     public function plansAction() {
+        $this->setPageTitle("پلان بنگاه داران");
         $this->view->plans = BongahSubscribeItem::find('enable = 1');
     }
 
     public function purchaseAction($planID) {
-        $this->errors = array();
+
+        if (!isset($this->user)) {
+            $this->dispatcher->forward(array(
+                "controller" => "user",
+                "action" => "login",
+                "params" => array()
+            ));
+            return;
+        }
+
         $order = new Order($this->user->userid);
         $orderID = $order->CreateOrder($this->errors, 5, $planID);
         $order->PayOrder($this->errors, $orderID, 1);

@@ -11,6 +11,7 @@ class CreateBongahForm extends AtaForm {
         // Title
         $title = new TextElement('title');
         $title->setLabel('نام بنگاه');
+        $title->setInfo("نام کامل نوشته شده بر روی تابلوی بنگاه");
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
@@ -31,6 +32,7 @@ class CreateBongahForm extends AtaForm {
         // First Name
         $fname = new TextElement('fname');
         $fname->setLabel('نام');
+        $fname->setInfo("نام مسئول بنگاه");
         //$fname->setAttribute('placeholder', 'Enter your First Name');
         $fname->setAttribute('class', 'form-control');
         $fname->addValidator(new PresenceOf(array(
@@ -41,6 +43,7 @@ class CreateBongahForm extends AtaForm {
         // Last Name
         $lname = new TextElement('lname');
         $lname->setLabel('نام خانوادگی');
+        $lname->setInfo("نام خانوادگی مسئول بنگاه");
         //$lname->setAttribute('placeholder', 'Enter your Last Name');
         $lname->setAttribute('class', 'form-control');
         $lname->addValidator(new PresenceOf(array(
@@ -51,6 +54,7 @@ class CreateBongahForm extends AtaForm {
         // Address
         $address = new TextElement('address');
         $address->setLabel('آدرس');
+        $address->setInfo("آدرس دقیق و کامل بنگاه را وارد نمایید، آدرس وارد شده برای کاربران قابل نمایش است");
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(
@@ -80,6 +84,7 @@ class CreateBongahForm extends AtaForm {
         // Latitude
         $latitude = new MapPickElement('map');
         $latitude->setLabel("موقعیت روی نقشه");
+        $latitude->setInfo("موقعیت بنگاه را به صورت کاملا دقیق توسط ماوس بر روی نقشه مشخص نمایید");
         //$latitude->setAttribute('placeholder', 'Enter your Latitude');
         $latitude->setAttribute('class', 'form-control');
         $this->add($latitude);
@@ -88,6 +93,8 @@ class CreateBongahForm extends AtaForm {
         // Locations Can Support
         $locationscansupport = new TagEditElement('locationscansupport');
         $locationscansupport->setLabel('مناطق قابل پوشش');
+        $locationscansupport->setInfo("نام بلوار های قابل پوشش را وارد نمایید");
+        $locationscansupport->setFooter("برای تفکیک بلوار ها از کاما استفاده نمایید");
         //$locationscansupport->setAttribute('placeholder', 'Enter your Locations Can Support');
         $locationscansupport->setAttribute('class', 'form-control');
         $locationscansupport->addValidator(new PresenceOf(array(
@@ -113,8 +120,6 @@ class CreateBongahForm extends AtaForm {
         $phone->addValidator(new PresenceOf(array(
         )));
         $this->add($phone);
-
-
 
 
         // Image File One

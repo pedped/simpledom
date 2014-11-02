@@ -72,7 +72,7 @@ class MelkController extends ControllerBaseFrontEnd {
                     if (intval($this->user->melksubscriberplanid) == 0) {
                         // user has one melk before and now wants to add new melk, but 
                         // he do not have any valid subscription, he has to buy subscriptipn
-                        $this->flash->error("برای افزودن ملک، نیاز است تا یکی از پلان های عضویت را خریداری نمایید");
+                        $this->flash->error(" برای افزودن ملک بیشتر، نیاز است تا یکی از پلان های عضویت را خریداری نمایید");
                         $this->dispatcher->forward(array(
                             "controller" => "usersubscribe",
                             "action" => "plans"

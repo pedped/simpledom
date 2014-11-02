@@ -1,29 +1,32 @@
 <?php $actionName = $this->dispatcher->getActionName(); ?>
 <!-- Header !-->
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class='row'>
-            <div class='col-md-8'>
-                <h2 style="margin-bottom: 20px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
+<?php if (isset($currentBongah)) : ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class='row'>
+                <div class='col-md-8'>
+                    <h2 style="margin-bottom: 20px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
+                </div>
+                <div class='col-md-4' style="text-align: left">
+                    <h2 style="margin-bottom: 20px;">وضعیت اشتراک: <?php echo $subscriptionText; ?></h2>
+                </div>
             </div>
-            <div class='col-md-4' style="text-align: left">
-                <h2 style="margin-bottom: 20px;">وضعیت اشتراک: <?php echo $subscriptionText; ?></h2>
+        </div>
+        <div class="panel-body">
+            <div class='page-bongah'>
+                <ul class="nav nav-pills nav-justified bongah-panel">
+                    <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/userscansupport"); ?>">کاربران نیازمند ملک</a></li> 
+                    <li class="<?php echo $actionName == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/"); ?>">لیست کامل املاک</a></li> 
+                    <li class="<?php echo $actionName == "melks" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melks/"); ?>">املاک شما</a></li> 
+                    <li class="<?php echo $actionName == "melkcansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melkcansupport/"); ?>">املاک تحت پوشش شما</a></li> 
+                    <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/settings"); ?>">تنظیمات بنگاه</a></li> 
+                    <li class="<?php echo ($actionName == "sendsms" || $actionName == "checksms") ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/sendsms"); ?>">ارسال پیامک</a></li> 
+                </ul>
+                <hr/>    
+                <?php echo $this->getContent(); ?>
             </div>
         </div>
     </div>
-    <div class="panel-body">
-        <div class='page-bongah'>
-            <ul class="nav nav-pills nav-justified bongah-panel">
-                <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/userscansupport"); ?>">کاربران نیازمند ملک</a></li> 
-                <li class="<?php echo $actionName == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/"); ?>">لیست کامل املاک</a></li> 
-                <li class="<?php echo $actionName == "melks" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melks/"); ?>">املاک شما</a></li> 
-                <li class="<?php echo $actionName == "melkcansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melkcansupport/"); ?>">املاک تحت پوشش شما</a></li> 
-                <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/settings"); ?>">تنظیمات بنگاه</a></li> 
-                <li class="<?php echo ($actionName == "sendsms" || $actionName == "checksms") ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/sendsms"); ?>">ارسال پیامک</a></li> 
-            </ul>
-            <hr/>    
-            <?php echo $this->getContent(); ?>
-        </div>
-    </div>
-</div>
+<?php else : ?>
+    <?php echo $this->getContent(); ?>
+<?php endif; ?>

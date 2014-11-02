@@ -7,6 +7,7 @@ use Bongah;
 use BongahForm;
 use BongahSentMessage;
 use BongahSubscribeItem;
+use City;
 use CreateBongahForm;
 use Melk;
 use MelkPhoneListner;
@@ -40,7 +41,12 @@ class BongahController extends ControllerBase {
         if (!$bongahID) {
             $this->bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
             if (!$this->bongah) {
-                $this->show404();
+                // user do not have any bongah, redirect him to create page
+                $this->dispatcher->forward(array(
+                    "controller" => "bongah",
+                    "action" => "add",
+                    "params" => array()
+                ));
                 return;
             }
             $bongahID = $this->bongah->id;
@@ -76,7 +82,7 @@ class BongahController extends ControllerBase {
     }
 
     public function waitforapproveAction() {
-        
+        $this->setPageTitle("در انتظار تایید");
     }
 
     /**
@@ -137,6 +143,8 @@ class BongahController extends ControllerBase {
     }
 
     public function sendsmsAction() {
+
+        $this->setPageTitle("ارسال پیامک");
 
         // calc sms credit
         $this->calcUserCredit();
@@ -212,15 +220,19 @@ class BongahController extends ControllerBase {
 
     public function indexAction($page = 1) {
 
+        $this->setPageTitle("لیست املاک");
         $this->getMelksList($page, "cityid = :cityid: AND approved = 1", array("cityid" => $this->bongah->cityid));
     }
 
     public function melksAction($page = 1) {
 
+        $this->setPageTitle("لیست املاک شما");
         $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid));
     }
 
     public function melkcansupportAction($bongahID, $page = 1, $maxDistance = 10) {
+
+        $this->setPageTitle("لیست املاک قابل پوشش");
 
         // find bongah location
         $bongah = Bongah::findFirst($bongahID);
@@ -234,6 +246,7 @@ class BongahController extends ControllerBase {
 
     public function userscansupportAction($page = 1, $maxDistance = 10) {
 
+        $this->setPageTitle("کاربران نیازمند ملک");
 
         // find all city
         $melkphonelistners = MelkPhoneListner::find(
@@ -279,6 +292,12 @@ class BongahController extends ControllerBase {
 
     public function addAction() {
 
+        $this->setPageTitle("عضویت بنگاه");
+
+        // load citties list
+        $this->view->cities = City::find();
+
+        // create form
         $fr = new CreateBongahForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
@@ -306,6 +325,14 @@ class BongahController extends ControllerBase {
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
+
+                    $this->dispatcher->forward(array(
+                        "controller" => "bongah",
+                        "action" => "index",
+                        "params" => array(
+                            "bongahid" => $bongah->id
+                        )
+                    ));
                 }
             } else {
                 // invalid
@@ -314,77 +341,6 @@ class BongahController extends ControllerBase {
         }
 
         $this->view->form = $fr;
-    }
-
-    public function listAction($page = 1) {
-
-        // load the users
-        $bongahs = Bongah::find(
-                        array(
-                            'approved = 1',
-                            'order' => 'id DESC'
-        ));
-
-
-        $numberPage = $page;
-
-        // create paginator
-        $paginator = new AtaPaginator(array(
-            'data' => $bongahs,
-            'limit' => 10,
-            'page' => $numberPage
-        ));
-
-
-        $paginator->
-                setTableHeaders(array(
-                    'کد', 'نام بنگاه', 'شماره پیگیری', 'نام', 'نام خانوادگی', 'آدرس', 'شهر', 'مناطق تحت پوشش', 'شماره موبایل', 'شماره تلفن', 'Date'
-                ))->
-                setFields(array(
-                    'id', 'title', 'peygiri', 'fname', 'lname', 'address', 'getCityName()', 'locationscansupport', 'mobile', 'phone', 'getDate()'
-                ))->
-                setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
-                'list');
-
-        $this->view->
-                list = $paginator->getPaginate();
-    }
-
-    public function deleteAction($id) {
-
-        if (!$this->ValidateAccess($id)) {
-            // user do not have permission to remove this object
-            return $this->response->setStatusCode('403', 'You do not have permission to access this page');
-        }
-
-        // check if item exist
-        $item = Bongah::findFirst($id);
-        if (!$item) {
-            // item is not exist any more
-            return $this->dispatcher->forward(array(
-                        'controller' => 'bongah',
-                        'action' => 'list'
-            ));
-        }
-
-        // check if user want to remove it
-        if ($this->request->isPost()) {
-            $result = Bongah::findFirst($id)->delete();
-            if (!$result) {
-                $this->flash->error('unable to remove this Bongah item');
-            } else {
-                $this->flash->success('Bongah item deleted successfully');
-                return $this->dispatcher->forward(array(
-                            'controller' => 'bongah',
-                            'action' => 'list'
-                ));
-            }
-        }
     }
 
     public function settingsAction($id) {
@@ -444,31 +400,6 @@ class BongahController extends ControllerBase {
         }
 
         $this->view->form = $fr;
-    }
-
-    public function viewAction($id) {
-
-        $item = Bongah::findFirst($id);
-        $this->view->item = $item;
-
-        $form = new BongahForm();
-        $this->handleFormScripts($form);
-        $form->get('id')->setDefault($item->id);
-        $form->get('title')->setDefault($item->title);
-        $form->get('peygiri')->setDefault($item->peygiri);
-        $form->get('fname')->setDefault($item->fname);
-        $form->get('lname')->setDefault($item->lname);
-        $form->get('address')->setDefault($item->address);
-        $form->get('cityid')->setDefault($item->cityid);
-        $form->get('latitude')->setDefault($item->latitude);
-        $form->get('longitude')->setDefault($item->longitude);
-        $form->get('locationscansupport')->setDefault($item->locationscansupport);
-        $form->get('mobile')->setDefault($item->mobile);
-        $form->get('phone')->setDefault($item->phone);
-        $form->get('enable')->setDefault($item->enable);
-        $form->get('featured')->setDefault($item->featured);
-        $form->get('date')->setDefault($item->date);
-        $this->view->form = $form;
     }
 
 }

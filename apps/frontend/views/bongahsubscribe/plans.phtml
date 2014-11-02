@@ -3,11 +3,11 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<div class='row'>
+<!--<div class='row'>
     <?php foreach ($plans as $plan) : ?>
         <div class="col-md-3">
             <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
-                <!-- Title !-->
+                 Title !
                 <h3 class="title">
                     <?php echo $plan->name; ?>
                 </h3>
@@ -24,11 +24,145 @@
                     <p>ملک شما در لیست به صورت ویژه نمایش داده خواهد شد</p>
                     <hr/>
                 <?php endif; ?>
-
-                <!-- Button !-->
-                <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("bongahsubscribe/purchase/" . $plan->id); ?>">سفارش</a>
             </div>
 
         </div>
     <?php endforeach; ?>
+</div>-->
+<div class='row'>
+    <div class='col-md-12'>
+        <table class='table table-bordered table-responsive table-striped table-price'>
+            <!-- Headers !-->
+            <tr>
+                <th>
+                </th>
+                <?php foreach ($plans as $plan) : ?>
+                    <th class='title'>
+                        <?php echo $plan->name; ?>
+                    </th>
+                <?php endforeach; ?>
+            </tr>
+
+            <!-- Plans !-->
+            <!-- Time !-->
+            <tr>
+                <td>
+                    مدت زمان
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->validdate; ?> روز
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+            <!-- Description !-->
+<!--            <tr>
+                <td>
+                    توضیحات
+                </td>
+            <?php foreach ($plans as $plan) : ?>
+                                <td>
+                <?php echo $plan->description; ?>
+                                </td>
+            <?php endforeach; ?>
+            </tr>-->
+
+            <!-- Melks Can Add !-->
+            <tr>
+                <td>
+                    تعداد املاک قابل افزودن
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->melkscanadd; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+            <!-- See User Phones !-->
+            <tr>
+                <td>
+                    مشاهده شماره تماس کاربران نیازمند ملک
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->canseeuserphone ? "<span class='check-fa fa fa-check'></span>" : "<span class='not-active'></span>"; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+            <!-- Featured Melk !-->
+            <tr>
+                <td>
+                    بنگاه ویژه
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->featured ? "<span class='check-fa fa fa-check'></span>" : "<span class='not-active'></span>"; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+
+            <!-- Send Message !-->
+            <tr>
+                <td>
+                    ارسال پیام به کاربران
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->sendmessagetousers ? "<span class='check-fa fa fa-check'></span>" : "<span class='not-active'></span>"; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+
+            <tr>
+                <td>
+                    تعداد پیامک پیشفرض
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->defaultsmscredit > 0 ? $plan->defaultsmscredit . " " . "پیامک" : "" ?> 
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+
+            <tr>
+                <td>
+                    دریافت وب سایت اختصاصی املاک
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <?php echo $plan->receiveportal ? "<span class='check-fa fa fa-check'></span>" : "<span class='not-active'></span>"; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+            <tr>
+                <td>
+                    قیمت
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <p class='price'><?php echo $plan->getHumanPrice(); ?></p>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+            <tr>
+                <td>
+
+                </td>
+                <?php foreach ($plans as $plan) : ?>
+                    <td>
+                        <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("bongahsubscribe/purchase/" . $plan->id); ?>">سفارش</a>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+
+        </table>
+    </div>
 </div>

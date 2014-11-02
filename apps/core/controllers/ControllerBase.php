@@ -4,10 +4,12 @@ namespace Simpledom\Admin\BaseControllers;
 
 use AtaController;
 use BaseContact;
+use Bongah;
 use Melk;
 use Phalcon\Mvc\Dispatcher;
 use Settings;
 use User;
+
 abstract class ControllerBase extends AtaController {
 
     /**
@@ -97,6 +99,9 @@ abstract class ControllerBase extends AtaController {
         // get the real estates wait for approve
         $this->view->estateWaitForApproveCount = Melk::find("approved = 0")->count();
         $this->view->amlaksWaitForApprove = Melk::find(array("approved = 0", "order" => "id DESC", "limit" => "5"));
+
+        $this->view->bongahWaitForApproveCount = Bongah::find("enable = -1")->count();
+        $this->view->bongahsWaitForApprove = Bongah::find(array("enable = -1", "order" => "id DESC", "limit" => "5"));
     }
 
     protected function setTitle($title) {
