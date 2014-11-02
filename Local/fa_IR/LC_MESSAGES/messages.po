@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-22 12:43+0330\n"
-"PO-Revision-Date: 2014-10-22 12:47+0330\n"
-"Last-Translator: ATA <convertersoft@gmail.com>\n"
-"Language-Team: ATA <convertersoft@gmail.com>\n"
+"POT-Creation-Date: 2014-11-02 16:12+0330\n"
+"PO-Revision-Date: 2014-11-02 18:00+0330\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,36 +18,47 @@ msgstr ""
 "X-Generator: Poedit 1.6.10\n"
 
 #: apps/frontend/controllers/PaymentController.php:24
+#: apps/core/frontendcontrollers/PaymentControllerBase.php:25
 msgid "unable to find the payment method, may be it is disabled"
 msgstr "روش پرداخت شما غیر فعال میباشد"
 
 #: apps/frontend/controllers/PaymentController.php:38
+#: apps/core/frontendcontrollers/PaymentControllerBase.php:39
 msgid "Success"
 msgstr "موفق"
 
 #: apps/frontend/controllers/PaymentController.php:38
+#: apps/core/frontendcontrollers/PaymentControllerBase.php:39
 msgid "Your payment was successfully"
 msgstr "پرداخت شما با موفقیت انجام شد"
 
 #: apps/frontend/controllers/PaymentController.php:40
+#: apps/core/frontendcontrollers/PaymentControllerBase.php:41
 msgid "Ooops"
 msgstr "خطا"
 
 #: apps/frontend/controllers/ErrorController.php:15
+#: apps/core/frontendcontrollers/ErrorControllerBase.php:16
 msgid "Not Found!"
 msgstr "صفحه مورد نظر یافت نگردید"
 
 #: apps/frontend/controllers/FaqController.php:26
 #: apps/frontend/views/layouts/header.phtml:59
+#: apps/frontend/views/faq/index.phtml:1
+#: apps/core/frontendcontrollers/FaqControllerBase.php:26
+#: apps/core/frontendcontrollers/FaqControllerBase.php:19
 msgid "FAQ"
 msgstr "پرسش و پاسخ"
 
 #: apps/frontend/controllers/PhoneController.php:29
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:29
 #, php-format
 msgid "Unable to find your phone number, or may be %s is not your phone"
 msgstr "خطا در هنگام دریافت شماره تلفن، شاید شماره %s شماره شما نباشد"
 
 #: apps/frontend/controllers/PhoneController.php:52
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:52
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:53
 #, php-format
 msgid ""
 "\"SMS Message has been sent to %s. Please check your phone and type your "
@@ -57,28 +68,37 @@ msgstr ""
 "شده را در این قسمت وارد نمایید"
 
 #: apps/frontend/controllers/PhoneController.php:68
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:68
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:70
 #, php-format
 msgid "Your Phone Number, %s, has been verified successfully"
 msgstr "شماره تماس شما %s با موفقیت تایید گردید"
 
 #: apps/frontend/controllers/PhoneController.php:72
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:72
+#: apps/core/frontendcontrollers/PhoneControllerBase.php:74
 msgid "Invalid Number, Please Check Your SMS Again"
 msgstr "شماره وارد شده نامعتبر است، لطفا دوباره تلاش نمایید"
 
 #: apps/frontend/controllers/SearchController.php:63
+#: apps/core/frontendcontrollers/SearchControllerBase.php:62
 #, php-format
 msgid "\"Search For %s\""
 msgstr "جستجو برای %s"
 
 #: apps/frontend/controllers/IndexController.php:21
+#: apps/core/frontendcontrollers/IndexControllerBase.php:21
+#: apps/core/frontendcontrollers/IndexControllerBase.php:17
 msgid "Homepage"
 msgstr "خانه"
 
 #: apps/frontend/controllers/OpinionController.php:35
+#: apps/core/frontendcontrollers/OpinionControllerBase.php:34
 msgid "Your opinion has been inserted successfully"
 msgstr "نظر شما با موفقیت ارسال گردید"
 
 #: apps/frontend/controllers/OpinionController.php:59
+#: apps/core/frontendcontrollers/OpinionControllerBase.php:58
 msgid "Opinions"
 msgstr "نظرات"
 
@@ -93,31 +113,43 @@ msgstr "نظرات"
 #: apps/core/form/ProductTypeForm.php:18
 #: apps/core/form/TransactionTypeForm.php:18
 #: apps/core/form/PaymentPaylineForm.php:20
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "ID"
 msgstr "کد"
 
 #: apps/frontend/controllers/UserController.php:61
 #: apps/core/form/PageForm.php:40 apps/core/form/SystemLogForm.php:25
 #: apps/core/form/FaqForm.php:31
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Title"
 msgstr "تیتر"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Handler"
 msgstr "روش پرداخت"
 
 #: apps/frontend/controllers/UserController.php:61
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Payment ID"
 msgstr "کد پرداخت"
 
 #: apps/frontend/controllers/UserController.php:61
 #: apps/core/form/UserOrderForm.php:76
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Price"
 msgstr "هزینه"
 
 #: apps/frontend/controllers/UserController.php:61
 #: apps/core/form/UserTransactionForm.php:45
 #: apps/core/form/PaymentPaylineForm.php:58
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Currency"
 msgstr "واحد"
 
@@ -133,54 +165,84 @@ msgstr "واحد"
 #: apps/core/form/SmsNumberForm.php:61
 #: apps/core/form/PaymentPaylineForm.php:38
 #: apps/frontend/controllers/UserController.php:398
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:490
+#: apps/core/frontendcontrollers/UserControllerBase.php:532
+#: apps/core/form/OpinionForm.php:81
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
+#: apps/core/frontendcontrollers/UserControllerBase.php:495
+#: apps/core/frontendcontrollers/UserControllerBase.php:537
 msgid "Date"
 msgstr "تاریخ"
 
 #: apps/frontend/controllers/UserController.php:61
 #: apps/core/form/PaymentPaylineForm.php:102
+#: apps/core/frontendcontrollers/UserControllerBase.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:156
 msgid "Done"
 msgstr "انجام شده"
 
 #: apps/frontend/controllers/UserController.php:72
 #: apps/frontend/views/user/orders.phtml:1
 #: apps/frontend/views/layouts/usersettingsheader.phtml:9
+#: apps/core/frontendcontrollers/UserControllerBase.php:164
+#: apps/frontend/views/user/orders.phtml:3
+#: apps/core/frontendcontrollers/UserControllerBase.php:167
 msgid "Orders"
 msgstr "سفارشات"
 
 #: apps/frontend/controllers/UserController.php:85
+#: apps/core/frontendcontrollers/UserControllerBase.php:177
+#: apps/core/frontendcontrollers/UserControllerBase.php:180
 msgid "Unable to find such user with requested email"
 msgstr "کاربر مورد نظر با اطلاعات وارد شده یافت نگردید"
 
 #: apps/frontend/controllers/UserController.php:89
+#: apps/core/frontendcontrollers/UserControllerBase.php:181
+#: apps/core/frontendcontrollers/UserControllerBase.php:184
 msgid "Password Reset Link Sent To Your Email, Please Check Your Email"
 msgstr ""
 "لینک بازیابی رمز عبور برای شما ارسال گردید، لطفا ایمیل خود را چک نمایید"
 
 #: apps/frontend/controllers/UserController.php:91
+#: apps/core/frontendcontrollers/UserControllerBase.php:183
+#: apps/core/frontendcontrollers/UserControllerBase.php:186
 msgid "Unable to send password reset link"
 msgstr "خطا در هنگام ارسال ایمیل بازیابی رمز عبور"
 
 #: apps/frontend/controllers/UserController.php:102
 #: apps/frontend/views/user/login.phtml:16
+#: apps/core/frontendcontrollers/UserControllerBase.php:194
+#: apps/frontend/views/user/login.phtml:18
+#: apps/core/frontendcontrollers/UserControllerBase.php:197
 msgid "Forget Password"
 msgstr "فراموشی رمز عبور"
 
 #: apps/frontend/controllers/UserController.php:129
+#: apps/core/frontendcontrollers/UserControllerBase.php:221
+#: apps/core/frontendcontrollers/UserControllerBase.php:222
 msgid "Sorry!<br/>The login is disabled by adminstrator now"
 msgstr ""
 "متاسفانه در حال حاضر ورود به سیستم فعال نمیباشد، لطفا چند دقیقه بعد مجددا "
 "تلاش نمایید"
 
 #: apps/frontend/controllers/UserController.php:153
+#: apps/core/frontendcontrollers/UserControllerBase.php:245
+#: apps/core/frontendcontrollers/UserControllerBase.php:246
 msgid "Unable to find user"
 msgstr "کاربر مورد نظر یافت نگردید"
 
 #: apps/frontend/controllers/UserController.php:161
 #: apps/frontend/views/layouts/header.phtml:52
+#: apps/core/frontendcontrollers/UserControllerBase.php:253
+#: apps/core/frontendcontrollers/UserControllerBase.php:254
 msgid "Login"
 msgstr "ورود"
 
 #: apps/frontend/controllers/UserController.php:180
+#: apps/core/frontendcontrollers/UserControllerBase.php:272
+#: apps/core/models/BaseUser.php:595
+#: apps/core/frontendcontrollers/UserControllerBase.php:277
 msgid ""
 "Sorry!<br/>But the register system is disabled by Super Adminstator at this "
 "time."
@@ -189,6 +251,9 @@ msgstr ""
 "مراجعه فرمایید"
 
 #: apps/frontend/controllers/UserController.php:224
+#: apps/core/frontendcontrollers/UserControllerBase.php:316
+#: apps/core/models/BaseUser.php:636
+#: apps/core/frontendcontrollers/UserControllerBase.php:321
 #, php-format
 msgid ""
 "\"Hi %s \\nThank you for interseting in %s.\\n Please use this code to "
@@ -200,50 +265,76 @@ msgstr ""
 " برای تایید شماره تماس خود استفاده نمایید"
 
 #: apps/frontend/controllers/UserController.php:230
+#: apps/core/frontendcontrollers/UserControllerBase.php:322
+#: apps/core/models/BaseUser.php:642
+#: apps/core/frontendcontrollers/UserControllerBase.php:327
 msgid "Your Entered Phone was exist in database, please add another phone"
 msgstr ""
 "شماره که شما وارد نموده اید، هم اکنون در سیستم موجود میباشد، لطفا شماره "
 "دیگری وارد نمایید"
 
 #: apps/frontend/controllers/UserController.php:233
+#: apps/core/frontendcontrollers/UserControllerBase.php:325
+#: apps/core/models/BaseUser.php:645
+#: apps/core/frontendcontrollers/UserControllerBase.php:330
 msgid "User creating was successfull"
 msgstr "اکانت شما با موفقیت ساخته گردید"
 
 #: apps/frontend/controllers/UserController.php:293
 #: apps/frontend/views/user/edit.phtml:1
+#: apps/core/frontendcontrollers/UserControllerBase.php:385
+#: apps/frontend/views/user/edit.phtml:3
+#: apps/core/frontendcontrollers/UserControllerBase.php:390
 msgid "Edit Profile Information"
 msgstr "ویرایش اطلاعات پروفایل"
 
 #: apps/frontend/controllers/UserController.php:310
+#: apps/core/frontendcontrollers/UserControllerBase.php:402
+#: apps/core/frontendcontrollers/UserControllerBase.php:407
 msgid "unable to handle file upload"
 msgstr "خطا در هنگام ذخیره فایل"
 
 #: apps/frontend/controllers/UserController.php:322
+#: apps/core/frontendcontrollers/UserControllerBase.php:414
+#: apps/core/frontendcontrollers/UserControllerBase.php:419
 msgid "Image Changed Successfully"
 msgstr "تصویر با موفقیت تغییر یافت"
 
 #: apps/frontend/controllers/UserController.php:333
 #: apps/frontend/views/user/editprofileimage.phtml:1
+#: apps/core/frontendcontrollers/UserControllerBase.php:425
+#: apps/frontend/views/user/editprofileimage.phtml:3
+#: apps/core/frontendcontrollers/UserControllerBase.php:430
 msgid "Edit Profile Image"
 msgstr "ویرایش تصویر پروفایل"
 
 #: apps/frontend/controllers/UserController.php:353
+#: apps/core/frontendcontrollers/UserControllerBase.php:445
+#: apps/core/frontendcontrollers/UserControllerBase.php:450
 msgid "Incorrect current password"
 msgstr "رمز عبور فعلی اشتباه است"
 
 #: apps/frontend/controllers/UserController.php:357
+#: apps/core/frontendcontrollers/UserControllerBase.php:449
+#: apps/core/frontendcontrollers/UserControllerBase.php:454
 msgid "Your new passwords are not look the same"
 msgstr "رمز عبور جدید و تکرار آن یکسان نیست"
 
 #: apps/frontend/controllers/UserController.php:361
+#: apps/core/frontendcontrollers/UserControllerBase.php:453
+#: apps/core/frontendcontrollers/UserControllerBase.php:458
 msgid "Your password changed successfully"
 msgstr "رمز  عبور شما با موفقیت تغییر یافت"
 
 #: apps/frontend/controllers/UserController.php:372
+#: apps/core/frontendcontrollers/UserControllerBase.php:464
+#: apps/core/frontendcontrollers/UserControllerBase.php:469
 msgid "Edit Login Details"
 msgstr "ویرایش مشخصات ورود"
 
 #: apps/frontend/controllers/UserController.php:409
+#: apps/core/frontendcontrollers/UserControllerBase.php:501
+#: apps/core/frontendcontrollers/UserControllerBase.php:506
 msgid "View Logins"
 msgstr "سابقه های ورود"
 
@@ -252,37 +343,49 @@ msgstr "سابقه های ورود"
 #: apps/core/form/SentsmsForm.php:23 apps/core/form/RegisterForm.php:80
 #: apps/core/form/SiteInfoForm.php:156
 #: apps/frontend/views/contact/index.phtml:35
+#: apps/core/frontendcontrollers/UserControllerBase.php:532
+#: apps/core/frontendcontrollers/UserControllerBase.php:537
 msgid "Phone"
 msgstr "شماره تلفن"
 
 #: apps/frontend/controllers/UserController.php:440
+#: apps/core/frontendcontrollers/UserControllerBase.php:532
+#: apps/core/frontendcontrollers/UserControllerBase.php:537
 msgid "Does Verified"
 msgstr "حساب تایید شده؟"
 
 #: apps/frontend/controllers/UserController.php:440
 #: apps/core/models/BaseUserPhone.php:149
+#: apps/core/frontendcontrollers/UserControllerBase.php:532
+#: apps/core/frontendcontrollers/UserControllerBase.php:537
 msgid "Verify Phone"
 msgstr "شماره خود را تایید نمایید"
 
 #: apps/frontend/controllers/UserController.php:457
+#: apps/core/frontendcontrollers/UserControllerBase.php:549
+#: apps/core/frontendcontrollers/UserControllerBase.php:554
 msgid "View Phones"
 msgstr "مشاهده شماره تماس ها"
 
 #: apps/frontend/controllers/ContactController.php:34
+#: apps/core/frontendcontrollers/ContactControllerBase.php:34
 msgid "Your message has been sent successfully"
 msgstr "پیام شما با موفقیت ارسال شد"
 
 #: apps/frontend/controllers/ContactController.php:54
 #: apps/frontend/views/contact/index.phtml:1
+#: apps/core/frontendcontrollers/ContactControllerBase.php:54
 msgid "Contact US"
 msgstr "تماس با ما"
 
 #: apps/frontend/forms/ProfileImageForm.php:24
 #: apps/core/form/AdminUserProfileImageForm.php:26
+#: apps/core/form/ProfileImageForm.php:24
 msgid "Choose Your File"
 msgstr "فایل خود را انتخاب نمایید"
 
 #: apps/frontend/forms/ProfileImageForm.php:30
+#: apps/core/form/ProfileImageForm.php:30
 msgid "Image"
 msgstr "تصویر"
 
@@ -319,19 +422,25 @@ msgstr "تصویر"
 #: apps/core/form/ProfileEditForm.php:57 apps/core/form/LoginForm.php:43
 #: apps/core/form/PaymentPaylineForm.php:111
 #: apps/core/form/SendBulkEmailForm.php:56
-#: apps/core/form/FooterInfoForm.php:54
+#: apps/core/form/FooterInfoForm.php:54 apps/core/form/ProfileImageForm.php:37
+#: apps/core/form/ResetVerficationCode.php:20
+#: apps/core/form/LoginDetailsForm.php:49 apps/core/form/ContactForm.php:81
+#: apps/core/form/OpinionForm.php:101
 msgid "Submit"
 msgstr "ارسال"
 
 #: apps/frontend/forms/LoginDetailsForm.php:24
+#: apps/core/form/LoginDetailsForm.php:24
 msgid "Current Password"
 msgstr "رمز عبور فعلی"
 
 #: apps/frontend/forms/LoginDetailsForm.php:32
+#: apps/core/form/LoginDetailsForm.php:32
 msgid "New Password"
 msgstr "رمز جدید"
 
 #: apps/frontend/forms/LoginDetailsForm.php:40
+#: apps/core/form/LoginDetailsForm.php:40
 msgid "Confirm New Password"
 msgstr "تکرار رمز جدید"
 
@@ -353,10 +462,13 @@ msgstr "نمیتوان پرداخت شما را تایید کرد"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:113
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:153
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:116
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:156
 msgid "Invalid User ID"
 msgstr "کد کاربر اشتباه است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:121
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:124
 msgid ""
 "Can not update database info, may be you have payed this order before or you "
 "are not authorzed to access this payment"
@@ -365,58 +477,68 @@ msgstr ""
 "حق انجام عملیات پرداخت را ندارید"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:158
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:161
 msgid "Unable to store payment info in database"
 msgstr "ذخیره اطالاعات پرداخت در دیتابیس ناموفق بود"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:169
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:172
 msgid "invalid API"
 msgstr "API نا معتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:172
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:175
 msgid "amount is lower than 1000 rials"
 msgstr "هزینه کمتر از 1000 رسال است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:175
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:178
 msgid "invalid redirect url"
 msgstr "لینک ارجاع نامعتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:178
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:181
 msgid "can not find requested payment or waiting"
 msgstr "نمیتوان واریزی مورد نظر را پیدا کرد"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:194
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:197
 msgid "Invalid Parameters to verfiy your payment"
 msgstr "پارامتر های ارسالی برای تایید پرداخت شما نامعتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:217
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:220
 msgid "invalid payline api"
 msgstr "API پیلان نامعتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:220
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:223
 msgid "invalid Transaction ID"
 msgstr "کد تراکنش نامعتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:223
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:226
 msgid "invalid Payline GetID"
 msgstr "GETID پیلان نامعتبر است"
 
 #: apps/core/class/paymentproviders/PaymentHandlerPayline.php:226
+#: apps/core/class/paymentproviders/PaymentHandlerPayline.php:229
 msgid "Payline can not find this transaction or is not valid"
 msgstr "تراکن پیلاین یافت نشد و یا تراکنش نامعتبر است"
 
-#: apps/core/class/Order.php:68
+#: apps/core/class/Order.php:68 apps/core/class/Order.php:73
 msgid "We can not find any order that is for this payment"
 msgstr "ما هیچ سفارش مرتبط با پرداخت را یافت نکردیم"
 
-#: apps/core/class/Order.php:80
+#: apps/core/class/Order.php:80 apps/core/class/Order.php:85
 msgid "Invalid Order User ID"
 msgstr "کد سفارش کاربر اشتباه است"
 
-#: apps/core/class/Order.php:86
+#: apps/core/class/Order.php:86 apps/core/class/Order.php:91
 msgid "Invalid Request, Order has been payed before"
 msgstr "درخواست نامعتبر است، سفارش قبلا پرداخت گردیده است"
 
-#: apps/core/class/Order.php:95
+#: apps/core/class/Order.php:95 apps/core/class/Order.php:100
 msgid ""
 "Can not update order payment information, May Be You Want to Pay Invalid "
 "Order or You want to pay the order that you have unpayed before"
@@ -424,17 +546,17 @@ msgstr ""
 "نمیتوان پرداخت سفارش شما را به روز رسانی کرد، شاید اطلاعات سفارش یا پرداخت "
 "شما نامعتبر است و یا اینکه سفارش شما قبلا پرداخت شده است"
 
-#: apps/core/class/Order.php:126
+#: apps/core/class/Order.php:126 apps/core/class/Order.php:131
 msgid "Unable to create order"
 msgstr "نمیتوان یک سفارش جدید ساخت"
 
-#: apps/core/class/Order.php:209
+#: apps/core/class/Order.php:209 apps/core/class/Order.php:218
 msgid ""
 "The payment method is disabled and you are not able to proccess with this "
 "payment method"
 msgstr "روش پرداخت غیر فعال است و شما نمیتوانید از این طریق پرداخت نمایید"
 
-#: apps/core/class/Order.php:243
+#: apps/core/class/Order.php:243 apps/core/class/Order.php:256
 msgid "Unable to create new payment transaction"
 msgstr "نمیتوان یک تراکنش  جدید ساخت"
 
@@ -460,37 +582,48 @@ msgid "FAQ's"
 msgstr "سولات و جواب ها"
 
 #: apps/frontend/views/user/verify.phtml:1
+#: apps/core/frontendcontrollers/UserControllerBase.php:79
+#: apps/core/frontendcontrollers/UserControllerBase.php:82
 msgid "Verify Email"
 msgstr "تایید ایمیل"
 
 #: apps/frontend/views/user/register.phtml:1
+#: apps/frontend/views/user/register.phtml:2
 msgid "Register to the site"
 msgstr "ثبت نام در سایت"
 
 #: apps/frontend/views/user/register.phtml:4
+#: apps/frontend/views/user/register.phtml:5
 msgid "Here you can register to the site"
 msgstr "در اینجا می توانید خود را به عضویت سایت درآورید"
 
 #: apps/frontend/views/user/login.phtml:1
 #: apps/frontend/views/layouts/usersettingsheader.phtml:7
+#: apps/frontend/views/user/login.phtml:3
 msgid "Login Details"
 msgstr "مشخصات ورود"
 
 #: apps/frontend/views/user/login.phtml:4
+#: apps/frontend/views/user/login.phtml:6
 msgid "Please enter your information to login to site"
 msgstr "لطفا اطلاعات ورود خود به سایت را وارد نمایید"
 
 #: apps/frontend/views/user/editlogin.phtml:1
+#: apps/frontend/views/user/editlogin.phtml:3
 msgid "View And Edit Login Details"
 msgstr "ویرایش مشخصات ورود"
 
 #: apps/frontend/views/user/editlogin.phtml:4
 #: apps/frontend/views/user/editprofileimage.phtml:4
 #: apps/frontend/views/user/edit.phtml:4
+#: apps/frontend/views/user/editlogin.phtml:6
+#: apps/frontend/views/user/editprofileimage.phtml:6
+#: apps/frontend/views/user/edit.phtml:6
 msgid "You can edit your basic profile information here"
 msgstr "شما میتوانید اطلاعات پایه خود را در این قسمت مشاهده و ویرایش نمایید"
 
 #: apps/frontend/views/user/editlogin.phtml:14
+#: apps/frontend/views/user/editlogin.phtml:16
 msgid ""
 "In order to change your password, set new password and click on submit button"
 msgstr ""
@@ -498,10 +631,12 @@ msgstr ""
 "کنید"
 
 #: apps/frontend/views/user/phones.phtml:1
+#: apps/frontend/views/user/phones.phtml:3
 msgid "Manage Your Phones"
 msgstr "مشاهده شماره تماس های شما"
 
 #: apps/frontend/views/user/phones.phtml:4
+#: apps/frontend/views/user/phones.phtml:6
 msgid "you can add, delete or edit your phone numbers here"
 msgstr ""
 "شما در این قسمت میتوانید شماره های خود را مشاهده، اضافه و یا حذف نمایید"
@@ -516,22 +651,27 @@ msgid "You are not logged in to the system."
 msgstr "شما هنوز وارد سیستم نشده اید"
 
 #: apps/frontend/views/user/orders.phtml:4
+#: apps/frontend/views/user/orders.phtml:6
 msgid "View your orders"
 msgstr "مشاهده سفارشات شما"
 
 #: apps/frontend/views/user/forgetpassword.phtml:1
+#: apps/frontend/views/user/forgetpassword.phtml:3
 msgid "Forget Your Password"
 msgstr "رمز عبور را فراموش کرده اید؟"
 
 #: apps/frontend/views/user/forgetpassword.phtml:4
+#: apps/frontend/views/user/forgetpassword.phtml:6
 msgid "Please enter your email address to reset your password"
 msgstr "برای تغییر رمز عبور، لطفا ایمیل خود را وارد نمایید"
 
 #: apps/frontend/views/user/viewlogins.phtml:1
+#: apps/frontend/views/user/viewlogins.phtml:3
 msgid "View Login History"
 msgstr "سابقه های ورود"
 
 #: apps/frontend/views/user/viewlogins.phtml:4
+#: apps/frontend/views/user/viewlogins.phtml:6
 msgid "You can see your login history here"
 msgstr "شما میتوانید سوابق ورود خود را در این قسمت مشاهده نمایید"
 
@@ -552,21 +692,21 @@ msgstr "نظر خود را وارد نمایید"
 msgid "People Opinions"
 msgstr "دیگر نظرات"
 
-#: apps/frontend/views/index.phtml:44
+#: apps/frontend/views/index.phtml:44 apps/frontend/views/index.phtml:45
 msgid "Public Message"
 msgstr "پیام  همگانی"
 
-#: apps/frontend/views/index.phtml:56
+#: apps/frontend/views/index.phtml:56 apps/frontend/views/index.phtml:57
 msgid "Need Verified Phone"
 msgstr "به یک شماره تماس تایید شده نیاز داریم"
 
-#: apps/frontend/views/index.phtml:57
+#: apps/frontend/views/index.phtml:57 apps/frontend/views/index.phtml:58
 msgid "You have not verified phone, Please add and verify your phone"
 msgstr ""
 "شماره تماس تایید شده ای از طرف شما یافت نگردید، لطفا ابتدا شماره تماس خود را "
 "وارد نمایید و سپس آن را تایید نموده"
 
-#: apps/frontend/views/index.phtml:59
+#: apps/frontend/views/index.phtml:59 apps/frontend/views/index.phtml:60
 msgid "View My Phones"
 msgstr "مشاهده شماره تماس های من"
 
@@ -667,20 +807,26 @@ msgstr ""
 "شماره تماس مورد نظر هم اکنون تایید شده است و نیازی به تایید دوباره نیست"
 
 #: apps/admin/views/layouts/sidebar.phtml:405
+#: apps/admin/views/layouts/sidebar.phtml:459
 msgid "Agreements"
 msgstr "توافقنامه ها"
 
 #: apps/admin/views/layouts/sidebar.phtml:410
 #: apps/admin/views/layouts/sidebar.phtml:428
+#: apps/admin/views/layouts/sidebar.phtml:464
+#: apps/admin/views/layouts/sidebar.phtml:482
 msgid "Add"
 msgstr "افزودن"
 
 #: apps/admin/views/layouts/sidebar.phtml:415
 #: apps/admin/views/layouts/sidebar.phtml:433
+#: apps/admin/views/layouts/sidebar.phtml:469
+#: apps/admin/views/layouts/sidebar.phtml:487
 msgid "List"
 msgstr "لیست"
 
 #: apps/admin/views/layouts/sidebar.phtml:423
+#: apps/admin/views/layouts/sidebar.phtml:477
 msgid "Pages"
 msgstr "صفحات"
 
@@ -698,6 +844,9 @@ msgstr "تماس با ما"
 #: apps/core/form/ForgetPasswordForm.php:16 apps/core/form/RegisterForm.php:69
 #: apps/core/form/LoginForm.php:17 apps/frontend/views/contact/index.phtml:38
 #: apps/frontend/views/layouts/footer.phtml:27
+#: apps/core/form/ResetVerficationCode.php:13
+#: apps/core/form/LoginDetailsForm.php:16 apps/core/form/ContactForm.php:33
+#: apps/core/form/OpinionForm.php:53
 msgid "Email"
 msgstr "ایمیل"
 
@@ -736,6 +885,7 @@ msgstr "واحد"
 #: apps/core/form/OpinionForm.php:38 apps/core/form/ProductTypeForm.php:36
 #: apps/core/form/TransactionTypeForm.php:36
 #: apps/frontend/views/layouts/footer.phtml:25
+#: apps/core/form/OpinionForm.php:40
 msgid "Name"
 msgstr "نام"
 
@@ -812,6 +962,8 @@ msgstr "اطلاعات بیشتر"
 
 #: apps/core/form/SystemLogForm.php:37 apps/core/form/SentsmsForm.php:53
 #: apps/frontend/controllers/UserController.php:398
+#: apps/core/frontendcontrollers/UserControllerBase.php:490
+#: apps/core/frontendcontrollers/UserControllerBase.php:495
 msgid "IP"
 msgstr "آی پی"
 
@@ -819,7 +971,8 @@ msgstr "آی پی"
 #: apps/core/form/SendSMSForm.php:27 apps/core/form/SentsmsForm.php:33
 #: apps/core/form/ContactForm.php:54 apps/core/form/OpinionForm.php:66
 #: apps/core/form/ContactReplyForm.php:16
-#: apps/core/form/SendBulkEmailForm.php:44
+#: apps/core/form/SendBulkEmailForm.php:44 apps/core/form/ContactForm.php:55
+#: apps/core/form/OpinionForm.php:68
 msgid "Message"
 msgstr "پیام"
 
@@ -932,35 +1085,36 @@ msgstr "تکرار رمز عبور"
 msgid "Enter New Password Again"
 msgstr "لطفا رمز عبور جدید را وارد نمایید"
 
-#: apps/core/form/ContactForm.php:21
+#: apps/core/form/ContactForm.php:21 apps/core/form/ContactForm.php:22
 msgid "Full Name"
 msgstr "نام"
 
-#: apps/core/form/ContactForm.php:43
+#: apps/core/form/ContactForm.php:43 apps/core/form/ContactForm.php:44
 msgid "Support"
 msgstr "بخش پشتیبانی"
 
-#: apps/core/form/ContactForm.php:44
+#: apps/core/form/ContactForm.php:44 apps/core/form/ContactForm.php:45
 msgid "Sale"
 msgstr "فروش"
 
-#: apps/core/form/ContactForm.php:45
+#: apps/core/form/ContactForm.php:45 apps/core/form/ContactForm.php:46
 msgid "Resseler"
 msgstr "عمومی"
 
-#: apps/core/form/ContactForm.php:47
+#: apps/core/form/ContactForm.php:47 apps/core/form/ContactForm.php:48
 msgid "Section"
 msgstr "بخش"
 
 #: apps/core/form/ContactForm.php:69 apps/core/form/ContactForm.php:71
+#: apps/core/form/ContactForm.php:70 apps/core/form/ContactForm.php:72
 msgid "Our Location"
 msgstr "موقعیت ما"
 
-#: apps/core/form/ContactForm.php:72
+#: apps/core/form/ContactForm.php:72 apps/core/form/ContactForm.php:73
 msgid "We are here"
 msgstr "ما اینجا هستیم"
 
-#: apps/core/form/OpinionForm.php:87
+#: apps/core/form/OpinionForm.php:87 apps/core/form/OpinionForm.php:89
 msgid "Rating"
 msgstr "امتیاز"
 
@@ -1136,20 +1290,26 @@ msgid "set your footer text here"
 msgstr "متن پانویس خود را در ای قسمت وارد نمایید"
 
 #: apps/frontend/controllers/UserController.php:238
+#: apps/core/frontendcontrollers/UserControllerBase.php:330
+#: apps/core/frontendcontrollers/UserControllerBase.php:335
 msgid "Signup"
 msgstr "عضویت"
 
 #: apps/frontend/controllers/UserController.php:398
+#: apps/core/frontendcontrollers/UserControllerBase.php:490
+#: apps/core/frontendcontrollers/UserControllerBase.php:495
 msgid "Agent"
 msgstr "ایجنت"
 
 #: apps/core/models/BaseUserOrder.php:255
-#: apps/core/models/BaseUserPhone.php:144
+#: apps/core/models/BaseUserPhone.php:144 apps/core/AtaPaginator.php:231
+#: apps/core/models/BaseUserOrder.php:239 apps/core/AtaPaginator.php:232
 msgid "Yes"
 msgstr "بله"
 
 #: apps/core/models/BaseUserOrder.php:255
-#: apps/core/models/BaseUserPhone.php:144
+#: apps/core/models/BaseUserPhone.php:144 apps/core/AtaPaginator.php:233
+#: apps/core/models/BaseUserOrder.php:239 apps/core/AtaPaginator.php:234
 msgid "No"
 msgstr "خیر"
 
@@ -1182,11 +1342,11 @@ msgstr "آخرین"
 msgid "You are in page %s of %s"
 msgstr "شما در صفحه %s از %s هستید"
 
-#: apps/core/AtaPaginator.php:244
+#: apps/core/AtaPaginator.php:244 apps/core/AtaPaginator.php:246
 msgid "View/Edit"
 msgstr "مشاهده/ویرایش"
 
-#: apps/core/AtaPaginator.php:247
+#: apps/core/AtaPaginator.php:247 apps/core/AtaPaginator.php:249
 msgid "Delete"
 msgstr "حذف"
 
@@ -1197,3 +1357,121 @@ msgstr "متن خود را در این قسمت وارد نمایید"
 #: apps/frontend/views/layouts/footer.phtml:31
 msgid "Send"
 msgstr "ارسال"
+
+#: apps/frontend/views/user/resetverify.phtml:1
+msgid "Resend Verification Email"
+msgstr "ارسال مجدد ایمیل فعال سازی"
+
+#: apps/frontend/views/user/resetverify.phtml:6
+msgid ""
+"If you want to receive new verification code, please enter your email "
+"address here and click on submit button"
+msgstr ""
+"در صورتی که میخواهید کد تاییدیه جدید دریافت کنید، لطفا آدرس ایمیلتان را وارد "
+"کنید و سپس دکمه ثبت را بزنید"
+
+#: apps/core/form/RegisterForm.php:60
+msgid "Signup Agreement"
+msgstr "توافقنامه عضویت"
+
+#: apps/core/AtaPaginator.php:208 apps/core/AtaPaginator.php:209
+msgid "Action"
+msgstr "عملیات"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:30
+#: apps/core/frontendcontrollers/UserControllerBase.php:33
+msgid "Resend Verification Link"
+msgstr "ارسال مجدد لینک فعال سازی"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:50
+#: apps/core/frontendcontrollers/UserControllerBase.php:91
+#: apps/core/frontendcontrollers/UserControllerBase.php:53
+#: apps/core/frontendcontrollers/UserControllerBase.php:94
+msgid "We are not able to find user with requested email"
+msgstr "کاربری با ایمیل وارد شده یافت نگردید"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:56
+#: apps/core/frontendcontrollers/UserControllerBase.php:97
+#: apps/core/frontendcontrollers/UserControllerBase.php:59
+#: apps/core/frontendcontrollers/UserControllerBase.php:100
+msgid "This email has verified before"
+msgstr "این ایمیل قبلا تایید شده است"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:63
+#: apps/core/frontendcontrollers/UserControllerBase.php:66
+msgid "Internal Error, Please Try Later"
+msgstr "خطای داخلی، لطفا دقایقی بعد مجداد تلاش نمایید"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:72
+#: apps/core/frontendcontrollers/UserControllerBase.php:75
+msgid ""
+"<h2>Success</h2>new verfication code has been sent to your email successfully"
+msgstr ""
+"<h2>موفق<h2>کد فعال سازی جدید به ایمیل شما ارسال گردید، لطفا بررسی نمایید"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:84
+#: apps/core/frontendcontrollers/UserControllerBase.php:87
+msgid "Invalid email and verification code"
+msgstr "ایمیل و کد تایید نامعتبر است"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:104
+#: apps/core/frontendcontrollers/UserControllerBase.php:107
+msgid "Oops! your verification code is invalid"
+msgstr "کد تایید شما تامعتبر است"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:112
+#: apps/core/frontendcontrollers/UserControllerBase.php:115
+msgid ""
+"Your verification code is valid, but we are not able to change your status, "
+"please try later"
+msgstr "کد تایید شما معتبر است، اما در هنگام تغییر وضعیت شما خطایی رخ داد"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:115
+#: apps/core/frontendcontrollers/UserControllerBase.php:118
+msgid "<h2>Success</h2>Your account has been changed verified successfully"
+msgstr "<h2>موفقیت</h2>ایمیل شما با موفقیت تایید گردید"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:124
+#: apps/core/frontendcontrollers/UserControllerBase.php:127
+msgid "You have successfully logged out from webiste"
+msgstr "با موفقیت از سایت خارج گشتید"
+
+#: apps/core/models/BaseSMSCredit.php:116
+msgid "Unable to decrease user SMS credit"
+msgstr "خطا در هنگام کاهش اعتبار پیامک"
+
+#: apps/core/class/PaymentMethod.php:92
+#, php-format
+msgid ""
+"Dear %s\n"
+"Here is your %s payment receipt from %s.\n"
+"\n"
+msgstr ""
+"%s عزیز\n"
+"اطلاعات سفارش %s شما از %s به صورت زیر است\n"
+"\n"
+
+#: apps/core/class/PaymentMethod.php:93
+#, php-format
+msgid ""
+"Amount: %s\n"
+"Currency: %s\n"
+msgstr ""
+"هزینه: %s\n"
+"واحد%s\n"
+
+#: apps/core/class/smsproviders/IrPayamakSMSProvider.php:28
+msgid "SMS Messages"
+msgstr "پیام های پیامکی"
+
+#: apps/core/class/Order.php:232
+msgid "Unable to fetch order price"
+msgstr "خطا در هنگام دریافت اطلاعات سفارش"
+
+#: apps/core/frontendcontrollers/UserControllerBase.php:270
+msgid "Invalid Capctcha"
+msgstr "کد نامعتبر است"
+
+#: apps/core/models/BaseUserPhone.php:157
+msgid "Verfication Number"
+msgstr "کد تایید"

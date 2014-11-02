@@ -1,42 +1,59 @@
-<h1><?= _("Contact US"); ?></h1>
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent(); ?>
+    </div>
+</div>
 <div class='row'>
     <div class='col-md-6'>
-        <?php echo $this->getContent(); ?>
-        <form method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= _("Contact US"); ?></h3>
+            </div>
+            <div class="panel-body">
+                <form method="post">
 
-            <!-- First Name !-->
-            <?php echo $form->renderDecorated('name'); ?>
+                    <!-- First Name !-->
+                    <?php echo $form->renderDecorated('name'); ?>
 
-            <!-- Email !-->
-            <?php echo $form->renderDecorated('email'); ?>
+                    <!-- Email !-->
+                    <?php echo $form->renderDecorated('email'); ?>
 
-            <!-- Section !-->
-            <?php echo $form->renderDecorated('section'); ?>
+                    <!-- Section !-->
+                    <?php echo $form->renderDecorated('section'); ?>
 
-            <!-- Password !-->
-            <?php echo $form->renderDecorated('message'); ?>
+                    <!-- Password !-->
+                    <?php echo $form->renderDecorated('message'); ?>
 
-            <br/>
-            <!-- Submit !-->
-            <?php echo $form->renderDecorated('submit'); ?>
+                    <br/>
+                    <!-- Submit !-->
+                    <?php echo $form->renderDecorated('submit'); ?>
 
-        </form>
+                </form>
+
+            </div>
+        </div>
 
     </div>
     <div class='col-md-6'>
-        <!-- Map !-->
-        <?php echo $form->renderDecorated('map'); ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">مکان ما</h3>
+            </div>
+            <div class="panel-body">
 
-        <hr/>
+                <!-- Map !-->
+                <?php echo $form->renderDecorated('map'); ?>
+                <hr/>
+                <h3><?= _("Address"); ?></h3>
+                <p><?php echo $websiteSettings->address; ?></p>
 
-        <h3><?= _("Address"); ?></h3>
-        <p><?php echo $websiteSettings->address; ?></p>
+                <h3><?= _("Phone"); ?></h3>
+                <p><?php echo $websiteSettings->contactphone; ?></p>
 
-        <h3><?= _("Phone"); ?></h3>
-        <p><?php echo $websiteSettings->contactphone; ?></p>
-
-        <h3><?= _("Email"); ?></h3>
-        <p><?php echo $websiteSettings->contactemail; ?></p>
+                <h3><?= _("Email"); ?></h3>
+                <p><?php echo $websiteSettings->contactemail; ?></p>
+            </div>
+        </div>
     </div>
 </div>
 
