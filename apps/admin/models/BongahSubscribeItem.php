@@ -274,6 +274,14 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
             $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای بنگاه داران $userid خطایی رخ داده است");
             return false;
         } else {
+
+            // create new bongah subscriber
+            $bongahSubscriber = new BongahSubscriber();
+            $bongahSubscriber->bongahsubscribeitemid = $id;
+            $bongahSubscriber->userid = $userid;
+            $bongahSubscriber->orderid = 1;
+            $bongahSubscriber->create();
+
             // saved successfully
             Helper::RedirectToURL(Config::getPublicUrl() . "bongah");
         }

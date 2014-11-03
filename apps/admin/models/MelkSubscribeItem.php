@@ -222,6 +222,14 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
             $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای کاربر $userid خطایی رخ داده است");
             return false;
         } else {
+
+            // create new melk subscribe item
+            $melkSubscriber = new MelkSubscriber();
+            $melkSubscriber->melksubscribeitemid = $id;
+            $melkSubscriber->userid = $userid;
+            $melkSubscriber->orderid = 1;
+            $melkSubscriber->create();
+
             // saved successfully
             Helper::RedirectToURL(Config::getPublicUrl() . "melk/start");
         }
