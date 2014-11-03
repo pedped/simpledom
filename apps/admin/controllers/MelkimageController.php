@@ -82,7 +82,7 @@ class MelkImageController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'melkimage/list');
 
         $this->view->list = $paginator->getPaginate();
     }

@@ -90,7 +90,7 @@ class BongahSubscribeItemController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'bongahsubscribeitem/list');
 
         $this->view->list = $paginator->getPaginate();
     }

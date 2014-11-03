@@ -81,7 +81,7 @@ class CityController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'city/list');
 
         $this->view->list = $paginator->getPaginate();
     }

@@ -450,7 +450,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 setFields(array(
                     'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
                 ))->setListPath(
-                'list');
+                $cityID . "/city");
 
         $this->view->list = $paginator->getPaginate();
     }

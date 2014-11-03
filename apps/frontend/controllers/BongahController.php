@@ -185,7 +185,7 @@ class BongahController extends ControllerBase {
         $this->view->toAllUsers = $tousers;
     }
 
-    private function getMelkPaginator($page, $melks) {
+    private function getMelkPaginator($page, $melks, $listpath) {
         $numberPage = $page;
 
         // create paginator
@@ -203,12 +203,12 @@ class BongahController extends ControllerBase {
                 setFields(array(
                     'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
                 ))->setListPath(
-                'list');
+                $listpath);
 
         $this->view->list = $paginator->getPaginate();
     }
 
-    public function getMelksList($page = 1, $query = "", $bindparams = array(), $order = 'id DESC') {
+    public function getMelksList($page = 1, $query = "", $bindparams = array(), $order = 'id DESC', $listpath = "list") {
         // load the users
         $melks = Melk::find(
                         array($query,
@@ -217,19 +217,20 @@ class BongahController extends ControllerBase {
         ));
 
         $this->
-                getMelkPaginator($page, $melks);
+                getMelkPaginator($page, $melks, $listpath);
     }
 
     public function indexAction($page = 1) {
 
+        $bongahid = $this->bongah->id;
         $this->setPageTitle("لیست املاک");
-        $this->getMelksList($page, "cityid = :cityid: AND approved = 1", array("cityid" => $this->bongah->cityid));
+        $this->getMelksList($page, "cityid = :cityid: AND approved = 1", array("cityid" => $this->bongah->cityid), 'id DESC', 'bongah' . "/" . $bongahid);
     }
 
     public function melksAction($page = 1) {
 
         $this->setPageTitle("لیست املاک شما");
-        $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid));
+        $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid), 'id DESC', 'bongah' . "/" . $this->bongah->id . "/melks");
     }
 
     public function melkcansupportAction($bongahID, $page = 1, $maxDistance = 10) {
@@ -243,7 +244,7 @@ class BongahController extends ControllerBase {
         $melks = Melk::getNearest($this->bongah->cityid, $bongah->latitude, $bongah->longitude, $maxDistance);
 
         // load paginate
-        $this->getMelkPaginator($page, $melks);
+        $this->getMelkPaginator($page, $melks, 'bongah' . "/" . $this->bongah->id . "/melkcansupport");
     }
 
     public function userscansupportAction($page = 1, $maxDistance = 10) {
@@ -278,7 +279,7 @@ class BongahController extends ControllerBase {
                 setFields(array(
                     'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'receivedcount', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()',
                 ))->setListPath(
-                'list');
+                'bongah/' . $this->bongah->id . "/userscansupport");
 
         $this->view->list = $paginator->getPaginate();
     }

@@ -83,7 +83,7 @@ class AreaController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'area/list');
 
         $this->view->list = $paginator->getPaginate();
     }

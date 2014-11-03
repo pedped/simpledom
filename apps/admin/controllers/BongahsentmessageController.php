@@ -89,7 +89,7 @@ class BongahSentMessageController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'bongahsentmessage/list');
 
         $this->view->list = $paginator->getPaginate();
     }

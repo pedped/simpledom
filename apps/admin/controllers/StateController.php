@@ -80,7 +80,7 @@ class StateController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'state/list');
 
         $this->view->list = $paginator->getPaginate();
     }

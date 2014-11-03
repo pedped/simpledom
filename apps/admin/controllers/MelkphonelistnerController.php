@@ -94,7 +94,7 @@ class MelkPhoneListnerController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'melkphonelistner/list');
 
         $this->view->list = $paginator->getPaginate();
     }

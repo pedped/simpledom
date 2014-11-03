@@ -83,7 +83,7 @@ class bongahareaController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'bongaharea/list');
 
         $this->view->list = $paginator->getPaginate();
     }

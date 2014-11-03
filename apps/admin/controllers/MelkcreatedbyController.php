@@ -81,7 +81,7 @@ class MelkCreatedByController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'melkcreatedby/list');
 
         $this->view->list = $paginator->getPaginate();
     }
