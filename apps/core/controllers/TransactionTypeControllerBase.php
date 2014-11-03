@@ -81,7 +81,7 @@ class TransactionTypeControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'transactiontype/list');
 
         $this->view->list = $paginator->getPaginate();
     }

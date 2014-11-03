@@ -94,7 +94,7 @@ class ImageControllerBase extends ControllerBase {
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $images,
-            'limit' => 10,
+            'limit' => 3,
             'page' => $numberPage
         ));
 
@@ -112,7 +112,7 @@ class ImageControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'image/list');
 
         $this->view->list = $paginator->getPaginate();
     }

@@ -12,6 +12,7 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
+Global $di;
 $di = new FactoryDefault();
 
 /**

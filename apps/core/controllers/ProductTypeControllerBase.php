@@ -82,7 +82,7 @@ class ProductTypeControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'producttype/list');
 
         $this->view->list = $paginator->getPaginate();
     }

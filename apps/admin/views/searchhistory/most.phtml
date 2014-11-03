@@ -60,6 +60,6 @@ $this->di
 
     $("#gotodate").click(function() {
         var day = $("#selectedday").val();
-        document.location.href = '<?php $this->url->get("admin/searchhistory/most/1/") ?>' + day;
+        document.location.href = '<?php echo $this->url->get("searchhistory/most/1/") ?>' + day;
     });
 </script>

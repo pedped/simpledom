@@ -82,7 +82,7 @@ class AgreementControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'agreement/list');
 
         $this->view->list = $paginator->getPaginate();
     }

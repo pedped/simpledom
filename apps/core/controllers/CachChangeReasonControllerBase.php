@@ -82,7 +82,7 @@ class CachChangeReasonControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'cachchange/list');
 
         $this->view->list = $paginator->getPaginate();
     }

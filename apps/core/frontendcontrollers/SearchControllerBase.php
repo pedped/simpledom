@@ -53,7 +53,7 @@ class SearchControllerBase extends ControllerBase {
                     'userid', 'fullname',
                 ))
                 ->setListPath(
-                        'list');
+                        'search/request/{pn}/' . $type);
 
         $this->view->list = $paginator->getPaginate();
         $this->view->result = $results;

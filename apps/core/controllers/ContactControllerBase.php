@@ -44,7 +44,7 @@ class ContactControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'contact/unseen');
 
         $this->view->list = $paginator->getPaginate();
     }

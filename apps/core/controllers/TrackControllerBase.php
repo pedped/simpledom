@@ -124,7 +124,7 @@ class TrackControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'track/list');
 
         $this->view->list = $paginator->getPaginate();
     }

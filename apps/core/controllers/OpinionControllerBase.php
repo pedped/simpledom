@@ -85,7 +85,7 @@ class OpinionControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'opinion/list');
 
         $this->view->list = $paginator->getPaginate();
     }

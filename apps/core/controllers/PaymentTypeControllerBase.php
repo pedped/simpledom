@@ -82,7 +82,7 @@ class PaymentTypeControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'paymenttype/list');
 
         $this->view->list = $paginator->getPaginate();
     }

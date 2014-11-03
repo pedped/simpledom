@@ -20,11 +20,7 @@ class UserControllerBase extends ControllerBase {
     public function viewTabOpinions($id, $page) {
 
         // load the users
-        $userorders = Opinion::find(
-                        array(
-                            "userid = '$id'",
-                            'order' => 'id DESC'
-        ));
+        $userorders = Opinion::find(array("userid = :userid:", "bind" => array("userid" => $id), 'order' => 'id DESC'));
 
 
         $numberPage = $page;
@@ -47,7 +43,7 @@ class UserControllerBase extends ControllerBase {
                 setEditUrl(
                         'view'
                 )->setListPath(
-                'list');
+                'user/view/' . $id . "/opinions/{pn}");
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -82,7 +78,7 @@ class UserControllerBase extends ControllerBase {
                 setEditUrl(
                         'view'
                 )->setListPath(
-                'list');
+                'user/view/' . $id . "/orders/{pn}");
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -116,7 +112,7 @@ class UserControllerBase extends ControllerBase {
                 setEditUrl(
                         'view'
                 )->setListPath(
-                'list');
+                'user/view/' . $id . "/userlogs/{pn}");
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -337,7 +333,7 @@ class UserControllerBase extends ControllerBase {
                 setEditUrl(
                         'view'
                 )->setListPath(
-                'list');
+                'user/list');
 
         $paginator->setSearchItemArrays(array(
             "userid" => "User ID",
