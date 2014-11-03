@@ -83,7 +83,7 @@ class SMSCreditCostControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'smscreditcost/list');
 
         $this->view->list = $paginator->getPaginate();
     }

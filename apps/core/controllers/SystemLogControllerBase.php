@@ -78,7 +78,7 @@ class SystemLogControllerBase extends ControllerBase {
                 setEditUrl(
                         'view'
                 )->setListPath(
-                'list');
+                'systemlog/list');
 
         $this->view->list = $paginator->getPaginate();
     }

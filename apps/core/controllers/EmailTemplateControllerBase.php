@@ -79,7 +79,7 @@ class EmailTemplateControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'emailtemplate/list');
 
         $this->view->list = $paginator->getPaginate();
     }

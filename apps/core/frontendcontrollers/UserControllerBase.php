@@ -158,7 +158,7 @@ class UserControllerBase extends ControllerBase {
                 setFields(array(
                     'id', 'getItemTitle()', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
                 ))->setListPath(
-                'list');
+                "user/orders/{pn}");
 
         $this->view->list = $paginator->getPaginate();
 
@@ -497,7 +497,7 @@ class UserControllerBase extends ControllerBase {
                 setFields(array(
                     'getDate()', 'ip', 'agent'
                 ))->setListPath(
-                'list');
+                "user/viewlogins/{pn}");
 
         $this->view->list = $paginator->getPaginate();
 
@@ -545,7 +545,7 @@ class UserControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                "user/phones/{pn}");
 
         $this->view->list = $paginator->getPaginate();
 

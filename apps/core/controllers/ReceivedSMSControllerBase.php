@@ -85,7 +85,7 @@ class ReceivedSMSControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'receivedsms/list');
 
         $this->view->list = $paginator->getPaginate();
     }

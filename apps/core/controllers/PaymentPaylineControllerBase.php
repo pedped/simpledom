@@ -87,7 +87,7 @@ class PaymentPaylineControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'paymentpayline/list');
 
         $this->view->list = $paginator->getPaginate();
     }

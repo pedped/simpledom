@@ -87,7 +87,7 @@ class PageControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'page/list');
 
         $this->view->list = $paginator->getPaginate();
     }

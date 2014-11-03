@@ -87,7 +87,7 @@ class UserOrderControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'userorder/list');
 
         $this->view->list = $paginator->getPaginate();
     }

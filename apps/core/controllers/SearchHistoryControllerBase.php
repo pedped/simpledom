@@ -82,7 +82,7 @@ class SearchHistoryControllerBase extends ControllerBase {
                 setFields(array(
                     'query', 'count'
                 ))->setListPath(
-                'list');
+                'searchhisotry/most/{pn}/' . $pastday);
 
         $this->view->list = $paginator->getPaginate();
         $this->view->day = $pastday;
@@ -149,7 +149,7 @@ class SearchHistoryControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'searchhistory/list');
 
         $this->view->list = $paginator->getPaginate();
     }

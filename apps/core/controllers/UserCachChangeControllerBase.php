@@ -84,7 +84,7 @@ class UserCachChangeControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'usercachchange/list');
 
         $this->view->list = $paginator->getPaginate();
     }

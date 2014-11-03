@@ -86,7 +86,7 @@ class SmsNumberControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'smsnumber/list');
 
         $this->view->list = $paginator->getPaginate();
     }

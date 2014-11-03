@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Simpledom\Core\Classes\Config;
 
 class AtaPaginator extends Paginator {
 
@@ -68,8 +69,32 @@ class AtaPaginator extends Paginator {
         return $this;
     }
 
-    public function getListPath() {
-        return $this->listPath;
+    public function getListPath($pageNumber = 1) {
+
+        global $di;
+        $baseUrl = $di->getUrl()->getBaseUri();
+
+        // parse url
+        $baseUrl = strlen(isset(parse_url($baseUrl)["scheme"]) ? parse_url($baseUrl)["scheme"] : "") > 0 ? $baseUrl : Config::getPublicUrl() . substr($baseUrl, 1);
+
+        // load default path
+        $list = $this->listPath;
+
+        // check if we have page number
+        $hasPageNumberInPath = false;
+        if (strpos($list, "{pn}") != FALSE) {
+            $hasPageNumberInPath = true;
+        }
+
+        // replace path number with that
+        if ($hasPageNumberInPath) {
+            $list = $baseUrl . str_replace("{pn}", $pageNumber, $list);
+        } else {
+            // do not have any number
+            return $baseUrl . $list . "/" . $pageNumber;
+        }
+
+        return $list;
     }
 
     /**
@@ -122,7 +147,7 @@ class AtaPaginator extends Paginator {
         $paginate = parent::getPaginate();
         $paginate->header = $this->getHeader();
         $paginate->table = $this->getTable($paginate);
-        $paginate->footer = $this->getFooter($paginate, $this->getListPath());
+        $paginate->footer = $this->getFooter($paginate);
         return $paginate;
     }
 
@@ -170,19 +195,18 @@ class AtaPaginator extends Paginator {
     /**
      * return the footer of the page
      * @param type $paginate
-     * @param String $listPath page path like user/list
      * @return type
      */
-    public function getFooter($paginate, $listPath) {
+    public function getFooter($paginate) {
 
         return "
             <!-- Pagination Items !-->
             <div class='center'>
                 <div class='pagination pagination-centered'>
-                    <li> <a class='pag' href='$listPath/'>" . _("First") . "</a></li>
-                    <li> <a href='$listPath/$paginate->before'>" . _("Previous") . "</a></li>
-                    <li> <a href='$listPath/$paginate->next'>" . _("Next") . "</a></li>
-                    <li> <a href='$listPath/$paginate->last'>" . _("Last") . "</a></li>
+                    <li> <a class='pag' href='" . $this->getListPath() . "'>" . _("First") . "</a></li>
+                    <li> <a href='" . $this->getListPath($paginate->before) . "'>" . _("Previous") . "</a></li>
+                    <li> <a href='" . $this->getListPath($paginate->next) . "'>" . _("Next") . "</a></li>
+                    <li> <a href='" . $this->getListPath($paginate->last) . "'>" . _("Last") . "</a></li>
                 </div>
                 <div>
                  " . sprintf(_("You are in page %s of %s"), $paginate->current, $paginate->total_pages) . "  

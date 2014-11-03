@@ -85,7 +85,7 @@ class UserPhoneControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'userphone/list');
 
         $this->view->list = $paginator->getPaginate();
     }

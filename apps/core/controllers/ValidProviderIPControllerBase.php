@@ -82,7 +82,7 @@ class ValidProviderIPControllerBase extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'validproviderip/list');
 
         $this->view->list = $paginator->getPaginate();
     }
