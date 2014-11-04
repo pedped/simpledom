@@ -116,7 +116,7 @@
                     <h3 class="panel-title">تصاویر ملک</h3>
                 </div>
                 <div class="panel-body">
-                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای بنگاه خود ارائه نمایید</p>
                     <!--  Image !-->
                     <div class='row'>
                         <div class='col-md-6'>
@@ -175,9 +175,13 @@
     {
         // hide all steps at first time
         $(".melk-step-panel[data-step='" + oldStep + "']").fadeOut(250, function() {
-            $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250);
+            $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250, function() {
+                if (newStep == 2)
+                {
+                    google.maps.event.trigger(map, 'resize');
+                }
+            });
         });
-
         // show in wizard mode
         $(".melk-wizard-step[data-step='" + oldStep + "']").removeClass('active').addClass("done");
         $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
@@ -190,7 +194,7 @@
      */
     function readyStep(step)
     {
-        $(window).trigger('resize');
+        google.maps.event.trigger(map, 'resize');
     }
 
     /**
@@ -335,18 +339,7 @@ foreach ($cities as $city) {
     $("#stateid").change(function() {
         onstatechange(this.value);
     });
-    var addressChangeTimeOut = 0;
-    $("#address").change(function() {
 
-        clearTimeout(addressChangeTimeOut);
-        addressChangeTimeOut = setTimeout(function() {
-            var city = $("#cityid").find("option:selected").text();
-            var address = $("#address").val();
-            var address = "ایران، " + city + "،" + address;
-            console.log(address);
-            locatteToAddress(address);
-        }, 150);
-    });
     var geocoder = new google.maps.Geocoder();
     $("#cityid").change(function() {
         var city = citiesid[$(this).val()];

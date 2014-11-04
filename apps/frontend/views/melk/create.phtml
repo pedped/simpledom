@@ -271,9 +271,7 @@
             $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250, function() {
                 if (newStep == 3)
                 {
-                    console.log("size changed");
-                    $(window).trigger('resize');
-                    //$("#map_holder").locationpicker($("#map_holder"));
+                    google.maps.event.trigger(map, 'resize');
                 }
             });
         });

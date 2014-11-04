@@ -134,6 +134,7 @@ label{
 
 body{
     color : #333;
+    background-image: url('../../img/home_back.jpg');
 }
 
 .search-footer p
@@ -198,9 +199,14 @@ body{
 }
 
 .navbar-brand{
+    background-color: rgba(170, 170, 170, 0) !important;
+    padding: 0px;
+}
+
+.navbar-brand img{
     background-color: #D50B95 !important;
-    color: #fff !important;
-    font-size: 29px !important;
+    padding: 10px 10px 8px 10px;
+    width: 100px;
 }
 
 .index-large-button{
