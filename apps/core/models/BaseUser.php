@@ -4,6 +4,7 @@ define("USERLEVEL_SUPERADMIN", 9);
 define("USERLEVEL_ADMIN", 8);
 define("USERLEVEL_USER", 1);
 
+use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Controller;
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
@@ -393,7 +394,7 @@ class BaseUser extends AtaModel implements Searchable {
 
         if (isset($user->userid)) {
             // user found, we have to check for password
-            if ($this->getDI()->getSecurity()->checkHash($password, $user->password)) {
+            if (FactoryDefault::getDefault()->getSecurity()->checkHash($password, $user->password)) {
                 // valid password, we have to generate token for the request
                 $user->generateToken();
 
