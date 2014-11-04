@@ -3,12 +3,22 @@
 namespace Simpledom\Core;
 
 use BaseSystemLog;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\DiInterface;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Resultset\Simple;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 
 abstract class AtaModel extends Model {
+
+    /**
+     * Get DI
+     * @return DiInterface
+     */
+    public function getDI() {
+        return FactoryDefault::getDefault();
+    }
 
     abstract function getPublicResponse();
 

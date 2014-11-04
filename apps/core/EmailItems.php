@@ -56,7 +56,7 @@ class EmailItems extends EmailManager {
             "name" => $name,
             "email" => $email,
             "resetcode" => $resetcode,
-            "link" => $resetcode,
+            "link" => Config::getPublicUrl(),
         ));
 
         // set email template

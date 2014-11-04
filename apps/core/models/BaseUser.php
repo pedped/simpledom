@@ -365,7 +365,7 @@ class BaseUser extends AtaModel implements Searchable {
     }
 
     public function beforeCreate() {
-        $this->password = md5($this->password);
+        $this->password = $this->getDI()->getSecurity()->hash($this->password);
     }
 
     public function afterCreate() {
@@ -389,13 +389,11 @@ class BaseUser extends AtaModel implements Searchable {
     public static function Login($email, $password) {
 
         // TODO validate email
-        $user = BaseUser::findFirst(array(
-                    "email = '$email'"
-        ));
+        $user = BaseUser::findFirst(array("email = :email:", "bind" => array("email" => $email)));
 
         if (isset($user->userid)) {
             // user found, we have to check for password
-            if (md5($password) === $user->password) {
+            if ($this->getDI()->getSecurity()->checkHash($password, $user->password)) {
                 // valid password, we have to generate token for the request
                 $user->generateToken();
 
@@ -510,7 +508,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
      * @return boolean
      */
     public function verifyPassword($password) {
-        return strlen($password) > 2 && $this->password == md5($password);
+        return strlen($password) > 2 && $this->getDI()->getSecurity()->checkHash($password, $this->password);
     }
 
     /**
@@ -520,7 +518,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
      * @return boolean
      */
     public function changePassword(&$errors, $newpass) {
-        $newpasshash = md5($newpass);
+        $newpasshash = $this->getDI->getSecurity()->hash($newpass);
         $this->password = $newpasshash;
         return $this->save();
     }
