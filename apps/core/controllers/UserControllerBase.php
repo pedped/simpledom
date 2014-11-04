@@ -207,7 +207,7 @@ class UserControllerBase extends ControllerBase {
                 $user->email = $this->request->getPost("email", "email");
 
                 if (strlen($this->request->getPost("password")) > 0) {
-                    $user->password = md5($this->request->getPost("password"));
+                    $user->password = $this->getDI()->getSecurity->hash($this->request->getPost("password"));
                 }
 
                 // check if we can save user
