@@ -29,6 +29,10 @@
         font-size: 20px !important;
         margin-top: 0px;
     }
+
+    body{
+        padding-top: 67px;
+    }
 }
 
 
@@ -107,6 +111,7 @@
 
 footer{
     bottom : auto !important;
+    height: inherit !important;
 }
 
 .melk-search-holder
@@ -199,7 +204,7 @@ body{
 }
 
 .index-large-button{
-    width: 50%!important;
+    width: 33.3333% !important;
     padding: 15px !important;
     font-size: 25px !important;
 }
@@ -381,4 +386,13 @@ footer .btn {
 }
 
 .melk-quick-info dt{
+}
+
+.request-melk-info .fa{
+    color: #0F7918;
+}
+
+.request-melk-info{
+    font-size: 22px;
+    padding: 5px 15px;
 }

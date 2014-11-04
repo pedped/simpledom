@@ -10,6 +10,8 @@ class MelkPhoneListner extends AtaModel {
         return 'melkphonelistner';
     }
 
+    public $userid;
+
     /**
      * ID
      * @var string
@@ -348,6 +350,81 @@ class MelkPhoneListner extends AtaModel {
 
     public function getSalePriceEndHuman() {
         return $this->sale_price_end <= 0 ? "-" : Helper::GetPrice($this->sale_price_end);
+    }
+
+    public static function subscribeUser(&$errors, $userid, $phone) {
+
+        // valid phone number, we have to check if the phone number is exist
+        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
+
+
+        // check for userid
+        if ($userPhone && intval($userPhone->userid) != intval($userid)) {
+            // user is ot valid
+            $errors[] = ("شماره تماس شما توسط شخص دیگری ثبت گردیده است، در صورت اطمینان از شماره خود، توسط فرم تماس با ما این مهم را در جریان بگزارید");
+            return false;
+        } else if ($userPhone && intval($userPhone->userid) == intval($userid)) {
+            
+        } else {
+            // user phone is not exist, create user phone
+            $userPhone = new UserPhone();
+            $userPhone->phone = $phone;
+            $userPhone->userid = $userid;
+            if (!$userPhone->create()) {
+                $errors[] = ("خطا در هنگام اضافه کردن شماره تماس");
+                $errors[] = $userPhone->getMessagesAsLines();
+                //$controller->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane shomare shaks : " . $userPhone->getMessagesAsLines());
+                return false;
+            }
+        }
+
+
+        $melkListner = new MelkPhoneListner();
+
+        $melkListner->cityid = $_POST["cityid"];
+        $melkListner->melkpurposeid = $_POST["melkpurposeid"];
+        $melkListner->melktypeid = $_POST["melktypeid"];
+
+        $melkListner->phoneid = $userPhone->id;
+
+        $melkListner->bedroom_start = $_POST["bedroom_start"];
+        $melkListner->bedroom_end = $_POST["bedroom_end"];
+
+        $melkListner->rent_price_start = $_POST["rent_price_start"];
+        $melkListner->rent_price_end = $_POST["rent_price_end"];
+
+        $melkListner->rent_pricerahn_start = $_POST["rent_pricerahn_start"];
+        $melkListner->rent_pricerahn_end = $_POST["rent_pricerahn_end"];
+
+        $melkListner->sale_price_start = $_POST["sale_price_start"];
+        $melkListner->sale_price_end = $_POST["sale_price_end"];
+
+
+
+
+        if (!$melkListner->create()) {
+            $errors[] = ("خطا در هنگام اضافه کردن شماره تماس");
+            //$controller->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane agahsaz : " . $melkListner->getMessagesAsLines());
+            return false;
+        }
+
+
+        // add supported areas
+        $areaIDs = Area::GetMultiID($melkListner->cityid, $_POST['address']);
+        foreach ($areaIDs as $areaid) {
+            $melklistnerarea = new MelkPhoneListnerArea();
+            $melklistnerarea->melkphonelistnerid = $melkListner->id;
+            $melklistnerarea->areaid = $areaid;
+            $melklistnerarea->create();
+        }
+
+        // check if the phone is valid
+        if (!$userPhone->verified) {
+            $userPhone->sendVerificationNumber();
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
 }

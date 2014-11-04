@@ -68,7 +68,11 @@ class PhoneControllerBase extends ControllerBase {
                 $userPhone->verified = "1";
                 $userPhone->save();
                 $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
-                $this->response->redirect("user/phones");
+                $this->dispatcher->forward(array(
+                    "controller" => "user",
+                    "action" => "phones",
+                    "params" => array()
+                ));
             } else {
                 // invalid number
                 $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));
