@@ -12,26 +12,37 @@
             <div class="panel-body">
                 <p>در صورت تایید، بر روی گزینه ارسال کلیک نمایید</p>
                 <hr/>
-                <label class="bold">متن پیامک</label>
-                <p><?php echo $message; ?></p>
+                <label class="bold" style="color: #CF2184;">متن پیامک</label>
+                <blockquote style="font-size: 21px;" ><?php echo $message; ?></blockquote>
+                <p >سایز پیامک: <?php echo $messageSize; ?></p>
+                <hr />
 
-                <label class="bold">مناطق ارسالی</label>
+                <label class="bold" style="color: #CF2184;">مناطق ارسالی</label>
                 <ul>
                     <?php foreach ($areas as $area) : ?>
                         <li><?php echo $area; ?> </li>
                     <?php endforeach; ?>
                 </ul>
+                <hr />
 
                 <?php if ($toAllUsers == TRUE) : ?>
-                    <label class="bold">ارسال پیامک به صاحبان املاک</label>
-                    <p>متن شما به تمامی صاحبان ملکی که در فاصله 5 کیلومتری از بنگاه شما باشند ارسال میگردد</p>
+                    <label class="bold" style="color: #CF2184;">ارسال پیامک به صاحبان املاک</label>
+                    <p style="margin-bottom: 0px;">متن شما برای تمامی افرادی که که ملک خود را در منطقه مورد نظر ارائه نموده اند، ارسال میگردد</p>
+                    <p>تعداد افراد در این گروه : <?php echo $haveMelkCount; ?></p>
+                    <hr />
                 <?php endif; ?>
 
 
                 <?php if ($toPhoneListners == TRUE) : ?>
-                    <label class="bold">ارسال پیامک به کاربران گوش به زنگ</label>
-                    <p>متن شما برای تمامی کاربران گوش به زنگ در منطقه مورد نظر ارسال خواهد شد</p>
+                    <label class="bold" style="color: #CF2184;">ارسال پیامک به کاربران گوش به زنگ</label>
+                    <p style="margin-bottom: 0px;">متن شما برای تمامی کاربران درخواست کننده ملک مناطق مورد نظر ارسال خواهد شد</p>
+                    <p>تعداد افراد در این گروه : <?php echo $phoneListnerCount; ?></p>
+                    <hr />
                 <?php endif; ?>
+
+                <div class="alert alert-success">
+                    <p style="font-size: 21px;">تعداد کل پیامک های ارسالی : <?php echo $totalSMSCount; ?></p>
+                </div>
 
                 <hr/>
                 <form method="post" action="<?php echo $this->url->get("bongah/smssent"); ?>">

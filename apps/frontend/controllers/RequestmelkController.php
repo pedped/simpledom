@@ -15,6 +15,9 @@ class RequestmelkController extends ControllerBase {
     }
 
     public function addAction() {
+        
+        $this->setPageTitle("درخواست ملک");
+        
         // show cities to view
         $this->view->cities = City::find();
 

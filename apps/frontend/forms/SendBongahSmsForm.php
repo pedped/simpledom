@@ -9,7 +9,7 @@ class SendBongahSmsForm extends AtaForm {
     public function initialize() {
 
         // Title
-        $area = new TagEditElement('area');
+        $area = new CityAreaSelector('area');
         $area->setLabel('مناطق ارسالی');
         $area->setAttribute('class', 'form-control');
         $area->addValidator(new PresenceOf(array(

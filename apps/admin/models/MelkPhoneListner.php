@@ -427,4 +427,44 @@ class MelkPhoneListner extends AtaModel {
         }
     }
 
+    /**
+     * return the area names
+     * @param type $implodeResult should be imploded with comma
+     * @return string|array
+     */
+    public function getAreasNames($implodeResult = true) {
+        $items = MelkPhoneListnerArea::find(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id)));
+        $names = array();
+        foreach ($items as $melkPhoneListner) {
+            $names[] = Area::findFirst(array("id = :id:", "bind" => array("id" => $melkPhoneListner->areaid)))->name;
+        }
+
+        if ($implodeResult) {
+            return implode("، ", $names);
+        } else {
+            return $names;
+        }
+    }
+
+    /**
+     * find users based on the areaids
+     * @param type $areaIDs
+     * @return Resultset MelkPhoneListner
+     */
+    public static function findBestItems($areaIDs) {
+        $melkPhoneListnersIDs = array();
+
+        foreach ($areaIDs as $areaid) {
+            $melkSubscripts = MelkPhoneListnerArea::find(array("areaid = :areaid:", "bind" => array("areaid" => $areaid)));
+            foreach ($melkSubscripts as $item) {
+                $melkPhoneListnersIDs[] = $item->melkphonelistnerid;
+            }
+        }
+
+        // now we have melk phone listners
+        $melkPhoneListners = MelkPhoneListner::find(array("id IN (:ids:) AND status = 1", "bind" => array("ids" => implode(", ", $melkPhoneListnersIDs))));
+
+        return $melkPhoneListners;
+    }
+
 }

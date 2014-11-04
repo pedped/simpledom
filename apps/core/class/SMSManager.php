@@ -31,9 +31,11 @@ abstract class SMSManager {
 
 
         // convert phones to array if it is not array
+        $p = array();
         if (!is_array($phones)) {
-            $p = array();
             $p[] = $phones;
+        } else {
+            $p = $phones;
         }
         $phones = $p;
 

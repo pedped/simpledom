@@ -37,7 +37,6 @@ class BongahController extends ControllerBase {
             return;
         }
 
-
         // get bongah id
         $bongahID = $this->dispatcher->getParam("bongahid");
         if (!$bongahID) {
@@ -113,32 +112,112 @@ class BongahController extends ControllerBase {
             $tophonelistner = intval($this->request->getPost("tophonelistner")) == 1;
 
 
-            $sendingMessages = array();
-            $phones = array();
-            if ($toalluser) {
-                $users = Melk::getNearest($this->bongah->cityid, $this->bongah->latitude, $this->bongah->longitude, 10);
-                foreach ($users as $item) {
+            // define phone numbers have to send
+            $toPhones = array();
 
-                    $b = new BongahSentMessage();
-                    $b->bongahid = $this->bongah->id;
-                    $b->bongahphone = $this->bongah->phone;
-                    $b->bongahtitle = $this->bongah->title;
-                    $b->message = $message;
-                    $b->smsmessageid = $MESSAGEID;
-                    $b->distance = $item->distance;
-                    $b->tophone = $item->getInfo()->private_mobile;
-                    $b->type = 2;
-                }
-            }
+            // calc total sms count
+            $isPersian = false;
+            $totalSMSCount = $this->getMessageSize($message, $isPersian);
+            $totalCalculatedCount = $isPersian ? $totalSMSCount : $totalSMSCount * 2; // becasue english messages has two time cost
+            $this->view->messageSize = $totalCalculatedCount;
+            $totalUsersSMSCount = 0;
+            $areaIDs = Area::GetMultiID($this->bongah->cityid, $areas);
 
+
+            $melkPhoneListners = null;
+            $melks = null;
+
+            // check total sms that have to be sent
             if ($tophonelistner) {
-                $users = MelkPhoneListner::getNearest($this->bongah->cityid, $this->bongah->latitude, $this->bongah->longitude, 10);
-                foreach ($users as $item) {
-                    $phones[] = $item->getPhoneNumber();
-                }
+
+                // find best users
+                $melkPhoneListners = MelkPhoneListner::findBestItems($areaIDs);
+                $count = $melkPhoneListners->count();
+                $totalUsersSMSCount += $count;
+            }
+            if ($toalluser) {
+                // find best users
+                $melks = Melk::findAreaLocatedMelks($areaIDs);
+                $count = $melks->count();
+                $totalUsersSMSCount += $count;
             }
 
-            $this->flash->notice(implode(",", $phones));
+
+            $totalCreditNeed = $totalUsersSMSCount * $totalCalculatedCount;
+            $smsCredit = \SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+            if ($smsCredit->value < $totalCreditNeed) {
+                $this->errors[] = "اعتبار پیامکی شما برای ارسال پیام کافی نمیباشد. لطفا اعتبار خود را افزایش دهید";
+            }
+
+
+            // user have enogh cost, decrese credit
+            SMSCredit::decreaseCredit($this->errors, $this->user->userid, "-2", $totalCreditNeed);
+
+            // check if we have no error, send messages
+            if (!$this->hasError()) {
+
+                if ($tophonelistner) {
+
+                    // clear phone stack
+                    $toPhones = array();
+
+                    // get phone numbers
+                    foreach ($melkPhoneListners as $melkPhoneListner) {
+                        $number = $melkPhoneListner->getPhoneNumber();
+                        if (isset($number) && strlen($number) > 0) {
+                            $toPhones[] = $number;
+                        }
+                    }
+
+                    // send message
+                    SMSManager::SendSMS($toPhones, $message, SmsNumber::findFirst());
+
+                    // store sent messages
+                    foreach ($melkPhoneListners as $melkPhoneListner) {
+                        $b = new BongahSentMessage();
+                        $b->bongahid = $this->bongah->id;
+                        $b->bongahphone = $this->bongah->phone;
+                        $b->bongahtitle = $this->bongah->title;
+                        $b->message = $message;
+                        $b->smsmessageid = 1;
+                        $b->distance = 0;
+                        $b->tophone = $melkPhoneListner->getPhoneNumber();
+                        $b->type = 2;
+                    }
+                }
+
+
+                if ($toalluser) {
+
+                    // clear phone stack
+                    $toPhones = array();
+
+                    // get phone numbers
+                    foreach ($melks as $melk) {
+                        $number = $melk->getInfo()->private_mobile;
+                        if (isset($number) && strlen($number) > 0) {
+                            $toPhones[] = $number;
+                        }
+                    }
+
+                    // send message
+                    SMSManager::SendSMS($toPhones, $message, SmsNumber::findFirst());
+
+                    // store sent messages
+                    foreach ($melks as $melk) {
+                        $b = new BongahSentMessage();
+                        $b->bongahid = $this->bongah->id;
+                        $b->bongahphone = $this->bongah->phone;
+                        $b->bongahtitle = $this->bongah->title;
+                        $b->message = $message;
+                        $b->smsmessageid = 1;
+                        $b->distance = $melk->getDistanceFromLocation($this->bongah->latitude, $this->bongah->longitude);
+                        $b->tophone = $melk->getInfo()->private_mobile;
+                        $b->type = 2;
+                    }
+                }
+                $this->flash->success("پیام شما با موفقیت ارسال گردید");
+            }
         } else {
             $this->response->redirect("bongah/sendsms");
         }
@@ -152,12 +231,17 @@ class BongahController extends ControllerBase {
         $this->calcUserCredit();
 
         $fr = new SendBongahSmsForm();
+
+        // set default areas
+        $fr->get("area")->setDefault(implode(",", $this->bongah->getSupporrtedLocationsName()));
+        $fr->get("area")->setCityID($this->bongah->cityid);
+
+
         if ($this->request->isPost()) {
             if (!$fr->isValid($_POST)) {
                 // invalid form
             } else {
                 // valid
-
                 $area = $this->request->getPost("area", "string");
                 $message = $this->request->getPost("message", "string");
                 $sendtophonelistners = $this->request->getPost("sendtolistners");
@@ -178,11 +262,34 @@ class BongahController extends ControllerBase {
     }
 
     public function checksmsAction($areas, $text, $tolistners = true, $tousers = true) {
+
+        // calc total sms count
+        $totalSMSCount = $this->getMessageSize($text, $isPersian);
+        $totalCalculatedCount = $isPersian ? $totalSMSCount : $totalSMSCount * 2; // becasue english messages has two time cost
+        $this->view->messageSize = $totalCalculatedCount;
+        $totalUsersSMSCount = 0;
+
+
         // set view variables
+        $areaIDs = Area::GetMultiID($this->bongah->cityid, $areas);
         $this->view->areas = explode(",", $areas);
         $this->view->message = $text;
         $this->view->toPhoneListners = $tolistners;
+        if ($tolistners) {
+            $count = MelkPhoneListner::findBestItems($areaIDs)->count();
+            $totalUsersSMSCount += $count;
+            $this->view->phoneListnerCount = $totalUsersSMSCount;
+        }
+
         $this->view->toAllUsers = $tousers;
+        if ($tousers) {
+            $count = Melk::findAreaLocatedMelks($areaIDs)->count();
+            $totalUsersSMSCount += $count;
+            $this->view->haveMelkCount = Melk::findAreaLocatedMelks($areaIDs)->count();
+        }
+
+        // show total sms count
+        $this->view->totalSMSCount = $totalUsersSMSCount . "(کاربر) * " . $totalCalculatedCount . "(" . "سایز هر پیامک" . ") = <b>" . ($totalCalculatedCount * $totalUsersSMSCount) . " پیامک" . "</b>";
     }
 
     private function getMelkPaginator($page, $melks, $listpath) {
@@ -274,10 +381,10 @@ class BongahController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'پیامک های دریافتی', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس'
+                    'کد', "مناطق درخواستی", 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس', 'پیامک های دریافتی',
                 ))->
                 setFields(array(
-                    'id', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'receivedcount', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()',
+                    'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'receivedcount'
                 ))->setListPath(
                 'bongah/' . $this->bongah->id . "/userscansupport");
 
@@ -411,6 +518,58 @@ class BongahController extends ControllerBase {
 
 
         $this->view->form = $fr;
+    }
+
+    public function getMessageSize($text, &$isPersian) {
+
+        $alhphabets = array();
+        $alhphabets[] = "آ";
+        $alhphabets[] = "ا";
+        $alhphabets[] = "ب";
+        $alhphabets[] = "پ";
+        $alhphabets[] = "ت";
+        $alhphabets[] = "ث";
+        $alhphabets[] = "ج";
+        $alhphabets[] = "چ";
+        $alhphabets[] = "ه";
+        $alhphabets[] = "خ";
+        $alhphabets[] = "د";
+        $alhphabets[] = "ذ";
+        $alhphabets[] = "ر";
+        $alhphabets[] = "ز";
+        $alhphabets[] = "ژ";
+        $alhphabets[] = "س";
+        $alhphabets[] = "ش";
+        $alhphabets[] = "ص";
+        $alhphabets[] = "ض";
+        $alhphabets[] = "ط";
+        $alhphabets[] = "ظ";
+        $alhphabets[] = "ع";
+        $alhphabets[] = "غ";
+        $alhphabets[] = "ف";
+        $alhphabets[] = "ق";
+        $alhphabets[] = "ک";
+        $alhphabets[] = "گ";
+        $alhphabets[] = "ل";
+        $alhphabets[] = "م";
+        $alhphabets[] = "ن";
+        $alhphabets[] = "و";
+        $alhphabets[] = "ه";
+        $alhphabets[] = "ی";
+
+        $isPersian = false;
+        foreach ($alhphabets as $alpha) {
+            if (strpos($alpha, $text) >= 0) {
+                $isPersian = true;
+                break;
+            }
+        }
+
+        if ($isPersian) {
+            return ((int) (mb_strlen($text) / 70) ) + 1;
+        } else {
+            return ((int) (mb_strlen($text) / 140) ) + 1;
+        }
     }
 
 }

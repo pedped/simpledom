@@ -396,3 +396,9 @@ footer .btn {
     font-size: 22px;
     padding: 5px 15px;
 }
+
+.index-large-button .fa {
+    top: 2px;
+    position: relative;
+    margin-left: 7px;
+}

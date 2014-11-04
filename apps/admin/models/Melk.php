@@ -624,4 +624,20 @@ class Melk extends AtaModel {
         return Helper::getDistance($this->getInfo()->latitude, $this->getInfo()->longitude, $latitude, $longitude);
     }
 
+    /**
+     * get located and apporved melks in area
+     * @param int[] $areaIDs
+     * @return Resultset
+     */
+    public static function findAreaLocatedMelks($areaIDs) {
+
+        // as we need to use id in areaids, we have to check for each areaid
+        $areas = array();
+        foreach ($areaIDs as $areaid) {
+            $areas[] = intval($areaid);
+        }
+        $melk = new Melk();
+        return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1");
+    }
+
 }

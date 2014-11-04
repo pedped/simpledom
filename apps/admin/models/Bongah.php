@@ -361,6 +361,10 @@ class Bongah extends AtaModel {
         return $result;
     }
 
+    /**
+     * get supported names
+     * @return Array
+     */
     public function getSupporrtedLocationsName() {
         $supportsName = array();
         $k = explode(",", $this->locationscansupport);
