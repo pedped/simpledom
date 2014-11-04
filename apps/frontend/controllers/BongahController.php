@@ -33,7 +33,13 @@ class BongahController extends ControllerBase {
         parent::initialize();
 
         if (!isset($this->user)) {
-            $this->response->redirect("user/login");
+
+            $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت ثبت نام نمایید.");
+            $this->dispatcher->forward(array(
+                "controller" => "user",
+                "action" => "login",
+                "params" => array()
+            ));
             return;
         }
 
