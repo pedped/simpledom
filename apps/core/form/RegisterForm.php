@@ -51,6 +51,7 @@ class RegisterForm extends AtaForm {
             '0' => _('Female')
         ));
         $gender->setLabel(_("Gender"));
+        $gender->setDefault("1");
         $gender->setAttribute("class", "form-control");
         $this->add($gender);
 
