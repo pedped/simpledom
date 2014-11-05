@@ -160,6 +160,18 @@ class BaseSettings extends AtaModel {
 
     /**
      *
+     * @var string
+     */
+    public $recaptchaprivate;
+
+    /**
+     *
+     * @var string
+     */
+    public $recaptchapublic;
+
+    /**
+     *
      * @var boolean
      */
     public $enablesearch;

@@ -35,6 +35,8 @@ class SiteinfoControllerBase extends ControllerBase {
                 $settings->enabledisablesignin = $this->request->getPost("enabledisablesignin");
                 $settings->enablesearch = $this->request->getPost("enablesearch");
                 $settings->rtl = $this->request->getPost("rtl");
+                $settings->recaptchapublic = $this->request->getPost("recaptchapublic");
+                $settings->recaptchaprivate = $this->request->getPost("recaptchaprivate");
 
                 // analytics
                 $settings->googleanalytics = $this->request->getPost("googlea");
@@ -75,6 +77,8 @@ class SiteinfoControllerBase extends ControllerBase {
         $fr->get("clickya")->setDefault($settings->clickyanalitics);
         $fr->get("enablesearch")->setDefault($settings->enablesearch);
         $fr->get("rtl")->setDefault($settings->rtl);
+        $fr->get("recaptchapublic")->setDefault($settings->recaptchapublic);
+        $fr->get("recaptchaprivate")->setDefault($settings->recaptchaprivate);
 
         $fr->get("sendpaymentreceiptbyemail")->setDefault($settings->sendpaymentreceiptbyemail);
         $fr->get("sendpaymentreceiptbysms")->setDefault($settings->sendpaymentreceiptbysms);
