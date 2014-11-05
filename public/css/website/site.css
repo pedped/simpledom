@@ -408,3 +408,10 @@ footer .btn {
     position: relative;
     margin-left: 7px;
 }
+
+.navbar-brand.mobile{
+    background-color: #D50B95 !important;
+    padding: 15px 10px !important;
+    font-size: 26px !important;
+    color: #fff !important;
+}

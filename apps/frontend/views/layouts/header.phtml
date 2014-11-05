@@ -12,7 +12,8 @@ use Phalcon\Text;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo $this->url->get("") ?>"><img src="<?php echo $this->url->get("img/website_logo.png"); ?>" /></a>
+            <a class="navbar-brand hidden-xs hidden-sm " href="<?php echo $this->url->get("") ?>"><img src="<?php echo $this->url->get("img/website_logo.png"); ?>" /></a>
+            <a class="navbar-brand mobile hidden-md hidden-lg hidden-xl" href="<?php echo $this->url->get("") ?>"><?php echo $websiteSettings->websitename; ?></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
