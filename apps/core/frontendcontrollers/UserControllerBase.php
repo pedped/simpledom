@@ -262,7 +262,7 @@ class UserControllerBase extends ControllerBase {
         $rf = new RegisterForm();
         if ($this->request->isPost()) {
             // user want to submit the post, validae the request
-            if (!$rf->isValid($_POST) || !Recaptcha::check(Config::GetRecaptchaPrivateKey(), $_SERVER['REMOTE_ADDR'], $this->request->getPost('recaptcha_challenge_field'), $this->request->getPost('recaptcha_response_field'))) {
+            if (!$rf->isValid($_POST) || !Recaptcha::check(Settings::Get()->recaptchaprivate, $_SERVER['REMOTE_ADDR'], $this->request->getPost('recaptcha_challenge_field'), $this->request->getPost('recaptcha_response_field'))) {
                 // invalid post or recaptcha
                 if ($rf->isValid($_POST)) {
                     //captcha was invalid
