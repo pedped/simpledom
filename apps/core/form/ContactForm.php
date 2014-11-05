@@ -2,7 +2,6 @@
 
 namespace Simpledom\Core;
 
-use EditorElement;
 use MapElement;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
@@ -11,6 +10,7 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Settings;
+use TextAreaElement;
 use TextElement;
 
 class ContactForm extends AtaForm {
@@ -51,7 +51,8 @@ class ContactForm extends AtaForm {
 
 
         // Message
-        $message = new EditorElement("message");
+        $message = new TextAreaElement("message");
+        $message->setAttribute("rows", 8);
         $message->setLabel(_("Message"));
         $message->setAttribute("class", "form-control");
         $message->addValidator(new PresenceOf(array(
@@ -59,7 +60,6 @@ class ContactForm extends AtaForm {
         $message->addValidator(new StringLength(array(
             'min' => 10,
         )));
-        $message->setLanguage("en");
         $this->add($message);
 
 

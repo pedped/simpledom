@@ -166,6 +166,13 @@ class MelkController extends ControllerBaseFrontEnd {
                     }
                 }
 
+
+                // get correcrt phone number
+                $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
+                if (!$phone) {
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                }
+
                 // check if we have any error
                 if (!$this->hasError()) {
 
@@ -209,7 +216,7 @@ class MelkController extends ControllerBaseFrontEnd {
                         $melkinfo->longitude = $this->request->getPost('map_longitude');
                         $melkinfo->melkid = $melk->id;
                         $melkinfo->private_address = $this->request->getPost('private_address', "string");
-                        $melkinfo->private_mobile = $this->request->getPost('private_mobile', "string");
+                        $melkinfo->private_mobile = $phone;
                         $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
                         $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
                         if (!$melkinfo->create()) {
@@ -244,7 +251,7 @@ class MelkController extends ControllerBaseFrontEnd {
                             $melkArea->create();
 
                             // check if we have user phone
-                            $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $melkinfo->private_mobile)));
+                            $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
                             if (!$userPhone) {
                                 // user phone is not exist
                                 $userPhone = new UserPhone();
@@ -629,29 +636,36 @@ class MelkController extends ControllerBaseFrontEnd {
 
                 // we have to send email to the user
                 $name = $this->request->getPost("name", "string");
-                $phone = $this->request->getPost("phone", "int");
                 $message = trim($this->request->getPost("message", "string"));
 
-                // get melk contact form
-                $melkEmail = $melk->getContactEmail();
-                $melkPhone = $melk->getContactPhone();
+                // validate phone
+                // get correcrt phone number
+                $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost("phone", "int"));
+                if (!$phone) {
+                    $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                }
 
-                // send message
-                $emailItems = new EmailItems();
-                $emailItems->sendMelkContact($melk->id, $melkEmail, $melkPhone, $name, $phone, $message);
-                SMSManager::SendSMS($melkPhone, "شما یک پیام جدید از شماره  $phone  در مورد ملک خود دارید، لطفا ایمیل خود را چک نمایید", SmsNumber:: findFirst()->id);
+                if (!$this->hasError()) {
+                    // get melk contact form
+                    $melkEmail = $melk->getContactEmail();
+                    $melkPhone = $melk->getContactPhone();
 
-                // log this message
-                $this->LogInfo("User send message", "user send new message via"
-                        . " contact form in Melk View");
+                    // send message
+                    $emailItems = new EmailItems();
+                    $emailItems->sendMelkContact($melk->id, $melkEmail, $melkPhone, $name, $phone, $message);
+                    SMSManager::SendSMS($melkPhone, "شما یک پیام جدید از شماره  $phone  در مورد ملک خود دارید، لطفا ایمیل خود را چک نمایید", SmsNumber:: findFirst()->id);
 
-                $this->flash->success("پیام شما با موفقیت ارسال گردید");
+                    // log this message
+                    $this->LogInfo("User send message", "user send new message via"
+                            . " contact form in Melk View");
 
-                // clear the form
-                $contactForm->clear();
+                    $this->flash->success("پیام شما با موفقیت ارسال گردید");
+
+                    // clear the form
+                    $contactForm->clear();
+                }
             }
         }
-
 
         // get nearser bongahs
         $this->view->bongahs = $melk->getNearsetBongahs();

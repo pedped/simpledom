@@ -9,7 +9,6 @@ use BaseUser;
 use BaseUserLog;
 use EmailItems;
 use LoginDetailsForm;
-use Phalcon\Filter;
 use ProfileImageForm;
 use Recaptcha;
 use ResetVerficationCode;
@@ -298,35 +297,45 @@ class UserControllerBase extends ControllerBase {
                     $email = new EmailItems();
                     $email->sendRegsiterNotification($user->userid, $user->getFullName(), $user->email, $user->verifycode);
 
-                    // check if user has entered an not exist phone, add the phone
-                    // to the user phones and send sms to user
-                    $count = UserPhone::count(array(
-                                "phone = :phone:",
-                                "bind" => array(
-                                    "phone" => $this->request->getPost("phone")
-                                )
-                    ));
-                    if ($count == 0) {
-                        // we have no user based on that phone, it is valid to add
-                        // the phone to the UserPhone table and notify of the phone
-                        // with verify code
-                        $userphone = new UserPhone();
-                        $userphone->phone = $this->request->getPost("phone");
-                        $userphone->userid = $user->userid;
-                        if (!$userphone->create()) {
-                            // usre phone not created
-                            BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
-                        } else {
-                            // user phone created, we have to send the verify code to user
-                            $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $user->getFullName(), Settings::Get()->websitename, $userphone->verifycode);
-                            //$smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
-                            SMSManager::SendSMS($userphone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
-                        }
-                    } else {
-                        // phone exist in database before
-                        $this->flash->error(_("Your Entered Phone was exist in database, please add another phone"));
+
+                    // get correcrt phone number
+                    $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost("phone"));
+                    if (!$phone) {
+                        $this->errors[] = ("شماره موبایل وارد شده نامعتبر میباشد");
                     }
 
+                    // check if we have no error
+                    if (!$this->hasError()) {
+
+                        // check if user has entered an not exist phone, add the phone
+                        // to the user phones and send sms to user
+                        $count = UserPhone::count(array(
+                                    "phone = :phone:",
+                                    "bind" => array(
+                                        "phone" => $phone
+                                    )
+                        ));
+                        if ($count == 0) {
+                            // we have no user based on that phone, it is valid to add
+                            // the phone to the UserPhone table and notify of the phone
+                            // with verify code
+                            $userphone = new UserPhone();
+                            $userphone->phone = $phone;
+                            $userphone->userid = $user->userid;
+                            if (!$userphone->create()) {
+                                // usre phone not created
+                                BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
+                            } else {
+                                // user phone created, we have to send the verify code to user
+                                $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $user->getFullName(), Settings::Get()->websitename, $userphone->verifycode);
+                                //$smsMessage = "Hi " . $user->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $userphone->verifycode;
+                                SMSManager::SendSMS($userphone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+                            }
+                        } else {
+                            // phone exist in database before
+                            $this->flash->error(_("Your Entered Phone was exist in database, please add another phone"));
+                        }
+                    }
                     $user->showSuccessMessages($this, _("User creating was successfull"));
                 }
             }

@@ -19,6 +19,15 @@ class PhoneControllerBase extends ControllerBase {
 
         $this->view->show = 1;
 
+        // get correcrt phone number
+        $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
+        if (!$phone) {
+            $this->flash->error("شماره موبایل وارد شده نامعتبر میباشد");
+            $this->view->show = 0;
+            return;
+        }
+
+
         // check if the the phone belongs to user
         $userphone = UserPhone::find(array("userid = :userid: AND phone = :phone:", "bind" => array(
                         "userid" => $this->user->userid,

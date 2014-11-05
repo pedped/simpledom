@@ -8,6 +8,7 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Controller;
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\Classes\SearchResult;
 
 class BaseUser extends AtaModel implements Searchable {
@@ -596,6 +597,15 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         if (Settings::Get()->enabledisablesignup === false) {
             $errors[] = (_("Sorry!<br/>But the register system is disabled by Super Adminstator at this time."));
             return false;
+        }
+
+        // validate phone numbet
+        if (isset($phone)) {
+            $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
+            if (!$phone) {
+                $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                return false;
+            }
         }
 
         $this->fname = $fname;

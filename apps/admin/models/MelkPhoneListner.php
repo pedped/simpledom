@@ -354,6 +354,14 @@ class MelkPhoneListner extends AtaModel {
 
     public static function subscribeUser(&$errors, $userid, $phone) {
 
+        // get correcrt phone number
+        $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
+        if (!$phone) {
+            $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+            return false;
+        }
+
+
         // valid phone number, we have to check if the phone number is exist
         $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
 
