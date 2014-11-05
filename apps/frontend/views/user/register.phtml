@@ -1,6 +1,4 @@
-<?php
-
-use Simpledom\Core\Classes\Config; ?>
+<?php ?>
 <div class='row signup-form'>
     <div class='col-md-3'>
 
@@ -47,7 +45,7 @@ use Simpledom\Core\Classes\Config; ?>
 
 
                     <!-- Captcha !-->
-                    <?php echo Recaptcha::get(Config::GetRecaptchaPublicKey()); ?>
+                    <?php echo Recaptcha::get(Settings::Get()->recaptchapublic); ?>
 
                     <!-- Submit !-->
                     <?php echo $registerform->renderDecorated('submit'); ?>
