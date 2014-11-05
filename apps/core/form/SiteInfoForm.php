@@ -29,6 +29,27 @@ class SiteInfoForm extends AtaForm {
         $this->add($websitename);
 
 
+        // Recapctha
+        $recaptchapublic = new TextElement("recaptchapublic");
+        $recaptchapublic->setLabel(_("Public Recaptcha Key"));
+        //$name->setAttribute("placeholder", "Enter your Full Name");
+        $recaptchapublic->setAttribute("class", "form-control");
+        $recaptchapublic->addValidator(new StringLength(array(
+            'min' => 6,
+        )));
+        $this->add($recaptchapublic);
+
+
+        $recaptchaprivate = new TextElement("recaptchaprivate");
+        $recaptchaprivate->setLabel(_("Private Recaptcha Key"));
+        //$name->setAttribute("placeholder", "Enter your Full Name");
+        $recaptchaprivate->setAttribute("class", "form-control");
+        $recaptchaprivate->addValidator(new StringLength(array(
+            'min' => 6,
+        )));
+        $this->add($recaptchaprivate);
+
+
 
         // Send Payment Receipt By Email
         $sendpaymentreceiptbyemail = new EnableDisableElement("sendpaymentreceiptbyemail");
