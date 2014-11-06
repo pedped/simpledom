@@ -415,3 +415,7 @@ footer .btn {
     font-size: 26px !important;
     color: #fff !important;
 }
+
+.tagit ui-widget{
+    background: none !important;
+}

@@ -1,74 +1,329 @@
-<div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
+<div class="row">
+    <div class="col-md-12">
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<style>
+    .tab-content{
+        direction: rtl;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-4 col-lg-3">
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="thumb-info mb-md">
+                    <img src="<?php echo $bongah->getImagelink(); ?>" class="rounded img-responsive">
+                    <div class="thumb-info-title">
+                        <span class="thumb-info-inner"><?php echo $bongah->title; ?></span>
+                        <span class="thumb-info-type"><?php echo $bongah->getCityName(); ?></span>
+                    </div>
+                </div>
+
+                <div class="widget-toggle-expand mb-md">
+                    <div class="widget-content-expanded">
+                        <ul class="simple-todo-list">
+                            <dt>کد</dt>
+                            <dd><?php echo $bongah->id; ?></dd>
+
+                            <dt>نام</dt>
+                            <dd><?php echo $bongah->fname; ?></dd>
+
+                            <dt>نام خانوادگی</dt>
+                            <dd><?php echo $bongah->lname; ?></dd>
+
+                            <dt>شماره پیگیری بنگاه</dt>
+                            <dd><?php echo $bongah->peygiri; ?></dd>
+                        </ul>
+                        <hr/>
+                        <dl>
+                            <dt>تعداد سفارشات</dt>
+                            <dd><?php echo $totalOrders; ?></dd>
+                            <?php if (intval($totalOrdersCost) > 0) : ?>
+                                <dt>مجموع کل سفارشات</dt>
+                                <dd><?php echo $totalOrdersCost; ?></dd>
+                            <?php endif; ?>
+                            <dt>نظرات</dt>
+                            <dd><?php echo $totalOpinions; ?></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section> 
+    </div>
+    <div class="col-lg-9">
+        <div class="tabs tabs-dark">
+            <ul class="nav nav-tabs">
+                <li class="<?php echo $tab == "userinfo" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userinfo"); ?>" >اطلاعات بنگاه</a>
+                </li>
+                <li class="<?php echo $tab == "profileimage" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/images"); ?>" >تصاویر</a>
+                </li>
+                <li class="<?php echo $tab == "sentmessages" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/sentmessages"); ?>" >پیامک های ارسالی</a>
+                </li>
+                <li class="<?php echo $tab == "purchasedsmspackages" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedsmspackages"); ?>" >تغییرات پیامک</a>
+                </li>
+                <li class="<?php echo $tab == "userlogs" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userlogs"); ?>" >لاگ</a>
+                </li>
+                <li class="<?php echo $tab == "orders" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/orders"); ?>" >سفارشات</a>
+                </li>
+                <li class="<?php echo $tab == "purchasedpackages" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedpackages"); ?>" >بسته های بنگاه</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+
+                <?php if ($tab == "userinfo") : ?>
+                    <!-- User Basic Information !-->
+                    <div id="popular6" class="tab-pane <?php echo $tab == "userinfo" ? "active" : "" ?>">
+                        <form method="post">
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <!-- Active!-->
+                                    <?php $viewForm->renderDecorated("featured"); ?>
+                                </div>
+                                <div class='col-md-6'>
+                                    <!-- Verifed !-->
+                                    <?php $viewForm->renderDecorated("enable"); ?>
                                 </div>
                             </div>
-                            <form method='post'>
-                                <div class='row'>
-                                    <div class='col-lg-12'>
-                                        <section class='panel panel-primary'>
-                                            <header class='panel-heading'>
-                                                <div class='panel-actions'>
-                                                    <a href='#' class='fa fa-caret-down'></a>
-                                                    <a href='#' class='fa fa-times'></a>
-                                                </div>
-                                                <h2 class='panel-title'>View Bongah</h2>
-                                                <p class='panel-subtitle'Use this form to edit your Bongah</p>
-                                            </header>
-                                            <div class='panel-body'>
 
-                             
-
-                                <!--  ADD ID !-->
-                                <?php $form->renderInfo('id'); ?> 
-
-                                <!--  ADD Title !-->
-                                <?php $form->renderInfo('title'); ?> 
-
-                                <!--  ADD Shomare Peygiri !-->
-                                <?php $form->renderInfo('peygiri'); ?> 
-
-                                <!--  ADD First Name !-->
-                                <?php $form->renderInfo('fname'); ?> 
-
-                                <!--  ADD Last Name !-->
-                                <?php $form->renderInfo('lname'); ?> 
-
-                                <!--  ADD Address !-->
-                                <?php $form->renderInfo('address'); ?> 
-
-                                <!--  ADD City !-->
-                                <?php $form->renderInfo('cityid'); ?> 
-
-                                <!--  ADD Latitude !-->
-                                <?php $form->renderInfo('latitude'); ?> 
-
-                                <!--  ADD Longitude !-->
-                                <?php $form->renderInfo('longitude'); ?> 
-
-                                <!--  ADD Locations Can Support !-->
-                                <?php $form->renderInfo('locationscansupport'); ?> 
-
-                                <!--  ADD Mobile !-->
-                                <?php $form->renderInfo('mobile'); ?> 
-
-                                <!--  ADD Phone !-->
-                                <?php $form->renderInfo('phone'); ?> 
-
-                                <!--  ADD Enable !-->
-                                <?php $form->renderInfo('enable'); ?> 
-
-                                <!--  ADD Featured !-->
-                                <?php $form->renderInfo('featured'); ?> 
-
-                                <!--  ADD Date !-->
-                                <?php $form->renderInfo('date'); ?> 
+                            <h3>مشخصات بنگاه</h3>
+                            <hr/>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <!-- Tilte !-->
+                                    <?php $viewForm->renderDecorated("title"); ?>
+                                </div>
+                                <div class='col-md-6'>
+                                    <!-- Peygiri !-->
+                                    <?php $viewForm->renderDecorated("peygiri"); ?>
+                                </div>
+                            </div>
 
 
-</div>
-            </section>
+
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <!-- First Name !-->
+                                    <?php $viewForm->renderDecorated("fname"); ?>
+
+                                </div>
+                                <div class='col-md-6'>
+                                    <!-- Last Name !-->
+                                    <?php $viewForm->renderDecorated("lname"); ?>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <h3>اطلاعات تماس</h3>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <!-- Mobile !-->
+                                    <?php $viewForm->renderDecorated("mobile"); ?>
+
+                                </div>
+                                <div class='col-md-6'>
+                                    <!--  Phone !-->
+                                    <?php $viewForm->renderDecorated("phone"); ?>
+                                </div>
+                            </div>
+
+                            <h3>موقعیت بنگاه</h3>
+                            <hr/>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <?php $viewForm->renderDecorated("cityid"); ?>
+                                </div>
+                                <div class='col-md-6'>
+                                    <?php $viewForm->renderDecorated("stateid"); ?>
+                                </div>
+                            </div>
+
+                            <!-- Address !-->
+                            <?php $viewForm->renderDecorated("address"); ?>
+
+                            <!-- Phone !-->
+                            <?php $viewForm->renderDecorated("locationscansupport"); ?>
+                            <hr/>
+                            <!-- Phone !-->
+                            <?php $viewForm->renderDecorated("map"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "logindetails") : ?>
+                    <!-- Login Details !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "logindetails" ? "active" : "" ?>">
+                        <form method="post">
+                            <!-- Email!-->
+                            <?php $viewForm->renderDecorated("email"); ?>
+
+                            <hr />
+                            <p>If you want to the user password, you have to enter new password again</p>
+
+                            <!-- Password!-->
+                            <?php $viewForm->renderDecorated("password"); ?>
+                            <?php $viewForm->renderDecorated("confirmpassword"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "profileimage") : ?>
+                    <!-- Profile Image !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "profileimage" ? "active" : "" ?>">
+                        <form method="post" enctype="multipart/form-data">
+                            <!-- Email!-->
+                            <?php $viewForm->renderDecorated("image"); ?>
+
+                            <!-- Password!-->
+                            <?php $viewForm->renderDecorated("file"); ?>
+
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $viewForm->renderDecorated("submit"); ?>
+                        </form>
+                    </div>
+                <?php elseif ($tab == "userlogs") : ?>
+                    <!-- User Logs !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "userlogs" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "orders") : ?>
+                    <!-- Orders !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "orders" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "purchasedsmspackages") : ?>
+                    <!-- Orders !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "purchasedsmspackages" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "sentmessages") : ?>
+                    <!-- Orders !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "sentmessages" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "purchasedpackages") : ?>
+                    <!-- Orders !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "purchasedpackages" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "opinions") : ?>
+                    <!-- Opinions !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "opinions" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</form>
+</div>
+<script>
+
+    var citiesid = [];
+    var cities = [];
+<?php
+foreach ($cities as $city) {
+    echo "citiesid[$city->id] = \"$city->name\";\n";
+    $ci = $city->getStateCitiesIDWithComma();
+    echo "cities[$city->stateid] = \"$ci\";\n";
+}
+?>
 
 
+    function onstatechange(selectedstate)
+    {
+        var ids = cities[selectedstate];
+        var cityids = ids.split(",");
+        // remove old cities
+        var citylisteleemnt = $('#cityid');
+        citylisteleemnt.find('option').remove().end();
+        $.each(cityids, function(index, id) {
+            if (index == 0)
+            {
+                oncitychange(citiesid[id]);
+            }
+            citylisteleemnt.append('<option value="' + id + '">' + citiesid[id] + '</option>');
+        });
+    }
+
+    function locatteToAddress(address)
+    {
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                $("#map_latitude").val(results[0].geometry.location.lat().toFixed(6)).trigger("change");
+                $("#map_longitude").val(results[0].geometry.location.lng().toFixed(6)).trigger("change");
+            } else {
+                alert("Lat and long cannot be found.");
+            }
+        });
+    }
+
+    function oncitychange(city)
+    {
+        var state = $("#stateid").find("option:selected").text();
+        var address = "ایران، " + city;
+        console.log(address);
+        locatteToAddress(address);
+    }
+
+    $("#stateid").change(function() {
+        onstatechange(this.value);
+    });
+    var addressChangeTimeOut = 0;
+    $("#address").change(function() {
+
+        clearTimeout(addressChangeTimeOut);
+        addressChangeTimeOut = setTimeout(function() {
+            var city = $("#cityid").find("option:selected").text();
+            var address = $("#address").val();
+            var address = "ایران، " + city + "،" + address;
+            console.log(address);
+            locatteToAddress(address);
+        }, 150);
+    });
+    var geocoder = new google.maps.Geocoder();
+    $("#cityid").change(function() {
+        var city = citiesid[$(this).val()];
+        oncitychange(city);
+    });
+
+
+</script>

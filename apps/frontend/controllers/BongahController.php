@@ -34,7 +34,7 @@ class BongahController extends ControllerBase {
 
         if (!isset($this->user)) {
 
-            $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت ثبت نام نمایید.");
+            $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
             $this->dispatcher->forward(array(
                 "controller" => "user",
                 "action" => "login",
@@ -188,7 +188,10 @@ class BongahController extends ControllerBase {
                         $b->smsmessageid = 1;
                         $b->distance = 0;
                         $b->tophone = $melkPhoneListner->getPhoneNumber();
-                        $b->type = 2;
+                        $b->type = 1;
+                        if (!$b->create()) {
+                            $this->LogError("Unable to store bongah sent message", $b->getMessagesAsLines());
+                        }
                     }
                 }
 
@@ -220,6 +223,9 @@ class BongahController extends ControllerBase {
                         $b->distance = $melk->getDistanceFromLocation($this->bongah->latitude, $this->bongah->longitude);
                         $b->tophone = $melk->getInfo()->private_mobile;
                         $b->type = 2;
+                        if (!$b->create()) {
+                            $this->LogError("Unable to store bongah sent message", $b->getMessagesAsLines());
+                        }
                     }
                 }
                 $this->flash->success("پیام شما با موفقیت ارسال گردید");

@@ -1,125 +1,124 @@
 <?php
 
-                        use Phalcon\Mvc\Model\Validator\Email as Email;
-                        use Simpledom\Core\AtaModel;
+use Simpledom\Core\AtaModel;
 
-                        class BongahSubscriber extends AtaModel {
+class BongahSubscriber extends AtaModel {
 
-                            public function getSource() {
-                                return 'bongahsubscriber';
-                            } 
-                            /**
-                             * ID
-                             * @var string
-                             */
-                            public $id;
+    public function getSource() {
+        return 'bongahsubscriber';
+    }
 
-                        /**
-                         * Set ID
-                         * @param type $id
-                         * @return BongahSubscriber
-                         */
-                       public function setId($id) {
-                            $this->id = $id;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * User ID
-                             * @var string
-                             */
-                            public $userid;
+    /**
+     * ID
+     * @var string
+     */
+    public $id;
 
-                        /**
-                         * Set User ID
-                         * @param type $userid
-                         * @return BongahSubscriber
-                         */
-                       public function setUserid($userid) {
-                            $this->userid = $userid;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * Bongah Subscribe Item
-                             * @var string
-                             */
-                            public $bongahsubscribeitemid;
+    /**
+     * Set ID
+     * @param type $id
+     * @return BongahSubscriber
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
 
-                        /**
-                         * Set Bongah Subscribe Item
-                         * @param type $bongahsubscribeitemid
-                         * @return BongahSubscriber
-                         */
-                       public function setBongahsubscribeitemid($bongahsubscribeitemid) {
-                            $this->bongahsubscribeitemid = $bongahsubscribeitemid;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * Date
-                             * @var string
-                             */
-                            public $date;
+    /**
+     * User ID
+     * @var string
+     */
+    public $userid;
 
-                        /**
-                         * Set Date
-                         * @param type $date
-                         * @return BongahSubscriber
-                         */
-                       public function setDate($date) {
-                            $this->date = $date;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * Order ID
-                             * @var string
-                             */
-                            public $orderid;
+    /**
+     * Set User ID
+     * @param type $userid
+     * @return BongahSubscriber
+     */
+    public function setUserid($userid) {
+        $this->userid = $userid;
+        return $this;
+    }
 
-                        /**
-                         * Set Order ID
-                         * @param type $orderid
-                         * @return BongahSubscriber
-                         */
-                       public function setOrderid($orderid) {
-                            $this->orderid = $orderid;
-                            return $this;
-                       } 
-                    
-                            public function getDate() {
-                                return date('Y-m-d H:m:s', $this->date);
-                            }
+    /**
+     * Bongah Subscribe Item
+     * @var string
+     */
+    public $bongahsubscribeitemid;
 
-                            public function getUserName() {
-                                return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
-                            }
+    /**
+     * Set Bongah Subscribe Item
+     * @param type $bongahsubscribeitemid
+     * @return BongahSubscriber
+     */
+    public function setBongahsubscribeitemid($bongahsubscribeitemid) {
+        $this->bongahsubscribeitemid = $bongahsubscribeitemid;
+        return $this;
+    }
 
+    /**
+     * Date
+     * @var string
+     */
+    public $date;
 
-                            /**
-                            *
-                            * @param type $parameters
-                            * @return BongahSubscriber
-                            */
-                            public static function findFirst($parameters = null) {
-                                return parent::findFirst($parameters);
-                            }
-                
-                            public function beforeValidationOnCreate() {
-                                 $this->date = time();
-                            }
+    /**
+     * Set Date
+     * @param type $date
+     * @return BongahSubscriber
+     */
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
 
+    /**
+     * Order ID
+     * @var string
+     */
+    public $orderid;
 
-                            public function beforeValidationOnSave() {
-                               
-                            }
+    /**
+     * Set Order ID
+     * @param type $orderid
+     * @return BongahSubscriber
+     */
+    public function setOrderid($orderid) {
+        $this->orderid = $orderid;
+        return $this;
+    }
 
-                            public function getPublicResponse() {
+    public function getDate() {
+        return date('Y-m-d H:m:s', $this->date);
+    }
+
+    public function getUserName() {
+        return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
+    }
+
+    /**
+     *
+     * @param type $parameters
+     * @return BongahSubscriber
+     */
+    public static function findFirst($parameters = null) {
+        return parent::findFirst($parameters);
+    }
+
+    public function beforeValidationOnCreate() {
+        $this->date = time();
+    }
+
+    public function beforeValidationOnSave() {
         
-                            }
+    }
 
-                        }
+    public function getPublicResponse() {
+        
+    }
 
+    public function getSubscribeItemName() {
+        return BongahSubscribeItem::findFirst($this->bongahsubscribeitemid)->name;
+    }
 
-                            
+}

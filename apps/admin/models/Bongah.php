@@ -374,4 +374,16 @@ class Bongah extends AtaModel {
         return $supportsName;
     }
 
+    public function getSupporrtedLocationsNameAsString() {
+        return implode(", ", $this->getSupporrtedLocationsName());
+    }
+
+    public function getImagelink() {
+        return User::findFirst($this->userid)->getImagelink();
+    }
+
+    public function getStateID() {
+        return City::findFirst($this->cityid)->stateid;
+    }
+
 }
