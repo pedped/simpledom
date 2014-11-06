@@ -143,7 +143,7 @@ class BongahController extends ControllerBase {
             }
             if ($toalluser) {
                 // find best users
-                $melks = Melk::findAreaLocatedMelks($areaIDs);
+                $melks = Melk::findAreaLocatedMelks($areaIDs, true);
                 $count = $melks->count();
                 $totalUsersSMSCount += $count;
             }
@@ -295,9 +295,9 @@ class BongahController extends ControllerBase {
 
         $this->view->toAllUsers = $tousers;
         if ($tousers) {
-            $count = Melk::findAreaLocatedMelks($areaIDs)->count();
+            $count = Melk::findAreaLocatedMelks($areaIDs, true)->count();
             $totalUsersSMSCount += $count;
-            $this->view->haveMelkCount = Melk::findAreaLocatedMelks($areaIDs)->count();
+            $this->view->haveMelkCount = Melk::findAreaLocatedMelks($areaIDs, true)->count();
         }
 
         // show total sms count

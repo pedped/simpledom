@@ -470,7 +470,7 @@ class MelkPhoneListner extends AtaModel {
         }
 
         // now we have melk phone listners
-        $melkPhoneListners = MelkPhoneListner::find(array("id IN (:ids:) AND status = 1", "bind" => array("ids" => implode(", ", $melkPhoneListnersIDs))));
+        $melkPhoneListners = MelkPhoneListner::find(array("id IN (:ids:) AND status = 1", "group" => "phoneid", "bind" => array("ids" => implode(", ", $melkPhoneListnersIDs))));
 
         return $melkPhoneListners;
     }

@@ -627,9 +627,10 @@ class Melk extends AtaModel {
     /**
      * get located and apporved melks in area
      * @param int[] $areaIDs
+     * @param boolean $groupByPhone should we group melks by id
      * @return Resultset
      */
-    public static function findAreaLocatedMelks($areaIDs) {
+    public static function findAreaLocatedMelks($areaIDs, $groupByPhone = false) {
 
         // as we need to use id in areaids, we have to check for each areaid
         $areas = array();
@@ -637,7 +638,11 @@ class Melk extends AtaModel {
             $areas[] = intval($areaid);
         }
         $melk = new Melk();
-        return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1");
+        if ($groupByPhone) {
+            return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid JOIN melkinfo ON melkinfo.melkid  = melk.id WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1 GROUP BY melkinfo.private_phone");
+        } else {
+            return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1");
+        }
     }
 
 }
