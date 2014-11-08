@@ -36,8 +36,8 @@ class BongahController extends ControllerBase {
 
             $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
             $this->dispatcher->forward(array(
-                "controller" => "user",
-                "action" => "login",
+                "controller" => "bongah",
+                "action" => "review",
                 "params" => array()
             ));
             return;
@@ -86,6 +86,10 @@ class BongahController extends ControllerBase {
         }
 
         $this->view->currentBongah = $this->bongah;
+    }
+
+    public function reviewAction() {
+        
     }
 
     public function waitforapproveAction() {

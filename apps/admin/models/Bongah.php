@@ -386,4 +386,16 @@ class Bongah extends AtaModel {
         return City::findFirst($this->cityid)->stateid;
     }
 
+    /**
+     * fetch Bongah Subscribed Plan
+     * @return BongahSubscribeItem
+     */
+    public function getSubscribedPlan() {
+        if ($this->bongahsubscribeitemid > 0 && $this->planvaliddate >= time()) {
+            return BongahSubscribeItem::findFirst($this->bongahsubscribeitemid);
+        } else {
+            return null;
+        }
+    }
+
 }
