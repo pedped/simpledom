@@ -239,6 +239,10 @@ footer .form-control {
     color: inherit  !important;
 }
 
+.btn{
+    font-family: naskh; 
+}
+
 footer .btn {
     background-color: #DA19C1  !important;
     color: #fff !important;
@@ -420,3 +424,19 @@ footer .btn {
 .tagit ui-widget{
     background: none !important;
 }
+
+.page-bongah .info-title{
+    font-family: naskh;
+}
+
+.page-bongah .fa{
+    font-size: 118px;
+    color: #970FBA;
+    margin-bottom: 15px;
+} 
+
+.page-bongah .info-description{
+    font-family: naskh;
+    font-size: 16px;
+    padding: 10px 35px;
+} 
