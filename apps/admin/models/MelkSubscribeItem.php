@@ -154,6 +154,14 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
         return $this;
     }
 
+    public function getFeaturedAsBool() {
+        return boolval($this->featured);
+    }
+
+    public function getValidDateHuman() {
+        return $this->validdate . " روز";
+    }
+
     /**
      *
      * @param type $parameters
@@ -177,6 +185,12 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
 
     public function getHumanPrice() {
         return Helper::GetPrice($this->price / 10000000);
+    }
+
+    public function getPurchaseButton() {
+
+        $uri = $this->getDI()->getUrl()->getBaseUri();
+        return "<a href='$uri/usersubscribe/purchase/$this->id' class='btn btn-success'>سفارش</a>";
     }
 
     /*     * *******************************************************************

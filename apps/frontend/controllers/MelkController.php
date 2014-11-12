@@ -818,8 +818,8 @@ class MelkController extends ControllerBaseFrontEnd {
 
                 // forward user to the melkview page
                 $this->dispatcher->forward(array(
-                    "controller" => "melk",
-                    "action" => "view",
+                    "controller" => "usersubscribe",
+                    "action" => "plans",
                     "params" => array($melkid)
                 ));
             }

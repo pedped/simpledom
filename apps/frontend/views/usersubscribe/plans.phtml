@@ -3,34 +3,26 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<?php if (isset($toSendBongahs) && count($toSendBongahs) > 0) : ?>
+    <?php
+    $namesArray = array();
+    foreach ($toSendBongahs as $bongah) {
+        $namesArray[] = "<span data-toggle='tooltip' data-placement='top' role='tooltip' title='$bongah->address'>" . $bongah->name . "</span>";
+    }
+    $namesArray = implode("، ", $namesArray);
+    ?>
+    <div class="alert alert-success send-melk-to-bongah-notice">
+        <h1 style="margin-top: 0px;"><span class="fa fa-envelope"></span> ارسال ملک به بنگاه داران</h1>
+        <p>آیا می دانستید بدون مراجعه به بنگاه می توانید همین حالا، مشخصات ملک خود را به<?php echo " <b>" . count($toSendBongahs) . "</b>"; ?> بنگاه که در<?php echo "<b>" . $melk->getInfo()->address . "</b>"; ?> واقع هستند، ارسال نمایید! <br/>برای مشاهده آدرس هر بنگاه نشانگر ماوس را بر روی هر بنگاه نگه دارید.</p>
+        <p class="addresses"><blockquote><?php echo $namesArray; ?></blockquote></p>
+    <p>در صورت تمایل به ارسال اطلاعات ملک به بنگاه داران، یکی از پلان های زیر را خریداری نمایید</p>
+    </div>
+    <script>
+        $('span[role="tooltip"]').tooltip();
+    </script>
+<?php endif; ?>
 <div class='row'>
-    <?php foreach ($plans as $plan) : ?>
-        <div class="col-md-3">
-            <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
-                <!-- Title !-->
-                <h3 class="title">
-                    <?php echo $plan->name; ?>
-                </h3>
-                <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
-                <p>نمایش ملک به مدت <?php echo $plan->validdate; ?> روز</p>
-                <hr/>
-                <p>تعداد املاک قابل مجاز: <?php echo $plan->melkscanadd; ?></p>
-                <hr/>
-                <?php if ($plan->sendmessagetousers == 1) : ?>
-                    <b>ارسال پیامک به کاربران</b>
-                    <p>ملک شما بعد از تایید توسط مدیر، به صورت سراسری برای افرادی که به دنبال ملک با مشخصات شما هستند ارسال می شود</p>
-                    <hr/>
-                <?php endif; ?>
-                <?php if ($plan->featured == 1) : ?>
-                    <b>نمایش ملک به صورت ویژه</b>
-                    <p>ملک شما در لیست به صورت ویژه نمایش داده خواهد شد</p>
-                    <hr/>
-                <?php endif; ?>
-
-                <!-- Button !-->
-                <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("usersubscribe/purchase/" . $plan->id); ?>">سفارش</a>
-            </div>
-
-        </div>
-    <?php endforeach; ?>
+    <div class='col-md-12'>
+        <?php echo $plans; ?>
+    </div>
 </div>

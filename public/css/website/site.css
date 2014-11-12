@@ -450,9 +450,11 @@ footer .btn {
     color: #373F4E;
     background-color: #E4E7FF;
     border-color: #A4A4DD;
+    font-family: naskh;
 }
 
 .send-melk-to-bongah-notice p{
     font-size: 16px;
     margin-bottom: 12px;
 }
+
