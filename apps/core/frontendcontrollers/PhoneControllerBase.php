@@ -2,6 +2,7 @@
 
 namespace Simpledom\Frontend\BaseControllers;
 
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\VerifyPhoneForm;
 use UserPhone;
 
@@ -29,8 +30,7 @@ class PhoneControllerBase extends ControllerBase {
 
 
         // check if the the phone belongs to user
-        $userphone = UserPhone::find(array("userid = :userid: AND phone = :phone:", "bind" => array(
-                        "userid" => $this->user->userid,
+        $userphone = UserPhone::find(array("phone = :phone:", "bind" => array(
                         "phone" => $phone
         )));
 
@@ -66,8 +66,7 @@ class PhoneControllerBase extends ControllerBase {
         // check if user entered any number
         if ($this->request->hasPost("verifycode")) {
             $userverifycode = $this->request->getPost("verifycode");
-            $userPhone = UserPhone::findFirst(array("userid = :userid: AND phone = :phone:", "bind" => array(
-                            "userid" => $this->user->userid,
+            $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array(
                             "phone" => $phone
             )));
 
@@ -77,11 +76,19 @@ class PhoneControllerBase extends ControllerBase {
                 $userPhone->verified = "1";
                 $userPhone->save();
                 $this->flash->success(sprintf(_("Your Phone Number, %s, has been verified successfully"), $phone));
-                $this->dispatcher->forward(array(
-                    "controller" => "user",
-                    "action" => "phones",
-                    "params" => array()
-                ));
+                if (isset($this->user)) {
+                    $this->dispatcher->forward(array(
+                        "controller" => "user",
+                        "action" => "phones",
+                        "params" => array()
+                    ));
+                } else {
+                    $this->dispatcher->forward(array(
+                        "controller" => "index",
+                        "action" => "index",
+                        "params" => array()
+                    ));
+                }
             } else {
                 // invalid number
                 $this->flash->error(_("Invalid Number, Please Check Your SMS Again"));

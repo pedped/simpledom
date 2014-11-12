@@ -170,11 +170,17 @@
 
                     <?php if (!$this->session->has("userid")) : ?>
 
-                        <!--  ADD First Name !-->
-                        <?php $form->renderDecorated('fname'); ?> 
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <!--  ADD First Name !-->
+                                <?php $form->renderDecorated('fname'); ?> 
+                            </div>
+                            <div class='col-md-6'>
+                                <!--  ADD Last name !-->
+                                <?php $form->renderDecorated('lname'); ?> 
 
-                        <!--  ADD Last name !-->
-                        <?php $form->renderDecorated('lname'); ?> 
+                            </div>
+                        </div>
 
                         <!--  ADD Email !-->
                         <?php $form->renderDecorated('email'); ?> 

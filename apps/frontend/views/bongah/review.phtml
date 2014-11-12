@@ -1,4 +1,4 @@
-<div class="panel">
+<div class="panel review">
     <div class="panel-body">
         <!--        <h1>پنل بنگاه داران</h1>
                 <hr/>-->
@@ -15,7 +15,7 @@
                 </h3>
                 <!-- Description !-->
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    بعد از عضویت شما در سامانه املاک گستر، شما قادر خواهید بود اطلاعات تمامی املاک اضافه شده در شهر خود را مشاهده نمایید
                 </p>
             </div>
             <div class='col-md-4'>
@@ -24,7 +24,7 @@
                     مشاهده املاک درخواستی
                 </h3>
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    افرادی که نیازمند ملک هستند می توانند به راحتی مشخصات ملک درخواستی خود را به سامانه اضافه نمایند. شما بنگاه دار گرامی میتوانید به تمامی مشخصات املاک درخواستی به همراه شماره تماس فرد درخواست کننده دسترسی داشته باشید
                 </p>
             </div>
             <div class='col-md-4'>
@@ -33,7 +33,7 @@
                     ارسال پیام به مالکان ملک
                 </h3>
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    با استفاده از پنل بنگاه داران شما قادر خواهید بود به افراد نیازمند ملک و افرادی که ملک خود را ارسال نموده اند پیامک ارسال نمایید
                 </p>
             </div>
         </div>
@@ -41,39 +41,47 @@
         <!-- row 2 !-->
         <div class='row center'>
             <div class='col-md-4'>
-                <span class="fa fa-envelope"></span>
+                <span class="fa fa-home"></span>
                 <h3 class="info-title">
-                    ارسال پیام به مالکان ملک
+                    مشاهده املاک تحت پوشش
                 </h3>
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    بر اساس موقعیت جغرافیایی شما، املاک نزدیک به بنگاه برای شما ارائه خواهد شد تا بتوانید بهترین بازدهی را داشته باشید
                 </p>
             </div>
             <div class='col-md-4'>
-                <span class="fa fa-envelope"></span>
+                <span class="fa fa-map-marker"></span>
                 <h3 class="info-title">
-                    ارسال پیام به مالکان ملک
+                    نمایش بنگاه در صفحه ملک
                 </h3>
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    در صورتی که ملک توسط کاربران معمولی به سایت اضافه گردند، بنگاه شما به عنوان بنگاه قابل رجوع جهت مشاهده ملک در صفحه ملک اضافه خواهد گردید
                 </p>
             </div>
             <div class='col-md-4'>
-                <span class="fa fa-envelope"></span>
+                <span class="fa fa-envelope-square"></span>
                 <h3 class="info-title">
-                    ارسال پیام به مالکان ملک
+                    دریافت املاک جدید به صورت پیامک
                 </h3>
                 <p class="info-description">
-                    سشی شسیشی سشیشس یتالشستالشستاش یمشسالیتایذ سشتایشسذ تیاشسذ یتاذشسیاتذیش ی 
+                    فرض کنید که بنگاه شما در منطقه نارمک تهران واقع شده است، هنگامی که شخصی ملک خود که در نارمک واقع شده است به سامانه اضافه میکند، اطلاعات ملک به رایگان برای شما ارسال خواهد گردید.
                 </p>
             </div>
+        </div>
+        <hr/>
+        <div class="alert alert-info center" style="font-family: naskh;">
+            در صورتی که نیاز به توضیحات تکمیلی دارید، لطفا با شماره<?php echo "<b>" . $websiteSettings->contactphone . "</b>"; ?>  تماس حاصل فرمایید
         </div>
         <hr/>
         <!-- Login Button !-->
         <div class='row center'>
             <div class='col-md-12'>
-                <a class="btn btn-lg btn-default" href="link">ورود</a>
-                <a class="btn btn-lg btn-primary" href="link">عضویت</a>
+                <a class="btn btn-lg btn-default" href="<?php echo $this->url->get("user/login"); ?>">ورود به پنل بنگاه داران</a>
+                <?php if (!$this->session->has("userid")) : ?>
+                    <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("user/register"); ?>">عضویت رایگان</a>
+                <?php else : ?>
+                    <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("bongah/add"); ?>">عضویت</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

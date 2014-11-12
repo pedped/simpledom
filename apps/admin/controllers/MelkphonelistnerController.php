@@ -83,10 +83,10 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','Purpose ID','Type ID','Bedroom Start','Bedroom End','Phone ID','Received Count','Status','Rent Price Start','Rent Price End','Rahn Start','Rahn End','Sale Start','Sale End','Date','City ID'
+                    'ID','Purpose ID','Type ID','Bedroom Start','Bedroom End','Phone ID','Received Count','Status','Rent Price Start','Rent Price End','Rahn Start','Rahn End','Sale Start','Sale End','Date','City ID' , 'Areas'
                 ))->
                 setFields(array(
-                    'id','melkpurposeid','melktypeid','bedroom_start','bedroom_end','phoneid','receivedcount','status','rent_price_start','rent_price_end','rent_pricerahn_start','rent_pricerahn_end','sale_price_start','sale_price_end','getDate()','cityid'
+                    'id','melkpurposeid','melktypeid','bedroom_start','bedroom_end','phoneid','receivedcount','status','rent_price_start','rent_price_end','rent_pricerahn_start','rent_pricerahn_end','sale_price_start','sale_price_end','getDate()','cityid' , 'getAreasNames()'
                 ))->
                 setEditUrl(
                         'edit'

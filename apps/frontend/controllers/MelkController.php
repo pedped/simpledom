@@ -593,10 +593,17 @@ class MelkController extends ControllerBaseFrontEnd {
     public function viewAction($id) {
 
         $melk = Melk::findFirst($id);
+
+        if (!$melk) {
+            $this->show404();
+            return;
+        }
+
         if (intval($melk->approved) == -2) {
             Helper::RedirectToURL(Config::getPublicUrl() . "error/404");
             return;
         }
+
 
 
         $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $melk->id)));
@@ -687,23 +694,27 @@ class MelkController extends ControllerBaseFrontEnd {
 
 
         // check for userid
-        if ($userPhone && intval($userPhone->userid) != intval($this->user->userid)) {
+        if ($userPhone && (!isset($this->user) || (isset($this->user) && intval($userPhone->userid) != intval($this->user->userid)))) {
             // user is ot valid
             $this->flash->error("شماره تماس شما توسط شخص دیگری ثبت گردیده است، در صورت اطمینان از شماره خود، توسط فرم تماس با ما این مهم را در جریان بگزارید");
             return;
         }
 
-        if ($userPhone && intval($userPhone->userid) == intval($this->user->userid)) {
+        if (isset($this->user) && $userPhone && intval($userPhone->userid) == intval($this->user->userid)) {
             
         } else if (!$userPhone) {
             // create user phone
             $userPhone = new UserPhone();
             $userPhone->phone = $phone;
-            $userPhone->userid = $this->user->userid;
+            $userPhone->userid = isset($this->user) ? $this->user->userid : null;
             if (!$userPhone->create()) {
-                $this->flash->success("خطا در هنگام اضافه کردن شماره تماس");
+                $this->flash->error("خطا در هنگام اضافه کردن شماره تماس");
+                $userPhone->showErrorMessages($this);
                 $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane shomare shaks : " . $userPhone->getMessagesAsLines());
                 return;
+            }else
+            {
+                
             }
         }
 
@@ -737,6 +748,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
         // check if the phone is valid
         if (!$userPhone->verified) {
+            $userPhone->sendVerificationNumber();
             $this->flash->success("برای دریافت املاک، نیاز است تا شماره خود را تایید نمایید");
             $this->dispatcher->forward(array(
                 "controller" => "phone",

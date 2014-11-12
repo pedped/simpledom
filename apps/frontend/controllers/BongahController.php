@@ -536,6 +536,10 @@ class BongahController extends ControllerBase {
         $this->view->form = $fr;
     }
 
+    public function iranlistAction($cityid = null, $page = 1) {
+        
+    }
+
     public function getMessageSize($text, &$isPersian) {
 
         $alhphabets = array();

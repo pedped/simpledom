@@ -20,11 +20,11 @@
         <div class='row cities-holder'>
             <?php foreach ($cities as $city): ?>            
                 <div class="col-md-3 col-sm-4 col-xs-6">
-                    <a class="cityname" href="<?php echo $this->url->get("$city->id" . "/" . "املاک-$city->name") . "/"; ?>">املاک <?php echo $city->name; ?></a>
+                    <a class="cityname" href="<?php echo $this->url->get("$city->id" . "/" . "املاک-$city->name") . "/1"; ?>">املاک <?php echo $city->name; ?></a>
                     <?php
                     $areas = array();
                     foreach ($cityAreas[$city->id] as $area) {
-                        $url = $this->url->get("منطقه" . "/" . $area->cityid . "/" . $area->id . "/" . "املاک-$city->name");
+                        $url = $this->url->get("منطقه" . "/" . $area->cityid . "/" . $area->id . "/" . "املاک-$city->name" );
                         $areas[] = "<a href='" . $url . "'>$area->name ($area->total)</a>";
                     }
                     $areas = implode("-", $areas);

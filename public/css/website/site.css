@@ -209,11 +209,11 @@ body{
     width: 100px;
 }
 
-.index-large-button{
+.index-large-button {
     width: 33.3333% !important;
     padding: 15px !important;
-    font-size: 25px !important;
-    color: #CF2AA5;
+    font-size: 20px !important;
+    color: #B210C7;
 }
 
 .footer .head {
@@ -429,13 +429,14 @@ footer .btn {
     font-family: naskh;
 }
 
-.page-bongah .fa{
+.page-bongah .review .fa{
     font-size: 118px;
-    color: #970FBA;
+    color: rgba(151, 15, 186, 1);
     margin-bottom: 15px;
+    text-shadow: 0px 5px 11px #B3B3B3;
 } 
 
-.page-bongah .info-description{
+.page-bongah .review .info-description{
     font-family: naskh;
     font-size: 16px;
     padding: 10px 35px;

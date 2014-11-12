@@ -21,7 +21,7 @@ class CreateBongahForm extends AtaForm {
 
         // Shomare Peygiri
         $peygiri = new TextElement('peygiri');
-        $peygiri->setLabel('شماره پیگیری بنگاه');
+        $peygiri->setLabel('شماره صنفی');
         //$peygiri->setAttribute('placeholder', 'Enter your Shomare Peygiri');
         $peygiri->setAttribute('class', 'form-control');
         $peygiri->addValidator(new PresenceOf(array(
