@@ -2,8 +2,10 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use PriceViewer;
 use Simpledom\Core\AtaForm;
 use Simpledom\Frontend\BaseControllers\IndexControllerBase;
+use SMSCreditCost;
 use TagEditElement;
 
 class IndexController extends IndexControllerBase {
@@ -22,6 +24,31 @@ class IndexController extends IndexControllerBase {
         $fr->add($element);
         $this->view->form = $fr;
         $this->handleFormScripts($fr);
+    }
+
+    public function indexAction() {
+        parent::indexAction();
+
+        $viewr = new PriceViewer();
+        $viewr->setPlans(SMSCreditCost::find());
+        $viewr->setHeaderFieldName("title");
+        $viewr->setSetPriceRowIndex(2);
+        $viewr->setSetPurchaseFieldName("price");
+        $viewr->setFields(array(
+            "id",
+            "title",
+            "price",
+            "description",
+        ));
+        $viewr->setInfos(array(
+            "کد",
+            "تیتر",
+            "قیمت",
+            "توضیحات",
+        ));
+
+        $kk = $viewr->Create();
+        $this->view->plansss = $kk;
     }
 
 }
