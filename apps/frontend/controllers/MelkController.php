@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Area;
 use AtaPaginator;
+use BongahAmlakKeshvar;
 use City;
 use CreateMelkForm;
 use EmailItems;
@@ -677,6 +678,21 @@ class MelkController extends ControllerBaseFrontEnd {
         // get nearser bongahs
         $this->view->bongahs = $melk->getNearsetBongahs();
 
+        if (true || (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
+            // find apprch bongahs
+            $toSendBongahs = BongahAmlakKeshvar::find(
+                            array(
+                                "cityid = :cityid: AND address LIKE CONCAT('%' , :query: , '%') ",
+                                "bind" => array(
+                                    "cityid" => $melk->cityid,
+                                    "query" => $melk->getInfo()->address
+                                )
+                            )
+            );
+
+            $this->view->toSendBongahs = $toSendBongahs;
+        }
+
         $this->view->form = $form;
         $this->view->melk = $melk;
 
@@ -712,8 +728,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 $userPhone->showErrorMessages($this);
                 $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane shomare shaks : " . $userPhone->getMessagesAsLines());
                 return;
-            }else
-            {
+            } else {
                 
             }
         }
@@ -812,13 +827,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
         // Send SMS
         $username = $this->user->getFullName();
-        $gender = $this->user->gender;
-        $name = "";
-        if (intval($gender) == 1) {
-            $name = "جناب آقای " . $username;
-        } else {
-            $name = "سرکار خانم " . $username;
-        }
+        $name = $username . " عزیز";
         SMSManager::SendSMS($phone, $name . "،" . " " . "ملک شما با موفقیت اضافه گردید" . "\nکد ملک شما: " . $melkid, SmsNumber::findFirst()->id);
     }
 

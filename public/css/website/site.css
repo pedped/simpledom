@@ -441,3 +441,18 @@ footer .btn {
     font-size: 16px;
     padding: 10px 35px;
 } 
+
+.send-melk-to-bongah-notice h1{
+    color: #1857A4;    
+}
+
+.send-melk-to-bongah-notice{
+    color: #373F4E;
+    background-color: #E4E7FF;
+    border-color: #A4A4DD;
+}
+
+.send-melk-to-bongah-notice p{
+    font-size: 16px;
+    margin-bottom: 12px;
+}
