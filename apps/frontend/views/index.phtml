@@ -16,12 +16,11 @@ use Phalcon\Tag; ?>
         <?php $this->assets->outputCss('elementscss') ?>
         <?php echo Tag::getTitle() ?>
 
-        <?php echo $metaDescription; ?>
         <!-- Meta Keywords and Meta Description !-->
-        <?php if (isset($websiteSettings->metadata) && strlen($websiteSettings->metadata) > 0) : ?>
+        <?php if (!(isset($metaDescription) && strlen($metaDescription) > 0) && isset($websiteSettings->metadata) && strlen($websiteSettings->metadata) > 0) : ?>
             <meta name="description" content="<?php echo $websiteSettings->metadata; ?>">
         <?php endif; ?>
-        <?php if (isset($websiteSettings->keywords) && strlen($websiteSettings->keywords) > 0) : ?>
+        <?php if (!(isset($metaKeywords) && strlen($metaKeywords) > 0) && isset($websiteSettings->keywords) && strlen($websiteSettings->keywords) > 0) : ?>
             <meta name="keywords" content="<?php echo $websiteSettings->keywords; ?>">
         <?php endif; ?>
         <!-- Check For Custom Pages !-->
