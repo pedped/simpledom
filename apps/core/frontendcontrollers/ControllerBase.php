@@ -96,7 +96,7 @@ abstract class ControllerBase extends AtaController {
         // CSS in the header
         $this->assets
                 ->collection('header')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://notifysystem.edspace.org/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
@@ -105,7 +105,7 @@ abstract class ControllerBase extends AtaController {
         //Javascripts in the footer
         $this->assets
                 ->collection('footer')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://notifysystem.edspace.org/')
                 ->addJs('js/jquery/jquery.min.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
 
@@ -113,10 +113,10 @@ abstract class ControllerBase extends AtaController {
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
-                ->setPrefix('http://melk.edspace.org/');
+                ->setPrefix('http://notifysystem.edspace.org/');
         $this->assets
                 ->collection('elementscss')
-                ->setPrefix('http://melk.edspace.org/');
+                ->setPrefix('http://notifysystem.edspace.org/');
         $this->assets
                 ->collection('externalscripts');
 

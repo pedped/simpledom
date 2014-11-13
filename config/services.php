@@ -112,7 +112,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('http://melk.edspace.org/');
+    $url->setBaseUri('http://notifysystem.edspace.org/');
 
     return $url;
 };

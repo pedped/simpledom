@@ -1,0 +1,72 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit Organ</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Organ</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD Name !-->
+                                <?php $form->renderDecorated('name'); ?> 
+
+                                <!--  ADD By User !-->
+                                <?php $form->renderDecorated('byuserid'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderDecorated('address'); ?> 
+
+                                <!--  ADD State ID !-->
+                                <?php $form->renderDecorated('stateid'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderDecorated('description'); ?> 
+
+                                <!--  ADD Phone Number !-->
+                                <?php $form->renderDecorated('phonenumber'); ?> 
+
+                                <!--  ADD SMS Credit !-->
+                                <?php $form->renderDecorated('smscredit'); ?> 
+
+                                <!--  ADD Interface URL !-->
+                                <?php $form->renderDecorated('interfaceurl'); ?> 
+
+                                <!--  ADD Use Interface !-->
+                                <?php $form->renderDecorated('userinterface'); ?> 
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderDecorated('status'); ?> 
+
+                                <!--  ADD Disable Message !-->
+                                <?php $form->renderDecorated('disablemessage'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+
