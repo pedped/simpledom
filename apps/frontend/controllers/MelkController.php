@@ -37,12 +37,27 @@ class MelkController extends ControllerBaseFrontEnd {
     private $melkSubscription;
 
     public function initialize() {
-        parent::initialize();
+
 
         $cityID = $this->dispatcher->getParam("cityid");
         if (isset($cityID)) {
-            $this->setPageTitle("املاک" . " " . City::findFirst($cityID)->name);
+            $cityname = City::findFirst($cityID)->name;
+            $this->setPageTitle("املاک" . " " . $cityname);
+            $this->setMetaDescription("املاک $cityname ، خرید و فروش، رهن و اجاره خانه، زمین ، اپارتمان در $cityname");
+            $this->setMetaKeywords(implode(", ", array(
+                "املاک" . " " . $cityname,
+                "خرید خانه " . $cityname,
+                "خرید اپارتمان " . $cityname,
+                "خرید ویلا " . $cityname,
+                "اجاره خانه " . $cityname,
+                "رهن خانه " . $cityname,
+                "اجاره آپارتمان " . $cityname,
+                "رهن آپارتمانه " . $cityname,
+                "خرید و فروش خانه ",
+            )));
         }
+
+        parent::initialize();
     }
 
     public function startAction() {

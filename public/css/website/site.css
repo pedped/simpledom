@@ -43,7 +43,7 @@
 
 
 .melk-wizard a{
-    font-size: 19px;
+    font-size: 18px;
 }
 .melk-wizard li{
     padding: 5px;
@@ -458,3 +458,6 @@ footer .btn {
     margin-bottom: 12px;
 }
 
+.ui-widget-content {
+    background-image: none !important;
+}
