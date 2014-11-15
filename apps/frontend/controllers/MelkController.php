@@ -42,7 +42,6 @@ class MelkController extends ControllerBaseFrontEnd {
         $cityID = $this->dispatcher->getParam("cityid");
         if (isset($cityID)) {
             $cityname = City::findFirst($cityID)->name;
-            $this->setPageTitle("املاک" . " " . $cityname);
             $this->setMetaDescription("املاک $cityname ، خرید و فروش، رهن و اجاره خانه، زمین ، اپارتمان در $cityname");
             $this->setMetaKeywords(implode(", ", array(
                 "املاک" . " " . $cityname,
@@ -55,9 +54,11 @@ class MelkController extends ControllerBaseFrontEnd {
                 "رهن آپارتمانه " . $cityname,
                 "خرید و فروش خانه ",
             )));
+            parent::initialize();
+            $this->setPageTitle("املاک" . " " . $cityname);
+        } else {
+            parent::initialize();
         }
-
-        parent::initialize();
     }
 
     public function startAction() {
@@ -633,6 +634,9 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setMarkTitle("موقعیت ملک");
         $form->get('map')->setMarkDescription("موقعیت ملک");
         $form->get('map')->setZoom(13);
+        
+        // set page title
+        $this->setPageTitle($melk->getQuickInfo());
 
 
         // check if user can remove the melk

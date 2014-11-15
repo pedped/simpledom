@@ -212,8 +212,9 @@ body{
 .index-large-button {
     width: 33.3333% !important;
     padding: 15px !important;
-    font-size: 20px !important;
-    color: #B210C7;
+    font-size: 28px !important;
+    font-family: yekan !important;
+    color: #880699;
 }
 
 .footer .head {
@@ -459,5 +460,19 @@ footer .btn {
 }
 
 .ui-widget-content {
-    background-image: none !important;
+    background: none !important;
+}
+
+.width_100{
+    width: 100%;
+}
+
+.custom-website-nav a{
+    font-size: 22px;
+}
+
+.custom-website .tab-pane {
+    background-color: #fff;
+    padding: 25px;
+    border: 1px solid #D8D8D8;
 }

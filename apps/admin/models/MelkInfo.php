@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
 
 class MelkInfo extends AtaModel {
@@ -187,6 +188,7 @@ class MelkInfo extends AtaModel {
     public $canreferbongah;
     public $description;
     public $bongahid;
+    public $sentinfobongahs;
 
     public function getCanreferbongah() {
         return $this->canreferbongah;
@@ -204,6 +206,31 @@ class MelkInfo extends AtaModel {
     public function setDescription($description) {
         $this->description = $description;
         return $this;
+    }
+
+    public function hasSentInfoToBongahs() {
+        return isset($this->sentinfobongahs) && strlen($this->sentinfobongahs) > 0;
+    }
+
+    /**
+     * 
+     * @return Resultset
+     */
+    public function getSentInfoBongahs() {
+
+        if (!$this->hasSentInfoToBongahs()) {
+            return array();
+        }
+        // explode ids
+        $ids = explode(",", $this->sentinfobongahs);
+        $validateDate = array();
+        foreach ($ids as $id) {
+            $validateDate[] = (int) $id;
+        }
+
+
+        // fetch items
+        return BongahAmlakKeshvar::find("id IN (" . implode($validateDate) . ")");
     }
 
     /**
