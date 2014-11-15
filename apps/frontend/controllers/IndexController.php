@@ -18,7 +18,7 @@ class IndexController extends IndexControllerBase {
 //                . "response(query.term + 'yes');"
 //                . "}");
 
-        $element->setAutocompleteSource("'http://melk.edspace.org/api/user/list'");
+        $element->setAutocompleteSource("'http://www.moshavereh.co/api/user/list'");
 
         $fr = new AtaForm();
         $fr->add($element);

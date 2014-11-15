@@ -155,7 +155,7 @@ class Module implements ModuleDefinitionInterface {
 
         $di->set('url', function() {
             $url = new Url();
-            $url->setBaseUri('http://melk.edspace.org/');
+            $url->setBaseUri('http://www.moshavereh.co/');
             return $url;
         });
 

@@ -4,15 +4,15 @@ return new \Phalcon\Config(array(
     'database' => array(
         'adapter' => 'Mysql',
         'host' => 'localhost',
-        'username' => 'melkyab',
-        'password' => '8&4m0eIu8&4m0eIu',
-        'dbname' => 'melkyab',
+        'username' => 'atamoshavereh',
+        'password' => 'm2i9kQ~8m2i9kQ~8',
+        'dbname' => 'ataalla_moshaverehdb',
     ),
     'application' => array(
         'controllersDir' => __DIR__ . '/../controllers/',
         'modelsDir' => __DIR__ . '/../models/',
         'viewsDir' => __DIR__ . '/../views/',
-        'baseUri' => 'http://melk.edspace.org/admin/',
+        'baseUri' => 'http://www.moshavereh.co/admin/',
         "hello" => "test",
         "bang" => "he"
     )
