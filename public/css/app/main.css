@@ -223,3 +223,34 @@ ul.tagit li{
     font-size: 20px;
     float: right  !important;
 }
+
+.table-price th{
+    text-align: center;
+    font-size: 200%; 
+}
+.table-price td{
+    text-align: center;
+    font-size: 150%; 
+    vertical-align: middle !important;
+}
+.table-price .price{
+    font-size: 130%;
+    margin-bottom: 0px;
+    vertical-align: middle;
+}
+
+.table-price .price-row td{
+    font-size: 200%;
+    margin-bottom: 0px;
+    vertical-align: middle;
+}
+
+.table-price .title
+{
+    color: #FF2C54;
+}
+
+.table-price .fa-check{
+    color: #0F7918;
+    font-size: 166%;
+}

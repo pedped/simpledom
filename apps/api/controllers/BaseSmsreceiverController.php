@@ -43,7 +43,7 @@ abstract class BaseSmsreceiverController extends ControllerBase {
         // sms received from valid provider
         $received = new ReceivedSMS();
         $received->fromnumber = $to;
-        $received->message = $text;
+        $received->message = isset($_GET["message"]) ? $_GET["message"] : $text;
         $received->phone = $fromnumber;
         $received->provider = $smsProviderID;
         $received->ip = $_SERVER["REMOTE_ADDR"];
