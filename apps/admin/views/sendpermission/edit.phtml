@@ -6,34 +6,32 @@
                             <form method='post'>
                                 <div class='row'>
                                     <div class='col-lg-12'>
-                                        <section class='panel panel-primary'>
+                                        <section class='panel'>
                                             <header class='panel-heading'>
                                                 <div class='panel-actions'>
                                                     <a href='#' class='fa fa-caret-down'></a>
                                                     <a href='#' class='fa fa-times'></a>
                                                 </div>
-                                                <h2 class='panel-title'>View Post</h2>
-                                                <p class='panel-subtitle'Use this form to edit your Post</p>
+                                                <h2 class='panel-title'>Edit SendPermission</h2>
+                                                <p class='panel-subtitle'Use this form to edit your SendPermission</p>
                                             </header>
                                             <div class='panel-body'>
 
                              
 
-                                <!--  ADD ID !-->
-                                <?php $form->renderInfo('id'); ?> 
+                                <!--  ADD User Post From !-->
+                                <?php $form->renderDecorated('userpost1'); ?> 
 
-                                <!--  ADD Organ ID !-->
-                                <?php $form->renderInfo('organid'); ?> 
+                                <!--  ADD User Post To !-->
+                                <?php $form->renderDecorated('userpost2'); ?> 
 
-                                <!--  ADD Name !-->
-                                <?php $form->renderInfo('name'); ?> 
+                                <!--  ADD Can Send !-->
+                                <?php $form->renderDecorated('cansend'); ?> 
 
-                                <!--  ADD Key !-->
-                                <?php $form->renderInfo('key'); ?> 
 
-                                <!--  ADD SMS Key !-->
-                                <?php $form->renderInfo('smskey'); ?> 
-
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
 
 </div>
             </section>

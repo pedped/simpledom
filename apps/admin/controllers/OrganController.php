@@ -1,7 +1,8 @@
 <?php
-namespace Simpledom\Admin\Controllers;
-    use Simpledom\Admin\BaseControllers\ControllerBase;
 
+namespace Simpledom\Admin\Controllers;
+
+use Simpledom\Admin\BaseControllers\ControllerBase;
 use AtaPaginator;
 use Organ;
 use OrganForm;
@@ -44,6 +45,7 @@ class OrganController extends ControllerBase {
                 $organ->status = $this->request->getPost('status', 'string');
                 $organ->disablemessage = $this->request->getPost('disablemessage', 'string');
                 $organ->date = $this->request->getPost('date', 'string');
+                $organ->smsnumberid = $this->request->getPost('smsnumberid', 'string');
                 if (!$organ->create()) {
                     $organ->showErrorMessages($this);
                 } else {
@@ -81,10 +83,10 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','Name','By User','Address','State ID','City ID','Description','Phone Number','SMS Credit','Interface URL','Use Interface','Status','Disable Message','Date'
+                    'ID', 'Name', 'By User', 'Address', 'State ID', 'City ID', 'Description', 'Phone Number', 'SMS Credit', 'Interface URL', 'Use Interface', 'Status', 'Disable Message', 'Date'
                 ))->
                 setFields(array(
-                    'id','name','byuserid','address','stateid','cityid','description','phonenumber','smscredit','interfaceurl','userinterface','status','disablemessage','getDate()'
+                    'id', 'name', 'byuserid', 'address', 'stateid', 'cityid', 'description', 'phonenumber', 'smscredit', 'interfaceurl', 'userinterface', 'status', 'disablemessage', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -150,31 +152,32 @@ class OrganController extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $organ = Organ::findFirst($id);
-                                $organ->name = $this->request->getPost('name', 'string');
+                $organ->name = $this->request->getPost('name', 'string');
 
-                                $organ->byuserid = $this->request->getPost('byuserid', 'string');
+                $organ->byuserid = $this->request->getPost('byuserid', 'string');
 
-                                $organ->address = $this->request->getPost('address', 'string');
+                $organ->address = $this->request->getPost('address', 'string');
 
-                                $organ->stateid = $this->request->getPost('stateid', 'string');
+                $organ->stateid = $this->request->getPost('stateid', 'string');
 
-                                $organ->cityid = $this->request->getPost('cityid', 'string');
+                $organ->cityid = $this->request->getPost('cityid', 'string');
 
-                                $organ->description = $this->request->getPost('description', 'string');
+                $organ->description = $this->request->getPost('description', 'string');
 
-                                $organ->phonenumber = $this->request->getPost('phonenumber', 'string');
+                $organ->phonenumber = $this->request->getPost('phonenumber', 'string');
 
-                                $organ->smscredit = $this->request->getPost('smscredit', 'string');
+                $organ->smscredit = $this->request->getPost('smscredit', 'string');
 
-                                $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
+                $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
 
-                                $organ->userinterface = $this->request->getPost('userinterface', 'string');
+                $organ->userinterface = $this->request->getPost('userinterface', 'string');
 
-                                $organ->status = $this->request->getPost('status', 'string');
+                $organ->status = $this->request->getPost('status', 'string');
 
-                                $organ->disablemessage = $this->request->getPost('disablemessage', 'string');
+                $organ->disablemessage = $this->request->getPost('disablemessage', 'string');
+                $organ->smsnumberid = $this->request->getPost('smsnumberid', 'string');
 
-                                $organ->date = $this->request->getPost('date', 'string');
+                $organ->date = $this->request->getPost('date', 'string');
                 if (!$organ->save()) {
                     $organ->showErrorMessages($this);
                 } else {
@@ -184,26 +187,26 @@ class OrganController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('name')->setDefault($organItem->name);
-                        $fr->get('byuserid')->setDefault($organItem->byuserid);
-                        $fr->get('address')->setDefault($organItem->address);
-                        $fr->get('stateid')->setDefault($organItem->stateid);
-                        $fr->get('cityid')->setDefault($organItem->cityid);
-                        $fr->get('description')->setDefault($organItem->description);
-                        $fr->get('phonenumber')->setDefault($organItem->phonenumber);
-                        $fr->get('smscredit')->setDefault($organItem->smscredit);
-                        $fr->get('interfaceurl')->setDefault($organItem->interfaceurl);
-                        $fr->get('userinterface')->setDefault($organItem->userinterface);
-                        $fr->get('status')->setDefault($organItem->status);
-                        $fr->get('disablemessage')->setDefault($organItem->disablemessage);
-                        $fr->get('date')->setDefault($organItem->date); 
-            }
-            
+            $fr->get('name')->setDefault($organItem->name);
+            $fr->get('byuserid')->setDefault($organItem->byuserid);
+            $fr->get('address')->setDefault($organItem->address);
+            $fr->get('stateid')->setDefault($organItem->stateid);
+            $fr->get('cityid')->setDefault($organItem->cityid);
+            $fr->get('description')->setDefault($organItem->description);
+            $fr->get('phonenumber')->setDefault($organItem->phonenumber);
+            $fr->get('smscredit')->setDefault($organItem->smscredit);
+            $fr->get('interfaceurl')->setDefault($organItem->interfaceurl);
+            $fr->get('userinterface')->setDefault($organItem->userinterface);
+            $fr->get('smsnumberid')->setDefault($organItem->smsnumberid);
+            $fr->get('status')->setDefault($organItem->status);
+            $fr->get('disablemessage')->setDefault($organItem->disablemessage);
+            $fr->get('date')->setDefault($organItem->date);
+        }
+
         $this->view->form = $fr;
     }
 
@@ -214,8 +217,22 @@ class OrganController extends ControllerBase {
 
         $form = new OrganForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('name')->setDefault($item->name);$form->get('byuserid')->setDefault($item->byuserid);$form->get('address')->setDefault($item->address);$form->get('stateid')->setDefault($item->stateid);$form->get('cityid')->setDefault($item->cityid);$form->get('description')->setDefault($item->description);$form->get('phonenumber')->setDefault($item->phonenumber);$form->get('smscredit')->setDefault($item->smscredit);$form->get('interfaceurl')->setDefault($item->interfaceurl);$form->get('userinterface')->setDefault($item->userinterface);$form->get('status')->setDefault($item->status);$form->get('disablemessage')->setDefault($item->disablemessage);$form->get('date')->setDefault($item->date);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('name')->setDefault($item->name);
+        $form->get('byuserid')->setDefault($item->byuserid);
+        $form->get('address')->setDefault($item->address);
+        $form->get('stateid')->setDefault($item->stateid);
+        $form->get('cityid')->setDefault($item->cityid);
+        $form->get('description')->setDefault($item->description);
+        $form->get('phonenumber')->setDefault($item->phonenumber);
+        $form->get('smscredit')->setDefault($item->smscredit);
+        $form->get('interfaceurl')->setDefault($item->interfaceurl);
+        $form->get('userinterface')->setDefault($item->userinterface);
+        $form->get('smsnumberid')->setDefault($item->smsnumberid);
+        $form->get('status')->setDefault($item->status);
+        $form->get('disablemessage')->setDefault($item->disablemessage);
+        $form->get('date')->setDefault($item->date);
+        $this->view->form = $form;
     }
 
 }

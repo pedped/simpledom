@@ -20,6 +20,7 @@ class Module implements ModuleDefinitionInterface {
 
         $loader->registerNamespaces(
                 array(
+                    'Simpledom\Core\Classes' => dirname(__DIR__) . '/core/class/',
                     'Simpledom\Api\Controllers' => __DIR__ . '/controllers/',
                     'Simpledom\Core' => dirname(__DIR__) . '/core/',
                 )
@@ -61,11 +62,12 @@ class Module implements ModuleDefinitionInterface {
         $loader->registerDirs(
                 array(
                     dirname(__DIR__) . '\\admin\\models\\',
+                    dirname(__DIR__) . '\\core\\class\\',
                     __DIR__ . '\\models\\',
                     __DIR__ . '\\core\\',
                     __DIR__ . '\\core\\form\\',
                     __DIR__ . '\\core\\element\\',
-                    __DIR__ . '\\controllers\\'
+                    __DIR__ . '\\controllers\\',
                 )
         )->register();
 
@@ -102,7 +104,8 @@ class Module implements ModuleDefinitionInterface {
                 'host' => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname' => $config->database->dbname
+                'dbname' => $config->database->dbname,
+                'charset' => 'utf8'
             ));
 
             //Assign the eventsManager to the db adapter instance

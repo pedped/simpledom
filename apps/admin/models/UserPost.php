@@ -1,101 +1,104 @@
 <?php
 
-                        use Phalcon\Mvc\Model\Validator\Email as Email;
-                        use Simpledom\Core\AtaModel;
+use Simpledom\Core\AtaModel;
 
-                        class UserPost extends AtaModel {
+class UserPost extends AtaModel {
 
-                            public function getSource() {
-                                return 'userpost';
-                            } 
-                            /**
-                             * ID
-                             * @var string
-                             */
-                            public $id;
+    public function getSource() {
+        return 'userpost';
+    }
 
-                        /**
-                         * Set ID
-                         * @param type $id
-                         * @return UserPost
-                         */
-                       public function setId($id) {
-                            $this->id = $id;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * User ID
-                             * @var string
-                             */
-                            public $userid;
+    /**
+     * ID
+     * @var string
+     */
+    public $id;
 
-                        /**
-                         * Set User ID
-                         * @param type $userid
-                         * @return UserPost
-                         */
-                       public function setUserid($userid) {
-                            $this->userid = $userid;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * Post ID
-                             * @var string
-                             */
-                            public $postid;
+    /**
+     * Set ID
+     * @param type $id
+     * @return UserPost
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
 
-                        /**
-                         * Set Post ID
-                         * @param type $postid
-                         * @return UserPost
-                         */
-                       public function setPostid($postid) {
-                            $this->postid = $postid;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * Code
-                             * @var string
-                             */
-                            public $code;
+    /**
+     * User ID
+     * @var string
+     */
+    public $userid;
 
-                        /**
-                         * Set Code
-                         * @param type $code
-                         * @return UserPost
-                         */
-                       public function setCode($code) {
-                            $this->code = $code;
-                            return $this;
-                       } 
-                    
+    /**
+     * Set User ID
+     * @param type $userid
+     * @return UserPost
+     */
+    public function setUserid($userid) {
+        $this->userid = $userid;
+        return $this;
+    }
 
-                            /**
-                            *
-                            * @param type $parameters
-                            * @return UserPost
-                            */
-                            public static function findFirst($parameters = null) {
-                                return parent::findFirst($parameters);
-                            }
-                
-                            public function beforeValidationOnCreate() {
-                                 
-                            }
+    /**
+     * Post ID
+     * @var string
+     */
+    public $postid;
 
+    /**
+     * Set Post ID
+     * @param type $postid
+     * @return UserPost
+     */
+    public function setPostid($postid) {
+        $this->postid = $postid;
+        return $this;
+    }
 
-                            public function beforeValidationOnSave() {
-                               
-                            }
+    /**
+     * Code
+     * @var string
+     */
+    public $code;
 
-                            public function getPublicResponse() {
+    /**
+     * Set Code
+     * @param type $code
+     * @return UserPost
+     */
+    public function setCode($code) {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
+     *
+     * @param type $parameters
+     * @return UserPost
+     */
+    public static function findFirst($parameters = null) {
+        return parent::findFirst($parameters);
+    }
+
+    public function beforeValidationOnCreate() {
         
-                            }
+    }
 
-                        }
+    public function beforeValidationOnSave() {
+        
+    }
 
+    public function getPublicResponse() {
+        
+    }
 
-                            
+    /**
+     * 
+     * @return User
+     */
+    public function getUser() {
+        return User::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+    }
+
+}

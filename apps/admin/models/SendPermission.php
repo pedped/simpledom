@@ -3,10 +3,10 @@
                         use Phalcon\Mvc\Model\Validator\Email as Email;
                         use Simpledom\Core\AtaModel;
 
-                        class Post extends AtaModel {
+                        class SendPermission extends AtaModel {
 
                             public function getSource() {
-                                return 'post';
+                                return 'sendpermission';
                             } 
                             /**
                              * ID
@@ -17,7 +17,7 @@
                         /**
                          * Set ID
                          * @param type $id
-                         * @return Post
+                         * @return SendPermission
                          */
                        public function setId($id) {
                             $this->id = $id;
@@ -25,66 +25,50 @@
                        } 
                      
                             /**
-                             * Organ ID
+                             * User Post From
                              * @var string
                              */
-                            public $organid;
+                            public $userpost1;
 
                         /**
-                         * Set Organ ID
-                         * @param type $organid
-                         * @return Post
+                         * Set User Post From
+                         * @param type $userpost1
+                         * @return SendPermission
                          */
-                       public function setOrganid($organid) {
-                            $this->organid = $organid;
+                       public function setUserpost1($userpost1) {
+                            $this->userpost1 = $userpost1;
                             return $this;
                        } 
                      
                             /**
-                             * Name
+                             * User Post To
                              * @var string
                              */
-                            public $name;
+                            public $userpost2;
 
                         /**
-                         * Set Name
-                         * @param type $name
-                         * @return Post
+                         * Set User Post To
+                         * @param type $userpost2
+                         * @return SendPermission
                          */
-                       public function setName($name) {
-                            $this->name = $name;
+                       public function setUserpost2($userpost2) {
+                            $this->userpost2 = $userpost2;
                             return $this;
                        } 
                      
                             /**
-                             * Key
+                             * Can Send
                              * @var string
                              */
-                            public $key;
+                            public $cansend;
 
                         /**
-                         * Set Key
-                         * @param type $key
-                         * @return Post
+                         * Set Can Send
+                         * @param type $cansend
+                         * @return SendPermission
                          */
-                       public function setKey($key) {
-                            $this->key = $key;
-                            return $this;
-                       } 
-                     
-                            /**
-                             * SMS Key
-                             * @var string
-                             */
-                            public $smskey;
-
-                        /**
-                         * Set SMS Key
-                         * @param type $smskey
-                         * @return Post
-                         */
-                       public function setSmskey($smskey) {
-                            $this->smskey = $smskey;
+                       public function setCansend($cansend) {
+                            $this->cansend = $cansend;
                             return $this;
                        } 
                     
@@ -92,7 +76,7 @@
                             /**
                             *
                             * @param type $parameters
-                            * @return Post
+                            * @return SendPermission
                             */
                             public static function findFirst($parameters = null) {
                                 return parent::findFirst($parameters);

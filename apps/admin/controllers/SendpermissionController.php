@@ -1,16 +1,17 @@
 <?php
+
 namespace Simpledom\Admin\Controllers;
-    use Simpledom\Admin\BaseControllers\ControllerBase;
 
 use AtaPaginator;
-use Post;
-use PostForm;
+use SendPermission;
+use SendPermissionForm;
+use Simpledom\Admin\BaseControllers\ControllerBase;
 
-class PostController extends ControllerBase {
+class SendpermissionController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
-        $this->setTitle('Post');
+        $this->setTitle('SendPermission');
     }
 
     /**
@@ -24,21 +25,20 @@ class PostController extends ControllerBase {
 
     public function addAction() {
 
-        $fr = new PostForm();
+        $fr = new SendPermissionForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $post = new \Post();
+                $sendpermission = new \SendPermission();
 
-                $post->organid = $this->request->getPost('organid', 'string');
-                $post->name = $this->request->getPost('name', 'string');
-                $post->key = $this->request->getPost('key', 'string');
-                $post->smskey = $this->request->getPost('smskey', 'string');
-                if (!$post->create()) {
-                    $post->showErrorMessages($this);
+                $sendpermission->userpost1 = $this->request->getPost('userpost1', 'string');
+                $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
+                $sendpermission->cansend = $this->request->getPost('cansend', 'string');
+                if (!$sendpermission->create()) {
+                    $sendpermission->showErrorMessages($this);
                 } else {
-                    $post->showSuccessMessages($this, 'New Post added Successfully');
+                    $sendpermission->showSuccessMessages($this, 'New SendPermission added Successfully');
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
@@ -54,7 +54,7 @@ class PostController extends ControllerBase {
     public function listAction($page = 1) {
 
         // load the users
-        $posts = Post::find(
+        $sendpermissions = SendPermission::find(
                         array(
                             'order' => 'id DESC'
         ));
@@ -64,7 +64,7 @@ class PostController extends ControllerBase {
 
         // create paginator
         $paginator = new AtaPaginator(array(
-            'data' => $posts,
+            'data' => $sendpermissions,
             'limit' => 10,
             'page' => $numberPage
         ));
@@ -72,10 +72,10 @@ class PostController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','Organ ID','Name','Key','SMS Key'
+                    'ID', 'User Post From', 'User Post To', 'Can Send'
                 ))->
                 setFields(array(
-                    'id','organid','name','key','smskey'
+                    'id', 'userpost1', 'userpost2', 'cansend'
                 ))->
                 setEditUrl(
                         'edit'
@@ -96,24 +96,24 @@ class PostController extends ControllerBase {
         }
 
         // check if item exist
-        $item = Post::findFirst($id);
+        $item = SendPermission::findFirst($id);
         if (!$item) {
             // item is not exist any more
             return $this->dispatcher->forward(array(
-                        'controller' => 'post',
+                        'controller' => 'sendpermission',
                         'action' => 'list'
             ));
         }
 
         // check if user want to remove it
         if ($this->request->isPost()) {
-            $result = Post::findFirst($id)->delete();
+            $result = SendPermission::findFirst($id)->delete();
             if (!$result) {
-                $this->flash->error('unable to remove this Post item');
+                $this->flash->error('unable to remove this SendPermission item');
             } else {
-                $this->flash->success('Post item deleted successfully');
+                $this->flash->success('SendPermission item deleted successfully');
                 return $this->dispatcher->forward(array(
-                            'controller' => 'post',
+                            'controller' => 'sendpermission',
                             'action' => 'list'
                 ));
             }
@@ -129,57 +129,56 @@ class PostController extends ControllerBase {
         }
 
         // set title
-        $this->setTitle('Edit Post');
+        $this->setTitle('Edit SendPermission');
 
-        $postItem = Post::findFirst($id);
+        $sendpermissionItem = SendPermission::findFirst($id);
 
         // create form
-        $fr = new PostForm();
+        $fr = new SendPermissionForm();
         $this->handleFormScripts($fr);
         // check for post request
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $post = Post::findFirst($id);
-                                $post->organid = $this->request->getPost('organid', 'string');
+                $sendpermission = SendPermission::findFirst($id);
+                $sendpermission->userpost1 = $this->request->getPost('userpost1', 'string');
 
-                                $post->name = $this->request->getPost('name', 'string');
+                $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
 
-                                $post->key = $this->request->getPost('key', 'string');
-
-                                $post->smskey = $this->request->getPost('smskey', 'string');
-                if (!$post->save()) {
-                    $post->showErrorMessages($this);
+                $sendpermission->cansend = $this->request->getPost('cansend', 'string');
+                if (!$sendpermission->save()) {
+                    $sendpermission->showErrorMessages($this);
                 } else {
-                    $post->showSuccessMessages($this, 'Post Saved Successfully');
+                    $sendpermission->showSuccessMessages($this, 'SendPermission Saved Successfully');
                 }
             } else {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('organid')->setDefault($postItem->organid);
-                        $fr->get('name')->setDefault($postItem->name);
-                        $fr->get('key')->setDefault($postItem->key);
-                        $fr->get('smskey')->setDefault($postItem->smskey); 
-            }
-            
+            $fr->get('userpost1')->setDefault($sendpermissionItem->userpost1);
+            $fr->get('userpost2')->setDefault($sendpermissionItem->userpost2);
+            $fr->get('cansend')->setDefault($sendpermissionItem->cansend);
+        }
+
         $this->view->form = $fr;
     }
 
     public function viewAction($id) {
 
-        $item = Post::findFirst($id);
+        $item = SendPermission::findFirst($id);
         $this->view->item = $item;
 
-        $form = new PostForm();
+        $form = new SendPermissionForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('organid')->setDefault($item->organid);$form->get('name')->setDefault($item->name);$form->get('key')->setDefault($item->key);$form->get('smskey')->setDefault($item->smskey);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('userpost1')->setDefault($item->userpost1);
+        $form->get('userpost2')->setDefault($item->userpost2);
+        $form->get('cansend')->setDefault($item->cansend);
+        $this->view->form = $form;
     }
 
 }
