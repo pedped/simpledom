@@ -608,6 +608,12 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             $this->showErrorMessages($controller);
         } else {
 
+            // make login to the site
+            $this->Login($email, $password);
+
+            // set user session
+            $this->setSession($controller);
+
             // user created in database, we have to generate 
             $email = new EmailItems();
             $email->sendRegsiterNotification($this->userid, $this->getFullName(), $this->email, $this->verifycode);
@@ -635,6 +641,13 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                     $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
                     //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
                     SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+
+                    // forward to phone verify page
+                    $controller->dispatcher->forward(array(
+                        "controller" => "phone",
+                        "action" => "verify",
+                        "params" => array($phone)
+                    ));
                 }
             } else {
                 // phone exist in database before

@@ -203,6 +203,8 @@ class Moshaver extends AtaModel {
 
     public function beforeValidationOnCreate() {
         $this->date = time();
+        $this->status = "0";
+        $this->verified = "0";
     }
 
     public function beforeValidationOnSave() {

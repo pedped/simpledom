@@ -4,34 +4,17 @@ use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
 use Simpledom\Core\AtaForm;
 
-class MoshaverForm extends AtaForm {
+class CreateMoshaverForm extends AtaForm {
 
     public function initialize() {
 
 
-        // ID
-        $id = new TextElement('id');
-        $id->setLabel('ID');
-        //$id->setAttribute('placeholder', 'Enter your ID');
-        $id->setAttribute('class', 'form-control');
-        $this->add($id);
-
-
-        // User ID
-        $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
-        //$userid->setAttribute('placeholder', 'Enter your User ID');
-        $userid->setAttribute('class', 'form-control');
-        $userid->addValidator(new PresenceOf(array(
-        )));
-        $this->add($userid);
-
 
         // City ID
-        $cityid = new SelectElement('cityid', City::find(), array(
+        $cityid = new SelectElement('cityid', City::find(array("order" => "name ASC")), array(
             "using" => array("id", "name")
         ));
-        $cityid->setLabel('City ID');
+        $cityid->setLabel('شهر');
         //$cityid->setAttribute('placeholder', 'Enter your City ID');
         $cityid->setAttribute('class', 'form-control');
         $cityid->addValidator(new PresenceOf(array(
@@ -41,7 +24,7 @@ class MoshaverForm extends AtaForm {
 
         // Address
         $address = new TextAreaElement('address');
-        $address->setLabel('Address');
+        $address->setLabel('آدرس');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(
@@ -51,7 +34,7 @@ class MoshaverForm extends AtaForm {
 
         // Phone
         $phone = new TextElement('phone');
-        $phone->setLabel('Phone');
+        $phone->setLabel('شماره تماس موبایل');
         //$phone->setAttribute('placeholder', 'Enter your Phone');
         $phone->setAttribute('class', 'form-control');
         $phone->addValidator(new PresenceOf(array(
@@ -59,21 +42,12 @@ class MoshaverForm extends AtaForm {
         $this->add($phone);
 
 
-        // Verified
-        $verified = new EnableDisableElement('verified');
-        $verified->setLabel('Verified');
-        //$verified->setAttribute('placeholder', 'Enter your Verified');
-        $verified->setAttribute('class', 'form-control');
-        $verified->addValidator(new PresenceOf(array(
-        )));
-        $this->add($verified);
-
 
         // Moshaver Type
         $moshavertypeid = new SelectElement('moshavertypeid', MoshaverType::find(), array(
             "using" => array("id", "name")
         ));
-        $moshavertypeid->setLabel('Moshaver Type');
+        $moshavertypeid->setLabel('عضویت در گروه مشاوران');
         //$moshavertypeid->setAttribute('placeholder', 'Enter your Moshaver Type');
         $moshavertypeid->setAttribute('class', 'form-control');
         $moshavertypeid->addValidator(new PresenceOf(array(
@@ -85,7 +59,7 @@ class MoshaverForm extends AtaForm {
         $degreetypeid = new SelectElement('degreetypeid', MoshaverDegree::find(), array(
             "using" => array("id", "name")
         ));
-        $degreetypeid->setLabel('Degree Type');
+        $degreetypeid->setLabel('آخرین مدرک دریافتی');
         //$degreetypeid->setAttribute('placeholder', 'Enter your Degree Type');
         $degreetypeid->setAttribute('class', 'form-control');
         $degreetypeid->addValidator(new PresenceOf(array(
@@ -95,36 +69,17 @@ class MoshaverForm extends AtaForm {
 
         // Info
         $info = new TextAreaElement('info');
-        $info->setLabel('Info');
+        $info->setLabel('اطلاعات کلی در مورد شما');
         //$info->setAttribute('placeholder', 'Enter your Info');
         $info->setAttribute('class', 'form-control');
         $info->addValidator(new PresenceOf(array(
         )));
         $this->add($info);
 
-
-        // Status
-        $status = new SelectElement('status', array(
-            "-1" => "غیر فعال",
-            "0" => "در انتظار تایید",
-            "1" => "تایید و فعال شده",
-        ));
-        $status->setLabel('Status');
-        //$status->setAttribute('placeholder', 'Enter your Status');
-        $status->setAttribute('class', 'form-control');
-        $this->add($status);
-
-
-        // Date
-        $date = new TextElement('date');
-        $date->setLabel('Date');
-        //$date->setAttribute('placeholder', 'Enter your Date');
-        $date->setAttribute('class', 'form-control');
-        $this->add($date);
-
         // Submit Button
         $submit = new Submit('submit');
         $submit->setName('submit');
+        $submit->setAttribute('value', 'ارسال');
         $submit->setAttribute('class', 'btn btn-primary');
         $this->add($submit);
     }
