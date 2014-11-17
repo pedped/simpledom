@@ -1,0 +1,62 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View Moshaver</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Moshaver</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderInfo('userid'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderInfo('cityid'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderInfo('address'); ?> 
+
+                                <!--  ADD Phone !-->
+                                <?php $form->renderInfo('phone'); ?> 
+
+                                <!--  ADD Verified !-->
+                                <?php $form->renderInfo('verified'); ?> 
+
+                                <!--  ADD Moshaver Type !-->
+                                <?php $form->renderInfo('moshavertypeid'); ?> 
+
+                                <!--  ADD Degree Type !-->
+                                <?php $form->renderInfo('degreetypeid'); ?> 
+
+                                <!--  ADD Info !-->
+                                <?php $form->renderInfo('info'); ?> 
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderInfo('status'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

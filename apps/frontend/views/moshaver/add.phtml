@@ -1,0 +1,63 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+
+                                                <h2 class='panel-title'>Add Moshaver</h2>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderDecorated('userid'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderDecorated('address'); ?> 
+
+                                <!--  ADD Phone !-->
+                                <?php $form->renderDecorated('phone'); ?> 
+
+                                <!--  ADD Verified !-->
+                                <?php $form->renderDecorated('verified'); ?> 
+
+                                <!--  ADD Moshaver Type !-->
+                                <?php $form->renderDecorated('moshavertypeid'); ?> 
+
+                                <!--  ADD Degree Type !-->
+                                <?php $form->renderDecorated('degreetypeid'); ?> 
+
+                                <!--  ADD Info !-->
+                                <?php $form->renderDecorated('info'); ?> 
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderDecorated('status'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+
