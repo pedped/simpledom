@@ -101,4 +101,32 @@ class UserPost extends AtaModel {
         return User::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
     }
 
+    public function getUserName() {
+        return $this->getUser()->getFullName();
+    }
+
+    /**
+     * 
+     * @return Post
+     */
+    public function getPost() {
+        return Post::findFirst(array("id = :id:", "bind" => array("id" => $this->postid)));
+    }
+
+    public function getPostTitle() {
+        return $this->getPost()->name;
+    }
+
+    /**
+     * 
+     * @return Organ
+     */
+    public function getOrgan() {
+        return Organ::findFirst(array("id = :id:", "bind" => array("id" => $this->getPost()->organid)));
+    }
+
+    public function getOrganName() {
+        return $this->getOrgan()->name;
+    }
+
 }

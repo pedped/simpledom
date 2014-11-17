@@ -54,9 +54,9 @@ class IndexController extends IndexControllerBase {
         $phone = "9378231418";
         //$message = "اعضا کلاس 20\nاین یک پاست به شما دانشجوی گرامی";
         $message = ReceivedSMS::find()->getLast()->message;
-        NotifySMSManager::onNewMessageReceived($this->errors, $smsNumber, $phone, $message);
-        var_dump($this->errors);
-        die();
+        //NotifySMSManager::onNewMessageReceived($this->errors, $smsNumber, $phone, $message);
+        //var_dump($this->errors);
+        //die();
     }
 
 }
