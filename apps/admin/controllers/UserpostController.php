@@ -1,7 +1,8 @@
 <?php
-namespace Simpledom\Admin\Controllers;
-    use Simpledom\Admin\BaseControllers\ControllerBase;
 
+namespace Simpledom\Admin\Controllers;
+
+use Simpledom\Admin\BaseControllers\ControllerBase;
 use AtaPaginator;
 use UserPost;
 use UserPostForm;
@@ -71,10 +72,10 @@ class UserPostController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','User ID','Post ID','Code'
+                    'ID', 'Organ', 'User Name', 'Post Name', 'User ID', 'Post ID', 'Code'
                 ))->
                 setFields(array(
-                    'id','userid','postid','code'
+                    'id', 'getOrganName()', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'code'
                 ))->
                 setEditUrl(
                         'edit'
@@ -140,11 +141,11 @@ class UserPostController extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $userpost = UserPost::findFirst($id);
-                                $userpost->userid = $this->request->getPost('userid', 'string');
+                $userpost->userid = $this->request->getPost('userid', 'string');
 
-                                $userpost->postid = $this->request->getPost('postid', 'string');
+                $userpost->postid = $this->request->getPost('postid', 'string');
 
-                                $userpost->code = $this->request->getPost('code', 'string');
+                $userpost->code = $this->request->getPost('code', 'string');
                 if (!$userpost->save()) {
                     $userpost->showErrorMessages($this);
                 } else {
@@ -154,16 +155,15 @@ class UserPostController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('userid')->setDefault($userpostItem->userid);
-                        $fr->get('postid')->setDefault($userpostItem->postid);
-                        $fr->get('code')->setDefault($userpostItem->code); 
-            }
-            
+            $fr->get('userid')->setDefault($userpostItem->userid);
+            $fr->get('postid')->setDefault($userpostItem->postid);
+            $fr->get('code')->setDefault($userpostItem->code);
+        }
+
         $this->view->form = $fr;
     }
 
@@ -174,8 +174,11 @@ class UserPostController extends ControllerBase {
 
         $form = new UserPostForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('userid')->setDefault($item->userid);$form->get('postid')->setDefault($item->postid);$form->get('code')->setDefault($item->code);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('userid')->setDefault($item->userid);
+        $form->get('postid')->setDefault($item->postid);
+        $form->get('code')->setDefault($item->code);
+        $this->view->form = $form;
     }
 
 }

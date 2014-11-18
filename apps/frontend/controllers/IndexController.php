@@ -2,9 +2,12 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use PriceViewer;
+use ReceivedSMS;
 use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\NotifySMSManager;
 use Simpledom\Frontend\BaseControllers\IndexControllerBase;
+use SMSCreditCost;
 use TagEditElement;
 
 class IndexController extends IndexControllerBase {
@@ -23,21 +26,37 @@ class IndexController extends IndexControllerBase {
         $fr->add($element);
         $this->view->form = $fr;
         $this->handleFormScripts($fr);
+
+
+        $viewr = new PriceViewer();
+        $viewr->setPlans(SMSCreditCost::find());
+        $viewr->setHeaderFieldName("title");
+        $viewr->setFields(array(
+            "id",
+            "title",
+        ));
+        $viewr->setInfos(array(
+            "کد",
+            "تیتر",
+        ));
+
+        $this->view->plansss = $viewr->Create();
     }
 
     public function indexAction() {
         parent::indexAction();
 
         // we have to create sample new message received
-      //  $smsNumber = "30002666262609";
-     //   $phone = "9399477290";
-     //   $message = "استاد 8985213\nاین یک پیام جدید از طرف من است به شما دانشجوی گرامی";
+        //  $smsNumber = "30002666262609";
+        //   $phone = "9399477290";
+        //   $message = "استاد 8985213\nاین یک پیام جدید از طرف من است به شما دانشجوی گرامی";
         $smsNumber = "30002666262609";
         $phone = "9378231418";
-        $message = "اعضای کلاس 20\nاین یک پاست به شما دانشجوی گرامی";
-        NotifySMSManager::onNewMessageReceived($this->errors, $smsNumber, $phone, $message);
-        var_dump($this->errors);
-        die();
+        //$message = "اعضا کلاس 20\nاین یک پاست به شما دانشجوی گرامی";
+        $message = ReceivedSMS::find()->getLast()->message;
+        //NotifySMSManager::onNewMessageReceived($this->errors, $smsNumber, $phone, $message);
+        //var_dump($this->errors);
+        //die();
     }
 
 }

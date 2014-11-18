@@ -76,7 +76,7 @@ class NotifySMSManager {
 
         if (!$receiverPost) {
             // receiver post is not exist
-            $errors[] = "receiver post is not exist";
+            $errors[] = "receiver post is not exist : " . $parsedHeader->smsKey;
             return;
         }
         $receivers = UserPost::find(array("postid = :postid: AND code = :code:", "bind" => array(
@@ -158,8 +158,12 @@ class NotifySMSManager {
      */
     public static function parseHeader($header) {
 
+
         // trim line one
         $header = trim($header);
+
+        // fix k and y
+        $header = str_replace("ك", "ک", str_replace("ي", "ی", $header));
 
         // explode line one
         $lineOneArray = explode(" ", $header);

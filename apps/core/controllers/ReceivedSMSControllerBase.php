@@ -77,7 +77,7 @@ class ReceivedSMSControllerBase extends ControllerBase {
                     'ID', 'Phone', 'Message', 'From Number', 'IP', 'Provider', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'phone', 'message', 'fromnumber', 'ip', 'provider', 'getDate()'
+                    'id', 'phone', 'getMessage()', 'fromnumber', 'ip', 'provider', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'
