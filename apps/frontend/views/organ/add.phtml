@@ -22,7 +22,7 @@
                     <!--  ADD Name !-->
                     <?php $form->renderDecorated('name'); ?> 
 
-                
+
 
                     <!--  ADD Address !-->
                     <?php $form->renderDecorated('address'); ?> 
@@ -67,5 +67,25 @@
         </div>
     </div>
 </form>
+<script>
+    $(function() {
+        var state = {};
+        state["2"] = {};
+        state["2"]["256"] = 'njj';
+        state["2"]["252"] = 'sssnjj';
 
+        $("#stateid").change(function() {
+            $("#cityid").find('option').remove().end();
+            if (state[$(this).val()]) {
+                $.each(state[$(this).val()], function(id, name) {
+                    $("#cityid").append('<option value="'+id+'">'+name+'</option>');
+                });
+            }
+        });
+    });
+</script>
+<?php
+var_dump($state);
+var_dump($city);
+?>
 

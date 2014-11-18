@@ -63,6 +63,8 @@ class OrganController extends ControllerBase {
             }
         }
         $this->view->form = $fr;
+        $this->view->state = State::find();
+        $this->view->city = City::find();
     }
 
     public function listAction($page = 1) {

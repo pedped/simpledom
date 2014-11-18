@@ -51,7 +51,7 @@ class CreateOrganForm extends AtaForm {
 
 
         // State ID
-        $stateid = new TextElement('stateid');
+        $stateid = new SelectElement('stateid', State::find(), array("using" => array("id", "name")));
         $stateid->setLabel('State ID');
         //$stateid->setAttribute('placeholder', 'Enter your State ID');
         $stateid->setAttribute('class', 'form-control');
