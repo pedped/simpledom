@@ -1,0 +1,19 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php foreach ($moshaverTypes as $moshavertype) : ?>
+            <div class="col-md-3 center moshaver-type">
+
+                <a href="<?php echo $this->url->get("question/index/" . $moshavertype->id); ?>">
+                    <!-- Image !-->
+                    <img class="img img-responsive" src="<?php echo $moshavertype->getImageLink(); ?>" />
+
+                    <!-- Title !-->
+                    <h3 class="name"><?php echo $moshavertype->name; ?></h3>
+
+                    <!-- Description !-->
+                    <p class="description"><?php echo $moshavertype->description; ?></p>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

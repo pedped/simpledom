@@ -1,0 +1,12 @@
+.moshaver-type .name{
+    font-size: 35px;
+}
+
+.moshaver-type .img{
+    height: 250px !important;
+    max-height: 250px !important;
+    margin: auto;
+}
+.moshaver-item .name{
+    margin-top: 10px;
+}

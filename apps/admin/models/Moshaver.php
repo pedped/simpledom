@@ -215,4 +215,8 @@ class Moshaver extends AtaModel {
         
     }
 
+    public function getUser() {
+        return User::findFirst($this->userid);
+    }
+
 }

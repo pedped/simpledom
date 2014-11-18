@@ -99,6 +99,7 @@ abstract class ControllerBase extends AtaController {
                 ->setPrefix('http://www.moshavereh.co/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true)
+                ->addCss('css/website/site.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
 
 

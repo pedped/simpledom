@@ -1,0 +1,97 @@
+<div class='row'>
+    <div class='col-md-8 col-md-push-2'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-8 col-md-push-2'>
+        <form method='post'>
+            <!-- Moshavers !-->
+            <div class="well hidden">
+                <div class='row'>
+                    <?php foreach ($moshavers as $moshaver) : ?>
+                        <div class='col-md-2'>
+                            <div class="moshaver-item center">
+                                <img class="img img-responsive" src="<?php echo $moshaver->getUser()->getImageLink(); ?>" />
+                                <p class="name">
+                                    <?php echo $moshaver->getUser()->getFullName(); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Question Form -->
+            <div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">پرسش سوال از مشاور</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!--  ADD Moshaver ID !-->
+                        <?php $form->renderDecorated('moshaverid'); ?> 
+
+                        <!--  ADD Question !-->
+                        <?php $form->renderDecorated('question'); ?> 
+
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <!--  ADD About Yourself !-->
+                                <?php $form->renderDecorated('aboutyourself'); ?> 
+                            </div>
+                            <div class='col-md-6'>
+                                <!--  ADD Disorder History !-->
+                                <?php $form->renderDecorated('disorderhistory'); ?> 
+                            </div>
+                        </div>
+
+
+                        <!--  ADD Using Tablet !-->
+                        <?php $form->renderDecorated('usingtablet'); ?> 
+
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('stateid'); ?> 
+                            </div>
+                            <div class='col-md-6'>
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+                            </div>
+                        </div>
+
+                        <!-- Check if user not logged in, handle the email and phone !-->
+                        <?php if (!$this->session->has("userid")): ?>
+                            <hr/>   
+                            <div class='row'>
+                                <div class='col-md-4'>
+                                    <?php $form->renderDecorated('fname'); ?> 
+                                </div>
+                                <div class='col-md-4'>
+                                    <?php $form->renderDecorated('lname'); ?> 
+                                </div>
+                                <div class='col-md-4'>
+                                    <?php $form->renderDecorated('email'); ?> 
+                                </div>
+                            </div>
+                            <hr/>    
+                        <?php endif; ?>
+                        <!--  Phone !-->
+                        <?php $form->renderDecorated('phone'); ?> 
+
+                        <!-- Submit Button !-->
+                        <br/>
+                    </div>
+                    <div class="panel-footer">
+                        <?php $form->renderDecorated('submit'); ?>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
