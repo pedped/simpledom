@@ -193,6 +193,14 @@ class Question extends AtaModel {
 
     /**
      * 
+     * @return string
+     */
+    public function getCityName() {
+        return City::findFirst($this->cityid)->name;
+    }
+
+    /**
+     * 
      * @return Moshaver
      */
     public function getMoshaver() {
@@ -201,6 +209,19 @@ class Question extends AtaModel {
 
     public function getMoshaverType() {
         return MoshaverType::findFirst(array("id = :id:", "bind" => array("id" => $this->moshavertypeid)));
+    }
+
+    public function getAnswerState() {
+        // check for answer count
+        $answers = Answer::find(array("questionid = :questionid:", "bind" => array("questionid" => $this->id)));
+        if ($answers->Count() == 0) {
+            return "<div class='btn btn-default btn-sm disabled'>منتظر ارسال پاسخ مشاور</div>";
+        }
+    }
+
+    public function getAnswerButton() {
+        $url = $this->getDI()->getUrl()->getBaseUri();
+        return "<a href='$url" . "moshaver/question/$this->id' class='btn btn-primary btn-sm'>ارسال جواب</a>";
     }
 
     public function notifyOfNewQuestion() {

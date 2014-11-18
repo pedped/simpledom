@@ -171,4 +171,8 @@ class QuestionController extends ControllerBase {
         $this->view->moshavers = $moshavers;
     }
 
+    public function listAction($numberPage = 1) {
+       
+    }
+
 }

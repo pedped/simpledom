@@ -6,6 +6,8 @@ use AtaPaginator;
 use CreateMoshaverForm;
 use Moshaver;
 use MoshaverForm;
+use MoshaverSettingsForm;
+use Question;
 use Settings;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSManager;
@@ -15,7 +17,6 @@ class MoshaverController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
-        $this->setPageTitle('Moshaver');
     }
 
     /**
@@ -25,6 +26,129 @@ class MoshaverController extends ControllerBase {
      */
     protected function ValidateAccess($id) {
         return true;
+    }
+
+    public function questionAction($questionID) {
+
+        // check if question exist
+        $question = Question::findFirst(array("id = :id:", "bind" => array("id" => $questionID)));
+        if (!$question) {
+            // question not found
+            $this->show404();
+        }
+
+        // check if question belongs to this moshaver
+        if ($question->moshaverid != $this->getUser()->userid) {
+            // it is not belong to him\her
+            $this->show404();
+        }
+    }
+
+    public function settingsAction() {
+
+        // set title
+        $this->setPageTitle('ویرایش اطلاعات مشاور');
+
+        $moshaverItem = Moshaver::findFirst($this->getMoshaverID());
+
+        // create form
+        $fr = new MoshaverSettingsForm();
+        $this->handleFormScripts($fr);
+        // check for post request
+        if ($this->request->isPost()) {
+            if ($fr->isValid($_POST)) {
+                // form is valid
+                $moshaver = Moshaver::findFirst($this->getMoshaverID());
+                $moshaver->cityid = $this->request->getPost('cityid', 'string');
+                $moshaver->address = $this->request->getPost('address', 'string');
+                $moshaver->phone = $this->request->getPost('phone', 'string');
+                $moshaver->moshavertypeid = $this->request->getPost('moshavertypeid', 'string');
+                $moshaver->degreetypeid = $this->request->getPost('degreetypeid', 'string');
+                $moshaver->info = $this->request->getPost('info', 'string');
+
+                if (!$moshaver->save()) {
+                    $moshaver->showErrorMessages($this);
+                } else {
+                    $moshaver->showSuccessMessages($this, 'اطلاعات شما با موفقیت ذخیره گردید');
+                }
+            } else {
+                // invalid
+                $fr->flashErrors($this);
+            }
+        } else {
+
+            // set default values
+
+            $fr->get('cityid')->setDefault($moshaverItem->cityid);
+            $fr->get('address')->setDefault($moshaverItem->address);
+            $fr->get('phone')->setDefault($moshaverItem->phone);
+            $fr->get('moshavertypeid')->setDefault($moshaverItem->moshavertypeid);
+            $fr->get('degreetypeid')->setDefault($moshaverItem->degreetypeid);
+            $fr->get('info')->setDefault($moshaverItem->info);
+        }
+
+        $this->view->form = $fr;
+    }
+
+    public function questionsAction($numberPage = 1) {
+
+        // load the users
+        $questions = Question::find(
+                        array(
+                            "moshaverid = :moshaverid:",
+                            "bind" => array("moshaverid" => $this->getMoshaverID()),
+                            "order" => "id DESC"
+                        )
+        );
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $questions,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'نام', 'سوال', 'شهر', 'تاریخ', 'وضعیت پاسخ', 'جواب'
+                ))->
+                setFields(array(
+                    'id', 'getUserName()', 'question', 'getCityName()', 'getDate()', 'getAnswerState()', 'getAnswerButton()'
+                ))->setListPath(
+                'moshaver/index');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function indexAction($numberPage = 1) {
+
+        // load the users
+        $q = new Question();
+        $questions = $q->rawQuery("SELECT q.* , ( SELECT count(*) from answer ac WHERE ac.questionid = q.id ) as answerCount FROM question q LEFT JOIN answer a ON q.id = a.questionid WHERE q.moshaverid = ? AND ( 0 = ( SELECT count(*) from answer ac WHERE ac.questionid = q.id ) OR ? != (SELECT au.userid FROM answer au WHERE au.questionid = q.id ORDER BY au.id DESC LIMIT 1 ) ) ORDER BY q.id DESC LIMIT 10", array(
+            $this->getMoshaverID(), $this->getUser()->userid
+        ));
+
+
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $questions,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'نام', 'سوال', 'شهر', 'تاریخ', 'وضعیت پاسخ', 'جواب'
+                ))->
+                setFields(array(
+                    'id', 'getUserName()', 'question', 'getCityName()', 'getDate()', 'getAnswerState()', 'getAnswerButton()'
+                ))->setListPath(
+                'moshaver/index');
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     public function addAction() {
@@ -215,6 +339,11 @@ class MoshaverController extends ControllerBase {
         $form->get('status')->setDefault($item->status);
         $form->get('date')->setDefault($item->date);
         $this->view->form = $form;
+    }
+
+    public function getMoshaverID() {
+        // TODO fix here
+        return 1;
     }
 
 }

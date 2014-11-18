@@ -16,3 +16,17 @@
     font-size: 30px;
     margin-bottom: 0px;
 }
+
+
+.moshaverpanel-panel.nav-pills > li > a {
+    background-color: #E5E5E5;
+    padding: 12px;
+}
+
+.moshaverpanel-panel.nav-pills > li.active > a {
+    background-color: #848;
+}
+
+.moshaverpanel-panel.nav-pills > li + li {
+    padding: 5px;
+}

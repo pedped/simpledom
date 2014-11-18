@@ -1,0 +1,39 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <form method="post">
+            <div class='row'>
+                <div class='col-md-6'>
+                    <!--  ADD Moshaver Type !-->
+                    <?php $form->renderDecorated('moshavertypeid'); ?> 
+                </div>
+                <div class='col-md-6'>
+                    <!--  ADD Degree Type !-->
+                    <?php $form->renderDecorated('degreetypeid'); ?> 
+                </div>
+            </div>
+
+            <hr/>
+            <!--  ADD City ID !-->
+            <?php $form->renderDecorated('cityid'); ?> 
+
+            <!--  ADD Address !-->
+            <?php $form->renderDecorated('address'); ?> 
+
+            <!--  ADD Phone !-->
+            <?php $form->renderDecorated('phone'); ?> 
+
+            <!--  ADD Info !-->
+            <?php $form->renderDecorated('info'); ?> 
+
+            <!-- Submit Button !-->
+            <br/>
+            <?php $form->renderDecorated('submit'); ?>
+    </div>
+</div>
+
+
