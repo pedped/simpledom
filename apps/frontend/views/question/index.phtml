@@ -5,6 +5,10 @@
 </div>
 <div class='row'>
     <div class='col-md-8 col-md-push-2'>
+        <div class="alert alert-info moshaver-type-info">
+            <h1><?php echo $moshaverType->name; ?></h1>
+            <p><?php echo $moshaverType->description; ?></p>
+        </div>
         <form method='post'>
             <!-- Moshavers !-->
             <div class="well hidden">
@@ -24,7 +28,6 @@
 
             <!-- Question Form -->
             <div>
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">پرسش سوال از مشاور</h3>
@@ -38,18 +41,13 @@
 
                         <div class='row'>
                             <div class='col-md-6'>
-                                <!--  ADD About Yourself !-->
-                                <?php $form->renderDecorated('aboutyourself'); ?> 
+                                <?php $form->renderDecorated('disorderhistory'); ?> 
                             </div>
                             <div class='col-md-6'>
-                                <!--  ADD Disorder History !-->
-                                <?php $form->renderDecorated('disorderhistory'); ?> 
+                                <?php $form->renderDecorated('usingtablet'); ?> 
                             </div>
                         </div>
 
-
-                        <!--  ADD Using Tablet !-->
-                        <?php $form->renderDecorated('usingtablet'); ?> 
 
                         <div class='row'>
                             <div class='col-md-6'>
@@ -78,13 +76,25 @@
                             </div>
                             <hr/>    
                         <?php endif; ?>
-                        <!--  Phone !-->
-                        <?php $form->renderDecorated('phone'); ?> 
 
-                        <!-- Submit Button !-->
-                        <br/>
+
+                        <div class='row'>
+                            <div class='col-md-4'>
+                                <!-- Age !-->
+                                <?php $form->renderDecorated('age'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <!-- Gender !-->
+                                <?php $form->renderDecorated('gender'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <!--  Phone !-->
+                                <?php $form->renderDecorated('phone'); ?> 
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer">
+                        <!-- Submit Button !-->
                         <?php $form->renderDecorated('submit'); ?>
                     </div>
                 </div>

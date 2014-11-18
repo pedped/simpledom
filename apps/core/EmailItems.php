@@ -150,4 +150,36 @@ class EmailItems extends EmailManager {
         return $this->setSubject("Verify Your Email")->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
     }
 
+    public function sendNewQuestionReceivedToMoshaver($email, $moshaverName, $moshaverUserID, $moshaverTypeName, $askerName, $askerUserID, $question, $questionID) {
+        $emailTemplate = BaseEmailTemplate::findFirst(array("name = :name:", "bind" => array("name" => "NOTIFYMOSHAVER_NEWQUESTION")));
+        $emailTemplate->setParameters(array(
+            "moshaveruserid" => $moshaverUserID,
+            "moshavername" => $moshaverName,
+            "type" => $moshaverTypeName,
+            "askername" => $askerName,
+            "askeruserid" => $askerUserID,
+            "question" => $question,
+            "questionid" => $questionID,
+            "url" => $questionID,
+        ));
+
+        // set email template
+        return $this->setSubject("درخواست مشاوره جدید")->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
+    }
+
+    public function sendNewQuestionReceivedToUser($email, $askerName, $askerUserID, $question, $questionID) {
+        // load the email template from server
+        $emailTemplate = BaseEmailTemplate::findFirst(array("name = :name:", "bind" => array("name" => "NOTIFYUSER_NEWQUESTION")));
+        $emailTemplate->setParameters(array(
+            "askername" => $askerName,
+            "askeruserid" => $askerUserID,
+            "question" => $question,
+            "questionid" => $questionID,
+            "url" => $questionID,
+        ));
+
+        // set email template
+        return $this->setSubject("درخواست مشاوره")->setEmailTemplate($emailTemplate)->setReceivers($email)->sendEmail();
+    }
+
 }

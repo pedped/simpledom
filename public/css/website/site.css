@@ -10,3 +10,9 @@
 .moshaver-item .name{
     margin-top: 10px;
 }
+
+.moshaver-type-info h1{
+    margin-top: 0px;
+    font-size: 30px;
+    margin-bottom: 0px;
+}

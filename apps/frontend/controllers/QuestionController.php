@@ -4,8 +4,10 @@ namespace Simpledom\Frontend\Controllers;
 
 use CreateQuestionForm;
 use Moshaver;
+use MoshaverType;
 use Question;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
+use User;
 use UserPhone;
 
 class QuestionController extends ControllerBase {
@@ -21,6 +23,11 @@ class QuestionController extends ControllerBase {
             $this->show404();
         }
 
+        // set title based on moshaver type
+        $moshaverType = MoshaverType::findFirst(array("id = :id:", "bind" => array("id" => $moshaverTypeID)));
+        $this->setPageTitle($moshaverType->name);
+        $this->view->moshaverType = $moshaverType;
+
         // get moshavers for this group type
         $moshavers = Moshaver::find(array("moshavertypeid = :moshavertypeid: AND verified = 1", "bind" => array("moshavertypeid" => $moshaverTypeID)));
 
@@ -29,9 +36,48 @@ class QuestionController extends ControllerBase {
 
         // set default
         $fr->get("moshaverid")->setDefault($moshavers->getFirst()->id);
+        // if user has verified phone, use that for phone
+        if (isset($this->user) && $this->getUser()->hasVerifiedPhone()) {
+            $fr->get("phone")->setDefault($this->getUser()->getVerifiedPhone());
+        }
+
+        // if user is logged in remove unneccery elements
+        if (isset($this->user)) {
+            $fr->remove("fname");
+            $fr->remove("lname");
+            $fr->remove("email");
+        }
 
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
+
+                $needtoredirectPhoneVerify = false;
+
+                // check if user is not logged in, create user
+                if (!$this->session->has("userid")) {
+
+                    // we have to create user
+                    $user = new User();
+                    $user->email = $this->request->getPost("email", "email");
+                    $user->fname = $this->request->getPost("fname");
+                    $user->lname = $this->request->getPost("lname");
+                    $user->gender = $this->request->getPost("gender");
+                    $user->level = USERLEVEL_USER;
+                    $password = $user->generateRandomString(12);
+                    $user->password = $password;
+
+                    if (!$user->create()) {
+                        $this->errors[] = $user->getMessagesAsLines();
+                    } else {
+                        // user created successfully
+                        $user->Login($user->email, $password);
+
+                        // set session
+                        $user->setSession($this);
+
+                        // email user password
+                    }
+                }
 
 
                 // Check for phone
@@ -44,8 +90,11 @@ class QuestionController extends ControllerBase {
                     $userPhone->phone = $phone;
                     $userPhone->create();
 
+
                     // we have to send verification code to user
                     $userPhone->sendVerificationNumber();
+
+                    $needtoredirectPhoneVerify = true;
                 } else {
                     // user phone exist, check for user id
                     if ($userPhone->userid != $this->getUser()->id) {
@@ -59,6 +108,7 @@ class QuestionController extends ControllerBase {
                 if (!$this->hasError()) {
                     // form is valid
                     $question = new Question();
+                    $question->moshavertypeid = $moshaverTypeID;
                     $question->userid = $this->user->userid;
                     $question->moshaverid = $this->request->getPost('moshaverid', 'string');
                     $question->question = $this->request->getPost('question', 'string');
@@ -69,10 +119,44 @@ class QuestionController extends ControllerBase {
                     if (!$question->create()) {
                         $question->showErrorMessages($this);
                     } else {
-                        $question->showSuccessMessages($this, 'New Question added Successfully');
 
-                        // clear the title and message so the user can add better info
-                        $fr->clear();
+                        // show message to user
+                        $message = "سوال شما با موفقیت ارسال گردید";
+                        if ($needtoredirectPhoneVerify) {
+
+                            // append message
+                            $message.= "، برای تایید سوال خود نیاز است تا شماره تماس خود را تایید نمایید.";
+
+                            // show the message
+                            $this->flash->notice($message);
+
+                            // redirect to phone verify page
+                            $this->dispatcher->forward(array(
+                                "controller" => "phone",
+                                "action" => "verify",
+                                "params" => array($phone)
+                            ));
+
+                            // notify of new message
+                            $question->notifyOfNewQuestion();
+                        } else {
+
+                            // clear the title and message so the user can add better info
+                            $fr->clear();
+
+                            // show the message
+                            $this->flash->success($message);
+
+                            // notify of new message
+                            $question->notifyOfNewQuestion();
+
+                            // redirect to phone verify page
+                            $this->dispatcher->forward(array(
+                                "controller" => "question",
+                                "action" => "view",
+                                "params" => array($question->id)
+                            ));
+                        }
                     }
                 }
             } else {

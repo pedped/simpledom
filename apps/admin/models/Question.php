@@ -156,8 +156,18 @@ class Question extends AtaModel {
         return date('Y-m-d H:m:s', $this->date);
     }
 
+    public $moshavertypeid;
+
     public function getUserName() {
         return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
+    }
+
+    /**
+     * 
+     * @return User
+     */
+    public function getUser() {
+        return User::findFirst($this->userid);
     }
 
     /**
@@ -179,6 +189,37 @@ class Question extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    /**
+     * 
+     * @return Moshaver
+     */
+    public function getMoshaver() {
+        return Moshaver::findFirst(array("id = :id:", "bind" => array("id" => $this->moshaverid)));
+    }
+
+    public function getMoshaverType() {
+        return MoshaverType::findFirst(array("id = :id:", "bind" => array("id" => $this->moshavertypeid)));
+    }
+
+    public function notifyOfNewQuestion() {
+
+        $emailItems = new EmailItems();
+
+        // send email to moshaver
+        $emailItems->sendNewQuestionReceivedToMoshaver($this->getMoshaver()->getUser()->email, $this->getMoshaver()->getUserName(), $this->getMoshaver()->userid, $this->getMoshaverType()->name, $this->getUserName(), $this->userid, $this->question, $this->id);
+
+        // send email to user
+        $emailItems->sendNewQuestionReceivedToUser($this->getUser()->email, $this->getUserName(), $this->userid, $this->question, $this->id);
+
+        // send sms to moshaver
+        $websiteName = Settings::Get()->websitename;
+        SMSManager::SendSMS($this->getMoshaver()->getUser()->getVerifiedPhone(), "شما یک درخواست مشاوره جدید دارید، لطفا به پنل کاربری خود در $websiteName مراجعه فرمایید", SmsNumber::findFirst()->id);
+
+        // send sms to user
+        $message = "سوال شما به مشاور ارسال گردید، به زودی پاسخ خود را دریافت خواهید نمود.\nبا تشکر\n$websiteName";
+        SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
     }
 
 }

@@ -40,6 +40,16 @@ class CreateQuestionForm extends AtaForm {
         )));
         $this->add($lastname);
 
+
+        // Last Name
+        $gender = new SelectElement("gender", array(
+            "0" => "زن",
+            "1" => "مرد",
+        ));
+        $gender->setLabel(_("جنسیت"));
+        $gender->setAttribute("class", "form-control");
+        $this->add($gender);
+
         // ٍEmail
         $email = new TextElement("email");
         $email->setLabel(_("Email"));
@@ -47,6 +57,13 @@ class CreateQuestionForm extends AtaForm {
         $email->addValidator(new Email(array(
         )));
         $this->add($email);
+
+
+        // ٍEmail
+        $age = new TextElement("age");
+        $age->setLabel("سن");
+        $age->setAttribute("class", "form-control");
+        $this->add($age);
 
         // Question
         $question = new TextAreaElement('question');
@@ -78,8 +95,9 @@ class CreateQuestionForm extends AtaForm {
 
 
         // Using Tablet
-        $usingtablet = new TextElement('usingtablet');
+        $usingtablet = new TextAreaElement('usingtablet');
         $usingtablet->setLabel('سابقه مصرف دارو');
+        $usingtablet->setAttribute('rows', 5);
         //$usingtablet->setAttribute('placeholder', 'Enter your Using Tablet');
         $usingtablet->setAttribute('class', 'form-control');
         $this->add($usingtablet);
