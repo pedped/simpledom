@@ -194,6 +194,14 @@ class Question extends AtaModel implements Orderable {
     }
 
     /**
+     * check if the question is answered
+     * @return boolean
+     */
+    public function isAnswerd() {
+        return Answer::count(array("questionid = :questionid:", "bind" => array("questionid" => $this->question))) > 0;
+    }
+
+    /**
      * 
      * @return string
      */
@@ -300,19 +308,25 @@ class Question extends AtaModel implements Orderable {
         return $item;
     }
 
-    public static function onSuccessOrder(&$errors, $userid, $id) {
+    public static function onSuccessOrder(&$errors, $userid, $id, $orderid = null) {
         // user paid the price, notify of user payment
         $message = "با تشکر از پرداخت شما، هم اکنون میتوانید جواب مشاور را مشاهده نمایید";
-        SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
+        SMSManager::SendSMS(User::findFirst($userid)->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
 
-        // forward user to question
-        $url = $this->getDI()->getUrl()->getBaseUri();
-        Helper::RedirectToURL($url . "question/view/" . $id);
-        
+
+        // get question
+        $question = Question::findFirst($id);
+
         // add user payment to moshaver sells
         $moshaverSell = new MoshaverSale();
-        $moshaverSell->orderid
-        
+        $moshaverSell->orderid = $orderid;
+        $moshaverSell->userid = $question->moshaverid;
+        $moshaverSell->percent = "0.5";
+        $moshaverSell->value = Config::GetMoshaverehPrice() * 0.5;
+        $moshaverSell->create();
+
+        // forward user to question
+        Helper::RedirectToURL("http://www.moshavereh.co/question/view/" . $id);
     }
 
 }

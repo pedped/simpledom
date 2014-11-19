@@ -85,15 +85,29 @@
                         <?php $form->renderDecorated('submit'); ?> 
                     </form>
                 <?php else : // User Not Paid?>
-                    <div class='row'>
-                        <div class='col-md-8 col-md-push-2'>
-                            <div class="unpaid-question-alert">
-                                <span class="fa fa-eye"></span>
-                                <p>جهت مشاهده جواب شما میبایست حق الزحمه مشاوره را پرداخت نمایید، به محض پرداخت شما قادر خواهید بود جواب مشاور را مشاهده نمایید و در صورت لزوم به مشاور پاسخ دهید</p>
-                                <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("question/order/" . $question->id); ?>">پرداخت آنلاین</a>
+
+                    <!-- Check if question is anwered !-->
+                    <?php if ($isAnswered == true) : ?>
+                        <div class='row'>
+                            <div class='col-md-8 col-md-push-2'>
+                                <div class="unpaid-question-alert">
+                                    <span class="fa fa-eye"></span>
+                                    <p>جهت مشاهده جواب شما میبایست حق الزحمه مشاوره را پرداخت نمایید، به محض پرداخت شما قادر خواهید بود جواب مشاور را مشاهده نمایید و در صورت لزوم به مشاور پاسخ دهید</p>
+                                    <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("question/order/" . $question->id); ?>">پرداخت آنلاین</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php else : // Not Answered?>
+                        <div class="alert alert-info center">
+                            <div class='row'>
+                                <div class='col-md-6 col-md-push-3'>
+                                    <span class="glyphicon glyphicon-user" style="font-size: 150px;"></span>  
+                                    <h2>منتظر پاسخ</h2>
+                                    <h3>سوال شما در حال انتظار برای جواب توسط مشاور مرتبط میباشد، به محض ارسال جواب شما توسط پیامک و ایمیل با خبر خواهید شد</h3>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

@@ -8,6 +8,7 @@ use Moshaver;
 use MoshaverType;
 use Question;
 use SendMoshaverAnswerForm;
+use Simpledom\Core\Classes\Order;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use User;
 use UserPhone;
@@ -38,6 +39,7 @@ class QuestionController extends ControllerBase {
 
         // set default
         $fr->get("moshaverid")->setDefault($moshavers->getFirst()->id);
+
         // if user has verified phone, use that for phone
         if (isset($this->user) && $this->getUser()->hasVerifiedPhone()) {
             $fr->get("phone")->setDefault($this->getUser()->getVerifiedPhone());
@@ -177,6 +179,21 @@ class QuestionController extends ControllerBase {
         
     }
 
+    public function orderAction($questionID) {
+        if (!isset($this->user)) {
+            $this->dispatcher->forward(array(
+                "controller" => "user",
+                "action" => "login",
+                "params" => array()
+            ));
+            return;
+        }
+
+        $order = new Order($this->user->userid);
+        $orderID = $order->CreateOrder($this->errors, 4, $questionID);
+        $order->PayOrder($this->errors, $orderID, 1);
+    }
+
     public function viewAction($questionID) {
 
         // check if question exist
@@ -231,6 +248,9 @@ class QuestionController extends ControllerBase {
             $this->view->isPaid = true;
         } else {
 
+            // check if question is answered
+            $this->view->isAnswered = $question->isAnswerd();
+            
             // set view to false
             $this->view->isPaid = false;
         }
