@@ -14,8 +14,17 @@ and open the template in the editor.
         url('./fonts/BYekan.ttf') format('truetype'); 
 }
 
+@font-face {
+    font-family: 'naskh';
+    src: url('./fonts/DroidNaskh-Regular.ttf') format('truetype'); 
+}
+@font-face {
+    font-family: 'naskhbold';
+    src: url('./fonts/DroidNaskh-Bold.ttf') format('truetype'); 
+}
+
 body{
-    font-family: yekan;
+    font-family: naskh;
 }
 
 
