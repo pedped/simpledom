@@ -30,3 +30,21 @@
 .moshaverpanel-panel.nav-pills > li + li {
     padding: 5px;
 }
+
+.unpaid-question-alert .fa
+{
+    font-size : 206px;
+}
+
+.unpaid-question-alert{
+    text-align: center;
+    font-size: 25px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px #D9D9D9;
+}
+
+.unpaid-question-alert .btn{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

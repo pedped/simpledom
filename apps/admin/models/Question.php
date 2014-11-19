@@ -1,8 +1,10 @@
 <?php
 
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 
-class Question extends AtaModel {
+class Question extends AtaModel implements Orderable {
 
     public function getSource() {
         return 'question';
@@ -241,6 +243,76 @@ class Question extends AtaModel {
         // send sms to user
         $message = "سوال شما به مشاور ارسال گردید، به زودی پاسخ خود را دریافت خواهید نمود.\nبا تشکر\n$websiteName";
         SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
+    }
+
+    /**
+     * check if the user paid the price
+     * @return boolean
+     */
+    public function isPaid() {
+        $order = UserOrder::findFirst(
+                        array("userid = :userid: AND type = :type: AND itemid = :itemid: AND done = 1",
+                            "bind" => array(
+                                "userid" => $this->userid,
+                                "type" => ProductType::findFirst(array("key = :key:", "bind" => array("key" => "Question")))->id,
+                                "itemid" => $this->id,
+                            )
+                        )
+        );
+
+        return isset($order) && $order != FALSE;
+    }
+
+    /*     * ********************************************************************
+     * ORDER INFO
+     *     ********************************************************************** */
+
+    /**
+     * 
+     * @param type $id
+     */
+    public static function CheckAvailableToOrder($id) {
+        return !$this->isPaid();
+    }
+
+    public static function GetCost($id) {
+        $item = new stdClass();
+        $item->Price = Config::GetMoshaverehPrice();
+        $item->Currency = "IRR";
+        return $item;
+    }
+
+    public static function GetOrderTitle($id) {
+        return "حق الزحمه مشاوره";
+    }
+
+    public static function ValidateOrderCreateRequest(&$errors, $id) {
+        return true;
+    }
+
+    public static function getOrderObjectInfo($id) {
+        $item = new stdClass();
+        $item->title = "حق الزحمه مشاوره";
+        $item->description = "هزینه مشاور جهت مشاهده جواب سوالات";
+        $item->Cost = new stdClass();
+        $item->Cost->Price = Config::GetMoshaverehPrice();
+        $item->Cost->Currency = "IRR";
+        return $item;
+    }
+
+    public static function onSuccessOrder(&$errors, $userid, $id) {
+        // user paid the price, notify of user payment
+        $message = "با تشکر از پرداخت شما، هم اکنون میتوانید جواب مشاور را مشاهده نمایید";
+        SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
+
+        // forward user to question
+        $url = $this->getDI()->getUrl()->getBaseUri();
+        Helper::RedirectToURL($url . "question/view/" . $id);
+        
+        // add user payment to moshaver sells
+        $moshaverSell = new MoshaverSale();
+        $moshaverSell->orderid
+        
     }
 
 }

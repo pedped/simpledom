@@ -1,56 +1,103 @@
 <div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">مشاهده سوال</h3>
+            </div>
+            <div class="panel-body">
+                <div class='row'>
+                    <div class='col-md-3'>
+                        <label>
+                            ارسال کننده
+                        </label>
+                        <p><?php echo $question->getUser()->getFullName(); ?></p>
+                    </div>
+                    <div class='col-md-3'>
+                        <label>
+                            سن
+                        </label>
+                        <p><?php echo $question->getUser()->getFullName(); ?></p>
+                    </div>
+                    <div class='col-md-3'>
+                        <label>
+                            جنسیت
+                        </label>
+                        <p><?php echo $question->getUser()->getFullName(); ?></p>
+                    </div>
+                    <div class='col-md-3'>
+                        <label>
+                            شهر
+                        </label>
+                        <p><?php echo $question->getCityName(); ?></p>
+                    </div>
+
+                </div>
+                <hr/>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <label>
+                            سوال
+                        </label>
+                        <p><?php echo $question->question; ?></p>
+                    </div>
+                </div>
+                <hr/>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <label>
+                            سابقه بیماری
+                        </label>
+                        <p><?php echo $question->disorderhistory; ?></p>
+                    </div>
+                    <div class='col-md-6'>
+                        <label>
+                            سابقه مصرف دارو
+                        </label>
+                        <p><?php echo $question->usingtablet; ?></p>
+                    </div>
+                </div>
+                <hr/>
+                <!-- Check for user paid !-->
+                <?php if ($isPaid == true): ?>
+                    <blockquote>
+                        <?php foreach ($answers as $answer) : ?>
+
+                            <div class="media">
+                                <img src="<?php echo $answer->getUser()->getImageLink(); ?>" class="img-rounded pull-right media-object" style="width: 64px">
+                                <div class="media-body">
+                                    <h4 style="margin-top: 8px;" class="media-heading"><?php echo $answer->getUserName(); ?></h4>
+                                    <?php echo $answer->message; ?>
                                 </div>
                             </div>
-                            <form method='post'>
-                                <div class='row'>
-                                    <div class='col-lg-12'>
-                                        <section class='panel panel-primary'>
-                                            <header class='panel-heading'>
-                                                <div class='panel-actions'>
-                                                    <a href='#' class='fa fa-caret-down'></a>
-                                                    <a href='#' class='fa fa-times'></a>
-                                                </div>
-                                                <h2 class='panel-title'>View Question</h2>
-                                                <p class='panel-subtitle'Use this form to edit your Question</p>
-                                            </header>
-                                            <div class='panel-body'>
 
-                             
+                        <?php endforeach; ?>
+                    </blockquote>
+                    <hr/>
+                    <h3>ارسال جواب</h3>
+                    <form method="post">
+                        <?php $form->renderDecorated('answer'); ?>
 
-                                <!--  ADD ID !-->
-                                <?php $form->renderInfo('id'); ?> 
-
-                                <!--  ADD User ID !-->
-                                <?php $form->renderInfo('userid'); ?> 
-
-                                <!--  ADD Moshaver ID !-->
-                                <?php $form->renderInfo('moshaverid'); ?> 
-
-                                <!--  ADD Question !-->
-                                <?php $form->renderInfo('question'); ?> 
-
-                                <!--  ADD About Yourself !-->
-                                <?php $form->renderInfo('aboutyourself'); ?> 
-
-                                <!--  ADD Disorder History !-->
-                                <?php $form->renderInfo('disorderhistory'); ?> 
-
-                                <!--  ADD Using Tablet !-->
-                                <?php $form->renderInfo('usingtablet'); ?> 
-
-                                <!--  ADD City ID !-->
-                                <?php $form->renderInfo('cityid'); ?> 
-
-                                <!--  ADD Date !-->
-                                <?php $form->renderInfo('date'); ?> 
-
-
-</div>
-            </section>
+                        <?php $form->renderDecorated('submit'); ?> 
+                    </form>
+                <?php else : // User Not Paid?>
+                    <div class='row'>
+                        <div class='col-md-8 col-md-push-2'>
+                            <div class="unpaid-question-alert">
+                                <span class="fa fa-eye"></span>
+                                <p>جهت مشاهده جواب شما میبایست حق الزحمه مشاوره را پرداخت نمایید، به محض پرداخت شما قادر خواهید بود جواب مشاور را مشاهده نمایید و در صورت لزوم به مشاور پاسخ دهید</p>
+                                <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("question/order/" . $question->id); ?>">پرداخت آنلاین</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</form>
+</div>
 
 

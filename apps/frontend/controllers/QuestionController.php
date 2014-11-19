@@ -2,10 +2,12 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Answer;
 use CreateQuestionForm;
 use Moshaver;
 use MoshaverType;
 use Question;
+use SendMoshaverAnswerForm;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use User;
 use UserPhone;
@@ -175,8 +177,68 @@ class QuestionController extends ControllerBase {
         
     }
 
-    public function viewAction() {
-        
+    public function viewAction($questionID) {
+
+        // check if question exist
+        $question = Question::findFirst(array("id = :id:", "bind" => array("id" => $questionID)));
+        if (!$question) {
+            // question not found
+            $this->show404();
+        }
+
+        // check if question belongs to this user
+        if ($question->userid != $this->getUser()->userid) {
+            // it is not belong to him\her
+            $this->show404();
+        }
+
+        // set page title
+        $this->setPageTitle("مشاهده سوال");
+
+        // create form
+        $form = new SendMoshaverAnswerForm();
+        $this->handleFormScripts($form);
+
+        if ($this->request->isPost()) {
+            if (!$form->isValid($_POST)) {
+                // invalid request
+            } else {
+                // valid
+                $answer = new Answer();
+                $answer->userid = $this->getUser()->userid;
+                $answer->message = $this->request->getPost("answer");
+                $answer->questionid = $questionID;
+                $answer->delete = "0";
+                if (!$answer->create()) {
+                    $answer->showErrorMessages($this);
+                } else {
+                    // answer created successfully
+                    $answer->showSuccessMessages($this, "جواب شما با موفقیت ارسال گردید");
+
+                    // clear the form
+                    $form->clear();
+                }
+            }
+        }
+
+
+        // check if the user paid the money to see the price
+        if ($question->isPaid()) {
+            // get answers
+            $this->view->answers = Answer::find(array("questionid = :questionid:", "order" => "id ASC", "bind" => array("questionid" => $questionID)));
+
+            // set view to true
+            $this->view->isPaid = true;
+        } else {
+
+            // set view to false
+            $this->view->isPaid = false;
+        }
+
+
+        // show in view
+        $this->view->form = $form;
+        $this->view->question = $question;
     }
 
 }

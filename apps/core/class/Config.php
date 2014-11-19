@@ -42,16 +42,21 @@ class Config {
         return "adxcv-zzadq-polkjsad-opp13opoz-1sdf455aadzmck1244567";
         //return "d7625-87fe2-3280d-33c4a-91f8960a31e673c0e8be11314a82";
     }
-    
-    public static function GetRecaptchaPublicKey(){
+
+    public static function GetRecaptchaPublicKey() {
         return "6Lc_ffwSAAAAAK5eQq9lHLdGR8F-l98MQtXEL1GH";
     }
-    public static function GetRecaptchaPrivateKey(){
+
+    public static function GetRecaptchaPrivateKey() {
         return "6Lc_ffwSAAAAAJpg5DyYeRiPWhlBvBTojn8ETwUh";
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return true; 
+        return true;
+    }
+
+    public static function GetMoshaverehPrice() {
+        return 50000;
     }
 
 }
