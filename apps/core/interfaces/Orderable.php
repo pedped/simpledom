@@ -8,7 +8,7 @@ interface Orderable {
 
     public static function getOrderObjectInfo($id);
 
-    public static function onSuccessOrder(&$errors, $userid, $id);
+    public static function onSuccessOrder(&$errors, $userid, $id, $orderid = null);
 
     public static function GetOrderTitle($id);
 
