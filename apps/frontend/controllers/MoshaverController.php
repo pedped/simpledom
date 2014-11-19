@@ -2,12 +2,14 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Answer;
 use AtaPaginator;
 use CreateMoshaverForm;
 use Moshaver;
 use MoshaverForm;
 use MoshaverSettingsForm;
 use Question;
+use SendMoshaverAnswerForm;
 use Settings;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSManager;
@@ -42,6 +44,45 @@ class MoshaverController extends ControllerBase {
             // it is not belong to him\her
             $this->show404();
         }
+
+        // create form
+        $form = new SendMoshaverAnswerForm();
+        $this->handleFormScripts($form);
+
+        if ($this->request->isPost()) {
+            if (!$form->isValid($_POST)) {
+                // invalid request
+            } else {
+                // valid
+                $answer = new Answer();
+                $answer->userid = $this->getUser()->userid;
+                $answer->message = $this->request->getPost("answer");
+                $answer->questionid = $questionID;
+                $answer->delete = "0";
+                if (!$answer->create()) {
+                    $answer->showErrorMessages($this);
+                } else {
+                    // answer created successfully
+                    $answer->showSuccessMessages($this, "جواب شما با موفقیت ارسال گردید");
+
+                    // send sms message to the askwer
+                    SMSManager::SendSMS($question->getUser()->getVerifiedPhone(), "کاربر گرامی، سوال شما توسط مشاور پاسخ داده شده است، جهت مشاهده پاسخ به وبسایت وارد شوید", SmsNumber::findFirst()->id);
+                
+                    // clear the form
+                    $form->clear();
+                    
+                }
+            }
+        }
+
+
+        // get answers
+        $this->view->answers = Answer::find(array("questionid = :questionid:", "order" => "id ASC", "bind" => array("questionid" => $questionID)));
+
+
+        // show in view
+        $this->view->form = $form;
+        $this->view->question = $question;
     }
 
     public function settingsAction() {

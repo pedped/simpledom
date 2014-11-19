@@ -172,7 +172,11 @@ class QuestionController extends ControllerBase {
     }
 
     public function listAction($numberPage = 1) {
-       
+        
+    }
+
+    public function viewAction() {
+        
     }
 
 }

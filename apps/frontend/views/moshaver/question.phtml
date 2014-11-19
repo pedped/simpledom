@@ -5,11 +5,79 @@
 </div>
 <div class='row'>
     <div class='col-md-12'>
-        <?php
-        echo $list->header;
-        echo $list->table;
-        echo $list->footer;
-        ?>
+        <div class='row'>
+            <div class='col-md-3'>
+                <label>
+                    ارسال کننده
+                </label>
+                <p><?php echo $question->getUser()->getFullName(); ?></p>
+            </div>
+            <div class='col-md-3'>
+                <label>
+                    سن
+                </label>
+                <p><?php echo $question->getUser()->getFullName(); ?></p>
+            </div>
+            <div class='col-md-3'>
+                <label>
+                    جنسیت
+                </label>
+                <p><?php echo $question->getUser()->getFullName(); ?></p>
+            </div>
+            <div class='col-md-3'>
+                <label>
+                    شهر
+                </label>
+                <p><?php echo $question->getCityName(); ?></p>
+            </div>
+
+        </div>
+        <hr/>
+        <div class='row'>
+            <div class='col-md-12'>
+                <label>
+                    سوال
+                </label>
+                <p><?php echo $question->question; ?></p>
+            </div>
+        </div>
+        <hr/>
+        <div class='row'>
+            <div class='col-md-6'>
+                <label>
+                    سابقه بیماری
+                </label>
+                <p><?php echo $question->disorderhistory; ?></p>
+            </div>
+            <div class='col-md-6'>
+                <label>
+                    سابقه مصرف دارو
+                </label>
+                <p><?php echo $question->usingtablet; ?></p>
+            </div>
+        </div>
+        <hr/>
+        <blockquote>
+            <?php foreach ($answers as $answer) : ?>
+
+                <div class="media">
+                    <img src="<?php echo $answer->getUser()->getImageLink(); ?>" class="img-rounded pull-right media-object" style="width: 64px">
+                    <div class="media-body">
+                        <h4 style="margin-top: 8px;" class="media-heading"><?php echo $answer->getUserName(); ?></h4>
+                        <?php echo $answer->message; ?>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+        </blockquote>
+        <hr/>
+        <h3>ارسال جواب</h3>
+        <form method="post">
+            <?php $form->renderDecorated('answer'); ?>
+
+            <?php $form->renderDecorated('submit'); ?> 
+        </form>
+
     </div>
 </div>
 
