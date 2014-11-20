@@ -165,8 +165,26 @@ abstract class ControllerBase extends AtaController {
                     ->collection('header')->addCss("css/bt3/bootstrap-rtl.css")->addCss("css/bt3/custom-rtl.css");
         }
 
+
+
         // save the action
         $action->create();
+    }
+
+    public function afterExecuteRoute($dispatcher) {
+        // set page subtitle
+        $this->view->pageSubtitle = $this->getSubtitle();
+    }
+
+    private $subtitle;
+
+    public function getSubtitle() {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle($subtitle) {
+        $this->subtitle = $subtitle;
+        return $this;
     }
 
 }

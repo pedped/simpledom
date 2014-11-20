@@ -188,3 +188,17 @@ footer .btn {
     position: relative;
     margin-right: 6px;
 }
+
+.navbar-brand{
+    display: inline-flex;
+}
+
+.noa:hover,
+.noa {
+    color : inherit;
+    text-decoration: none;
+}
+
+.page-subtitle{
+    font-size: 22px !important;
+}

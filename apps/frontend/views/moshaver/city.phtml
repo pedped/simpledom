@@ -1,12 +1,6 @@
 <div class='row'>
-    <div class='col-md-12'>
-        <h2>لیست مشاوران</h2>
-        <hr/>
-    </div>
-</div>
-<div class='row'>
     <?php foreach ($cities as $city) : ?>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6 center ">
             <div class="moshaver-city-item">
                 <h3><a href="<?php echo $this->url->get("moshaver/list/$city->id/1"); ?>"><?php echo $city->name; ?></a></h3>
             </div>
