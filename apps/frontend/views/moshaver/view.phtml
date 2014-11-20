@@ -5,6 +5,7 @@
 </div>
 <div class='row'>
     <div class='col-md-12'>
+        <!-- Head !-->
         <div class="media moshaver-profile-item">
             <img src="<?php echo $moshaver->getUser()->getImageLink(); ?>" class="media-object pull-right img-rounded moshaver-image">
             <div class="media-body pull-right">
@@ -18,5 +19,12 @@
             </div>
         </div>
         <hr/>
+        <!-- Info !-->
+        <h3>اطلاعات عمومی</h3>
+        <p><?php echo $moshaver->info; ?></p>
+        <hr/>
+        <!-- Address !-->
+        <h3>موقعیت</h3>
+        <?php $form->renderDecorated('map'); ?> 
     </div>
 </div>

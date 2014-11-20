@@ -173,6 +173,8 @@ class Moshaver extends AtaModel {
      * @var string
      */
     public $date;
+    public $longitude;
+    public $latitude;
 
     /**
      * Set Date

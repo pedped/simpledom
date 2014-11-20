@@ -6,12 +6,14 @@ use Answer;
 use AtaPaginator;
 use City;
 use CreateMoshaverForm;
+use MapElement;
 use Moshaver;
 use MoshaverForm;
 use MoshaverSettingsForm;
 use Question;
 use SendMoshaverAnswerForm;
 use Settings;
+use Simpledom\Core\AtaForm;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSManager;
 use SmsNumber;
@@ -263,11 +265,13 @@ class MoshaverController extends ControllerBase {
         $this->view->form = $fr;
     }
 
-    public function listAction($page = 1) {
+    public function listAction($cityid = 1, $page = 1) {
 
         // load the users
         $moshavers = Moshaver::find(
                         array(
+                            "cityid = :cityid:",
+                            "bind" => array("cityid" => $cityid),
                             'order' => 'id DESC'
         ));
 
@@ -369,7 +373,20 @@ class MoshaverController extends ControllerBase {
     }
 
     public function viewAction($id) {
-        $this->view->moshaver = Moshaver::findFirst($id);
+        $moshaver = Moshaver::findFirst($id);
+        $this->view->moshaver = $moshaver;
+
+        // MAP
+        $form = new AtaForm();
+        $map = new MapElement("map");
+        $map->setLathitude($moshaver->latitude);
+        $map->setLongtude($moshaver->longitude);
+        $map->setMarkTitle("موقعیت " . $moshaver->getUser()->getFullName());
+        $map->setMarkDescription($map->getMarkTitle());
+        $map->setZoom(14);
+        $form->add($map);
+        $this->handleFormScripts($form);
+        $this->view->form = $form;
     }
 
     public function getMoshaverID() {
