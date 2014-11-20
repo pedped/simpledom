@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Answer;
 use AtaPaginator;
+use City;
 use CreateMoshaverForm;
 use Moshaver;
 use MoshaverForm;
@@ -28,6 +29,10 @@ class MoshaverController extends ControllerBase {
      */
     protected function ValidateAccess($id) {
         return true;
+    }
+
+    public function cityAction() {
+        $this->view->cities = City::find("captial = 1");
     }
 
     public function questionAction($questionID) {
@@ -67,10 +72,9 @@ class MoshaverController extends ControllerBase {
 
                     // send sms message to the askwer
                     SMSManager::SendSMS($question->getUser()->getVerifiedPhone(), "کاربر گرامی، سوال شما توسط مشاور پاسخ داده شده است، جهت مشاهده پاسخ به وبسایت وارد شوید", SmsNumber::findFirst()->id);
-                
+
                     // clear the form
                     $form->clear();
-                    
                 }
             }
         }
@@ -202,9 +206,12 @@ class MoshaverController extends ControllerBase {
 
             $this->dispatcher->forward(array(
                 "controller" => "user",
-                "action" => "login",
+                "action" => "register",
                 "params" => array()
             ));
+
+            // return
+            return;
         }
 
         $fr = new CreateMoshaverForm();
@@ -362,24 +369,7 @@ class MoshaverController extends ControllerBase {
     }
 
     public function viewAction($id) {
-
-        $item = Moshaver::findFirst($id);
-        $this->view->item = $item;
-
-        $form = new MoshaverForm();
-        $this->handleFormScripts($form);
-        $form->get('id')->setDefault($item->id);
-        $form->get('userid')->setDefault($item->userid);
-        $form->get('cityid')->setDefault($item->cityid);
-        $form->get('address')->setDefault($item->address);
-        $form->get('phone')->setDefault($item->phone);
-        $form->get('verified')->setDefault($item->verified);
-        $form->get('moshavertypeid')->setDefault($item->moshavertypeid);
-        $form->get('degreetypeid')->setDefault($item->degreetypeid);
-        $form->get('info')->setDefault($item->info);
-        $form->get('status')->setDefault($item->status);
-        $form->get('date')->setDefault($item->date);
-        $this->view->form = $form;
+        $this->view->moshaver = Moshaver::findFirst($id);
     }
 
     public function getMoshaverID() {

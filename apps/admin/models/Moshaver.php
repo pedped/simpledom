@@ -219,4 +219,12 @@ class Moshaver extends AtaModel {
         return User::findFirst($this->userid);
     }
 
+    public function getTypeName() {
+        return MoshaverType::findFirst($this->moshavertypeid)->name;
+    }
+
+    public function getDegreeName() {
+        return MoshaverDegree::findFirst($this->degreetypeid)->name;
+    }
+
 }

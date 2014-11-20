@@ -1,14 +1,30 @@
+@media (min-width: 768px){
+    .navbar > .container .navbar-brand,
+    .navbar > .container-fluid .navbar-brand{
+        margin-right: 0px;
+    }
+}
+.moshaver-type a:hover{
+    text-decoration: none;
+    color:#2460C4;
+}
+
 .moshaver-type .name{
-    font-size: 35px;
+    font-size: 29px;
+    color: #144AA4;
 }
 
 .moshaver-type .img{
-    height: 250px !important;
-    max-height: 250px !important;
+    height: 196px !important;
+    max-height: 196px !important;
     margin: auto;
 }
 .moshaver-item .name{
     margin-top: 10px;
+}
+
+.moshaver-item .description{
+    margin-bottom: 25px;
 }
 
 .moshaver-type-info h1{
@@ -47,4 +63,128 @@
 .unpaid-question-alert .btn{
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+
+.navbar-master hr{
+    margin-top: 15px;
+    border-top: 2px solid #F3F3F3;
+    border-bottom: 1px solid #FFFEFE;
+} 
+
+.navbar-brand {
+    background-color: #fcfcfc !important; 
+    color: #D9178F;
+    font-size: 34px;
+}
+
+footer {
+    margin-top: 80px;
+    border-top: 2px solid #441EC0;
+    background-color: #FFFFFF;
+}
+
+
+.footer .head {
+    font-size: 24px;
+    color: #3C48AE;
+}
+
+.footer .about-description {
+    font-size: 18px;
+    color: #1F1F1F;
+    font-style: normal;
+}
+
+
+.footer .link-item {
+    font-size: 19px;
+    color: #595959;
+    font-weight: 200;
+    text-transform: uppercase;
+    text-shadow: none; 
+}
+
+footer .form-control{
+    background-color: #FFF;
+    color: #eee;
+}
+
+footer .btn {
+    background-color: #FFF;
+    color: #230CC8;
+    border-color: #292DBE;
+    font-size: 120%;
+}
+
+
+#page-container-body {
+    padding-bottom: 440px;
+}
+
+.moshaver-list-item .moshaver-image{
+    width: 100px;
+}
+
+.moshaver-list-item .name{
+    color: #1A1FCE;
+    margin-top: 12px;
+}
+
+.moshaver-list-item .degree{
+
+}
+.moshaver-list-item .address{
+
+}
+.moshaver-list-item .view-btn{
+    margin-top: 27px;
+}
+
+.moshaver-list-item .media-body{
+    margin-right: 25px !important;
+}
+
+
+
+.moshaver-profile-item .moshaver-image{
+    width: 128px;
+}
+
+.moshaver-profile-item .name{
+    color: #1A1FCE;
+    margin-top: 12px;
+}
+
+.moshaver-profile-item .degree{
+
+}
+.moshaver-profile-item .address{
+
+}
+.moshaver-profile-item .view-btn{
+    margin-top: 27px;
+}
+
+.moshaver-profile-item .media-body{
+    margin-right: 15px !important;
+}
+
+.moshaver-profile-item .phone{
+    margin-top: 5px;
+}
+
+.moshaver-profile-item .phone,
+.moshaver-profile-item .mobile
+{
+    font-size: 35px;
+    font-family: yekan;
+}
+
+.moshaver-profile-item .phone .fa,
+.moshaver-profile-item .mobile .fa
+{
+    top: 7px;
+    position: relative;
+    margin-right: 6px;
 }

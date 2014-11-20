@@ -25,6 +25,9 @@ and open the template in the editor.
 
 body{
     font-family: naskh;
+    background-color: #fcfcfc;
+    padding-top: 0px;
+    /*    text-shadow: whiteSmoke 1px 1px 0;*/
 }
 
 
@@ -34,4 +37,8 @@ body{
 
 .footer .about-description {
     font-size: 18px;
+}
+
+.navbar-master{
+    padding-top: 15px;
 }

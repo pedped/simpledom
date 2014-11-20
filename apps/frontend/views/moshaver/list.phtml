@@ -1,21 +1,24 @@
 <div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
-                                </div>
-                            </div>
-                            <section class='panel'>
-                                <header class='panel-heading'>
-                                    <div class='panel-actions'>
-                                        <a href='#' class='fa fa-caret-down'></a>
-                                        <a href='#' class='fa fa-times'></a>
-                                    </div>
-                                    <h2 class='panel-title'>Moshaver's</h2>
-                                </header>
-                                <div class='panel-body'>
-                                    <?php
-                                    echo $list->header;
-                                    echo $list->table;
-                                    echo $list->footer;
-                                    ?>
-                                </div>
-                            </section>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <?php foreach ($list->items as $moshaver) : ?>
+            <div class="col-md-12">
+                <div class="media moshaver-list-item">
+                    <img src="<?php echo $moshaver->getUser()->getImageLink(); ?>" class="media-object pull-right img-rounded moshaver-image">
+                    <div class="media-body pull-right">
+                        <h3 class="media-heading name"><?php echo $moshaver->getUser()->getFullName(); ?></h3>
+                        <p class="degree"><?php echo $moshaver->getDegreeName(); ?> <?php echo $moshaver->getTypeName(); ?></p>
+                        <p class="address"><?php echo $moshaver->address; ?></p>
+                    </div>
+                    <div class="pull-left">
+                        <a class="btn btn-primary view-btn" href="<?php echo $this->url->get("moshaver/view/$moshaver->id"); ?>">مشاهده پروفایل</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
