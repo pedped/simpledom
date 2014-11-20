@@ -14,6 +14,9 @@ class IndexController extends IndexControllerBase {
 
         // set page title
         $this->setPageTitle("خانه");
+        
+        // set subtitle
+        $this->setSubtitle("تخصصی ترین مرجع مشاوره آنلاین");
     }
 
 }

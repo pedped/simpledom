@@ -31,6 +31,9 @@ class QuestionController extends ControllerBase {
         $this->setPageTitle($moshaverType->name);
         $this->view->moshaverType = $moshaverType;
 
+        // set subtitle
+        $this->setSubtitle($moshaverType->name);
+
         // get moshavers for this group type
         $moshavers = Moshaver::find(array("moshavertypeid = :moshavertypeid: AND verified = 1", "bind" => array("moshavertypeid" => $moshaverTypeID)));
 
@@ -250,7 +253,7 @@ class QuestionController extends ControllerBase {
 
             // check if question is answered
             $this->view->isAnswered = $question->isAnswerd();
-            
+
             // set view to false
             $this->view->isPaid = false;
         }

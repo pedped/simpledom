@@ -47,7 +47,7 @@ class CreateMoshaverForm extends AtaForm {
         $moshavertypeid = new SelectElement('moshavertypeid', MoshaverType::find(), array(
             "using" => array("id", "name")
         ));
-        $moshavertypeid->setLabel('عضویت در گروه مشاوران');
+        $moshavertypeid->setLabel('گروه مشاوره');
         //$moshavertypeid->setAttribute('placeholder', 'Enter your Moshaver Type');
         $moshavertypeid->setAttribute('class', 'form-control');
         $moshavertypeid->addValidator(new PresenceOf(array(

@@ -4,46 +4,46 @@
     </div>
 </div>
 <div class='row'>
-    <div class='col-md-3'>
-    </div>
+    <div class='col-md-8 col-md-push-2 moshaver-register-form'>
+        <form method="post">
 
-    <div class='col-md-6'>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">عضویت مشاور</h3>
-            </div>
-            <div class="panel-body">
-                <form method="post">
-                    
-                    <!--  ADD City ID !-->
-                    <?php $form->renderDecorated('cityid'); ?> 
-
-                    <!--  ADD Address !-->
-                    <?php $form->renderDecorated('address'); ?> 
-
-                    <!--  ADD Phone !-->
-                    <?php $form->renderDecorated('phone'); ?> 
-
+            <h3 style="margin-top: 10px;">اطلاعات مشاور</h3>
+            <hr/>
+            <div class='row'>
+                <div class='col-md-6'>
                     <!--  ADD Moshaver Type !-->
                     <?php $form->renderDecorated('moshavertypeid'); ?> 
-
+                </div>
+                <div class='col-md-6'>
                     <!--  ADD Degree Type !-->
                     <?php $form->renderDecorated('degreetypeid'); ?> 
-
-                    <!--  ADD Info !-->
-                    <?php $form->renderDecorated('info'); ?> 
-
-
-                    <!-- Submit Button !-->
-                    <br/>
-                    <?php $form->renderDecorated('submit'); ?>
-                    
-                </form>
+                </div>
             </div>
-        </div>
 
-    </div>
+            <h3>موقعیت مشاور</h3>
+            <hr/>
 
-    <div class='col-md-3'>
+            <!--  ADD City ID !-->
+            <?php $form->renderDecorated('cityid'); ?> 
+
+            <!--  ADD Address !-->
+            <?php $form->renderDecorated('address'); ?> 
+
+            <h3>اطلاعات تماس</h3>
+            <hr/>
+            <!--  ADD Phone !-->
+            <?php $form->renderDecorated('phone'); ?> 
+
+            <h3>اطلاعات عمومی</h3>
+            <hr/>
+            <!--  ADD Info !-->
+            <?php $form->renderDecorated('info'); ?> 
+
+
+            <!-- Submit Button !-->
+            <br/>
+            <?php $form->renderDecorated('submit'); ?>
+
+        </form>
     </div>
 </div>

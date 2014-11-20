@@ -36,7 +36,7 @@ class MoshaverController extends ControllerBase {
     public function cityAction() {
 
         $this->setPageTitle("لیست مشاوران");
-        
+
         $this->setSubtitle("لیست مشاوران");
 
         $this->view->cities = City::find("captial = 1");
@@ -220,6 +220,8 @@ class MoshaverController extends ControllerBase {
             // return
             return;
         }
+
+        $this->setSubtitle("عضویت مشاور");
 
         $fr = new CreateMoshaverForm();
         $this->handleFormScripts($fr);

@@ -23,7 +23,7 @@
     margin-top: 10px;
 }
 
-.moshaver-item .description{
+.moshaver-type .description{
     margin-bottom: 25px;
 }
 
@@ -201,4 +201,16 @@ footer .btn {
 
 .page-subtitle{
     font-size: 22px !important;
+}
+
+.form-control{
+    height: auto;
+}
+
+label{
+    font-family: naskhbold;
+}
+
+.moshaver-register-form h3{
+    margin-top: 45px;
 }
