@@ -229,4 +229,13 @@ class Moshaver extends AtaModel {
         return MoshaverDegree::findFirst($this->degreetypeid)->name;
     }
 
+    /**
+     * 
+     * @return int
+     */
+    public function getNewQuestionCount() {
+        $moshaver = new Moshaver();
+        return $moshaver->rawQuery("SELECT COUNT(*) as unanswercount FROM question q WHERE q.moshaverid = 1 AND (SELECT COUNT(*) FROM answer a WHERE q.id = a.questionid)  = 0")->getFirst()->unanswercount;
+    }
+
 }

@@ -55,9 +55,6 @@
 .unpaid-question-alert{
     text-align: center;
     font-size: 25px;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    box-shadow: 0px 0px 5px #D9D9D9;
 }
 
 .unpaid-question-alert .btn{
@@ -73,9 +70,9 @@
 } 
 
 .navbar-brand {
-    background-color: #fcfcfc !important; 
-    color: #D9178F;
-    font-size: 34px;
+    background-color: #fcfcfc !important;
+    color: #1751D9;
+    font-size: 40px;
 }
 
 footer {
@@ -201,6 +198,7 @@ footer .btn {
 
 .page-subtitle{
     font-size: 22px !important;
+    color: #909090;
 }
 
 .form-control{
@@ -213,4 +211,12 @@ label{
 
 .moshaver-register-form h3{
     margin-top: 45px;
+}
+
+.new-question-answer-indicate{
+    color: #f00;
+    font-family: yekan;
+    font-weight: bold;
+    font-size: 107%;
+    padding-left: 4px;
 }

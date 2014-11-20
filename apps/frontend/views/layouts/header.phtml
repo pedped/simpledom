@@ -20,7 +20,7 @@ use Phalcon\Text;
             <ul class="nav navbar-nav">
                 <!-- Check For Subtitle !-->
                 <?php if (isset($pageSubtitle) && strlen($pageSubtitle) > 0) : ?>
-                <li><a class="noa page-subtitle" style="font-size: 22px !important" href="<?php echo $this->url->get("faq"); ?>"><?php echo($pageSubtitle); ?></a></li>
+                    <li><a class="noa page-subtitle" style="font-size: 22px !important" href=""><?php echo($pageSubtitle); ?></a></li>
                 <?php endif; ?>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
@@ -61,7 +61,13 @@ use Phalcon\Text;
                 <li class="hidden"><a href="<?php echo $this->url->get("opinion"); ?>"><?= _("OPINIONS"); ?></a></li>
                 <li class="hidden"><a href="<?php echo $this->url->get("contact"); ?>"><?= _("CONTACT US"); ?></a></li>
                 <li class="hidden"><a href="<?php echo $this->url->get("faq"); ?>"><?= _("FAQ"); ?></a></li>
-                <li><a href="<?php echo $this->url->get("moshaver/add"); ?>">عضویت مشاوران</a></li>
+
+                <!-- Moshaver Menu !-->
+                <?php if (!isset($user) || !$user->isMoshaver()): ?>
+                    <li><a href="<?php echo $this->url->get("moshaver/add"); ?>">عضویت مشاوران</a></li>
+                <?php else: ?>
+                    <li><a href="<?php echo $this->url->get("moshaver/"); ?>"><?php echo intval($moshaverNewQuestions) > 0 ? "<span class='new-question-answer-indicate'>(" . $moshaverNewQuestions . ")</span>" : ""; ?> پنل مشاوران</a></li>
+                <?php endif; ?>
                 <li><a href="<?php echo $this->url->get("moshaver/city"); ?>">لیست مشاوران</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

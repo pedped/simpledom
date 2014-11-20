@@ -198,7 +198,7 @@ class Question extends AtaModel implements Orderable {
      * @return boolean
      */
     public function isAnswerd() {
-        return Answer::count(array("questionid = :questionid:", "bind" => array("questionid" => $this->question))) > 0;
+        return Answer::count(array("questionid = :questionid:", "bind" => array("questionid" => $this->id))) > 0;
     }
 
     /**

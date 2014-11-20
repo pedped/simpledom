@@ -174,6 +174,11 @@ abstract class ControllerBase extends AtaController {
     public function afterExecuteRoute($dispatcher) {
         // set page subtitle
         $this->view->pageSubtitle = $this->getSubtitle();
+
+        // check if the user is moshaver, add new question count
+        if (isset($this->user) && $this->user->isMoshaver()) {
+            $this->view->moshaverNewQuestions = $this->user->getMoshaver()->getNewQuestionCount();
+        }
     }
 
     private $subtitle;
