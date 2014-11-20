@@ -329,4 +329,13 @@ class Question extends AtaModel implements Orderable {
         Helper::RedirectToURL("http://www.moshavereh.co/question/view/" . $id);
     }
 
+    /**
+     * return splitted and minified part of question
+     * @param int $maxLength
+     * @return string
+     */
+    public function getSmallQuestion($maxLength = 120) {
+        return strlen($this->question) > $maxLength ? mb_substr($this->question, 0, $maxLength) . "..." : $this->question;
+    }
+
 }

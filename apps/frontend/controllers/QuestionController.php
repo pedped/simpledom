@@ -3,6 +3,7 @@
 namespace Simpledom\Frontend\Controllers;
 
 use Answer;
+use AtaPaginator;
 use CreateQuestionForm;
 use Moshaver;
 use MoshaverType;
@@ -33,6 +34,10 @@ class QuestionController extends ControllerBase {
 
         // set subtitle
         $this->setSubtitle($moshaverType->name);
+
+
+        // send questions to user
+        $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "bind" => array("moshavertypeid" => $moshaverTypeID)));
 
         // get moshavers for this group type
         $moshavers = Moshaver::find(array("moshavertypeid = :moshavertypeid: AND verified = 1", "bind" => array("moshavertypeid" => $moshaverTypeID)));
@@ -178,8 +183,45 @@ class QuestionController extends ControllerBase {
         $this->view->moshavers = $moshavers;
     }
 
-    public function listAction($numberPage = 1) {
-        
+    public function listAction($moshaverTypeID = 1, $numberPage = 1) {
+
+        // set page title
+        $moshaverType = \MoshaverType::findFirst(array("id = :id:", "bind" => array("id" => $moshaverTypeID)));
+        $this->setPageTitle("لیست سوالات " . $moshaverType->name);
+        $this->setSubtitle("لیست سوالات " . $moshaverType->name);
+
+        // load the users
+        $questions = Question::find(
+                        array(
+                            "moshavertypeid = :moshavertypeid:", "bind" => array("moshavertypeid" => $moshaverTypeID),
+                            'order' => 'id DESC'
+        ));
+
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $questions,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'User ID', 'Moshaver ID', 'Question', 'About Yourself', 'Disorder History', 'Using Tablet', 'City ID', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'userid', 'moshaverid', 'question', 'aboutyourself', 'disorderhistory', 'usingtablet', 'cityid', 'getDate()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'question/list/' . $moshaverTypeID . "/{pn}");
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     public function orderAction($questionID) {
@@ -206,14 +248,14 @@ class QuestionController extends ControllerBase {
             $this->show404();
         }
 
-        // check if question belongs to this user
-        if ($question->userid != $this->getUser()->userid) {
-            // it is not belong to him\her
-            $this->show404();
-        }
-
+//        // check if question belongs to this user
+//        if ($question->userid != $this->getUser()->userid) {
+//            // it is not belong to him\her
+//            $this->show404();
+//        }
         // set page title
         $this->setPageTitle("مشاهده سوال");
+        $this->setSubtitle($question->getMoshaverType()->name);
 
         // create form
         $form = new SendMoshaverAnswerForm();

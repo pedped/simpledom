@@ -1,21 +1,25 @@
 <div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
-                                </div>
-                            </div>
-                            <section class='panel'>
-                                <header class='panel-heading'>
-                                    <div class='panel-actions'>
-                                        <a href='#' class='fa fa-caret-down'></a>
-                                        <a href='#' class='fa fa-times'></a>
-                                    </div>
-                                    <h2 class='panel-title'>Question's</h2>
-                                </header>
-                                <div class='panel-body'>
-                                    <?php
-                                    echo $list->header;
-                                    echo $list->table;
-                                    echo $list->footer;
-                                    ?>
-                                </div>
-                            </section>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <ul>
+
+            <?php foreach ($list->items as $question) : ?>
+                <li>
+                    <div class="question-list-item">
+                        <h3 class="title"><a href="<?php echo $this->url->get("question/view/$question->id"); ?>"><?php echo $question->getSmallQuestion(250); ?></a></h3>
+                        <p class="date" style="color:#777;font-size: 90%; font-family: yekan;"><?php echo $question->getDate(); ?></p>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <hr/>
+        <?php
+        echo $list->footer;
+        ?>
+    </div>
+
+</div>

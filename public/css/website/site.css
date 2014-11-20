@@ -220,3 +220,13 @@ label{
     font-size: 107%;
     padding-left: 4px;
 }
+
+.question-list-item .title{
+    font-family: yekan;
+}
+
+
+.question-view-question{
+    font-size: 19px;
+    line-height: 33px;
+}

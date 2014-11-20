@@ -4,11 +4,7 @@
     </div>
 </div>
 <div class='row'>
-    <div class='col-md-8 col-md-push-2'>
-        <div class="alert alert-info moshaver-type-info">
-            <h1><?php echo $moshaverType->name; ?></h1>
-            <p><?php echo $moshaverType->description; ?></p>
-        </div>
+    <div class='col-md-8'>
         <form method='post'>
             <!-- Moshavers !-->
             <div class="well hidden">
@@ -101,6 +97,27 @@
 
             </div>
         </form>
+    </div>
+    <!-- Old Questions !-->
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">سوالات <?php echo $moshaverType->name; ?></h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <?php foreach ($questions as $question) : ?>
+                        <li>
+                            <a href="<?php echo $this->url->get("question/view/$question->id"); ?>"><?php echo $question->getSmallQuestion(); ?></a>
+                            <p><?php echo $question->getDate(); ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <a href="<?php echo $this->url->get("question/list/$moshaverType->id/1"); ?>">سوالات بیشتر بخش <?php echo $moshaverType->name; ?></a>
+            </div>
+        </div>
     </div>
 </div>
 
