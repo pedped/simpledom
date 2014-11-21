@@ -314,6 +314,17 @@ class MoshaverController extends ControllerBase {
 
     public function listAction($cityid = 1, $page = 1) {
 
+
+        // check if city exist
+        $city = City::findFirst(array("id = :cityid:", "bind" => array("cityid" => $cityid)));
+        if (!$city) {
+            $this->show404();
+        }
+
+        // show city title in Page Subtitle
+        $this->setSubtitle("لیست مشاوران در شهر " . $city->name);
+
+
         // load the users
         $moshavers = Moshaver::find(
                         array(
