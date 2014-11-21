@@ -87,12 +87,12 @@
                 <label>
                     سن
                 </label>
-                <p><?php echo $question->getUser()->getFullName(); ?></p>
+                <p><?php echo $question->age . " ساله"; ?></p>
                 <hr/>
                 <label>
                     جنسیت
                 </label>
-                <p><?php echo $question->getUser()->getFullName(); ?></p>
+                <p><?php echo $question->gender == 1 ? "مرد" : "زن"; ?></p>
                 <hr/>
                 <label>
                     شهر

@@ -159,6 +159,8 @@ class Question extends AtaModel implements Orderable {
     }
 
     public $moshavertypeid;
+    public $age;
+    public $gender;
 
     public function getUserName() {
         return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';

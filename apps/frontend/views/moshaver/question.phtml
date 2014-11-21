@@ -16,13 +16,13 @@
                 <label>
                     سن
                 </label>
-                <p><?php echo $question->getUser()->getFullName(); ?></p>
+                <p><?php echo $question->age . " ساله"; ?></p>
             </div>
             <div class='col-md-3'>
                 <label>
                     جنسیت
                 </label>
-                <p><?php echo $question->getUser()->getFullName(); ?></p>
+                <p><?php echo $question->gender == 1 ? "مرد" : "زن"; ?></p>
             </div>
             <div class='col-md-3'>
                 <label>
