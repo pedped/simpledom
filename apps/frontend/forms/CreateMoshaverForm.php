@@ -10,6 +10,17 @@ class CreateMoshaverForm extends AtaForm {
 
 
 
+        // State ID
+        $stateid = new SelectElement('stateid', State::find(array("order" => "name ASC")), array(
+            "using" => array("id", "name")
+        ));
+        $stateid->setLabel('استان');
+        //$stateid->setAttribute('placeholder', 'Enter your State ID');
+        $stateid->setAttribute('class', 'form-control');
+        $stateid->addValidator(new PresenceOf(array(
+        )));
+        $this->add($stateid);
+
         // City ID
         $cityid = new SelectElement('cityid', City::find(array("order" => "name ASC")), array(
             "using" => array("id", "name")
@@ -27,6 +38,7 @@ class CreateMoshaverForm extends AtaForm {
         $address->setLabel('آدرس');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
+        $address->setAttribute('rows', '4');
         $address->addValidator(new PresenceOf(array(
         )));
         $this->add($address);
@@ -72,6 +84,7 @@ class CreateMoshaverForm extends AtaForm {
         $info->setLabel('اطلاعات کلی در مورد شما');
         //$info->setAttribute('placeholder', 'Enter your Info');
         $info->setAttribute('class', 'form-control');
+        $info->setAttribute('rows', '10');
         $info->addValidator(new PresenceOf(array(
         )));
         $this->add($info);

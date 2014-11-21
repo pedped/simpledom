@@ -132,22 +132,21 @@ class MoshaverController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-        } else {
-
-            // set default values
-
-            $fr->get('cityid')->setDefault($moshaver->cityid);
-            $fr->get('address')->setDefault($moshaver->address);
-            $fr->get('phone')->setDefault($moshaver->phone);
-            $fr->get('moshavertypeid')->setDefault($moshaver->moshavertypeid);
-            $fr->get('degreetypeid')->setDefault($moshaver->degreetypeid);
-            $fr->get('info')->setDefault($moshaver->info);
         }
 
+
+        $fr->get('stateid')->setDefault(\City::findFirst(array("id = :id:", "bind" => array("id" => $moshaver->cityid)))->stateid);
+        $fr->get('cityid')->setDefault($moshaver->cityid);
+        $fr->get('address')->setDefault($moshaver->address);
+        $fr->get('phone')->setDefault($moshaver->phone);
+        $fr->get('moshavertypeid')->setDefault($moshaver->moshavertypeid);
+        $fr->get('degreetypeid')->setDefault($moshaver->degreetypeid);
+        $fr->get('info')->setDefault($moshaver->info);
         $fr->get("map")->setLongtude($moshaver->longitude);
         $fr->get("map")->setLathitude($moshaver->latitude);
         $fr->get("map")->setZoom(14);
 
+        $this->view->cities = City::find();
         $this->view->form = $fr;
     }
 
@@ -262,6 +261,7 @@ class MoshaverController extends ControllerBase {
         }
 
         $this->setSubtitle("عضویت مشاور");
+        $this->view->cities = City::find();
 
         $fr = new CreateMoshaverForm();
         $this->handleFormScripts($fr);

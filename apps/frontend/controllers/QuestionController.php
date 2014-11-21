@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Answer;
 use AtaPaginator;
+use City;
 use CreateQuestionForm;
 use Moshaver;
 use MoshaverType;
@@ -38,6 +39,7 @@ class QuestionController extends ControllerBase {
 
         // send questions to user
         $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "limit" => "10", "bind" => array("moshavertypeid" => $moshaverTypeID)));
+        $this->view->cities = City::find();
 
         // get moshavers for this group type
         $moshavers = Moshaver::find(array("moshavertypeid = :moshavertypeid: AND verified = 1", "bind" => array("moshavertypeid" => $moshaverTypeID)));
