@@ -434,6 +434,9 @@ class MoshaverController extends ControllerBase {
         $moshaver = Moshaver::findFirst($id);
         $this->view->moshaver = $moshaver;
 
+        $this->setPageTitle($moshaver->getUserName());
+        $this->setSubtitle("مشاور" . " " . $moshaver->getUserName());
+
         // MAP
         $form = new AtaForm();
         $map = new MapElement("map");

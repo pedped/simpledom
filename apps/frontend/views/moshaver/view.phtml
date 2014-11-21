@@ -15,13 +15,13 @@
             </div>
             <div class="pull-left">
                 <p class="phone"><?php echo $moshaver->phone; ?> <span class="fa fa-phone"></span></p>
-                <p class="mobile"><?php echo $moshaver->phone; ?> <span class="fa fa-mobile-phone"></span></p>
+                <p class="mobile"><?php echo $moshaver->getUser()->getVerifiedPhone(); ?> <span class="fa fa-mobile-phone"></span></p>
             </div>
         </div>
         <hr/>
         <!-- Info !-->
         <h3>اطلاعات عمومی</h3>
-        <p><?php echo $moshaver->info; ?></p>
+        <p><?php echo nl2br($moshaver->info); ?></p>
         <hr/>
         <!-- Address !-->
         <h3>موقعیت</h3>

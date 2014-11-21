@@ -10,7 +10,7 @@ class IndexController extends IndexControllerBase {
     public function indexAction() {
 
         // load the moshaver types
-        $this->view->moshaverTypes = MoshaverType::find();
+        $this->view->moshaverTypes = MoshaverType::find("enable=1");
 
         // set page title
         $this->setPageTitle("خانه");
