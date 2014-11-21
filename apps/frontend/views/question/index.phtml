@@ -109,7 +109,7 @@
                     <?php foreach ($questions as $question) : ?>
                         <li>
                             <a href="<?php echo $this->url->get("question/view/$question->id"); ?>"><?php echo $question->getSmallQuestion(); ?></a>
-                            <p><?php echo $question->getDate(); ?></p>
+                            <p style="color: #aaa;font-size: 12px;"><?php echo $question->getDate(); ?></p>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -153,7 +153,7 @@ foreach ($cities as $city) {
 
     function locatteToAddress(address)
     {
-        
+
     }
 
     function oncitychange(city)
