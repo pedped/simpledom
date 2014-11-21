@@ -102,11 +102,13 @@ class MoshaverController extends ControllerBase {
         // set title
         $this->setPageTitle('ویرایش اطلاعات مشاور');
 
-        $moshaverItem = Moshaver::findFirst($this->getMoshaverID());
+        $moshaver = Moshaver::findFirst($this->getMoshaverID());
 
         // create form
         $fr = new MoshaverSettingsForm();
         $this->handleFormScripts($fr);
+
+
         // check for post request
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
@@ -118,6 +120,8 @@ class MoshaverController extends ControllerBase {
                 $moshaver->moshavertypeid = $this->request->getPost('moshavertypeid', 'string');
                 $moshaver->degreetypeid = $this->request->getPost('degreetypeid', 'string');
                 $moshaver->info = $this->request->getPost('info', 'string');
+                $moshaver->latitude = $this->request->getPost('map_latitude', 'string');
+                $moshaver->longitude = $this->request->getPost('map_longitude', 'string');
 
                 if (!$moshaver->save()) {
                     $moshaver->showErrorMessages($this);
@@ -132,13 +136,17 @@ class MoshaverController extends ControllerBase {
 
             // set default values
 
-            $fr->get('cityid')->setDefault($moshaverItem->cityid);
-            $fr->get('address')->setDefault($moshaverItem->address);
-            $fr->get('phone')->setDefault($moshaverItem->phone);
-            $fr->get('moshavertypeid')->setDefault($moshaverItem->moshavertypeid);
-            $fr->get('degreetypeid')->setDefault($moshaverItem->degreetypeid);
-            $fr->get('info')->setDefault($moshaverItem->info);
+            $fr->get('cityid')->setDefault($moshaver->cityid);
+            $fr->get('address')->setDefault($moshaver->address);
+            $fr->get('phone')->setDefault($moshaver->phone);
+            $fr->get('moshavertypeid')->setDefault($moshaver->moshavertypeid);
+            $fr->get('degreetypeid')->setDefault($moshaver->degreetypeid);
+            $fr->get('info')->setDefault($moshaver->info);
         }
+
+        $fr->get("map")->setLongtude($moshaver->longitude);
+        $fr->get("map")->setLathitude($moshaver->latitude);
+        $fr->get("map")->setZoom(14);
 
         $this->view->form = $fr;
     }

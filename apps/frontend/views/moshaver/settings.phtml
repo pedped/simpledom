@@ -6,6 +6,9 @@
 <div class='row'>
     <div class='col-md-12'>
         <form method="post">
+
+            <h2>اطلاعات مشاور</h2>
+            <hr/>
             <div class='row'>
                 <div class='col-md-6'>
                     <!--  ADD Moshaver Type !-->
@@ -17,18 +20,34 @@
                 </div>
             </div>
 
+            <!--  ADD Info !-->
+            <?php $form->renderDecorated('info'); ?> 
+
+
+            <h2>اطلاعات تماس</h2>
             <hr/>
-            <!--  ADD City ID !-->
-            <?php $form->renderDecorated('cityid'); ?> 
-
-            <!--  ADD Address !-->
-            <?php $form->renderDecorated('address'); ?> 
-
             <!--  ADD Phone !-->
             <?php $form->renderDecorated('phone'); ?> 
 
-            <!--  ADD Info !-->
-            <?php $form->renderDecorated('info'); ?> 
+
+
+            <!--  ADD Address !-->
+            <h2>موقعیت</h2>
+            <hr/>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <!--  ADD State ID !-->
+                    <?php $form->renderDecorated('stateid'); ?> 
+                </div>
+                <div class='col-md-6'>
+                    <!--  ADD City ID !-->
+                    <?php $form->renderDecorated('cityid'); ?> 
+                </div>
+            </div>
+            <?php $form->renderDecorated('address'); ?> 
+
+            <!--  ADD Map !-->
+            <?php $form->renderDecorated('map'); ?> 
 
             <!-- Submit Button !-->
             <br/>
