@@ -9,6 +9,7 @@ use CreateMoshaverForm;
 use MapElement;
 use Moshaver;
 use MoshaverForm;
+use MoshaverSale;
 use MoshaverSettingsForm;
 use Question;
 use SendMoshaverAnswerForm;
@@ -169,6 +170,37 @@ class MoshaverController extends ControllerBase {
                     'id', 'getUserName()', 'question', 'getCityName()', 'getDate()', 'getAnswerState()', 'getAnswerButton()'
                 ))->setListPath(
                 'moshaver/index');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function paymentsAction($numberPage = 1) {
+
+        // load the users
+        $moshaversales = MoshaverSale::find(
+                        array(
+                            "userid = :userid:", "bind" => array("userid" => $this->user->id),
+                            'order' => 'id DESC'
+        ));
+
+
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $moshaversales,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'شماره سفارش کاربر', 'درصد شما', 'هزینه', 'تاریخ'
+                ))->
+                setFields(array(
+                    'id', 'orderid', 'percent', 'value', 'getDate()'
+                ))->setListPath(
+                'list');
 
         $this->view->list = $paginator->getPaginate();
     }

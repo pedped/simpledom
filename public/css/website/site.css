@@ -230,3 +230,12 @@ label{
     font-size: 19px;
     line-height: 33px;
 }
+
+.panel-default .panel-title {
+    margin-top: 3px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    color: #1A2CC8;
+    font-weight: bold;
+    font-family: naskhbold;
+}

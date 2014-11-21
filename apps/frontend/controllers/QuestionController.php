@@ -37,7 +37,7 @@ class QuestionController extends ControllerBase {
 
 
         // send questions to user
-        $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "bind" => array("moshavertypeid" => $moshaverTypeID)));
+        $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "limit" => "10", "bind" => array("moshavertypeid" => $moshaverTypeID)));
 
         // get moshavers for this group type
         $moshavers = Moshaver::find(array("moshavertypeid = :moshavertypeid: AND verified = 1", "bind" => array("moshavertypeid" => $moshaverTypeID)));
