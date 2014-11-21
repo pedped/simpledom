@@ -38,7 +38,7 @@ class QuestionController extends ControllerBase {
 
 
         // send questions to user
-        $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "limit" => "10", "bind" => array("moshavertypeid" => $moshaverTypeID)));
+        $this->view->questions = Question::find(array("moshavertypeid = :moshavertypeid:", "order" => "id DESC", "limit" => "10", "bind" => array("moshavertypeid" => $moshaverTypeID)));
         $this->view->cities = City::find();
 
         // get moshavers for this group type
@@ -130,6 +130,8 @@ class QuestionController extends ControllerBase {
                     $question->disorderhistory = $this->request->getPost('disorderhistory', 'string');
                     $question->usingtablet = $this->request->getPost('usingtablet', 'string');
                     $question->cityid = $this->request->getPost('cityid', 'string');
+                    $question->gender = $this->request->getPost('gender', 'string');
+                    $question->age = $this->request->getPost('age', 'string');
                     if (!$question->create()) {
                         $question->showErrorMessages($this);
                     } else {

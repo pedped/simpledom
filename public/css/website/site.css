@@ -246,3 +246,11 @@ label{
     margin-top: 15px;
     padding-top: 15px;
 }
+.panel-heading .fa,
+.panel-heading .glyphicon{
+    position: relative;
+    padding-left: 11px;
+    font-size: 110%;
+    top: 2px;
+    padding-bottom: 2px;
+}
