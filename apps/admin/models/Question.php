@@ -226,6 +226,10 @@ class Question extends AtaModel implements Orderable {
         $answers = Answer::find(array("questionid = :questionid:", "bind" => array("questionid" => $this->id)));
         if ($answers->Count() == 0) {
             return "<div class='btn btn-default btn-sm disabled'>منتظر ارسال پاسخ مشاور</div>";
+        } else if ($answers->getLast()->userid == $this->userid) {
+            return "<div class='btn btn-warning btn-sm disabled'>پاسخ سوال کننده</div>";
+        } else {
+            return "<div class='btn btn-success btn-sm disabled'>پاسخ داده شده</div>";
         }
     }
 
