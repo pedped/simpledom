@@ -6,62 +6,42 @@
 <form method='post'>
     <div class='row'>
         <div class='col-lg-12'>
-            <section class='panel'>
+            <section class='panel panel-default'>
                 <header class='panel-heading'>
-                    <div class='panel-actions'>
-                        <a href='#' class='fa fa-caret-down'></a>
-                        <a href='#' class='fa fa-times'></a>
-                    </div>
-
-                    <h2 class='panel-title'>Add Organ</h2>
+                    <h2 class='panel-title'>افزودن سازمان</h2>
                 </header>
                 <div class='panel-body'>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!--  ADD Name !-->
+                            <?php $form->renderDecorated('name'); ?> 
 
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
+                            
+                            <!--  ADD Phone Number !-->
+                            <?php $form->renderDecorated('phonenumber'); ?> 
+                        </div>
+                        <div class="col-sm-6">
+                            
+                            <!--  ADD State ID !-->
+                            <?php $form->renderDecorated('stateid'); ?> 
+                            
+                            <!--  ADD City ID !-->
+                            <?php $form->renderDecorated('cityid'); ?> 
 
-
-                    <!--  ADD Name !-->
-                    <?php $form->renderDecorated('name'); ?> 
-
-
-
-                    <!--  ADD Address !-->
-                    <?php $form->renderDecorated('address'); ?> 
-
-                    <!--  ADD State ID !-->
-                    <?php $form->renderDecorated('stateid'); ?> 
-
-                    <!--  ADD City ID !-->
-                    <?php $form->renderDecorated('cityid'); ?> 
-
-                    <!--  ADD Description !-->
-                    <?php $form->renderDecorated('description'); ?> 
-
-                    <!--  ADD Phone Number !-->
-                    <?php $form->renderDecorated('phonenumber'); ?> 
-
-                    <!--  ADD SMS Credit !-->
-                    <?php $form->renderDecorated('smscredit'); ?> 
-
-                    <!--  ADD Interface URL !-->
-                    <?php $form->renderDecorated('interfaceurl'); ?> 
-
-                    <!--  ADD Use Interface !-->
-                    <?php $form->renderDecorated('userinterface'); ?> 
-
-                    <!--  ADD Status !-->
-                    <?php $form->renderDecorated('status'); ?> 
-
-                    <!--  ADD Disable Message !-->
-                    <?php $form->renderDecorated('disablemessage'); ?> 
-
-                    <!--  ADD Date !-->
-                    <?php $form->renderDecorated('date'); ?> 
-
+                            <!--  ADD Description !-->
+                            <?php $form->renderDecorated('description'); ?> 
+                        </div>
+                    </div
 
                     <!-- Submit Button !-->
                     <br/>
-                    <?php $form->renderDecorated('submit'); ?>
-
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <?php $form->renderDecorated('submit'); ?>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -70,22 +50,21 @@
 <script>
     $(function() {
         var state = {};
-        state["2"] = {};
-        state["2"]["256"] = 'njj';
-        state["2"]["252"] = 'sssnjj';
+        <?php foreach($state as $st): ?>
+        state["<?=$st->id?>"] = {};
+        <?php endforeach; ?>
+        <?php foreach($city as $ct): ?>
+        state["<?=$ct->stateid?>"]["<?=$ct->id?>"] = '<?=$ct->name?>';        
+        <?php endforeach; ?>
 
         $("#stateid").change(function() {
             $("#cityid").find('option').remove().end();
             if (state[$(this).val()]) {
                 $.each(state[$(this).val()], function(id, name) {
-                    $("#cityid").append('<option value="'+id+'">'+name+'</option>');
+                    $("#cityid").append('<option value="' + id + '">' + name + '</option>');
                 });
             }
         });
     });
 </script>
-<?php
-var_dump($state);
-var_dump($city);
-?>
 

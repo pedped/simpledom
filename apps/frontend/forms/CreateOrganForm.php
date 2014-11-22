@@ -11,7 +11,7 @@ class CreateOrganForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel('شناسه');
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -19,7 +19,7 @@ class CreateOrganForm extends AtaForm {
 
         // Name
         $name = new TextElement('name');
-        $name->setLabel('Name');
+        $name->setLabel('نام');
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
         $name->addValidator(new PresenceOf(array(
@@ -32,7 +32,7 @@ class CreateOrganForm extends AtaForm {
 
         // Address
         $address = new TextElement('address');
-        $address->setLabel('Address');
+        $address->setLabel('آدرس');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(
@@ -44,7 +44,7 @@ class CreateOrganForm extends AtaForm {
             "using" => array("id", "number")
         ));
         
-        $smsNumber->setLabel('SMS Number');
+        $smsNumber->setLabel('شماره پیامک');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $smsNumber->setAttribute('class', 'form-control');
         $this->add($smsNumber);
@@ -52,7 +52,7 @@ class CreateOrganForm extends AtaForm {
 
         // State ID
         $stateid = new SelectElement('stateid', State::find(), array("using" => array("id", "name")));
-        $stateid->setLabel('State ID');
+        $stateid->setLabel('استان');
         //$stateid->setAttribute('placeholder', 'Enter your State ID');
         $stateid->setAttribute('class', 'form-control');
         $stateid->addValidator(new PresenceOf(array(
@@ -64,7 +64,7 @@ class CreateOrganForm extends AtaForm {
         $cityid = new SelectElement('cityid' , City::find() , array(
             "using" => array("id" , "name")
         ));
-        $cityid->setLabel('City ID');
+        $cityid->setLabel('شهر');
         //$cityid->setAttribute('placeholder', 'Enter your City ID');
         $cityid->setAttribute('class', 'form-control');
         $cityid->addValidator(new PresenceOf(array(
@@ -74,7 +74,7 @@ class CreateOrganForm extends AtaForm {
 
         // Description
         $description = new TextElement('description');
-        $description->setLabel('Description');
+        $description->setLabel('توضیحات');
         //$description->setAttribute('placeholder', 'Enter your Description');
         $description->setAttribute('class', 'form-control');
         $description->addValidator(new PresenceOf(array(
@@ -84,7 +84,7 @@ class CreateOrganForm extends AtaForm {
 
         // Phone Number
         $phonenumber = new TextElement('phonenumber');
-        $phonenumber->setLabel('Phone Number');
+        $phonenumber->setLabel('شماره تلفن');
         //$phonenumber->setAttribute('placeholder', 'Enter your Phone Number');
         $phonenumber->setAttribute('class', 'form-control');
         $phonenumber->addValidator(new PresenceOf(array(
@@ -94,7 +94,7 @@ class CreateOrganForm extends AtaForm {
 
         // SMS Credit
         $smscredit = new TextElement('smscredit');
-        $smscredit->setLabel('SMS Credit');
+        $smscredit->setLabel('اعتبار پیامک');
         //$smscredit->setAttribute('placeholder', 'Enter your SMS Credit');
         $smscredit->setAttribute('class', 'form-control');
         $smscredit->addValidator(new PresenceOf(array(
@@ -104,7 +104,7 @@ class CreateOrganForm extends AtaForm {
 
         // Interface URL
         $interfaceurl = new TextElement('interfaceurl');
-        $interfaceurl->setLabel('Interface URL');
+        $interfaceurl->setLabel(' درگاهURL');
         //$interfaceurl->setAttribute('placeholder', 'Enter your Interface URL');
         $interfaceurl->setAttribute('class', 'form-control');
         $this->add($interfaceurl);
@@ -112,7 +112,7 @@ class CreateOrganForm extends AtaForm {
 
         // Use Interface
         $userinterface = new EnableDisableElement('userinterface');
-        $userinterface->setLabel('Use Interface');
+        $userinterface->setLabel('استقاده از اینترفیس');
         //$userinterface->setAttribute('placeholder', 'Enter your Use Interface');
         $userinterface->setAttribute('class', 'form-control');
         $userinterface->addValidator(new PresenceOf(array(
@@ -122,7 +122,7 @@ class CreateOrganForm extends AtaForm {
 
         // Status
         $status = new TextElement('status');
-        $status->setLabel('Status');
+        $status->setLabel('وضعیت');
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
         $status->addValidator(new PresenceOf(array(
@@ -140,7 +140,7 @@ class CreateOrganForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel('تاریخ');
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
@@ -148,7 +148,8 @@ class CreateOrganForm extends AtaForm {
         // Submit Button
         $submit = new Submit('submit');
         $submit->setName('submit');
-        $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute('class', 'btn btn-primary btn-block');
+        $submit->setAttribute('value', 'تایید');
         $this->add($submit);
     }
 
