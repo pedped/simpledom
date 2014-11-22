@@ -1,22 +1,31 @@
 <?php if ($show == 1) : ?>
     <div class='row'>
-        <div class='col-md-6'>
-            <h1><?= _("Verify Phone Number"); ?></h1>
-            <hr/>
-            <?php echo $this->getContent(); ?>
-            <form method="post">
-                <!-- Verify Code !-->
-                <?php echo $form->renderDecorated('verifycode', '300px'); ?>
-                <?php echo $form->renderDecorated('submit'); ?>
-            </form>
-            <!-- Resend !-->
-            <hr/>
-            <p><?= _("If you have not received any message yet, click on this button to resend verification number again:"); ?></p>
+        <div class='col-md-3'></div>
+        <div class='col-md-6 page-verify-phone center'>
+            <?php echo $this->getContent() ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">تایید شماره موبایل</h3>
+                </div>
+                <form method="post" action="<?php echo $this->url->get("phone/verify/$requestedPhone"); ?>">
+                    <div class="panel-body">
+                        <span class="fa fa-mobile"></span>
+                        <p>جهت تایید درخواست خود، نیاز است تا شماره موبایل خود را تایید نمایید، لطفا کد تاییدی که به شماره <?php echo $requestedPhone; ?> ارسال گردیده است را وارد نمایید</p>
+                        <?php $form->renderDecorated('verifycode'); ?>
+
+                    </div>
+                    <div class="panel-footer">
+                        <?php $form->renderDecorated('submit'); ?> 
+                    </div>
+                </form>
+            </div>
+
             <form method="post">
                 <input type='hidden' name='resend' value='1'/>
-                <input type='submit' class='btn btn-success' value='<?= _("Resend Verification Number"); ?>'>
+                <input type='submit' class='btn btn-success btn-small' value='<?= _("Resend Verification Number"); ?>'>
             </form>
         </div>
+        <div class='col-md-3'></div>
     </div>
 <?php else : ?>
 <?php endif; ?>

@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Answer;
 use AtaPaginator;
+use BaseSystemLog;
 use City;
 use CreateQuestionForm;
 use Moshaver;
@@ -63,6 +64,10 @@ class QuestionController extends ControllerBase {
         }
 
         if ($this->request->isPost()) {
+
+            // log request
+            BaseSystemLog::init($basesystemlog)->setType(2)->setTitle("درخواست سوال جدید")->setMessage("کاربر سوال جدیدی ارسال کرده است" . " : " . $this->request->getPost("phone"))->setIP($_SERVER["REMOTE_ADDR"])->create();
+
             if ($fr->isValid($_POST)) {
 
                 $needtoredirectPhoneVerify = false;
@@ -89,13 +94,16 @@ class QuestionController extends ControllerBase {
                         // set session
                         $user->setSession($this);
 
+                        // SET USER
+                        $this->user = $user;
+
                         // email user password
                     }
                 }
 
 
                 // Check for phone
-                $phone = $this->request->getPost('phone', 'string');
+                $phone = $this->request->getPost('phone');
                 $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
                 if (!$userPhone) {
                     // we have to create new phone and add that

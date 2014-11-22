@@ -255,8 +255,10 @@ class Question extends AtaModel implements Orderable {
         SMSManager::SendSMS($this->getMoshaver()->getUser()->getVerifiedPhone(), "شما یک درخواست مشاوره جدید دارید، لطفا به پنل کاربری خود در $websiteName مراجعه فرمایید", SmsNumber::findFirst()->id);
 
         // send sms to user
-        $message = "سوال شما به مشاور ارسال گردید، به زودی پاسخ خود را دریافت خواهید نمود.\nبا تشکر\n$websiteName";
-        SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
+        if ($this->getUser()->hasVerifiedPhone()) {
+            $message = "سوال شما به مشاور ارسال گردید، به زودی پاسخ خود را دریافت خواهید نمود.\nبا تشکر\n$websiteName";
+            SMSManager::SendSMS($this->getUser()->getVerifiedPhone(), $message, SmsNumber::findFirst()->id);
+        }
     }
 
     /**

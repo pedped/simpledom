@@ -29,7 +29,7 @@ abstract class AtaController extends Controller {
     }
 
     protected function LogInfo($title, $message, $ip = null) {
-        return $this->log(SystemLogType::Info, $title, $message, $ip);
+        return $this->log(2, $title, $message, $ip);
     }
 
     protected function LogDebug($title, $message, $ip = null) {
