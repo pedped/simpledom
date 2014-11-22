@@ -41,7 +41,7 @@ class OrganController extends ControllerBase {
                 $organ->phonenumber = $this->request->getPost('phonenumber', 'string');
                 $organ->smscredit = $this->request->getPost('smscredit', 'string');
                 $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
-                $organ->userinterface = $this->request->getPost('userinterface', 'string');
+                $organ->useinterface = $this->request->getPost('useinterface', 'string');
                 $organ->status = $this->request->getPost('status', 'string');
                 $organ->disablemessage = $this->request->getPost('disablemessage', 'string');
                 $organ->date = $this->request->getPost('date', 'string');
@@ -86,7 +86,7 @@ class OrganController extends ControllerBase {
                     'ID', 'Name', 'By User', 'Address', 'State ID', 'City ID', 'Description', 'Phone Number', 'SMS Credit', 'Interface URL', 'Use Interface', 'Status', 'Disable Message', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'name', 'byuserid', 'address', 'stateid', 'cityid', 'description', 'phonenumber', 'smscredit', 'interfaceurl', 'userinterface', 'status', 'disablemessage', 'getDate()'
+                    'id', 'name', 'byuserid', 'address', 'stateid', 'cityid', 'description', 'phonenumber', 'smscredit', 'interfaceurl', 'useinterface', 'status', 'disablemessage', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -170,7 +170,7 @@ class OrganController extends ControllerBase {
 
                 $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
 
-                $organ->userinterface = $this->request->getPost('userinterface', 'string');
+                $organ->useinterface = $this->request->getPost('useinterface', 'string');
 
                 $organ->status = $this->request->getPost('status', 'string');
 
@@ -200,7 +200,7 @@ class OrganController extends ControllerBase {
             $fr->get('phonenumber')->setDefault($organItem->phonenumber);
             $fr->get('smscredit')->setDefault($organItem->smscredit);
             $fr->get('interfaceurl')->setDefault($organItem->interfaceurl);
-            $fr->get('userinterface')->setDefault($organItem->userinterface);
+            $fr->get('useinterface')->setDefault($organItem->useinterface);
             $fr->get('smsnumberid')->setDefault($organItem->smsnumberid);
             $fr->get('status')->setDefault($organItem->status);
             $fr->get('disablemessage')->setDefault($organItem->disablemessage);
@@ -227,7 +227,7 @@ class OrganController extends ControllerBase {
         $form->get('phonenumber')->setDefault($item->phonenumber);
         $form->get('smscredit')->setDefault($item->smscredit);
         $form->get('interfaceurl')->setDefault($item->interfaceurl);
-        $form->get('userinterface')->setDefault($item->userinterface);
+        $form->get('useinterface')->setDefault($item->useinterface);
         $form->get('smsnumberid')->setDefault($item->smsnumberid);
         $form->get('status')->setDefault($item->status);
         $form->get('disablemessage')->setDefault($item->disablemessage);

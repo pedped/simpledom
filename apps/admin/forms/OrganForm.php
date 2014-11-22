@@ -116,13 +116,13 @@ class OrganForm extends AtaForm {
 
 
         // Use Interface
-        $userinterface = new EnableDisableElement('userinterface');
-        $userinterface->setLabel('Use Interface');
-        //$userinterface->setAttribute('placeholder', 'Enter your Use Interface');
-        $userinterface->setAttribute('class', 'form-control');
-        $userinterface->addValidator(new PresenceOf(array(
+        $useinterface = new EnableDisableElement('useinterface');
+        $useinterface->setLabel('Use Interface');
+        //$useinterface->setAttribute('placeholder', 'Enter your Use Interface');
+        $useinterface->setAttribute('class', 'form-control');
+        $useinterface->addValidator(new PresenceOf(array(
         )));
-        $this->add($userinterface);
+        $this->add($useinterface);
 
 
         // Status

@@ -1,0 +1,34 @@
+<?php $actionName = $this->dispatcher->getActionName(); ?>
+<!-- Header !-->
+<?php if ($actionName != "add" && $actionName != "review") : ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class='row'>
+                <div class='col-md-7'>
+                    <h2 style="margin-bottom: 20px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل ارگان <small><?php echo $currentOrgan->name; ?></small></h2>
+                </div>
+                <div class='col-md-5 organ-cuurent-subscription'>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class='page-organ'>
+                <ul class="nav nav-pills nav-justified organ-panel">
+                    <li class="<?php echo $actionName == "dashboard" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/dashboard"); ?>">داشبورد</a></li> 
+                    <li class="<?php echo $actionName == "posts" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/posts/"); ?>">سمت اعضا</a></li> 
+                    <li class="<?php echo $actionName == "users" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/users/"); ?>">کاربران</a></li> 
+                    <li class="<?php echo $actionName == "permissions" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/permissions/"); ?>">مجوز ارسال</a></li> 
+                    <li class="<?php echo $actionName == "credit" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/credit/"); ?>">اعتبار</a></li> 
+                    <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("organ/$currentOrgan->id/settings"); ?>">تنظیمات ارگان</a></li> 
+                </ul>
+                <hr/>    
+                <?php echo $this->getContent(); ?>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <div class="page-organ">
+        <?php echo $this->getContent(); ?>
+    </div>
+<?php endif; ?>

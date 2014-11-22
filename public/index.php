@@ -105,12 +105,30 @@ try {
 
     $di->set('security', function() {
         $security = new Security();
-        
+
         //Set the password hashing factor to 12 rounds
         $security->setWorkFactor(12);
 
         return $security;
     }, true);
+
+
+
+    $di['router']->add("/organ/([0-9]+)/:action/:params", array(
+        "controller" => "organ",
+        "action" => 2,
+        "organid" => 1,
+        "params" => 3
+            )
+    );
+
+
+    $di['router']->add("/organ/([0-9]+)/", array(
+        "controller" => "organ",
+        "action" => "dashboard",
+        "organid" => 1,
+            )
+    );
 
     /**
      * Include modules

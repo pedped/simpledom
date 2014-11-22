@@ -35,6 +35,7 @@ class UserPostController extends ControllerBase {
                 $userpost->userid = $this->request->getPost('userid', 'string');
                 $userpost->postid = $this->request->getPost('postid', 'string');
                 $userpost->code = $this->request->getPost('code', 'string');
+                $userpost->phonenumber = $this->request->getPost('phonenumber', 'string');
                 if (!$userpost->create()) {
                     $userpost->showErrorMessages($this);
                 } else {
@@ -72,10 +73,10 @@ class UserPostController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Organ', 'User Name', 'Post Name', 'User ID', 'Post ID', 'Code'
+                    'ID', 'Organ', 'User Name', 'Post Name', 'User ID', 'Post ID', 'User Phone', 'Code'
                 ))->
                 setFields(array(
-                    'id', 'getOrganName()', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'code'
+                    'id', 'getOrganName()', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'phonenumber', 'code'
                 ))->
                 setEditUrl(
                         'edit'
@@ -142,9 +143,8 @@ class UserPostController extends ControllerBase {
                 // form is valid
                 $userpost = UserPost::findFirst($id);
                 $userpost->userid = $this->request->getPost('userid', 'string');
-
+                $userpost->phonenumber = $this->request->getPost('phonenumber', 'string');
                 $userpost->postid = $this->request->getPost('postid', 'string');
-
                 $userpost->code = $this->request->getPost('code', 'string');
                 if (!$userpost->save()) {
                     $userpost->showErrorMessages($this);
@@ -159,6 +159,7 @@ class UserPostController extends ControllerBase {
 
             // set default values
 
+            $fr->get('phonenumber')->setDefault($userpostItem->phonenumber);
             $fr->get('userid')->setDefault($userpostItem->userid);
             $fr->get('postid')->setDefault($userpostItem->postid);
             $fr->get('code')->setDefault($userpostItem->code);
@@ -175,6 +176,7 @@ class UserPostController extends ControllerBase {
         $form = new UserPostForm();
         $this->handleFormScripts($form);
         $form->get('id')->setDefault($item->id);
+        $form->get('phonenumber')->setDefault($item->phonenumber);
         $form->get('userid')->setDefault($item->userid);
         $form->get('postid')->setDefault($item->postid);
         $form->get('code')->setDefault($item->code);

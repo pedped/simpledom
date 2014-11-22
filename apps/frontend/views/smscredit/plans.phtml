@@ -1,0 +1,25 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <?php foreach ($plans as $plan) : ?>
+        <div class="col-md-3">
+            <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
+                <!-- Title !-->
+                <h3 class="title">
+                    <?php echo $plan->title; ?>
+                </h3>
+                <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
+                <p>تعداد پیامک های قابل ارسال : <?php echo $plan->totalsms; ?></p>
+                <hr/>
+                <p><?php echo $plan->description; ?></p>
+                <hr/>
+                <!-- Button !-->
+                <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("smscredit/buy/" . $plan->id); ?>">سفارش</a>
+            </div>
+
+        </div>
+    <?php endforeach; ?>
+</div>

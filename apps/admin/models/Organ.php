@@ -172,15 +172,15 @@ class Organ extends AtaModel {
      * Use Interface
      * @var string
      */
-    public $userinterface;
+    public $useinterface;
 
     /**
      * Set Use Interface
-     * @param type $userinterface
+     * @param type $useinterface
      * @return Organ
      */
-    public function setUserinterface($userinterface) {
-        $this->userinterface = $userinterface;
+    public function setUserinterface($useinterface) {
+        $this->useinterface = $useinterface;
         return $this;
     }
 
@@ -262,6 +262,22 @@ class Organ extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    /**
+     * 
+     * @return int SMS's Can send
+     */
+    public function getSMSCredit() {
+        return $this->getUser()->getSMSCredit();
+    }
+
+    /**
+     * get organ userid
+     * @return User
+     */
+    public function getUser() {
+        return User::findFirst($this->byuserid);
     }
 
 }

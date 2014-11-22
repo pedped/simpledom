@@ -71,6 +71,8 @@ class UserPost extends AtaModel {
         $this->code = $code;
         return $this;
     }
+    
+    public $phonenumber;
 
     /**
      *
