@@ -319,10 +319,10 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User Post From', 'User Post To', 'Can Send'
+                    'ID', 'سمت ارسال کننده', 'سمت گیرنده', 'قابلیت ارسال'
                 ))->
                 setFields(array(
-                    'id', 'userpost1', 'userpost2', 'cansend'
+                    'id', 'getUserPostOneName()', 'getUserPostTwoName()', 'canSendTitle()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -487,10 +487,10 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Organ', 'User Name', 'Post Name', 'User ID', 'Post ID', 'User Phone', 'Code'
+                    'ID', 'User Name', 'Post Name', 'User ID', 'Post ID', 'User Phone', 'Code'
                 ))->
                 setFields(array(
-                    'id', 'getOrganName()', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'phonenumber', 'code'
+                    'id', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'phonenumber', 'code'
                 ))->
                 setEditUrl(
                         'edit'

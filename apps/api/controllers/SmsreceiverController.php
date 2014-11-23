@@ -4,8 +4,6 @@ namespace Simpledom\Api\Controllers;
 
 use BaseSystemLog;
 use Simpledom\Core\Classes\NotifySMSManager;
-use SMSManager;
-use SmsNumber;
 use SystemLogType;
 
 class SmsreceiverController extends BaseSmsreceiverController {

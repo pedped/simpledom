@@ -1,6 +1,5 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
 use Simpledom\Core\AtaModel;
 
 class SendPermission extends AtaModel {
@@ -92,6 +91,18 @@ class SendPermission extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    public function getUserPostOneName() {
+        return Post::findFirst($this->userpost1)->name;
+    }
+
+    public function getUserPostTwoName() {
+        return Post::findFirst($this->userpost2)->name;
+    }
+
+    public function canSendTitle() {
+        return $this->cansend ? "دارد" : "ندارد";
     }
 
 }
