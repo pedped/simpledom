@@ -3,8 +3,10 @@
 namespace Simpledom\Core\Classes;
 
 use Organ;
+use OrganSentMessage;
 use Post;
 use SendPermission;
+use SMSCredit;
 use SMSManager;
 use SmsNumber;
 use UserPhone;
@@ -113,7 +115,15 @@ class NotifySMSManager {
                 $phoneNumber = $user->getVerifiedPhone();
                 //var_dump("Message have to be send to " . $phoneNumber);
                 // TODO fix sms number [SmsNumber::findFirst()->id to $smsnum->id]
-                SMSManager::SendSMS($phoneNumber, $messageToBeSent, SmsNumber::findFirst()->id);
+                $smsSender = SmsNumber::findFirst();
+                $smsID = SMSManager::SendSMS($phoneNumber, $messageToBeSent, $smsSender->id);
+                if ($smsID) {
+                    // TODO calc sms cost and user for total sms
+                    SMSCredit::decreaseCredit($errors, $organ->byuserid, $smsID, 1);
+                }
+
+                // log sent message
+                self::logNewSentMessage($organ->id, $phone, $phoneNumber, $messageToBeSent, $smsSender->number);
                 var_dump("sent", $messageToBeSent);
                 $errors[] = _("Message Sent!");
             } else {
@@ -193,6 +203,18 @@ class NotifySMSManager {
                 return $parsedMessage;
             }
         }
+    }
+
+    public static function logNewSentMessage($organID, $fromNumber, $toNumber, $message, $senderNumber) {
+        $sentMessage = new OrganSentMessage();
+        // TODO calc cost
+        $sentMessage->cost = 1;
+        $sentMessage->fromnumber = $fromNumber;
+        $sentMessage->message = $message;
+        $sentMessage->organid = $organID;
+        $sentMessage->sendernumber = $senderNumber;
+        $sentMessage->tonumber = $toNumber;
+        $sentMessage->create();
     }
 
 }

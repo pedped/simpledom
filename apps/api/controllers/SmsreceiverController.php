@@ -19,7 +19,7 @@ class SmsreceiverController extends BaseSmsreceiverController {
         NotifySMSManager::onNewMessageReceived($errors, $smsNumber, $phone, $message);
         if (count($errors) > 0) {
             BaseSystemLog::init($item)->setIP($_SERVER["REMOTE_ADDR"])->setTitle("Error In Message Sending")->setMessage(implode(",", $errors))->setType(SystemLogType::Error)->create();
-            SMSManager::SendSMS($fromnumber, implode("\n", $errors), SmsNumber::findFirst());
+            //SMSManager::SendSMS($fromnumber, implode("\n", $errors), SmsNumber::findFirst());
         }
     }
 
