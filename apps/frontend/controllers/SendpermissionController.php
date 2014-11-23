@@ -129,7 +129,7 @@ class SendpermissionController extends ControllerBase {
         }
 
         // set title
-        $this->setTitle('Edit SendPermission');
+        $this->setPageTitle('Edit SendPermission');
 
         $sendpermissionItem = SendPermission::findFirst($id);
 

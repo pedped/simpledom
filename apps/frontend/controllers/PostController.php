@@ -129,7 +129,7 @@ class PostController extends ControllerBase {
         }
 
         // set title
-        $this->setTitle('Edit Post');
+        $this->setPageTitle('Edit Post');
 
         $postItem = Post::findFirst($id);
 

@@ -1,0 +1,32 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <?php $form->renderDecorated('sentchart'); ?>
+        <hr/>
+        <div class='row'>
+            <div class='col-md-3'>
+                <!-- Total Users !-->
+                <?php echo $totalUsers; ?> users
+            </div>
+            <div class='col-md-3'>
+                <!-- Total Sent Message !-->
+                <?php echo $totalMessages; ?> messages
+            </div>
+            <div class='col-md-3'>
+                <!-- This Month Sent Message!-->
+                <?php echo $thisMonthSentMessage; ?> messages
+            </div>
+            <div class='col-md-3'>
+                <!-- Current Credit !-->
+                <?php echo $currentCredit; ?> messages can be sent
+            </div>
+        </div>
+        <hr/>
+        <?php echo $list->header; ?>
+        <?php echo $list->table; ?>
+    </div>
+</div>

@@ -12,23 +12,33 @@
                                                     <a href='#' class='fa fa-caret-down'></a>
                                                     <a href='#' class='fa fa-times'></a>
                                                 </div>
-                                                <h2 class='panel-title'>Edit UserPost</h2>
-                                                <p class='panel-subtitle'Use this form to edit your UserPost</p>
+                                                <h2 class='panel-title'>Edit OrganSentMessage</h2>
+                                                <p class='panel-subtitle'Use this form to edit your OrganSentMessage</p>
                                             </header>
                                             <div class='panel-body'>
 
                              
 
-                                <!--  ADD User ID !-->
-                                <?php $form->renderDecorated('userid'); ?> 
+                                <!--  ADD Organ ID !-->
+                                <?php $form->renderDecorated('organid'); ?> 
 
-                                <!--  ADD Post ID !-->
-                                <?php $form->renderDecorated('postid'); ?> 
+                                <!--  ADD Message !-->
+                                <?php $form->renderDecorated('message'); ?> 
 
-                                <!--  ADD Code !-->
-                                <?php $form->renderDecorated('code'); ?> 
-                                
-                                <?php $form->renderDecorated('phonenumber'); ?> 
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+                                <!--  ADD Sender Number !-->
+                                <?php $form->renderDecorated('sendernumber'); ?> 
+
+                                <!--  ADD From Number !-->
+                                <?php $form->renderDecorated('fromnumber'); ?> 
+
+                                <!--  ADD To Number !-->
+                                <?php $form->renderDecorated('tonumber'); ?> 
+
+                                <!--  ADD Cost !-->
+                                <?php $form->renderDecorated('cost'); ?> 
 
 
                                 <!-- Submit Button !-->

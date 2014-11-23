@@ -43,6 +43,12 @@ class UserPostForm extends AtaForm {
         //$code->setAttribute('placeholder', 'Enter your Code');
         $code->setAttribute('class', 'form-control');
         $this->add($code);
+        
+        // Code
+        $phonenumber = new TextElement('phonenumber');
+        $phonenumber->setLabel('Phone Number');
+        $phonenumber->setAttribute('class', 'form-control');
+        $this->add($phonenumber);
 
         // Submit Button
         $submit = new Submit('submit');

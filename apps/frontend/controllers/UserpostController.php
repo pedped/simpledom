@@ -130,7 +130,7 @@ class UserPostController extends ControllerBase {
         }
 
         // set title
-        $this->setTitle('Edit UserPost');
+        $this->setPageTitle('Edit UserPost');
 
         $userpostItem = UserPost::findFirst($id);
 
