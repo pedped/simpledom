@@ -63,10 +63,17 @@ use Phalcon\Text;
                 <li class="hidden"><a href="<?php echo $this->url->get("faq"); ?>"><?= _("FAQ"); ?></a></li>
 
                 <!-- Moshaver Menu !-->
-                <?php if (!isset($user) || !$user->isMoshaver()): ?>
+                <?php if (!isset($user)): ?>
                     <li><a href="<?php echo $this->url->get("moshaver/add"); ?>">عضویت مشاوران</a></li>
                 <?php else: ?>
-                    <li><a href="<?php echo $this->url->get("moshaver/" . $user->getMoshaver()->id . "/"); ?>"><?php echo intval($moshaverNewQuestions) > 0 ? "<span class='new-question-answer-indicate'>(" . $moshaverNewQuestions . ")</span>" : ""; ?> پنل مشاوران</a></li>
+                    <?php if ($user->isMoshaver()): ?>
+                        <!-- User Is Moshaver !-->
+                        <li><a href="<?php echo $this->url->get("moshaver/" . $user->getMoshaver()->id . "/"); ?>"><?php echo intval($moshaverNewQuestions) > 0 ? "<span class='new-question-answer-indicate'>(" . $moshaverNewQuestions . ")</span>" : ""; ?> پنل مشاوران</a></li>
+                    <?php else: ?>
+                        <!-- User Is Not Moshaver !-->
+                        <li><a href="<?php echo $this->url->get("question/user/" . $user->id . "/"); ?>">  سوالات شما</a></li>
+                        <li><a href="<?php echo $this->url->get("moshaver/add"); ?>">عضویت مشاوران</a></li>
+                    <?php endif; ?>
                 <?php endif; ?>
                 <li><a href="<?php echo $this->url->get("moshaver/city"); ?>">لیست مشاوران</a></li>
             </ul>

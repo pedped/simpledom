@@ -22,6 +22,45 @@ class QuestionController extends ControllerBase {
         
     }
 
+    public function userAction($numberPage = 1) {
+
+        if (!isset($this->user)) {
+            $this->show404();
+            return;
+        }
+
+        $this->setPageTitle("سوالات شما");
+        $this->setSubtitle("سوالات شما");
+
+        // load the users
+        $questions = Question::find(
+                        array(
+                            "userid = :userid:",
+                            "bind" => array("userid" => $this->getUser()->userid),
+                            "order" => "id DESC"
+                        )
+        );
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $questions,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'نام', 'سوال', 'شهر', 'تاریخ', 'وضعیت پاسخ', 'جواب'
+                ))->
+                setFields(array(
+                    'id', 'getUserName()', 'question', 'getCityName()', 'getDate()', 'getAnswerState()', 'getAnswerButton()'
+                ))->setListPath(
+                'question/user');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
     public function indexAction($moshaverTypeID) {
 
         // check if moshavere type is valid
