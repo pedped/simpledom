@@ -21,6 +21,8 @@ use SmsNumber;
 
 class MoshaverController extends ControllerBase {
 
+    private $moshaverID;
+
     public function initialize() {
         parent::initialize();
 
@@ -47,6 +49,10 @@ class MoshaverController extends ControllerBase {
                 $this->show404();
                 return;
             }
+
+            // set moshaver id
+            $this->moshaverID = $moshaverID;
+            $this->view->moshaverID = $moshaverID;
         }
     }
 
@@ -476,8 +482,7 @@ class MoshaverController extends ControllerBase {
     }
 
     public function getMoshaverID() {
-        // TODO fix here
-        return 1;
+        return $this->moshaverID;
     }
 
 }

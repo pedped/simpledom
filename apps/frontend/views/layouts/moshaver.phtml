@@ -20,10 +20,10 @@ $moshaverPanelActions = array(
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills nav-justified moshaverpanel-panel">
-                    <li class="<?= $actionname == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/index"); ?>">سوالات بی پاسخ</a></li>
-                    <li class="<?= $actionname == "questions" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/questions/"); ?>">تمامی سوالات</a></li>
-                    <li class="<?= $actionname == "payments" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/payments"); ?>"> جدول درآمد</a></li>
-                    <li class="<?= $actionname == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/settings"); ?>">تنظیمات کاربری</a></li>
+                    <li class="<?= $actionname == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/index"); ?>">سوالات بی پاسخ</a></li>
+                    <li class="<?= $actionname == "questions" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/questions/"); ?>">تمامی سوالات</a></li>
+                    <li class="<?= $actionname == "payments" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/payments"); ?>"> جدول درآمد</a></li>
+                    <li class="<?= $actionname == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/settings"); ?>">تنظیمات کاربری</a></li>
                 </ul>
                 <hr/>
                 <div>
