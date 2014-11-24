@@ -236,6 +236,45 @@ class QuestionController extends ControllerBase {
         $this->view->list = $paginator->getPaginate();
     }
 
+    public function lastestAction($numberPage = 1) {
+
+        // set page title
+        $this->setPageTitle("آخرین سوالات");
+        $this->setSubtitle("آخرین سوالات");
+
+        // load the users
+        $questions = Question::find(
+                        array(
+                            'order' => 'id DESC'
+        ));
+
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $questions,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'User ID', 'Moshaver ID', 'Question', 'About Yourself', 'Disorder History', 'Using Tablet', 'City ID', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'userid', 'moshaverid', 'question', 'aboutyourself', 'disorderhistory', 'usingtablet', 'cityid', 'getDate()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'question/lastest');
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
     public function orderAction($questionID) {
         if (!isset($this->user)) {
             $this->dispatcher->forward(array(

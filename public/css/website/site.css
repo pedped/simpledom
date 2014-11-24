@@ -284,3 +284,24 @@ label{
 .page-verify-phone .fa{
     font-size: 215px;
 }
+
+.last-article-date{
+    font-size: 12px;
+    color:#aaa;
+}
+
+.page-opinion ._opinion-item ._name {
+    font-size: 16px;
+    color: #A20083;
+}
+
+.page-opinion ._opinion-item ._message {
+    font-size: 24px;
+    color: #1F3AD9;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.page-opinion ._opinion-item ._date  {
+    color : #aaa;
+}

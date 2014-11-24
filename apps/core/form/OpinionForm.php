@@ -35,8 +35,6 @@ class OpinionForm extends AtaForm {
 
         // Name
         $name = new TextElement('name');
-        $name->setInfo("name info goes here");
-        $name->setFooter("name footer goes here");
         $name->setLabel(_('Name'));
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
@@ -50,6 +48,7 @@ class OpinionForm extends AtaForm {
 
         // Email
         $email = new TextElement('email');
+        $email->setFooter("ایمیل شما در هیچ قسمت سایت نمایش داده نخواهد شد");
         $email->setLabel(_('Email'));
         //$email->setAttribute('placeholder', 'Enter your Email');
         $email->setAttribute('class', 'form-control');
@@ -66,7 +65,7 @@ class OpinionForm extends AtaForm {
         // Message
         $message = new TextAreaElement('message');
         $message->setLabel(_('Message'));
-        //$message->setAttribute('placeholder', 'Enter your Message');
+        $message->setAttribute('rows', '8');
         $message->setAttribute('class', 'form-control');
         $message->addValidator(new PresenceOf(array(
         )));

@@ -1,4 +1,5 @@
 <div class='row'>
+    <!-- Moshavere Types !-->
     <?php foreach ($moshaverTypes as $moshavertype) : ?>
         <div class="col-md-3 col-sm-4 col-xs-12 center moshaver-type">
 
@@ -14,4 +15,49 @@
             </a>
         </div>
     <?php endforeach; ?>
+</div>
+<hr/>
+<div class='row'>
+    <div class='col-md-6'>
+        <!-- Articles !-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="fa fa-list"></span>آخرین مقالات</h4>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <?php foreach ($lastArticles as $article) : ?>
+                        <li>
+                            <h4><a href="<?php echo $this->url->get("article/view/$article->id"); ?>"><?php echo $article->title; ?></a></h4>
+                            <p class='last-article-date'><?php echo $article->getDate(); ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class='panel-footer'>
+                <a href="<?php echo $this->url->get("article/list"); ?>">مقالات بیشتر</a>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-6'>
+        <!-- Last Questions !-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="fa fa-question"></span>آخرین سوالات</h4>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <?php foreach ($lastQuestion as $question) : ?>
+                        <li>
+                            <h4><a href="<?php echo $this->url->get("question/view/$question->id"); ?>"><?php echo $question->getSmallQuestion(); ?></a></h4>
+                            <p class='last-article-date'><?php echo $question->getDate(); ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class='panel-footer'>
+                <a href="<?php echo $this->url->get("question/lastest"); ?>">سوالات بیشتر</a>
+            </div>
+        </div>
+    </div>
 </div>

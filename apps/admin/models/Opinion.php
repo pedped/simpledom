@@ -11,4 +11,8 @@ class Opinion extends BaseOpinion {
         5 => "5",
     );
 
+    public function getDate() {
+        return Jalali::date("Y-m-d", $this->date);
+    }
+
 }
