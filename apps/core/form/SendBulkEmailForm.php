@@ -4,16 +4,16 @@ namespace Simpledom\Core;
 
 use EditorElement;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use TextElement;
 
 class SendBulkEmailForm extends AtaForm {
 
     public function initialize() {
 
         // From
-        $from = new Text("from");
+        $from = new TextElement("from");
         $from->setLabel(_("From"));
         //$from->setAttribute("placeholder", "Enter your Full Name");
         $from->setAttribute("class", "form-control");
@@ -26,7 +26,7 @@ class SendBulkEmailForm extends AtaForm {
 
 
         // From
-        $subject = new Text("subject");
+        $subject = new TextElement("subject");
         $subject->setLabel(_("Subject"));
         //$subject->setAttribute("placeholder", "Enter your Full Name");
         $subject->setAttribute("class", "form-control");

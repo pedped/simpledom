@@ -2,7 +2,6 @@
 
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Simpledom\Core\AtaForm;
 
@@ -12,7 +11,7 @@ class LoginDetailsForm extends AtaForm {
 
 
         // ٍEmail
-        $email = new Text("email");
+        $email = new TextElement("email");
         $email->setLabel(_("Email"));
         $email->setAttribute("disabled", "true");
         $email->setAttribute("class", "form-control disabled");
