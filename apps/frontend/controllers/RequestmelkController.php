@@ -6,7 +6,11 @@ use City;
 use MelkPhoneListner;
 use Phalcon\Validation\Validator\PresenceOf;
 use RequestMelkForm;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
+use SMSManager;
+use SmsNumber;
+use User;
 
 class RequestmelkController extends ControllerBase {
 
@@ -33,11 +37,8 @@ class RequestmelkController extends ControllerBase {
             $fr->get("email")->addValidator(new PresenceOf(array(
             )));
 
-            $fr->get("password")->addValidator(new PresenceOf(array(
-            )));
         } else {
             $fr->remove("email");
-            $fr->remove("password");
             $fr->remove("fname");
             $fr->remove("lname");
         }
@@ -63,12 +64,17 @@ class RequestmelkController extends ControllerBase {
                         $fname = $this->request->getPost("fname");
                         $lname = $this->request->getPost("lname");
                         $email = $this->request->getPost("email", "email");
-                        $password = $this->request->getPost("password");
+                        $password = Helper::GenerateRandomString(8);
                         $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone);
                         if (!$this->hasError() && $result == true) {
                             // user successfully created 
                             $this->user = $user;
                             $user->setSession($this);
+
+                            $loginMessage = "کاربر گرامی" . "\n" . "اطلاعات ورود شما به " . \Settings::Get()->websitename . " " . "به صورت زیر است" . "\n" . "ایمیل: " . $email . "\n" . "رمز عبور: " . $password . "\n\n با تشکر\n" . "www.amlakgostar.ir";
+
+                            // send user login information
+                            SMSManager::SendSMS($phone, $loginMessage, SmsNumber::findFirst()->id);
                         }
                     }
 

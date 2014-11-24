@@ -146,13 +146,18 @@
 
                             <!--  ADD Name !-->
                             <?php if (!$this->session->has("userid")) : ?>
-                                <?php $form->renderDecorated('fname'); ?> 
-                                <?php $form->renderDecorated('lname'); ?> 
+                                <div class='row'>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('fname'); ?>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('lname'); ?> 
+                                    </div>
+                                </div>
                                 <?php $form->renderDecorated('email'); ?> 
-                                <?php $form->renderDecorated('password'); ?> 
                             <?php endif; ?>
-                            
-                            
+ 
+
                             <!--  ADD Mobile !-->
                             <?php $form->renderDecorated('mobile'); ?> 
 

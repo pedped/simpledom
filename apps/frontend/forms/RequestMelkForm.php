@@ -35,22 +35,12 @@ class RequestMelkForm extends MelkSearch {
 
         // ٍEmail
         $email = new TextElement("email");
-        $email->setFooter("تماس های کاربران برای شما ارسال خواهد گردید");
+        $email->setFooter("ایمیل شما برای ورود به سایت و دریافت املاک جدید متناسب با نیاز شما استفاده خواهد گردید");
         $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new Email(array(
         )));
         $this->add($email);
-
-
-        // Password
-        $password = new PasswordElement("password");
-        $password->setLabel(_("Password"));
-        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
-        $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
-        $password->setAttribute("class", "form-control");
-        $this->add($password);
-
 
 
         // Home Size
