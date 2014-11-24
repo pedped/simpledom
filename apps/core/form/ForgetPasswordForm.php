@@ -3,16 +3,16 @@
 namespace Simpledom\Core;
 
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
+use TextElement;
 
 class ForgetPasswordForm extends AtaForm {
 
     public function initialize() {
 
         // ٍEmail
-        $email = new Text("email");
+        $email = new TextElement("email");
         $email->setLabel(_("Email"));
         $email->setAttribute("placeholder", _("Enter Email"));
         $email->setAttribute("class", "form-control");

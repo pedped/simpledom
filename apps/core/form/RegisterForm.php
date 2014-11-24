@@ -5,13 +5,12 @@ namespace Simpledom\Core;
 use CheckElement;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Email;
-use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use SelectElement;
 use Settings;
+use TextElement;
 
 class RegisterForm extends AtaForm {
 
@@ -20,7 +19,7 @@ class RegisterForm extends AtaForm {
 
 
         // First Name
-        $firstname = new Text("firstname");
+        $firstname = new TextElement("firstname");
         $firstname->setLabel(_("First Name"));
         $firstname->setAttribute("class", "form-control");
         $firstname->addValidator(new PresenceOf(array(
@@ -33,7 +32,7 @@ class RegisterForm extends AtaForm {
 
 
         // Last Name
-        $lastname = new Text("lastname");
+        $lastname = new TextElement("lastname");
         $lastname->setLabel(_("Last Name"));
         $lastname->setAttribute("class", "form-control");
         $lastname->addValidator(new PresenceOf(array(
@@ -65,7 +64,7 @@ class RegisterForm extends AtaForm {
 
 
         // ٍEmail
-        $email = new Text("email");
+        $email = new TextElement("email");
         $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
@@ -76,7 +75,7 @@ class RegisterForm extends AtaForm {
 
 
         // Phone
-        $phone = new Text("phone");
+        $phone = new TextElement("phone");
         $phone->setLabel(_("Phone"));
         $phone->setAttribute("class", "form-control");
         if (intval(Settings::Get()->requestuserphoneonregister) == 1) {

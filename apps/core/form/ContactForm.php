@@ -6,7 +6,6 @@ use EditorElement;
 use MapElement;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
@@ -29,7 +28,7 @@ class ContactForm extends AtaForm {
         $this->add($name);
 
         // ٍEmail
-        $email = new Text("email");
+        $email = new TextElement("email");
         $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
