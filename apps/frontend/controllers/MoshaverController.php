@@ -23,6 +23,31 @@ class MoshaverController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
+
+        // check if we have to get moshaver id
+        $action = $this->dispatcher->getActionName();
+        if ($action == "view" || $action == "city" || $action == "list") {
+            // we do not get moshaver id
+        } else {
+            $moshaverID = $this->dispatcher->getParam("moshaverid");
+            if (!$moshaverID) {
+                // user do not have permission to access this page
+                $this->show404();
+                return;
+            }
+
+            if (!isset($this->user) || !$this->user->isMoshaver()) {
+                // user need to login
+                $this->show404();
+                return;
+            }
+
+            if ($moshaverID != $this->user->getMoshaver()->id) {
+                // user want to see other moshaver panel
+                $this->show404();
+                return;
+            }
+        }
     }
 
     /**

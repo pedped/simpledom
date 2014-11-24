@@ -105,12 +105,29 @@ try {
 
     $di->set('security', function() {
         $security = new Security();
-        
+
         //Set the password hashing factor to 12 rounds
         $security->setWorkFactor(12);
 
         return $security;
     }, true);
+
+
+    $di['router']->add("/moshaver/([0-9]+)/", array(
+        "controller" => "moshaver",
+        "action" => "index",
+        "moshaverid" => 1,
+            )
+    );
+
+    $di['router']->add("/moshaver/([0-9]+)/:action/:params", array(
+        "controller" => "moshaver",
+        "moshaverid" => 1,
+        "action" => 2,
+        "params" => 3,
+            )
+    );
+
 
     /**
      * Include modules
