@@ -72,7 +72,7 @@ use Phalcon\Tag; ?>
                     </div>
                 </div>
             </div>
-            <!-- Footer !-->
+             <!-- Footer !-->
             <?php $this->partial("layouts/footer") ?>
             <!-- Analytics Codes !-->
             <?php
@@ -81,7 +81,7 @@ use Phalcon\Tag; ?>
             }
 
             if (isset($websiteSettings->clickyanalitics) && strlen($websiteSettings->clickyanalitics) > 0) {
-                echo $websiteSettings->googleanalytics;
+                echo $websiteSettings->clickyanalitics;
             }
             ?>
         </div>

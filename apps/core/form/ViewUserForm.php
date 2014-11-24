@@ -5,10 +5,10 @@ namespace Simpledom\Core;
 use EnableDisableElement;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use TextAreaElement;
+use TextElement;
 
 class ViewUserForm extends AtaForm {
 
@@ -17,7 +17,7 @@ class ViewUserForm extends AtaForm {
 
 
         // First Name
-        $firstname = new Text("firstname");
+        $firstname = new TextElement("firstname");
         $firstname->setLabel(_("First Name"));
         $firstname->setAttribute("placeholder", _("Enter your First Name"));
         $firstname->setAttribute("class", "form-control");
@@ -31,7 +31,7 @@ class ViewUserForm extends AtaForm {
 
 
         // Last Name
-        $lastname = new Text("lastname");
+        $lastname = new TextElement("lastname");
         $lastname->setLabel(_("Last Name"));
         $lastname->setAttribute("placeholder", _("Enter your Last Name"));
         $lastname->setAttribute("class", "form-control");

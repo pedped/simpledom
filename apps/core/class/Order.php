@@ -279,7 +279,7 @@ class Order {
 
         // now we have to get the item and call the onSuccessOrder
         $productTypeName = ProductType::findFirst($order->type)->key;
-        $productTypeName::onSuccessOrder($errors, $order->userid, $order->itemid);
+        $productTypeName::onSuccessOrder($errors, $order->userid, $order->itemid, $orderid);
 
         return true;
     }
