@@ -7,24 +7,111 @@
     <div class='col-md-12'>
         <?php $form->renderDecorated('sentchart'); ?>
         <hr/>
-        <div class='row'>
-            <div class='col-md-3'>
-                <!-- Total Users !-->
-                <?php echo $totalUsers; ?> users
+        
+        <div class="row">
+    <!-- Total Users !-->
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="panel-featured-quartenary">
+            <div class="panel-body panel-user">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-quartenary">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">تعداد کاربران</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalUsers; ?></strong> <span class="summery-info-title">کاربر</span>
+                            </div>
+                        </div>
+                        <div class="summary-footer">
+                            <a class="text-muted text-uppercase" href="/admin/user/list">(نمایش همه)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-md-3'>
-                <!-- Total Sent Message !-->
-                <?php echo $totalMessages; ?> messages
+        </section>
+    </div>
+
+    <!-- Total Sales !-->
+    <div class="col-md-12 col-lg-6 col-xl-6">
+        <section class="panel-featured-primary">
+            <div class="panel-body panel-credit">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-success">
+                            <i class="fa fa-dollar"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">پیامهای باقی مانده</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $currentCredit; ?></strong> <span class="summery-info-title">پیام</span>
+                            </div>
+                        </div>
+                        <div class="summary-footer">
+                            <a class="text-muted text-uppercase">(افزایش اعتبار)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class='col-md-3'>
-                <!-- This Month Sent Message!-->
-                <?php echo $thisMonthSentMessage; ?> messages
-            </div>
-            <div class='col-md-3'>
-                <!-- Current Credit !-->
-                <?php echo $currentCredit; ?> messages can be sent
-            </div>
+        </section>
+    </div>
+
+
+    <!-- Remaining SMS !-->
+            <div class="col-md-12 col-lg-6 col-xl-6">
+            <section class="panel-featured-primary">
+                <div class="panel-body panel-message">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-info">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title">تعداد پیامها</h4>
+                                <div class="info">
+                                    <strong class="amount"><?php echo $totalMessages; ?></strong> <span class="summery-info-title">پیام</span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
+    <!-- Remaining SMS !-->
+            <div class="col-md-12 col-lg-6 col-xl-6">
+            <section class="panel-featured-primary">
+                <div class="panel-body panel-message">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-info">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title">تعداد پیامهای این ماه</h4>
+                                <div class="info">
+                                    <strong class="amount"><?php echo $thisMonthSentMessage; ?></strong> <span class="summery-info-title">پیام</span>
+                                </div>
+                            </div>
+                            <div class="summary-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
         <hr/>
         <?php echo $list->header; ?>
         <?php echo $list->table; ?>

@@ -50,7 +50,7 @@ class ContactForm extends AtaForm {
 
 
         // Message
-        $message = new EditorElement("message");
+        $message = new \TextAreaElement("message");
         $message->setLabel(_("Message"));
         $message->setAttribute("class", "form-control");
         $message->addValidator(new PresenceOf(array(
@@ -58,7 +58,6 @@ class ContactForm extends AtaForm {
         $message->addValidator(new StringLength(array(
             'min' => 10,
         )));
-        $message->setLanguage("en");
         $this->add($message);
 
 

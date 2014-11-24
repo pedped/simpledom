@@ -249,3 +249,119 @@ ul.tagit li{
     color: #0F7918;
     font-size: 166%;
 }
+
+.panel-featured-quartenary {
+    border-color: #734ba9;
+}
+
+.panel-featured-primary {
+    border-color: #0088cc;
+    margin-bottom: 15px;
+}
+
+.panel-user{
+    background-color: #734BA9 !important;
+    color: white !important;
+}
+
+.panel-credit{
+    background-color: #47A447 !important;
+    color: white !important;
+}
+
+.panel-message{
+    background-color: #5BC0DE !important;
+    color: white !important;
+}
+
+.bg-warning {
+    background: none repeat scroll 0 0 #fff;
+    color: #ed9c28 !important;
+}
+
+.bg-success {
+    background: none repeat scroll 0 0 #fff;
+    color: #47a447 !important;
+}
+
+.bg-info {
+    background: none repeat scroll 0 0 #fff;
+    color: #5bc0de !important;
+}
+
+.panel-body {
+  background: none repeat scroll 0 0 #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.widget-summary .widget-summary-col.widget-summary-col-icon {
+    width: 1%;
+}
+.widget-summary .widget-summary-col {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}
+
+.widget-summary .widget-summary-col {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}
+
+.widget-summary .summary-icon {
+    border-radius: 55px;
+    color: #fff;
+    font-size: 4.2rem;
+    height: 90px;
+    line-height: 90px;
+    margin-left: 15px;
+    text-align: center;
+    width: 90px;
+}
+.bg-quartenary {
+    background: none repeat scroll 0 0 #fff;
+    color: #734ba9 !important;
+}
+
+.widget-summary .summary {
+    min-height: 65px;
+    word-break: break-all;
+}
+
+.widget-summary .summary .title {
+    color: #F9F9F9;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.2rem;
+    margin: 0;
+}
+
+.widget-summary .summary .info {
+    font-size: 1.4rem;
+    line-height: 3rem;
+}
+
+.widget-summary .summary-footer {
+    border-top: 1px dotted #ddd;
+    padding: 5px 0 0;
+    text-align: right;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+.text-muted {
+    color: #F9F9F9 !important;
+}
+
+.amount{
+    font-size: 300%;
+    color: #fff;
+}
+
+.summery-info-title{
+    font-size: 130%;
+    color: #F9F9F9;
+}

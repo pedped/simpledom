@@ -137,7 +137,7 @@ class OrganSentMessage extends AtaModel {
     }
 
     public function getDate() {
-        return new Jdate('Y-m-d H:i:s', $this->date);
+        return Jalali::date('Y-m-d H:i:s', $this->date);
     }
 
     public function getUserName() {
