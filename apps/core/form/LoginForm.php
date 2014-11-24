@@ -40,7 +40,7 @@ class LoginForm extends AtaForm {
 
         // Submit Button
         $submit = new Submit("submit");
-        $submit->setAttribute("value", _("Submit"));
+        $submit->setAttribute("value", _("Login"));
         $submit->setAttribute("class", 'btn btn-primary');
         $this->add($submit);
     }

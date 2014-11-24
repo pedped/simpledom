@@ -147,10 +147,10 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Organ ID', 'Message', 'Date', 'Sender Number', 'From Number', 'To Number', 'Cost'
+                    'شناسه', 'پیام', 'تاریخ', 'شماره ارسال کننده', 'از شماره', 'به شماره', 'هزینه'
                 ))->
                 setFields(array(
-                    'id', 'organid', 'message', 'getDate()', 'sendernumber', 'fromnumber', 'tonumber', 'cost'
+                    'id', 'message', 'getDate()', 'sendernumber', 'fromnumber', 'tonumber', 'cost'
                 ))->setListPath(
                 'list');
 
