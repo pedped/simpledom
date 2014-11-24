@@ -52,16 +52,16 @@ class TextElement extends Text {
         foreach ($attributes as $key => $atv) {
             $attributesValue .= " $key='$atv'";
         }
-
+        $value = $this->getValue();
         if (isset($icon)) {
             $result = "";
             $result.= "<div class='input-group'>";
-            $result.= "<input type='text' name='$elementName' id='$elementName' $attributesValue />";
+            $result.= "<input type='text' name='$elementName' id='$elementName' $attributesValue value='$value'/>";
             $result.= "<span class='input-group-addon'><span class='$icon'></span></span>";
             $result.= "</div>";
             return $result;
         } else {
-            return "<input type='text' name='$elementName' id='$elementName' $attributesValue />";
+            return "<input type='text' name='$elementName' id='$elementName' $attributesValue value='$value' />";
         }
     }
 
