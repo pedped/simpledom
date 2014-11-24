@@ -10,7 +10,6 @@
             <header>
                 <h1><?php echo $article->title; ?></h1>
             </header>
-            <p><?= _("Published"); ?>: <time pubdate="pubdate"><?php echo $article->getDate(); ?></time></p>
 
             <!-- Seperator !-->
             <div class="aritcle-header-seperator"></div>
@@ -21,17 +20,36 @@
             </p>
 
             <!-- Seperator !-->
-            <div class="aritcle-header-seperator"></div>
+            <hr/>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <!-- Submitter !-->
+                    <blockquote>
+                        <div class="media">
+                            <img src='<?php echo $article->getUser()->getProfileImageLink(); ?>' class="media-object pull-right img img-rounded" style="width: 64px;">
+                            <div class="media-body">
+                                <h4 style="margin-top: 12px;" class="media-heading">
+                                    نوشته شده توسط  <a href="<?php echo $this->url->get("moshaver/view/$article->userid"); ?>"><?php echo $article->getUserName(); ?></a>
+                                </h4>
+                                <p>تاریخ انتشار: <time pubdate="pubdate"><?php echo $article->getDate(); ?></time></p>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class='col-md-6'>
+                    <!-- Source !-->
+                    <?php if (isset($article->link) && strlen($article->link) > 0) : ?>
+                        <blockquote> 
+                            <h4 style="margin-top: 0px;">
+                                منبع
+                            </h4>
+                            <a rel="nofollow" href="<?php echo $article->link; ?>"><?php echo $article->link; ?></a> 
+                        </blockquote>
+                    <?php endif; ?>
+                </div>
+            </div>
 
-            <!-- Source !-->
-            <?php if (isset($article->link) && strlen($article->link) > 0) : ?>
-                <blockquote> 
-                    <h3>
-                        <?= _("Source"); ?>
-                    </h3>
-                    <a rel="nofollow" href="<?php echo $article->link; ?>"><?php echo $article->link; ?></a> 
-                </blockquote>
-            <?php endif; ?>
+
         </article>
     </div>
 </div>

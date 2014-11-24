@@ -6,4 +6,12 @@ class Article extends BaseArticle {
         return Jalali::date("[H:i] Y-m-d", $this->date);
     }
 
+    /**
+     * 
+     * @return User
+     */
+    public function getUser() {
+        return User::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+    }
+
 }

@@ -28,7 +28,7 @@ class MoshaverController extends ControllerBase {
 
         // check if we have to get moshaver id
         $action = $this->dispatcher->getActionName();
-        if ($action == "view" || $action == "city" || $action == "list") {
+        if ($action == "view" || $action == "city" || $action == "list" || $action == "add") {
             // we do not get moshaver id
         } else {
             $moshaverID = $this->dispatcher->getParam("moshaverid");

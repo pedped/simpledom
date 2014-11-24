@@ -88,6 +88,7 @@ class CreateQuestionForm extends AtaForm {
         // Disorder History
         $disorderhistory = new TextAreaElement('disorderhistory');
         $disorderhistory->setLabel('سابقه بیماری');
+        $disorderhistory->setInfo('در صورتی که سابقه بیماری دارید این قسمت را پر نمایید');
         $disorderhistory->setAttribute('rows', 5);
         //$disorderhistory->setAttribute('placeholder', 'Enter your Disorder History');
         $disorderhistory->setAttribute('class', 'form-control');
@@ -97,6 +98,7 @@ class CreateQuestionForm extends AtaForm {
         // Using Tablet
         $usingtablet = new TextAreaElement('usingtablet');
         $usingtablet->setLabel('سابقه مصرف دارو');
+        $usingtablet->setInfo('در صورت مصرف دارو، این قسمت را پر نمایید');
         $usingtablet->setAttribute('rows', 5);
         //$usingtablet->setAttribute('placeholder', 'Enter your Using Tablet');
         $usingtablet->setAttribute('class', 'form-control');
@@ -106,6 +108,7 @@ class CreateQuestionForm extends AtaForm {
         // Mobile
         $phone = new TextElement('phone');
         $phone->setLabel('شماره موبایل');
+        $phone->setFooter('در صورت لزوم مشاوران با شما تماس برقرار خواهند نمود، شماره تماس شما در هیچ قسمت از سایت نمایش داده نخواهد');
         //$usingtablet->setAttribute('placeholder', 'Enter your Using Tablet');
         $phone->setAttribute('class', 'form-control');
         $phone->addValidator(new PresenceOf(array(

@@ -237,7 +237,7 @@ class Question extends AtaModel implements Orderable {
 
     public function getAnswerButton() {
         $url = $this->getDI()->getUrl()->getBaseUri();
-        return "<a href='$url" . "moshaver/question/$this->id' class='btn btn-primary btn-sm'>ارسال جواب</a>";
+        return "<a href='$url" . "moshaver/$this->moshaverid/question/$this->id' class='btn btn-primary btn-sm'>ارسال جواب</a>";
     }
 
     public function notifyOfNewQuestion() {
