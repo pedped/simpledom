@@ -59,4 +59,8 @@ class Config {
         return 50000;
     }
 
+    public static function GetMoshaverRevenueRate() {
+        return 50;
+    }
+
 }

@@ -377,8 +377,8 @@ class Question extends AtaModel implements Orderable {
         $moshaverSell = new MoshaverSale();
         $moshaverSell->orderid = $orderid;
         $moshaverSell->userid = $question->moshaverid;
-        $moshaverSell->percent = "0.5";
-        $moshaverSell->value = Config::GetMoshaverehPrice() * 0.5;
+        $moshaverSell->percent = Config::GetMoshaverRevenueRate();
+        $moshaverSell->value = Config::GetMoshaverehPrice() * ( Config::GetMoshaverRevenueRate() / 100);
         $moshaverSell->create();
 
         // forward user to question
