@@ -161,6 +161,54 @@ class Question extends AtaModel implements Orderable {
     public $moshavertypeid;
     public $age;
     public $gender;
+    public $degreetypeid;
+    public $currentwork;
+    public $privatemode;
+    public $imageid1;
+    public $imageid2;
+    public $imageid3;
+    public $imageid4;
+    public $imageid5;
+
+    /**
+     * 
+     * @return BaseImage
+     */
+    public function getImageOne() {
+        return BaseImage::findFirst(array("id = :id:", "bind" => array("id" => $this->imageid1)));
+    }
+
+    /**
+     * 
+     * @return BaseImage
+     */
+    public function getImageTwo() {
+        return BaseImage::findFirst(array("id = :id:", "bind" => array("id" => $this->imageid2)));
+    }
+
+    /**
+     * 
+     * @return BaseImage
+     */
+    public function getImageThree() {
+        return BaseImage::findFirst(array("id = :id:", "bind" => array("id" => $this->imageid3)));
+    }
+
+    /**
+     * 
+     * @return BaseImage
+     */
+    public function getImageFour() {
+        return BaseImage::findFirst(array("id = :id:", "bind" => array("id" => $this->imageid4)));
+    }
+
+    /**
+     * 
+     * @return BaseImage
+     */
+    public function getImageFive() {
+        return BaseImage::findFirst(array("id = :id:", "bind" => array("id" => $this->imageid5)));
+    }
 
     public function getUserName() {
         return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
@@ -344,6 +392,14 @@ class Question extends AtaModel implements Orderable {
      */
     public function getSmallQuestion($maxLength = 120) {
         return strlen($this->question) > $maxLength ? mb_substr($this->question, 0, $maxLength) . "..." : $this->question;
+    }
+
+    /**
+     * 
+     * @return MoshaverDegree
+     */
+    public function getDegree() {
+        return MoshaverDegree::findFirst($this->degreetypeid);
     }
 
 }

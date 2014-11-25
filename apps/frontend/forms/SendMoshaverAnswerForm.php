@@ -2,6 +2,7 @@
 
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\StringLength;
 use Simpledom\Core\AtaForm;
 
 class SendMoshaverAnswerForm extends AtaForm {
@@ -14,6 +15,9 @@ class SendMoshaverAnswerForm extends AtaForm {
         $answer->setAttribute('class', 'form-control');
         $answer->setAttribute('rows', '10');
         $answer->addValidator(new PresenceOf(array(
+        )));
+        $answer->addValidator(new StringLength(array(
+            "min" => "200"
         )));
         $this->add($answer);
 

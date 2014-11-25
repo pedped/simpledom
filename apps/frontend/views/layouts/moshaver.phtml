@@ -12,16 +12,10 @@ $moshaverPanelActions = array(
 <?php if (in_array($actionname, $moshaverPanelActions)) : ?>
     <div class='page-moshaver'>
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-user"></span>
-                    پنل مشاوران
-                </h3>
-            </div>
             <div class="panel-body">
                 <ul class="nav nav-pills nav-justified moshaverpanel-panel">
                     <li class="<?= $actionname == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/index"); ?>">سوالات بی پاسخ</a></li>
-                    <li class="<?= $actionname == "questions" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/questions/"); ?>">تمامی سوالات</a></li>
+                    <li class="<?= ($actionname == "questions" || $actionname == "question") ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/questions/"); ?>">تمامی سوالات</a></li>
                     <li class="<?= $actionname == "payments" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/payments"); ?>"> جدول درآمد</a></li>
                     <li class="<?= $actionname == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("moshaver/$moshaverID/settings"); ?>">تنظیمات کاربری</a></li>
                 </ul>

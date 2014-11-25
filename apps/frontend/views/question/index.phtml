@@ -5,7 +5,7 @@
 </div>
 <div class='row'>
     <div class='col-md-8'>
-        <form method='post'>
+        <form method='post' enctype="multipart/form-data">
             <!-- Moshavers !-->
             <div class="well hidden">
                 <div class='row'>
@@ -76,6 +76,22 @@
 
                         <div class='row'>
                             <div class='col-md-4'>
+                                <!-- degreetypeid !-->
+                                <?php $form->renderDecorated('degreetypeid'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <!-- currentwork !-->
+                                <?php $form->renderDecorated('currentwork'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <!--  privatemode !-->
+                                <?php $form->renderDecorated('privatemode'); ?> 
+                            </div>
+                        </div>
+
+
+                        <div class='row'>
+                            <div class='col-md-4'>
                                 <!-- Age !-->
                                 <?php $form->renderDecorated('age'); ?> 
                             </div>
@@ -86,6 +102,27 @@
                             <div class='col-md-4'>
                                 <!--  Phone !-->
                                 <?php $form->renderDecorated('phone'); ?> 
+                            </div>
+                        </div>
+
+                        <!-- Images !-->
+                        <hr/>
+                        <p>در صورت نیاز میتوانید چنیدن تصویر را ضمیمه سوال خود نمایید</p>
+                        <div class='row'>
+                            <div class='col-md-4'>
+                                <?php $form->renderDecorated('image1'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <?php $form->renderDecorated('image2'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <?php $form->renderDecorated('image3'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <?php $form->renderDecorated('image4'); ?> 
+                            </div>
+                            <div class='col-md-4'>
+                                <?php $form->renderDecorated('image5'); ?> 
                             </div>
                         </div>
                     </div>

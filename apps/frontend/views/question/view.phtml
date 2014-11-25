@@ -12,8 +12,44 @@
             </div>
             <div class="panel-body">
                 <p class="question-view-question"><?php echo nl2br($question->question); ?></p>
+
+                <hr/>
+                <!-- Images !-->
+                <?php if (isset($question->imageid1) || isset($question->imageid2) || isset($question->imageid3) || isset($question->imageid4) || isset($question->imageid5)) : ?>
+                    <div class='row'>
+                        <div class='col-md-2'>
+                            <?php if (isset($question->imageid1)) : ?>
+                                <a href="<?php echo $question->getImageOne()->link; ?>"><img src='<?php echo $question->getImageOne()->link; ?>' class='img img-responsive' /></a>
+                            <?php endif; ?>
+                        </div>
+                        <div class='col-md-2'>
+                            <?php if (isset($question->imageid2)) : ?>
+                                <a href="<?php echo $question->getImageTwo()->link; ?>"><img src='<?php echo $question->getImageTwo()->link; ?>' class='img img-responsive' /></a>
+                            <?php endif; ?>
+                        </div>
+                        <div class='col-md-2'>
+                            <?php if (isset($question->imageid3)) : ?>
+                                <a href="<?php echo $question->getImageThree()->link; ?>"><img src='<?php echo $question->getImageThree()->link; ?>' class='img img-responsive' /></a>
+                            <?php endif; ?>
+                        </div>
+                        <div class='col-md-2'>
+                            <?php if (isset($question->imageid4)) : ?>
+                                <a href="<?php echo $question->getImageFour()->link; ?>"><img src='<?php echo $question->getImageFour()->link; ?>' class='img img-responsive' /></a>
+                            <?php endif; ?>
+                        </div>
+                        <div class='col-md-2'>
+                            <?php if (isset($question->imageid5)) : ?>
+                                <a href="<?php echo $question->getImageFive()->link; ?>"><img src='<?php echo $question->getImageFive()->link; ?>' class='img img-responsive' /></a>
+                            <?php endif; ?>
+                        </div>
+                        <div class='col-md-2'>
+
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
+
         <!-- Answer !-->
         <div class="panel panel-success">
             <div class="panel-heading">
@@ -152,6 +188,16 @@
                     شهر
                 </label>
                 <p><?php echo $question->getCityName(); ?></p>
+                <hr/>
+                <label>
+                    شغل
+                </label>
+                <p><?php echo $question->currentwork; ?></p>
+                <hr/>
+                <label>
+                    میزان تحصیلات
+                </label>
+                <p><?php echo $question->getDegree()->name; ?></p>
             </div>
         </div>
 

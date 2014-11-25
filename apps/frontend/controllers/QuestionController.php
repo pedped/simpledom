@@ -11,6 +11,7 @@ use Moshaver;
 use MoshaverType;
 use Question;
 use SendMoshaverAnswerForm;
+use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Order;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use User;
@@ -179,6 +180,46 @@ class QuestionController extends ControllerBase {
                     $question->cityid = $this->request->getPost('cityid', 'string');
                     $question->gender = $this->request->getPost('gender', 'string');
                     $question->age = $this->request->getPost('age', 'string');
+
+                    $question->degreetypeid = $this->request->getPost('degreetypeid', 'string');
+                    $question->currentwork = $this->request->getPost('currentwork', 'string');
+                   
+                    // TODO fix privare mode
+                    $question->privatemode = 0;
+
+
+                    // upload image file
+                    $imageNumber = 1;
+                    if ($this->request->hasFiles()) {
+                        // valid request, load the files
+                        foreach ($this->request->getUploadedFiles() as $file) {
+                            $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                            if ($image) {
+                                switch ($imageNumber) {
+                                    case 1:
+                                        $question->imageid1 = $image->id;
+                                        break;
+                                    case 2:
+                                        $question->imageid2 = $image->id;
+                                        break;
+                                    case 3:
+                                        $question->imageid3 = $image->id;
+                                        break;
+                                    case 4:
+                                        $question->imageid4 = $image->id;
+                                        break;
+                                    case 5:
+                                        $question->imageid5 = $image->id;
+                                        break;
+                                }
+                            }
+
+                            $imageNumber++;
+                        }
+                    } else {
+                        $this->flash->error("You have to choose the file");
+                    }
+
                     if (!$question->create()) {
                         $question->showErrorMessages($this);
                     } else {

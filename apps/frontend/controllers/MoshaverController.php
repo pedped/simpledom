@@ -76,6 +76,8 @@ class MoshaverController extends ControllerBase {
 
     public function questionAction($questionID) {
 
+        $this->setSubtitle("مشاهده سوال");
+
         // check if question exist
         $question = Question::findFirst(array("id = :id:", "bind" => array("id" => $questionID)));
         if (!$question) {

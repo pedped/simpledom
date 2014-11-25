@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\Email;
@@ -64,6 +65,57 @@ class CreateQuestionForm extends AtaForm {
         $age->setLabel("سن");
         $age->setAttribute("class", "form-control");
         $this->add($age);
+
+        // Age
+        $degreetypeid = new SelectElement("degreetypeid", MoshaverDegree::find(), array("using" => array(
+                "id", "name"
+        )));
+        $degreetypeid->setLabel("مدرک تحصیلی");
+        $degreetypeid->setAttribute("class", "form-control");
+        $this->add($degreetypeid);
+
+
+        // Currentwork
+        $currentwork = new TextElement("currentwork");
+        $currentwork->setLabel("شغل فعلی");
+        $currentwork->setAttribute("class", "form-control");
+        $this->add($currentwork);
+
+        // Private Mode
+        $privatemode = new CheckElement("privatemode");
+        $privatemode->setCheckboxText("سوال خصوصی باشد");
+        $privatemode->setLabel("نمایش سوال");
+        $this->add($privatemode);
+        
+
+
+        // Image
+        $image1 = new File("image1");
+        $image1->setLabel("تصویر یک");
+        $this->add($image1);
+
+
+        // Image
+        $image2 = new File("image2");
+        $image2->setLabel("تصویر دو");
+        $this->add($image2);
+
+        // Image
+        $image3 = new File("image3");
+        $image3->setLabel("تصویر سه");
+        $this->add($image3);
+
+        // Image
+        $image4 = new File("image4");
+        $image4->setLabel("تصویر چهار");
+        $this->add($image4);
+
+        // Image
+        $image5 = new File("image5");
+        $image5->setLabel("تصویر پنج");
+        $this->add($image5);
+
+
 
         // Question
         $question = new TextAreaElement('question');

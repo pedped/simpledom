@@ -6,73 +6,167 @@
 <div class='row'>
     <div class='col-md-12'>
         <div class='row'>
-            <div class='col-md-3'>
-                <label>
-                    ارسال کننده
-                </label>
-                <p><?php echo $question->getUser()->getFullName(); ?></p>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        ارسال کننده
+                    </label>
+                    <p><?php echo $question->getUser()->getFullName(); ?></p>
+                </div>
             </div>
-            <div class='col-md-3'>
-                <label>
-                    سن
-                </label>
-                <p><?php echo $question->age . " ساله"; ?></p>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        سن
+                    </label>
+                    <p><?php echo $question->age . " ساله"; ?></p>
+                </div>
             </div>
-            <div class='col-md-3'>
-                <label>
-                    جنسیت
-                </label>
-                <p><?php echo $question->gender == 1 ? "مرد" : "زن"; ?></p>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        جنسیت
+                    </label>
+                    <p><?php echo $question->gender == 1 ? "مرد" : "زن"; ?></p>
+                </div>
             </div>
-            <div class='col-md-3'>
-                <label>
-                    شهر
-                </label>
-                <p><?php echo $question->getCityName(); ?></p>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        ساکن
+                    </label>
+                    <p><?php echo $question->getCityName(); ?></p>
+                </div>
+            </div>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        تحصیلات
+                    </label>
+                    <p><?php echo $question->getDegree()->name; ?></p>
+                </div>
+            </div>
+            <div class='col-md-2'>
+                <div class='question-view-user-info-item'> 
+                    <label>
+                        شغل
+                    </label>
+                    <p><?php echo $question->currentwork; ?></p>
+                </div>
             </div>
 
         </div>
         <hr/>
         <div class='row'>
-            <div class='col-md-12'>
-                <label>
-                    سوال
-                </label>
-                <p><?php echo $question->question; ?></p>
-            </div>
-        </div>
-        <hr/>
-        <div class='row'>
             <div class='col-md-6'>
-                <label>
-                    سابقه بیماری
-                </label>
-                <p><?php echo $question->disorderhistory; ?></p>
-            </div>
-            <div class='col-md-6'>
-                <label>
-                    سابقه مصرف دارو
-                </label>
-                <p><?php echo $question->usingtablet; ?></p>
-            </div>
-        </div>
-        <hr/>
-        <blockquote>
-            <?php foreach ($answers as $answer) : ?>
-
-                <div class="media">
-                    <img src="<?php echo $answer->getUser()->getImageLink(); ?>" class="img-rounded pull-right media-object" style="width: 64px">
-                    <div class="media-body">
-                        <h4 style="margin-top: 8px;" class="media-heading"><?php echo $answer->getUserName(); ?></h4>
-                        <?php echo $answer->message; ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="fa fa-question"></span> سوال</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Question -->
+                        <p style="font-size: 16px;"><?php echo $question->question; ?></p>
+                        <hr/>
+                        <!-- User Phone !-->
+                        <p style="font-size: 13px;font-weight: bold;font-family: naskhbold;"><span class="fa fa-mobile-phone" style="font-size: 30px;position: relative;top: 5px;padding-left: 4px;"></span> شماره تماس: <?php echo $question->getUser()->getVerifiedPhone(); ?></p>
                     </div>
                 </div>
+            </div>
+            <div class='col-md-6'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="fa fa-image"></span> تصاویر</h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php if (isset($question->imageid1) || isset($question->imageid2) || isset($question->imageid3) || isset($question->imageid4) || isset($question->imageid5)) : ?>
+                            <p>برای مشاهده تصاویر در سایز اصلی بر روی هر تصویر کلیک نمایید</p>
+                            <div class='row'>
+                                <div class='col-md-2'>
+                                    <?php if (isset($question->imageid1)) : ?>
+                                        <a href="<?php echo $question->getImageOne()->link; ?>"><img src='<?php echo $question->getImageOne()->link; ?>' class='img img-responsive' /></a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class='col-md-2'>
+                                    <?php if (isset($question->imageid2)) : ?>
+                                        <a href="<?php echo $question->getImageTwo()->link; ?>"><img src='<?php echo $question->getImageTwo()->link; ?>' class='img img-responsive' /></a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class='col-md-2'>
+                                    <?php if (isset($question->imageid3)) : ?>
+                                        <a href="<?php echo $question->getImageThree()->link; ?>"><img src='<?php echo $question->getImageThree()->link; ?>' class='img img-responsive' /></a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class='col-md-2'>
+                                    <?php if (isset($question->imageid4)) : ?>
+                                        <a href="<?php echo $question->getImageFour()->link; ?>"><img src='<?php echo $question->getImageFour()->link; ?>' class='img img-responsive' /></a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class='col-md-2'>
+                                    <?php if (isset($question->imageid5)) : ?>
+                                        <a href="<?php echo $question->getImageFive()->link; ?>"><img src='<?php echo $question->getImageFive()->link; ?>' class='img img-responsive' /></a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class='col-md-2'>
 
-            <?php endforeach; ?>
-        </blockquote>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="fa fa-user"></span> سابقه بیماری</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><?php echo $question->disorderhistory; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-12'>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="fa fa-magic"></span> سابقه مصرف دارو</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><?php echo $question->usingtablet; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Answers !-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جواب</h3>
+            </div>
+            <div class="panel-body">
+                <?php if (count($answers) > 0) : ?>
+                    <blockquote>
+                        <?php foreach ($answers as $answer) : ?>
+                            <div class="media">
+                                <img src="<?php echo $answer->getUser()->getImageLink(); ?>" class="img-rounded pull-right media-object" style="width: 64px">
+                                <div class="media-body">
+                                    <h4 style="margin-top: 8px;" class="media-heading"><?php echo $answer->getUserName(); ?></h4>
+                                    <?php echo $answer->message; ?>
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+                    </blockquote>
+                <?php else : ?>
+                    <div class='center alert alert-warning'>
+                        <h3 style="margin: 15px;color: #C46161;">تا کنون جوابی به این پرسش داده نشده است</h3>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
         <hr/>
         <h3>ارسال جواب</h3>
         <form method="post">
+            <p>در این قسمت جواب خود را به سوال کننده وارد نمایید</p>
             <?php $form->renderDecorated('answer'); ?>
 
             <?php $form->renderDecorated('submit'); ?> 
