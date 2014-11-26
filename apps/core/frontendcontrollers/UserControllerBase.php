@@ -563,12 +563,24 @@ class UserControllerBase extends ControllerBase {
         return true;
     }
 
+    /**
+     * this function will called after user successfully logged in to the system
+     * @param User $user
+     */
     public function redirectAfterLoginAction($user) {
-        // go to welcome page
-        return $this->dispatcher->forward(array(
-                    "controller" => "index",
-                    "action" => "index"
-        ));
+        if ($user->isBongahDar()) {
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "index",
+                "params" => array()
+            ));
+        } else {
+            $this->dispatcher->forward(array(
+                "controller" => "index",
+                "action" => "index",
+                "params" => array()
+            ));
+        }
     }
 
 }

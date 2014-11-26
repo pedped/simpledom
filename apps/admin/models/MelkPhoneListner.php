@@ -224,7 +224,7 @@ class MelkPhoneListner extends AtaModel {
      * Sale End
      * @var string
      */
-    public $Ssale_price_end;
+    public $sale_price_end;
 
     /**
      * Set Sale End
@@ -313,7 +313,7 @@ class MelkPhoneListner extends AtaModel {
     }
 
     public function getPurposeTitle() {
-        return MelkPurpose::findFirst($this->melkpurposeid)->name;
+        return str_replace("فروش", "خرید", MelkPurpose::findFirst($this->melkpurposeid)->name);
     }
 
     public function getTypeTitle() {
@@ -473,6 +473,123 @@ class MelkPhoneListner extends AtaModel {
         $melkPhoneListners = MelkPhoneListner::find(array("id IN (:ids:) AND status = 1", "group" => "phoneid", "bind" => array("ids" => implode(", ", $melkPhoneListnersIDs))));
 
         return $melkPhoneListners;
+    }
+
+    public function getReceivedCount() {
+        return BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id)));
+    }
+
+    public function findApprochMelkCount() {
+        return $this->findApprochMelk()->count();
+    }
+
+    public function findApprochMelkCountByBongah() {
+        $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+        return $this->findApprochMelk($bongahid)->count();
+    }
+
+    /**
+     * find best melk based on this item
+     * @return Resultset
+     */
+    public function findApprochMelks() {
+        return $this->findApprochMelk();
+    }
+
+    /**
+     * find best melk approch by bongah
+     * @return Resultset
+     */
+    public function findApprochMelkByBongah() {
+        $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+        return $this->findApprochMelk($bongahid);
+    }
+
+    /**
+     * find best melk based on user request
+     * @param type $bongahid
+     * @return Resultset
+     */
+    public static function findApprochMelk($bongahid = null) {
+
+        $melk = new Melk();
+
+        $query = "cityid = :cityid: ";
+        $bindparams["cityid"] = $this->cityid;
+
+        // check if we have to find melk based on bongah
+        if (isset($bongahid)) {
+            $bongahUserID = Bongah::findFirst(array("id = :id:", "bind" => array("id" => $bongahid)))->userid;
+            $query .= "AND userid = :userid: ";
+            $bindparams["userid"] = $bongahUserID;
+        }
+
+        // add default parameters
+        switch ($this->melkpurposeid) {
+            case 1:
+                // SALE
+                if ($this->sale_price_start > 0) {
+                    // we have to add user requested price range
+                    $query .= "AND melktypeid = :melktypeid: AND melkpurposeid = :melkpurposeid:  AND sale_price >= :sale_price_start: AND sale_price <= :sale_price_end: ";
+                    $bindparams["melktypeid"] = $this->melktypeid;
+                    $bindparams["melkpurposeid"] = "1";
+                    $bindparams["sale_price_start"] = $this->sale_price_start;
+                    $bindparams["sale_price_end"] = $this->sale_price_end;
+                } else {
+                    $query .= "AND melktypeid = :melktypeid: AND melkpurposeid = :melkpurposeid:";
+                    $bindparams["melktypeid"] = $this->melktypeid;
+                    $bindparams["melkpurposeid"] = "1";
+                }
+
+                break;
+            case 2:
+                // RENT
+                $query .= "AND melktypeid = :melktypeid: AND melkpurposeid = :melkpurposeid: ";
+                $bindparams["melktypeid"] = $this->melktypeid;
+                $bindparams["melkpurposeid"] = "2";
+
+                if ($this->rent_price_start > 0) {
+                    $query .= "AND rent_price >= :rent_price_start: AND rent_price <= :rent_price_end:  ";
+                    $bindparams["rent_price_start"] = $this->rent_price_start;
+                    $bindparams["rent_price_end"] = $this->rent_price_end;
+                }
+                if ($this->rent_pricerahn_start > 0) {
+                    $query .= "AND rent_pricerahn >= :rent_pricerahn_start: AND rent_pricerahn <= :rent_pricerahn_end: ";
+                    $bindparams["rent_pricerahn_start"] = $this->rent_pricerahn_start;
+                    $bindparams["rent_pricerahn_end"] = $this->rent_pricerahn_end;
+                }
+
+                break;
+        }
+
+
+        switch ($this->request->getPost("melktypeid")) {
+            case 1 :
+            case 2 :
+            case 3 :
+            case 6 :
+                // khane
+                // apartemnatn
+                // daftar kar
+                // otaghe kar
+                if ($this->bedroom_start > 0) {
+                    $query.= "AND bedroom >= :bedroom_start: AND bedroom <= :bedroom_end: ";
+                    $bindparams["bedroom_start"] = $this->bedroom_start;
+                    $bindparams["bedroom_end"] = $this->bedroom_end;
+                }
+                break;
+            case 4 :
+                break;
+            case 5 :
+                break;
+            default:
+                $this->LogError("Invalid Melk Type", "Melk type has invalid value");
+                break;
+        }
+
+        $query.= "AND approved = 1 ORDER BY id DESC";
+
+        return $melk->rawQuery($query, $bindparams);
     }
 
 }

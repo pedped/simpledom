@@ -4,14 +4,14 @@ namespace Simpledom\Admin\Controllers;
 
 use Simpledom\Admin\BaseControllers\ControllerBase;
 use AtaPaginator;
-use MelkSubscriber;
-use MelkSubscriberForm;
+use BongahSentMelk;
+use BongahSentMelkForm;
 
-class MelkSubscriberController extends ControllerBase {
+class BongahSentMelkController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
-        $this->setTitle('MelkSubscriber');
+        $this->setTitle('BongahSentMelk');
     }
 
     /**
@@ -25,21 +25,22 @@ class MelkSubscriberController extends ControllerBase {
 
     public function addAction() {
 
-        $fr = new MelkSubscriberForm();
+        $fr = new BongahSentMelkForm();
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $melksubscriber = new \MelkSubscriber();
+                $bongahsentmelk = new \BongahSentMelk();
 
-                $melksubscriber->userid = $this->request->getPost('userid', 'string');
-                $melksubscriber->melksubscribeitemid = $this->request->getPost('melksubscribeitemid', 'string');
-                $melksubscriber->date = $this->request->getPost('date', 'string');
-                $melksubscriber->orderid = $this->request->getPost('orderid', 'string');
-                if (!$melksubscriber->create()) {
-                    $melksubscriber->showErrorMessages($this);
+                $bongahsentmelk->bongahid = $this->request->getPost('bongahid', 'string');
+                $bongahsentmelk->melkphonelistnerid = $this->request->getPost('melkphonelistnerid', 'string');
+                $bongahsentmelk->melkid = $this->request->getPost('melkid', 'string');
+                $bongahsentmelk->message = $this->request->getPost('message', 'string');
+                $bongahsentmelk->date = $this->request->getPost('date', 'string');
+                if (!$bongahsentmelk->create()) {
+                    $bongahsentmelk->showErrorMessages($this);
                 } else {
-                    $melksubscriber->showSuccessMessages($this, 'New MelkSubscriber added Successfully');
+                    $bongahsentmelk->showSuccessMessages($this, 'New BongahSentMelk added Successfully');
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
@@ -55,7 +56,7 @@ class MelkSubscriberController extends ControllerBase {
     public function listAction($page = 1) {
 
         // load the users
-        $melksubscribers = MelkSubscriber::find(
+        $bongahsentmelks = BongahSentMelk::find(
                         array(
                             'order' => 'id DESC'
         ));
@@ -65,7 +66,7 @@ class MelkSubscriberController extends ControllerBase {
 
         // create paginator
         $paginator = new AtaPaginator(array(
-            'data' => $melksubscribers,
+            'data' => $bongahsentmelks,
             'limit' => 10,
             'page' => $numberPage
         ));
@@ -73,10 +74,10 @@ class MelkSubscriberController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Melk Subscribe ID', 'Date', 'Order ID'
+                    'ID', 'Bongah ID', 'Melk Phone Listner', 'Melk ID', 'Message', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'melksubscribeitemid', 'getDate()', 'orderid'
+                    'id', 'bongahid', 'melkphonelistnerid', 'melkid', 'message', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -84,7 +85,7 @@ class MelkSubscriberController extends ControllerBase {
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'melksubscriber/list');
+                'list');
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -97,24 +98,24 @@ class MelkSubscriberController extends ControllerBase {
         }
 
         // check if item exist
-        $item = MelkSubscriber::findFirst($id);
+        $item = BongahSentMelk::findFirst($id);
         if (!$item) {
             // item is not exist any more
             return $this->dispatcher->forward(array(
-                        'controller' => 'melksubscriber',
+                        'controller' => 'bongahsentmelk',
                         'action' => 'list'
             ));
         }
 
         // check if user want to remove it
         if ($this->request->isPost()) {
-            $result = MelkSubscriber::findFirst($id)->delete();
+            $result = BongahSentMelk::findFirst($id)->delete();
             if (!$result) {
-                $this->flash->error('unable to remove this MelkSubscriber item');
+                $this->flash->error('unable to remove this BongahSentMelk item');
             } else {
-                $this->flash->success('MelkSubscriber item deleted successfully');
+                $this->flash->success('BongahSentMelk item deleted successfully');
                 return $this->dispatcher->forward(array(
-                            'controller' => 'melksubscriber',
+                            'controller' => 'bongahsentmelk',
                             'action' => 'list'
                 ));
             }
@@ -130,29 +131,31 @@ class MelkSubscriberController extends ControllerBase {
         }
 
         // set title
-        $this->setTitle('Edit MelkSubscriber');
+        $this->setTitle('Edit BongahSentMelk');
 
-        $melksubscriberItem = MelkSubscriber::findFirst($id);
+        $bongahsentmelkItem = BongahSentMelk::findFirst($id);
 
         // create form
-        $fr = new MelkSubscriberForm();
+        $fr = new BongahSentMelkForm();
         $this->handleFormScripts($fr);
         // check for post request
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $melksubscriber = MelkSubscriber::findFirst($id);
-                $melksubscriber->userid = $this->request->getPost('userid', 'string');
+                $bongahsentmelk = BongahSentMelk::findFirst($id);
+                $bongahsentmelk->bongahid = $this->request->getPost('bongahid', 'string');
 
-                $melksubscriber->melksubscribeitemid = $this->request->getPost('melksubscribeitemid', 'string');
+                $bongahsentmelk->melkphonelistnerid = $this->request->getPost('melkphonelistnerid', 'string');
 
-                $melksubscriber->date = $this->request->getPost('date', 'string');
+                $bongahsentmelk->melkid = $this->request->getPost('melkid', 'string');
 
-                $melksubscriber->orderid = $this->request->getPost('orderid', 'string');
-                if (!$melksubscriber->save()) {
-                    $melksubscriber->showErrorMessages($this);
+                $bongahsentmelk->message = $this->request->getPost('message', 'string');
+
+                $bongahsentmelk->date = $this->request->getPost('date', 'string');
+                if (!$bongahsentmelk->save()) {
+                    $bongahsentmelk->showErrorMessages($this);
                 } else {
-                    $melksubscriber->showSuccessMessages($this, 'MelkSubscriber Saved Successfully');
+                    $bongahsentmelk->showSuccessMessages($this, 'BongahSentMelk Saved Successfully');
                 }
             } else {
                 // invalid
@@ -162,10 +165,11 @@ class MelkSubscriberController extends ControllerBase {
 
             // set default values
 
-            $fr->get('userid')->setDefault($melksubscriberItem->userid);
-            $fr->get('melksubscribeitemid')->setDefault($melksubscriberItem->melksubscribeitemid);
-            $fr->get('date')->setDefault($melksubscriberItem->date);
-            $fr->get('orderid')->setDefault($melksubscriberItem->orderid);
+            $fr->get('bongahid')->setDefault($bongahsentmelkItem->bongahid);
+            $fr->get('melkphonelistnerid')->setDefault($bongahsentmelkItem->melkphonelistnerid);
+            $fr->get('melkid')->setDefault($bongahsentmelkItem->melkid);
+            $fr->get('message')->setDefault($bongahsentmelkItem->message);
+            $fr->get('date')->setDefault($bongahsentmelkItem->date);
         }
 
         $this->view->form = $fr;
@@ -173,16 +177,17 @@ class MelkSubscriberController extends ControllerBase {
 
     public function viewAction($id) {
 
-        $item = MelkSubscriber::findFirst($id);
+        $item = BongahSentMelk::findFirst($id);
         $this->view->item = $item;
 
-        $form = new MelkSubscriberForm();
+        $form = new BongahSentMelkForm();
         $this->handleFormScripts($form);
         $form->get('id')->setDefault($item->id);
-        $form->get('userid')->setDefault($item->userid);
-        $form->get('melksubscribeitemid')->setDefault($item->melksubscribeitemid);
+        $form->get('bongahid')->setDefault($item->bongahid);
+        $form->get('melkphonelistnerid')->setDefault($item->melkphonelistnerid);
+        $form->get('melkid')->setDefault($item->melkid);
+        $form->get('message')->setDefault($item->message);
         $form->get('date')->setDefault($item->date);
-        $form->get('orderid')->setDefault($item->orderid);
         $this->view->form = $form;
     }
 

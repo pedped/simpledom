@@ -36,7 +36,6 @@ class RequestmelkController extends ControllerBase {
 
             $fr->get("email")->addValidator(new PresenceOf(array(
             )));
-
         } else {
             $fr->remove("email");
             $fr->remove("fname");
@@ -79,7 +78,7 @@ class RequestmelkController extends ControllerBase {
                     }
 
                     // create listner
-                    $result = MelkPhoneListner::subscribeUser($this->errors, $this->user->userid, $this->request->getPost("mobile"));
+                    $result = MelkPhoneListner::subscribeUser($this->errors, $this->user->userid, $phone);
                     if ($result > 0) {
                         if ($result == 1) {
                             // added successfully
@@ -107,6 +106,9 @@ class RequestmelkController extends ControllerBase {
             }
         }
 
+        if ($this->hasError()) {
+            $this->flash->error(implode("\n", $this->errors));
+        }
         $this->handleFormScripts($fr);
         $this->view->form = $fr;
     }

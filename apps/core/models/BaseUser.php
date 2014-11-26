@@ -427,7 +427,7 @@ class BaseUser extends AtaModel implements Searchable {
     /**
      * 
      * @param type $parameters
-     * @return BaseUser
+     * @return User
      */
     public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);

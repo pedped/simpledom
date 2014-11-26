@@ -634,7 +634,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setMarkTitle("موقعیت ملک");
         $form->get('map')->setMarkDescription("موقعیت ملک");
         $form->get('map')->setZoom(13);
-        
+
         // set page title
         $this->setPageTitle($melk->getQuickInfo());
 
@@ -697,7 +697,7 @@ class MelkController extends ControllerBaseFrontEnd {
         // get nearser bongahs
         $this->view->bongahs = $melk->getNearsetBongahs();
 
-        if (true || (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
+        if (isset($this->user) && (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
             // find apprch bongahs
             $toSendBongahs = BongahAmlakKeshvar::find(
                             array(

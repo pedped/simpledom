@@ -26,7 +26,7 @@ class UsersubscribeController extends ControllerBaseFrontEnd {
             $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
 
             // get bonngahs list
-            if (true || (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
+            if ((!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
                 // find apprch bongahs
                 $toSendBongahs = BongahAmlakKeshvar::find(
                                 array(
