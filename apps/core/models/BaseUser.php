@@ -387,12 +387,12 @@ class BaseUser extends AtaModel implements Searchable {
      * Try to login to the system, retrun user on succcessfully
      * @param type $email
      * @param type $password
-     * @return boolean|BaseUser
+     * @return boolean|User
      */
     public static function Login($email, $password) {
 
         // TODO validate email
-        $user = BaseUser::findFirst(array("email = :email:", "bind" => array("email" => $email)));
+        $user = User::findFirst(array("email = :email:", "bind" => array("email" => $email)));
 
         if (isset($user->userid)) {
             // user found, we have to check for password
