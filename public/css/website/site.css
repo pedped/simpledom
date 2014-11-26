@@ -476,3 +476,39 @@ footer .btn {
     padding: 25px;
     border: 1px solid #D8D8D8;
 }
+
+.approch-melk-info-item{
+    background: #EAEAEA;
+    padding: 10px 14px;
+    border-right: 3px solid #CE0B92;
+    margin-top: 7px;
+}
+
+.approch-melk-info-item label{
+    font-size: 14px;
+    color: #7F7F7F;
+    margin: 0px;
+}
+
+.approch-melk-info-item h4{
+    margin: 0px;
+    font-size: 20px;
+}
+
+.approch-melk-info-item .no-important{
+    color: #D8D8D8;
+    margin: 0px;
+    font-size: 20px;
+}
+
+
+.approch-melk-view h2:first-child{
+    margin-top: 15px;
+}
+
+.approch-melk-view h2{
+    color: #0D47BC;
+    border-bottom: 1px dotted #aaa;
+    padding-bottom: 20px;
+    margin-top: 41px;
+}

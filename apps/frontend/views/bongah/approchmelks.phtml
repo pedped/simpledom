@@ -1,0 +1,189 @@
+<div class='row approch-melk-view'>
+
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+    
+    <div class='col-md-12'>
+        <blockquote>
+            <p>املاک تحت پوشش، املاکی هستند که در شعاع 10 کیلیومتری از شما باشند</p>
+            <p class='small'>این املاک بر اساس موقعیت ملک و موقعیت بنگاه شما حساب میگردند</p>
+        </blockquote>
+        <h2>مشخصات ملک درخواستی</h2>
+        <p>در زیر مشخصات ملک درخواستی شخص نمایش داده شده است</p>
+        <div class='row'>
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>نوع ملک</label>
+                    <h4><?php echo $phoneListner->getTypeTitle(); ?></h4>
+                </div>
+            </div>
+
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>منظور</label>
+                    <h4>   <?php echo $phoneListner->getPurposeTitle(); ?></h4>
+                </div>
+            </div>
+
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>اتاق</label>
+                    <h4>
+                        <?php if ($phoneListner->bedroom_end == 0) : ?>
+                            <p class='no-important'>بی اهمیت</p>
+                        <?php else : ?>
+                            <?php echo $phoneListner->bedroom_start; ?> تا  <?php echo $phoneListner->bedroom_end; ?>
+                        <?php endif; ?>
+                    </h4>
+                </div>
+            </div>
+
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>محدوده های درخواستی</label>
+                    <h4><?php echo $phoneListner->getAreasNames(); ?></h4>
+                </div>
+            </div>
+
+
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>تاریخ</label>
+                    <h4>
+                        <?php echo $phoneListner->getSimpleDate(); ?>
+                    </h4>
+                </div>
+            </div>
+
+            <div class='col-md-2'>
+                <div class='approch-melk-info-item'>
+                    <label>شماره تماس</label>
+                    <h4>
+                        <?php echo $phoneListner->getPhoneNumber(); ?>
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class='col-md-4'>
+                <div class='approch-melk-info-item'>
+                    <label>بازه رهن</label>
+                    <h4>    
+                        <?php if ($phoneListner->rent_pricerahn_end > 0) : ?>
+                            <?php echo $phoneListner->getRentPriceRahnStartHuman(); ?> تا <?php echo $phoneListner->getRentPriceRahnEndHuman(); ?>
+                        <?php else : ?>
+                            <p class='no-important'>بی اهمیت</p>
+                        <?php endif; ?>
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class='col-md-4'>
+                <div class='approch-melk-info-item'>
+                    <label>بازه اجاره</label>
+                    <h4>
+                        <?php if ($phoneListner->rent_price_end > 0) : ?>
+                            <?php echo $phoneListner->getRentPriceStartHuman(); ?> تا <?php echo $phoneListner->getRentPriceEndHuman(); ?>
+                        <?php else : ?>
+                            <p class='no-important'>بی اهمیت</p>
+                        <?php endif; ?>
+                    </h4>
+                </div>
+            </div>
+
+            <div class='col-md-4'>
+                <div class='approch-melk-info-item'>
+                    <label>بازه قیمت</label>
+                    <h4>
+                        <?php if ($phoneListner->sale_price_end > 0) : ?>
+                            <?php echo $phoneListner->getSalePriceStartHuman(); ?> تا <?php echo $phoneListner->getSalePriceEndHuman(); ?>
+                        <?php else : ?>
+                            <p class='no-important'>بی اهمیت</p>
+                        <?php endif; ?>
+                    </h4>
+                </div>
+            </div>
+
+        </div>
+        <h2>املاک متناسب شما</h2>
+        <p>لیست املاک ارائه شده توسط بنگاه شما که متناسب با نیاز کاربر است، برای ارسال ملک دلخواه بر روی گزینه "ارسال ملک" در جلوی هر ردیف کلیک نمایید</p>
+        <div class='row'>
+            <div class='col-md-12'>
+                <!-- Amlak Motenseb !-->
+                <?php
+                // echo $melks->table;
+                ?>
+                <table class="table table-bordered table-striped table-condensed mb-none ">
+                    <tbody>
+                        <tr><th>کد ملک</th><th>نوع</th><th>منظور</th><th>وضعیت</th><th>متراژ</th><th>زیربنا</th><th>قیمت فروش</th><th>اجاره</th><th>رهن</th><th>اتاق خواب</th><th>حمام</th><th>شهر</th><th>ارائه شده توسط</th><th>تاریخ</th><th>مشاهده</th><th>ارسال ملک</th></tr>
+                        <?php foreach ($melks->items as $item) : ?>
+                            <tr>
+                                <td>
+                                    <?php echo $item->id; ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getTypeName(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getPurposeType(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getCondiationType(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getZirbana(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getMetraj(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getSalePrice(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getEjarePrice(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getRahnPrice(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->bedroom; ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->bath; ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getCityName(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getCreateByTilte(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getSimpleDate(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->getViewButton(); ?>
+                                </td>
+                                <td>
+                                    <a class='btn btn-primary btn-sm' href='<?php echo $this->url->get("bongah/$currentBongah->id/sendmelktolistner/$item->id/$phoneListner->id"); ?>' >ارسال ملک</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>املاک ارسالی</h2>
+        <p>لیست کامل املاک ارسال شده توسط بنگاه شما به این شخص</p>
+        <div class='row'>
+            <div class='col-md-12'>
+                <!-- Amlak Ersali !-->
+                <?php
+                echo $sentmelklist->header;
+                echo $sentmelklist->table;
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

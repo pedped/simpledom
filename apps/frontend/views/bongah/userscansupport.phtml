@@ -2,8 +2,99 @@
     <p>در این قسمت شما میتوانید لیست افرادی که نیاز خود برای ملک را ارسال نموده اند مشاهده نمایید</p>
     <p class='small'>توچه نمایید که تمامی این شماره ها توسط سیستم مورد تایید قرار گرفته اند</p>
 </blockquote>
+<table class="table table-bordered table-striped table-condensed mb-none ">
+    <tbody>
+        <tr>
+            <th>کد</th>
+            <th>میزان بازدهی</th>
+            <th>مناطق درخواستی</th> 
+            <th>منظور</th> 
+            <th>نوع ملک</th>
+            <th>حداقل اتاق</th> 
+            <th>حداکثر اتاق</th>
+            <th>حداقل اجاره</th> 
+            <th>حداکثر اجاره</th>
+            <th>حداقل رهن</th> 
+            <th>حداکثر رهن</th>
+            <th>حداقل قیمت</th>
+            <th>حداکثر قیمت</th>
+            <th>تاریخ</th> 
+            <th>شهر</th>
+            <th>شماره تماس</th>
+            <th>پیامک های دریافتی</th> 
+            <th>تعداد املاک متناسب شما</th>
+        </tr>
+        <?php foreach ($list->items as $item) : ?>
+            <?php $melkscanbesent = $item->findApprochMelkCountByBongah(); ?>
+            <tr <?= $melkscanbesent > 0 ? "class='success'" : "" ?> >
+                <td>
+                    <?php echo $item->id; ?>
+                </td>
+                <td>
+                    <?php $successChart = $item->getSuccessRateForBongah($currentBongah); ?>
+                    <div style="display: flex;direction: ltr;">
+                        <?php for ($i = 0; $i <= $successChart->rate; $i++) : ?>
+                            <img style="float: right;" src='<?php echo $this->url->get("img/money_icon.png"); ?>' />
+                        <?php endfor; ?>
+                    </div>
+                </td>
+                <td>
+                    <?php echo $item->getAreasNames(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getPurposeTitle(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getTypeTitle(); ?>
+                </td>
+                <td>
+                    <?php echo $item->bedroom_start; ?>
+                </td>
+                <td>
+                    <?php echo $item->bedroom_end; ?>
+                </td>
+                <td>
+                    <?php echo $item->getRentPriceStartHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getRentPriceEndHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getRentPriceRahnStartHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getRentPriceRahnEndHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getSalePriceStartHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getSalePriceEndHuman(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getDate(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getCityName(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getPhoneNumber(); ?>
+                </td>
+                <td>
+                    <?php echo $item->getReceivedCount(); ?>
+                </td>
+                <td>
+                    <a href="<?php echo $this->url->get("bongah/$currentBongah->id/approchmelks/$item->id"); ?>"><?php echo $melkscanbesent; ?></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+
+
 <?php
-echo $list->header;
-echo $list->table;
+//echo $list->header;
+//echo $list->table;
 echo $list->footer;
 ?>

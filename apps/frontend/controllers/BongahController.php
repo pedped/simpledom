@@ -5,6 +5,7 @@ namespace Simpledom\Frontend\Controllers;
 use Area;
 use AtaPaginator;
 use Bongah;
+use BongahSentMelk;
 use BongahSentMessage;
 use BongahSubscribeItem;
 use City;
@@ -370,9 +371,155 @@ class BongahController extends ControllerBase {
         $this->getMelkPaginator($page, $melks, 'bongah' . "/" . $this->bongah->id . "/melkcansupport");
     }
 
+    public function approchmelksAction($phonelistnerid) {
+
+        // find phone listner
+        $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $phonelistnerid)));
+        if (!$phonelistner) {
+            $this->show404();
+            return;
+        }
+
+        $this->view->phoneListner = $phonelistner;
+
+
+        //
+        // find user sent messages
+        //
+        $sentMelk = BongahSentMelk::find(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->bongah->id)));
+        $paginator = new AtaPaginator(array(
+            'data' => $sentMelk,
+            'limit' => 1000,
+            'page' => 1
+        ));
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'کد بنگاه', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
+                ))->
+                setFields(array(
+                    'id', 'bongahid', 'melkid', 'message', 'getPhoneNumber()', 'getDate()'
+                ))->setListPath(
+                "");
+
+        $this->view->sentmelklist = $paginator->getPaginate();
+
+
+        // 
+        // find ideal melks based on this phone listner
+        //
+        $melkPaginator = new AtaPaginator(array(
+            'data' => $phonelistner->findApprochMelkByBongah(),
+            'limit' => 100,
+            'page' => 1
+        ));
+        $melkPaginator->
+                setTableHeaders(array(
+                    'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
+                ))->
+                setFields(array(
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getSimpleDate()', 'getViewButton()'
+                ))->setListPath("");
+
+        $this->view->melks = $melkPaginator->getPaginate();
+    }
+
+    public function sendmelktolistnerAction($melkid, $phonelistnerID) {
+
+
+
+        // check for melk
+        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
+        $phonelistner = \MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $phonelistnerID)));
+
+        if (!$melk || !$phonelistner) {
+            // one thing is not exist
+            $this->show404();
+        }
+
+        // check if the bongah have not sent this item before this melk listner
+        $sentBefore = BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid: AND melkid = :melkid:", "bind" => array(
+                        "melkid" => $melkid,
+                        "melkphonelistnerid" => $phonelistnerID
+            ))) > 0;
+        if ($sentBefore) {
+            // user 
+            $this->flash->error("شما قبلا ملک شماره " . $melkid . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
+            // forward to user page
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "approchmelks",
+                "bongahid" => $this->bongah->id,
+                "params" => array(
+                    $phonelistnerID
+                )
+            ));
+            return;
+        }
+
+
+        // check for user credit
+        if ($this->user->getSMSCredit() <= 0) {
+            // user do not have enogh money to send message
+            $this->flash->error("اعتبار شما برای ارسال پیام کافی نیست، لطفا ابتدا اعتبار خود را افزایش دهید");
+            // forward to user page
+            $this->dispatcher->forward(array(
+                "controller" => "smscredit",
+                "action" => "plans",
+                "bongahid" => $this->bongah->id,
+                "params" => array(
+                    $phonelistnerID
+                )
+            ));
+            return;
+        }
+
+        // create message
+        $message = "متقاضی گرامی، ملک جدید مطابق با نیاز شما به بنگاه " . $this->bongah->title . " اضافه گردید";
+        $message .= "\n";
+        $message .= "\n";
+        $message .= $melk->getQuickInfo();
+        $message .="\n";
+        $message .="\n";
+        $message .= "با تشکر";
+        $message .= $this->bongah->title;
+        $message .="\n";
+        $message .= $this->bongah->phone;
+
+        // we have to send sms
+        SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, \SmsNumber::findFirst()->id);
+
+        // TODO find sms id and use for decrease credit
+        // decraese user sms credit
+        $isPersian = false;
+        $messageSize = $this->getMessageSize($message, $isPersian);
+        SMSCredit::decreaseCredit($this->errors, $this->user->id, 12, $isPersian ? $messageSize * 2 : $messageSize );
+
+        // we have to create new sent message
+        $bongahSentMessage = new BongahSentMelk();
+        $bongahSentMessage->bongahid = $this->bongah->id;
+        $bongahSentMessage->melkid = $melkid;
+        $bongahSentMessage->melkphonelistnerid = $phonelistnerID;
+        $bongahSentMessage->message = $message;
+        $bongahSentMessage->create();
+
+        // show success messgae
+        $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر میباشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
+
+
+        // forward to user page
+        $this->dispatcher->forward(array(
+            "controller" => "bongah",
+            "action" => "approchmelks",
+            "bongahid" => $this->bongah->id,
+            "params" => array(
+                $phonelistnerID
+            )
+        ));
+    }
+
     public function userscansupportAction($page = 1, $maxDistance = 10) {
 
-        $this->setPageTitle("کاربران نیازمند ملک");
+        $this->setPageTitle("املاک درخواستی");
 
         // find all city
         $melkphonelistners = MelkPhoneListner::find(
@@ -397,10 +544,10 @@ class BongahController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', "مناطق درخواستی", 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس', 'پیامک های دریافتی',
+                    'کد', "مناطق درخواستی", 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس', 'پیامک های دریافتی', 'تعداد املاک متناسب شما'
                 ))->
                 setFields(array(
-                    'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'getReceivedCount()'
+                    'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'getReceivedCount()', 'findApprochMelkCountByBongah()'
                 ))->setListPath(
                 'bongah/' . $this->bongah->id . "/userscansupport");
 

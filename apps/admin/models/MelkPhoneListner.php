@@ -272,6 +272,10 @@ class MelkPhoneListner extends AtaModel {
         return Helper::GetPersianDate($this->date);
     }
 
+    public function getSimpleDate() {
+        return Jalali::date("Y:m:d", $this->date);
+    }
+
     public function getUserName() {
         return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
     }
@@ -510,7 +514,7 @@ class MelkPhoneListner extends AtaModel {
      * @param type $bongahid
      * @return Resultset
      */
-    public static function findApprochMelk($bongahid = null) {
+    public function findApprochMelk($bongahid = null) {
 
         $melk = new Melk();
 
@@ -563,7 +567,7 @@ class MelkPhoneListner extends AtaModel {
         }
 
 
-        switch ($this->request->getPost("melktypeid")) {
+        switch ($this->melktypeid) {
             case 1 :
             case 2 :
             case 3 :
@@ -587,9 +591,44 @@ class MelkPhoneListner extends AtaModel {
                 break;
         }
 
-        $query.= "AND approved = 1 ORDER BY id DESC";
+        $query.= "AND approved = 1";
+        //var_dump($query);
+        //die();
 
-        return $melk->rawQuery($query, $bindparams);
+        return $melk->find(array($query, "order" => "id DESC", "bind" => $bindparams));
+    }
+
+    /**
+     * find success rate for bongah
+     * @param Bongah $bongah
+     */
+    public function getSuccessRateForBongah($bongah) {
+
+        $result = new stdClass();
+        $messages = array();
+
+        $rate = 0;
+
+        // 1 : have melk that can be supported and did not sent yet
+        $melkCount = $this->findApprochMelkCountByBongah();
+        $rate +=$melkCount > 0 ? 2 : 0;
+        $messages[] = "شما " . "<b>" . $melkCount . "</b>" . " ملک متناسب با نیاز این متقاضی دارید";
+
+        // 2 : user request date is lower than 30 day
+        $rate += $this->date > time() - (3600 * 24 * 30) ? 1 : 0;
+        $messages[] = "از زمان درخواست ملک کمتر از یک ماه میگذرد";
+
+        // 3 : user received less than 20 melk
+        $rate += BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id))) < 20 ? 1 : 0;
+        $messages[] = "تعداد پیامک های دریافتی این شخص کمتر از 20 مورد است";
+
+        // set rate
+        $result->rate = $rate;
+
+        // set message
+        $result->messages = implode("\n", $messages);
+
+        return $result;
     }
 
 }

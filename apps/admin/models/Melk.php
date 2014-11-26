@@ -341,6 +341,10 @@ class Melk extends AtaModel {
         return Jalali::date("Y/m/d-H:i:s", $this->date);
     }
 
+    public function getSimpleDate() {
+        return Jalali::date("Y/m/d", $this->date);
+    }
+
     public function getUserName() {
         return isset($this->userid) ? BaseUser::findFirst($this->userid)->getFullName() : '<no user>';
     }
@@ -644,5 +648,6 @@ class Melk extends AtaModel {
             return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1");
         }
     }
+
 
 }
