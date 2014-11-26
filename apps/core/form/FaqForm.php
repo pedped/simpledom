@@ -3,10 +3,10 @@
 namespace Simpledom\Core;
 
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use TextElement;
 
 class FaqForm extends AtaForm {
 
@@ -15,7 +15,7 @@ class FaqForm extends AtaForm {
 
 
         // Head
-        $name = new Text("head");
+        $name = new TextElement("head");
         $name->setLabel(_("Head"));
         $name->setAttribute("class", "form-control");
         $name->addValidator(new PresenceOf(array(
@@ -27,7 +27,7 @@ class FaqForm extends AtaForm {
 
 
         // Title
-        $title = new Text("title");
+        $title = new TextElement("title");
         $title->setLabel(_("Title"));
         $title->setAttribute("class", "form-control");
         $title->addValidator(new PresenceOf(array(

@@ -1,6 +1,8 @@
 <?php
 
-class City extends BaseCity {
+use Simpledom\Core\AtaModel;
+
+class BaseCity extends AtaModel {
 
     public function getSource() {
         return 'city';

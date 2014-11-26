@@ -1,0 +1,37 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <article>
+            <!-- Header !-->
+            <header>
+                <h1><?php echo $article->title; ?></h1>
+            </header>
+            <p><?= _("Published"); ?>: <time pubdate="pubdate"><?php echo $article->getDate(); ?></time></p>
+
+            <!-- Seperator !-->
+            <div class="aritcle-header-seperator"></div>
+
+            <!-- Text !-->
+            <p class="article-text">
+                <?php echo nl2br($article->text); ?>
+            </p>
+
+            <!-- Seperator !-->
+            <div class="aritcle-header-seperator"></div>
+
+            <!-- Source !-->
+            <?php if (isset($article->link) && strlen($article->link) > 0) : ?>
+                <blockquote> 
+                    <h3>
+                        <?= _("Source"); ?>
+                    </h3>
+                    <a rel="nofollow" href="<?php echo $article->link; ?>"><?php echo $article->link; ?></a> 
+                </blockquote>
+            <?php endif; ?>
+        </article>
+    </div>
+</div>

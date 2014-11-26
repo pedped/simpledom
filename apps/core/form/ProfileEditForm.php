@@ -4,9 +4,9 @@ namespace Simpledom\Core;
 
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Submit;
-use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use TextElement;
 
 class ProfileEditForm extends AtaForm {
 
@@ -15,7 +15,7 @@ class ProfileEditForm extends AtaForm {
 
 
         // First Name
-        $firstname = new Text("firstname");
+        $firstname = new TextElement("firstname");
         $firstname->setLabel(_("First Name"));
         $firstname->setAttribute("class", "form-control");
         $firstname->addValidator(new PresenceOf(array(
@@ -29,7 +29,7 @@ class ProfileEditForm extends AtaForm {
 
 
         // Last Name
-        $lastname = new Text("lastname");
+        $lastname = new TextElement("lastname");
         $lastname->setLabel(_("Last Name"));
         $lastname->setAttribute("class", "form-control");
         $lastname->addValidator(new PresenceOf(array(
