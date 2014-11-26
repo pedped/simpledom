@@ -156,7 +156,7 @@
                                 </div>
                                 <?php $form->renderDecorated('email'); ?> 
                             <?php endif; ?>
- 
+
 
                             <!--  ADD Mobile !-->
                             <?php $form->renderDecorated('mobile'); ?> 
@@ -219,6 +219,8 @@
         $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
 
 
+        $('html, body').animate({scrollTop: 0}, 400);
+        return false;
 
     }
 
@@ -560,6 +562,7 @@ foreach ($cities as $city) {
             }
             citylisteleemnt.append('<option value="' + id + '">' + citiesid[id] + '</option>');
         });
+
     }
 
 

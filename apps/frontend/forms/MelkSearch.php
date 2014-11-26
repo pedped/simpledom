@@ -93,7 +93,7 @@ class MelkSearch extends AtaForm {
         $melkpurposeid = new SelectElement('melkpurposeid');
         $melkpurposeid->setLabel('منظور');
         $melkpurposeid->setOptions(array(
-            "1" => "فروش",
+            "1" => "خرید",
             "2" => "رهن و اجاره",
         ));
         //$melkpurposeid->setAttribute('placeholder', 'Enter your Purpose');

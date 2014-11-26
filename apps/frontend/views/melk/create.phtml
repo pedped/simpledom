@@ -302,7 +302,8 @@
         $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
 
 
-
+        $('html, body').animate({scrollTop: 0}, 400);
+        return false;
     }
 
     /**
