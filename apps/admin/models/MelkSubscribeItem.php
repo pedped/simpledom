@@ -227,7 +227,7 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
         return $item;
     }
 
-    public static function onSuccessOrder(&$errors, $userid, $id) {
+    public static function onSuccessOrder(&$errors, $userid, $id, $orderid = null) {
         $user = BaseUser::findFirst($userid);
         $user->melksubscriberplanid = $id;
         if (!$user->save()) {
@@ -241,7 +241,7 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
             $melkSubscriber = new MelkSubscriber();
             $melkSubscriber->melksubscribeitemid = $id;
             $melkSubscriber->userid = $userid;
-            $melkSubscriber->orderid = 1;
+            $melkSubscriber->orderid = $orderid;
             $melkSubscriber->create();
 
             // saved successfully

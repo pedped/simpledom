@@ -261,7 +261,7 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
         return $item;
     }
 
-    public static function onSuccessOrder(&$errors, $userid, $id) {
+    public static function onSuccessOrder(&$errors, $userid, $id, $orderid = null) {
 
         $plan = BongahSubscribeItem::findFirst($id);
 
@@ -279,7 +279,7 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
             $bongahSubscriber = new BongahSubscriber();
             $bongahSubscriber->bongahsubscribeitemid = $id;
             $bongahSubscriber->userid = $userid;
-            $bongahSubscriber->orderid = 1;
+            $bongahSubscriber->orderid = $orderid;
             $bongahSubscriber->create();
 
             // saved successfully
