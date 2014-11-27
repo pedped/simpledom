@@ -13,6 +13,7 @@ class RangeSlider extends BaseElement {
     public $betweenRangeTitle = "to";
     public $showRangeInfo = true;
     public $onSlide = "";
+    public $step = 1;
 
     /**
      * Set Minimum Range Of Slider
@@ -88,6 +89,16 @@ class RangeSlider extends BaseElement {
         return $this;
     }
 
+    /**
+     * Set Slider Step Size
+     * @param double $step
+     * @return RangeSlider
+     */
+    public function setStep($step) {
+        $this->step = $step;
+        return $this;
+    }
+
     public function __construct($name, $attributes = null) {
         parent::__construct($name, $attributes);
 
@@ -111,8 +122,8 @@ class RangeSlider extends BaseElement {
             <div id='$name'></div>
             <input type='hidden' name='" . $name . "_min' id='" . $name . "_min' value='' />
             <input type='hidden' name='" . $name . "_max' id='" . $name . "_max' value='' />
-            <p class='.range-info $showRangeInfoClass'>
-                <span id='" . $name . "_range_start_info'></span> $this->betweenRangeTitle <span id='" . $name . "_range_end_info'></span>
+            <p class='_range-info $showRangeInfoClass'>
+                <span class='range_start_info' id='" . $name . "_range_start_info'></span> $this->betweenRangeTitle <span id='" . $name . "_range_end_info' class='range_end_info'></span>
             </p>
             
             <script>
@@ -136,6 +147,7 @@ class RangeSlider extends BaseElement {
                     range: true,
                     min: $this->min,
                     max: $this->max,
+                    step: $this->step,
                     values: [ $this->currentMinValue, $this->currentMaxValue],
                     slide: function( event, ui ) {
                       onSliderChange$name(ui.values[0] , ui.values[1]);    
