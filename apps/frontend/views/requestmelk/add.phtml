@@ -193,6 +193,113 @@
 
         </div>
     </div>
+    <div class='row hidden-md hidden-lg hidden-xl hidden'>
+        <div class='col-lg-12'>
+
+            <!-- Wizards -->
+            <div class="nav nav-pills nav-justified navbar melk-wizard hidden-sm hidden-xs">
+                <li data-step="0" class="melk-wizard-step active"><a href="#">توضیحات</a></li>
+                <li data-step="1" class="melk-wizard-step"><a href="#"><span class="glyphicon glyphicon-home"></span>نوع ملک</a></li>
+                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-pencil"></span>مشخصات ملک</a></li>
+                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-map-marker"></span>موقعیت ملک</a></li>
+                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-dollar"></span>قیمت</a></li>
+                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-phone"></span>اطلاعات تماس</a></li>
+            </div>
+
+
+            <div class='row'>
+                <div class='col-md-3'>
+
+                </div>
+                <div class='col-md-6'>
+                    <!-- Options  !-->
+                    <div data-step="0" class="panel panel-default melk-step-panel" >
+                        <div class='panel-heading'>
+                            <h3 class='panel-title'><span class="fa fa-home"></span>درخواست ملک</h3>
+                        </div>
+                        <div class='panel-body'>
+                            <p style="font-size: 22px;">بدون آنکه به بنگاه مراجعه نمایید، مشخصات ملک خود را وارد نمایید تا در هنگام دریافت ملک جدید متناسب با نیاز شما، توسط پیامک شما را مطلع گردانیم</p>
+
+                            <hr/>
+                            <p>لطفا نوع ملک و نوع درخواست را مشخص نمایید</p>
+                            <!--  ADD Type !-->
+                            <?php $form->renderDecorated('melktypeid'); ?> 
+
+                            <!--  ADD Purpose !-->
+                            <?php $form->renderDecorated('melkpurposeid'); ?> 
+
+                            <hr/>
+                            <p>در صورت لزوم مشخصات زیر را پر نمایید</p>
+
+                            <!--  ADD Bedrooms !-->
+                            <?php $form->renderDecorated('bedroom_start'); ?> 
+                            <?php $form->renderDecorated('bedroom_end'); ?> 
+
+
+                            <hr/>
+                            <p>در این قسمت شما میبایست موقعیت و محدوده ملک را مشخص نمایید</p>
+
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <!--  ADD State ID !-->
+                                    <?php $form->renderDecorated('stateid'); ?> 
+
+                                    <!--  ADD City ID !-->
+                                    <?php $form->renderDecorated('cityid'); ?> 
+
+                                    <!--  ADD Address !-->
+                                    <?php $form->renderDecorated('address'); ?> 
+
+                                </div>
+                            </div>
+
+                            <hr/>
+                            <p>حداقل و حداکثر هزینه های ملک را وارد نمایید</p>
+
+                            <!--  ADD Sale Price !-->
+                            <?php $form->renderDecorated('sale_price_start'); ?> 
+                            <?php $form->renderDecorated('sale_price_end'); ?> 
+
+                            <!--  ADD Rahn !-->
+                            <?php $form->renderDecorated('rent_pricerahn_start'); ?> 
+                            <?php $form->renderDecorated('rent_pricerahn_end'); ?> 
+
+                            <!--  ADD Ejare !-->
+                            <?php $form->renderDecorated('rent_price_start'); ?> 
+                            <?php $form->renderDecorated('rent_price_end'); ?> 
+
+                            <hr/>
+                            <p>اطلاعات تماس مستقیم خودتان را وارد نمایید تا مشتریان و بنگاه داران بتوانند با شما تماس داشته باشند</p>
+
+                            <!--  ADD Name !-->
+                            <?php if (!$this->session->has("userid")) : ?>
+                                <div class='row'>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('fname'); ?>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('lname'); ?> 
+                                    </div>
+                                </div>
+                                <?php $form->renderDecorated('email'); ?> 
+                            <?php endif; ?>
+
+
+                            <!--  ADD Mobile !-->
+                            <?php $form->renderDecorated('mobile'); ?> 
+                        </div>
+                        <div class="panel-footer panel-footer-btn-group">
+                            <div id="nextbtn" data-step="0" ><?php $form->renderDecorated('submit'); ?> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-3'>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </form>
 <script>
 
@@ -426,7 +533,7 @@
             // Moghiyate  Melk
             if ($("#address").val() == "")
             {
-                alert("خیابان اصلی را وارد نمایید");
+                alert("حداقل یک منطقه را وارد نمایید");
                 return false;
             }
             // Moghiyate  Melk

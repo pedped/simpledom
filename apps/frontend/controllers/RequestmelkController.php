@@ -2,14 +2,17 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use BaseSystemLog;
 use City;
 use MelkPhoneListner;
 use Phalcon\Validation\Validator\PresenceOf;
 use RequestMelkForm;
+use Settings;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSManager;
 use SmsNumber;
+use SystemLogType;
 use User;
 
 class RequestmelkController extends ControllerBase {
@@ -45,6 +48,9 @@ class RequestmelkController extends ControllerBase {
         if ($this->request->isPost()) {
             if (!$fr->isValid($_POST)) {
                 // invalid request
+                foreach ($fr->getMessages() as $message) {
+                    $this->errors[] = $message;
+                }
             } else {
 
                 // get correcrt phone number
@@ -70,7 +76,7 @@ class RequestmelkController extends ControllerBase {
                             $this->user = $user;
                             $user->setSession($this);
 
-                            $loginMessage = "کاربر گرامی" . "\n" . "اطلاعات ورود شما به " . \Settings::Get()->websitename . " " . "به صورت زیر است" . "\n" . "ایمیل: " . $email . "\n" . "رمز عبور: " . $password . "\n\n با تشکر\n" . "www.amlakgostar.ir";
+                            $loginMessage = "کاربر گرامی" . "\n" . "اطلاعات ورود شما به " . Settings::Get()->websitename . " " . "به صورت زیر است" . "\n" . "ایمیل: " . $email . "\n" . "رمز عبور: " . $password . "\n\n با تشکر\n" . "www.amlakgostar.ir";
 
                             // send user login information
                             SMSManager::SendSMS($phone, $loginMessage, SmsNumber::findFirst()->id);
@@ -108,6 +114,7 @@ class RequestmelkController extends ControllerBase {
 
         if ($this->hasError()) {
             $this->flash->error(implode("\n", $this->errors));
+            BaseSystemLog::init($aaa)->setTitle("خطا در درخواست ملک")->setType(SystemLogType::Debug)->setMessage(implode("\n", $this->errors))->setIP($_SERVER["REMOTE_ADDR"])->create();
         }
         $this->handleFormScripts($fr);
         $this->view->form = $fr;
