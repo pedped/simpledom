@@ -13,6 +13,7 @@ class IndexController extends IndexControllerBase {
         $cities = City::find(array("captial = 1", "order" => "name ASC"));
         $this->view->cities = $cities;
 
+
         // load area for cities
         $areas = array();
         foreach ($cities as $city) {
