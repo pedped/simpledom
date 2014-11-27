@@ -9,6 +9,7 @@
             <word>Captcha</word>
             <word>php</word>
             <word>Seperator</word>
+            <word>ss</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

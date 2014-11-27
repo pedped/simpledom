@@ -1,1 +1,150 @@
-<h1>Index Page</h1>
+<?php
+
+use Phalcon\Tag; ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php if (!$websiteSettings->rtl) : ?>
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,700' rel='stylesheet' type='text/css'>
+        <?php endif; ?>
+        <?php $this->assets->outputCss('header') ?>
+        <?php $this->assets->outputJs('footer') ?>
+
+        <?php $this->assets->outputJs('externalscripts') ?>
+        <?php $this->assets->outputJs('elementscripts') ?>
+        <?php $this->assets->outputCss('elementscss') ?>
+        <?php echo Tag::getTitle() ?>
+
+        <!-- Meta Keywords and Meta Description !-->
+        <?php if (!(isset($metaDescription) && strlen($metaDescription) > 0) && isset($websiteSettings->metadata) && strlen($websiteSettings->metadata) > 0) : ?>
+            <meta name="description" content="<?php echo $websiteSettings->metadata; ?>">
+        <?php endif; ?>
+        <?php if (!(isset($metaKeywords) && strlen($metaKeywords) > 0) && isset($websiteSettings->keywords) && strlen($websiteSettings->keywords) > 0) : ?>
+            <meta name="keywords" content="<?php echo $websiteSettings->keywords; ?>">
+        <?php endif; ?>
+        <!-- Check For Custom Pages !-->
+        <?php if (isset($metaDescription) && strlen($metaDescription) > 0) : ?>
+            <meta name="description" content="<?php echo $metaDescription; ?>">
+        <?php endif; ?>
+        <?php if (isset($metaKeywords) && strlen($metaKeywords) > 0) : ?>
+            <meta name="keywords" content="<?php echo $metaKeywords; ?>">
+        <?php endif; ?>
+    </head>
+    <!-- Load The Header !-->
+    <?php $this->partial("layouts/header") ?>
+    <body>
+        <div id='page-container'>
+            <div id='page-container-body'>
+                <!-- Check For Global Message !-->
+                <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
+                    <div class="container">
+                        <div class="col-md-12"> 
+                            <div class='alert alert-info _global-message'>
+                                <h4 style="margin-top: 0px;"><?= _("Public Message"); ?></h4>
+                                <?php echo $websiteSettings->globalmessage; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Check For Verified Phone -->
+                <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
+                    <div class="container">
+                        <div class="col-md-12"> 
+                            <div class='alert alert-danger'>
+                                <h4 style="margin-top: 0px;"><?= _("Need Verified Phone"); ?></h4>
+                                <p><?= _("You have not verified phone, Please add and verify your phone"); ?></p>
+                                <br/>
+                                <a href='<?php echo $this->url->get("user/phones/"); ?>' class='btn btn-default btn-sm'><?= _("View My Phones"); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Page Content !-->
+                <!-- Homepage Slider -->
+                <div class="homepage-slider">
+                    <div id="sequence">
+                        <ul class="sequence-canvas">
+                            <!-- Slide 1 -->
+                            <li class="bg4">
+                                <!-- Slide Title -->
+                                <h2 class="title">سیستم اطلاع رسانی</h2>
+                                <!-- Slide Text -->
+                                <h3 class="subtitle">دریافت و ارسال پیام سازمانی</h3>
+                                <!-- Slide Image -->
+                                <img class="slide-img" src="img/homepage-slider/slide1.png" alt="Slide 1" />
+                            </li>
+                            <!-- End Slide 1 -->
+                            <!-- Slide 2 -->
+                            <li class="bg3">
+                                <!-- Slide Title -->
+                                <h2 class="title">اطلاع رسانی آسان</h2>
+                                <!-- Slide Text -->
+                                <h3 class="subtitle">تنها با ارسال یک پیامک اطلاع رسانی کلی کنید</h3>
+                                <!-- Slide Image -->
+                                <img class="slide-img" src="img/homepage-slider/slide2.png" alt="Slide 2" />
+                            </li>
+                            <!-- End Slide 2 -->
+                            <!-- Slide 3 -->
+                            <li class="bg1">
+                                <!-- Slide Title -->
+                                <h2 class="title">امکانات زیاد</h2>
+                                <!-- Slide Text -->
+                                <h3 class="subtitle">استفاده راحت از امکانات زیاد</h3>
+                                <!-- Slide Image -->
+                                <img class="slide-img" src="img/homepage-slider/slide3.png" alt="Slide 3" />
+                            </li>
+                            <!-- End Slide 3 -->
+                        </ul>
+                        <div class="sequence-pagination-wrapper">
+                            <ul class="sequence-pagination">
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Homepage Slider -->
+                <div class="row">
+                    <div class="panel-body home-stat">
+                        <div class="container" >
+                            <div class="row">
+                                <div class="col-sm-4"><h2>232</h2>سازمان</div>
+                                <div class="col-sm-4"><h2>1225</h2>کاربر</div>
+                                <div class="col-sm-4"><h2>32051</h2>پیامک ارسال شده</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel-body home-description">
+                        <div class="container" >
+                            <h1>سیستم اطلاع رسانی پیامکی چیست؟</h1>
+                            <p>
+                                لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer !-->
+            <?php $this->partial("layouts/footer") ?>
+            <!-- Analytics Codes !-->
+            <?php
+            if (isset($websiteSettings->googleanalytics) && strlen($websiteSettings->googleanalytics) > 0) {
+                echo $websiteSettings->googleanalytics;
+            }
+
+            if (isset($websiteSettings->clickyanalitics) && strlen($websiteSettings->clickyanalitics) > 0) {
+                echo $websiteSettings->clickyanalitics;
+            }
+            ?>
+        </div>
+    </body>
+</html>

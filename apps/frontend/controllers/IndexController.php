@@ -2,10 +2,9 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Phalcon\Mvc\View;
 use PriceViewer;
-use ReceivedSMS;
 use Simpledom\Core\AtaForm;
-use Simpledom\Core\Classes\NotifySMSManager;
 use Simpledom\Frontend\BaseControllers\IndexControllerBase;
 use SMSCreditCost;
 use TagEditElement;
@@ -45,6 +44,7 @@ class IndexController extends IndexControllerBase {
 
     public function indexAction() {
         parent::indexAction();
+        $this->view->disableLevel(View::LEVEL_MAIN_LAYOUT);
 
         // we have to create sample new message received
         //  $smsNumber = "30002666262609";

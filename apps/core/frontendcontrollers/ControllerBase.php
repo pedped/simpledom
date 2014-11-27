@@ -97,7 +97,7 @@ abstract class ControllerBase extends AtaController {
         $this->assets
                 ->collection('header')
                 ->setPrefix('http://notifysystem.edspace.org/')
-                ->addCss('css/bt3/bootstrap.css', true)
+                ->addCss('css/bt3/bootstrap.min.css', true)
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
 
@@ -107,6 +107,10 @@ abstract class ControllerBase extends AtaController {
                 ->collection('footer')
                 ->setPrefix('http://notifysystem.edspace.org/')
                 ->addJs('js/jquery/jquery.min.js', true)
+                ->addJs('js/placeholdem.min.js', true)
+                ->addJs('js/scripts.js', true)
+                ->addJs('js/jquery.sequence-min.js', true)
+                ->addJs('js/template.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
 
 
