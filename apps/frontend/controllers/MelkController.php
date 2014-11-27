@@ -435,6 +435,7 @@ class MelkController extends ControllerBaseFrontEnd {
         }
 
 
+        $this->handleFormScripts($form);
         $this->view->form = $form;
 
         $areaid = $this->dispatcher->getParam("areaid");

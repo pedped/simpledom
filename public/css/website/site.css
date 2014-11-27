@@ -21,6 +21,18 @@
 
 
 @media (max-width: 768px){
+
+
+    .ui-slider-handle {
+        /* border-radius: 25px !important; */
+        /* padding: 10px !important; */
+        top: -6px !important;
+        margin-left: -12px !important;
+        height: 24px !important;
+        width: 25px !important;
+    }
+
+
     .bongah-cuurent-subscription{
         float: right  !important;
     }
@@ -33,8 +45,8 @@
     body{
         padding-top: 67px;
     }
-    
-    
+
+
     .melk-view-subscribe-box{
         margin-top: 15px;
     }
@@ -516,4 +528,14 @@ footer .btn {
     border-bottom: 1px dotted #aaa;
     padding-bottom: 20px;
     margin-top: 41px;
+}
+
+._range-info{
+    text-align: left;
+    font-size: 22px;
+}
+
+.ui-widget-header{
+    background: none !important;
+    background-color: #E22FA4 !important;
 }

@@ -3,6 +3,54 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<script>
+
+
+    !function(a) {
+        function f(a, b) {
+            if (!(a.originalEvent.touches.length > 1)) {
+                a.preventDefault();
+                var c = a.originalEvent.changedTouches[0], d = document.createEvent("MouseEvents");
+                d.initMouseEvent(b, !0, !0, window, 1, c.screenX, c.screenY, c.clientX, c.clientY, !1, !1, !1, !1, 0, null), a.target.dispatchEvent(d)
+            }
+        }
+        if (a.support.touch = "ontouchend"in document, a.support.touch) {
+            var e, b = a.ui.mouse.prototype, c = b._mouseInit, d = b._mouseDestroy;
+            b._touchStart = function(a) {
+                var b = this;
+                !e && b._mouseCapture(a.originalEvent.changedTouches[0]) && (e = !0, b._touchMoved = !1, f(a, "mouseover"), f(a, "mousemove"), f(a, "mousedown"))
+            }, b._touchMove = function(a) {
+                e && (this._touchMoved = !0, f(a, "mousemove"))
+            }, b._touchEnd = function(a) {
+                e && (f(a, "mouseup"), f(a, "mouseout"), this._touchMoved || f(a, "click"), e = !1)
+            }, b._mouseInit = function() {
+                var b = this;
+                b.element.bind({touchstart: a.proxy(b, "_touchStart"), touchmove: a.proxy(b, "_touchMove"), touchend: a.proxy(b, "_touchEnd")}), c.call(b)
+            }, b._mouseDestroy = function() {
+                var b = this;
+                b.element.unbind({touchstart: a.proxy(b, "_touchStart"), touchmove: a.proxy(b, "_touchMove"), touchend: a.proxy(b, "_touchEnd")}), d.call(b)
+            }
+        }
+    }(jQuery);
+
+    function getIranianPrice(value)
+    {
+        var cost = 0;
+        if (value == 0)
+        {
+            return "رایگان";
+        } else if (value < 1)
+        {
+            cost = value / 1000;
+            cost = cost + " هزار تومان";
+        } else if (value < 1000) {
+            cost = value + " میلون تومان";
+        } else if (value >= 1000) {
+            cost = (value / 1000) + " میلیارد تومان";
+        }
+        return cost;
+    }
+</script>    
 <form method="post">
     <div class="panel panel-default" style="box-shadow: 0px 0px 6px #D0BFBF;">
         <div class="panel-heading">
@@ -21,38 +69,43 @@
                 <hr class="hidden"/>
                 <div class='row'>
                     <div class='row'>
-                        <div class='col-md-9'>
+                        <div class='col-md-6 col-xs-12 col-sm-12'>
                             <div class='row'>
-                                <div data-colname="melktypeid" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('melktypeid'); ?> 
+
+                                <!-- Melk Type And Purpose -->
+                                <div class="col-md-12">
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <div data-colname="melktypeid" >
+                                                <?php $form->renderDecorated('melktypeid'); ?> 
+                                            </div>
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <div data-colname="melkpurposeid" >
+                                                <?php $form->renderDecorated('melkpurposeid'); ?> 
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div data-colname="melkpurposeid" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('melkpurposeid'); ?> 
+
+                                <!-- Range Infos !-->
+                                <div data-colname="bedroom_range" class='col-md-12'>
+                                    <?php $form->renderDecorated('bedroom_range'); ?>
                                 </div>
-                                <div data-colname="sale_price_start" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('sale_price_start'); ?> 
+
+                                <div data-colname="sale_range" class='col-md-12'>
+                                    <?php $form->renderDecorated('sale_range'); ?> 
                                 </div>
-                                <div data-colname="sale_price_end" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('sale_price_end'); ?> 
+
+                                <div data-colname="rahn_range" class='col-md-12'>
+                                    <?php $form->renderDecorated('rahn_range'); ?> 
                                 </div>
-                                <div data-colname="rent_pricerahn_start" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('rent_pricerahn_start'); ?> 
+
+                                <div data-colname="ejare_range" class='col-md-12'>
+                                    <?php $form->renderDecorated('ejare_range'); ?> 
                                 </div>
-                                <div data-colname="rent_pricerahn_end" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('rent_pricerahn_end'); ?> 
-                                </div>
-                                <div data-colname="rent_price_start" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('rent_price_start'); ?> 
-                                </div>
-                                <div data-colname="rent_price_end" class='col-md-3 col-xs-6'>
-                                    <?php $form->renderDecorated('rent_price_end'); ?> 
-                                </div>
-                                <div data-colname="bedroom_start" class='col-md-3 col-xs-12'>
-                                    <?php $form->renderDecorated('bedroom_start'); ?> 
-                                </div>
-                                <div data-colname="bedroom_end" class='col-md-3 col-xs-12'>
-                                    <?php $form->renderDecorated('bedroom_end'); ?> 
-                                </div>
+
+
                             </div>
                         </div>
                         <div class='col-md-3'>
@@ -173,30 +226,23 @@
     }
 
     function onPurposeChange() {
-        $("div[data-colname='sale_price_start']").hide();
-        $("div[data-colname='sale_price_end']").hide();
+        $("div[data-colname='sale_range']").hide();
 
-        $("div[data-colname='rent_price_start']").hide();
-        $("div[data-colname='rent_price_end']").hide();
+        $("div[data-colname='ejare_range']").hide();
 
-        $("div[data-colname='rent_pricerahn_start']").hide();
-        $("div[data-colname='rent_pricerahn_end']").hide();
+        $("div[data-colname='rahn_range']").hide();
 
 
         switch ($("#melkpurposeid").val())
         {
             case "1":
                 // forosh
-                $("div[data-colname='sale_price_start']").show().focus();
-                $("div[data-colname='sale_price_end']").show();
+                $("div[data-colname='sale_range']").show().focus();
                 break;
             case "2":
                 //  ejare
-                $("div[data-colname='rent_price_start']").show().focus();
-                $("div[data-colname='rent_price_end']").show();
-
-                $("div[data-colname='rent_pricerahn_start']").show();
-                $("div[data-colname='rent_pricerahn_end']").show();
+                $("div[data-colname='ejare_range']").show().focus();
+                $("div[data-colname='rahn_range']").show();
                 break;
             default:
                 // Type Is Not valid
@@ -213,18 +259,15 @@
         {
             case "1":
                 // khane
-                $("div[data-colname='bedroom_start']").show();
-                $("div[data-colname='bedroom_end']").show();
+                $("div[data-colname='bedroom_range']").show();
                 break;
             case "2":
                 // aparteman
-                $("div[data-colname='bedroom_start']").show();
-                $("div[data-colname='bedroom_end']").show();
+                $("div[data-colname='bedroom_range']").show();
                 break;
             case "3":
                 // daftar kar
-                $("div[data-colname='bedroom_start']").show();
-                $("div[data-colname='bedroom_end']").show();
+                $("div[data-colname='bedroom_range']").show();
                 break;
             case "4":
                 // vila
@@ -234,8 +277,7 @@
                 break;
             case "6":
                 // otaghe kar
-                $("div[data-colname='bedroom_start']").show();
-                $("div[data-colname='bedroom_end']").show();
+                $("div[data-colname='bedroom_range']").show();
                 break;
             default:
                 // Type Is Not valid
@@ -248,8 +290,7 @@
     function hideAll() {
 
 
-        $("div[data-colname='bedroom_start']").hide();
-        $("div[data-colname='bedroom_end']").hide();
+        $("div[data-colname='bedroom_range']").hide();
     }
 
     $("#melkpurposeid").change(function() {
@@ -273,5 +314,7 @@
 
     onPurposeChange();
     onMelkTypeChange();
+
+    $('#ui-slider-handle').draggable();
 
 </script>

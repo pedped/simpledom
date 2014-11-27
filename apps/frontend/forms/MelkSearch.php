@@ -218,6 +218,62 @@ class MelkSearch extends AtaForm {
         $this->add($bedroom_end);
 
 
+        // Sale Range
+        $salerange = new RangeSlider('sale_range');
+        $salerange->setMin(0);
+        $salerange->setMax(500);
+        $salerange->setCurrentMinValue(0);
+        $salerange->setCurrentMaxValue(500);
+        $salerange->setBetweenRangeTitle("تا");
+        $salerange->setLabel('بازه قیمت');
+        $salerange->setOnSlide("
+                $('#sale_range_range_start_info').text(getIranianPrice(endValue));
+                $('#sale_range_range_end_info').text(getIranianPrice(startValue));
+            ");
+        $this->add($salerange);
+
+        // Bedroom Range
+        $bedroomrange = new RangeSlider('bedroom_range');
+        $bedroomrange->setLabel('تعداد اتاق');
+        $bedroomrange->setMin(0);
+        $bedroomrange->setMax(10);
+        $bedroomrange->setCurrentMinValue(0);
+        $bedroomrange->setCurrentMaxValue(10);
+        $bedroomrange->setOnSlide("
+                $('#bedroom_range_range_end_info').text(startValue);
+                $('#bedroom_range_range_start_info').text(endValue);
+                $('#bedroom_range_range_end_info').text( startValue +  ' ' + 'خواب');
+            ");
+        $bedroomrange->setBetweenRangeTitle("تا");
+        $this->add($bedroomrange);
+
+        // Ejare Range
+        $ejarerange = new RangeSlider('ejare_range');
+        $ejarerange->setMin(0);
+        $ejarerange->setMax(500);
+        $ejarerange->setCurrentMinValue(0);
+        $ejarerange->setCurrentMaxValue(500);
+        $ejarerange->setBetweenRangeTitle("تا");
+        $ejarerange->setLabel('بازه اجاره');
+        $ejarerange->setOnSlide("
+                $('#ejare_range_range_start_info').text(getIranianPrice(endValue));
+                $('#ejare_range_range_end_info').text(getIranianPrice(startValue));
+            ");
+        $this->add($ejarerange);
+
+        // Rahn Range
+        $rahnrange = new RangeSlider('rahn_range');
+        $rahnrange->setMin(0);
+        $rahnrange->setMax(1000);
+        $rahnrange->setCurrentMinValue(0);
+        $rahnrange->setCurrentMaxValue(1000);
+        $rahnrange->setBetweenRangeTitle("تا");
+        $rahnrange->setLabel('بازه رهن');
+        $rahnrange->setOnSlide("
+                $('#rahn_range_range_start_info').text(getIranianPrice(endValue));
+                $('#rahn_range_range_end_info').text(getIranianPrice(startValue));
+            ");
+        $this->add($rahnrange);
 
         // Submit Button
         $submit = new Submit('submit');
