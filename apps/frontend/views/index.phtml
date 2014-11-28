@@ -53,10 +53,10 @@ use Phalcon\Tag; ?>
                     return "رایگان";
                 } else if (value < 1)
                 {
-                    cost = value / 1000;
+                    cost = value * 1000;
                     cost = cost + " هزار تومان";
                 } else if (value < 1000) {
-                    cost = value + " میلون تومان";
+                    cost = value + " میلیون تومان";
                 } else if (value >= 1000) {
                     cost = (value / 1000) + " میلیارد تومان";
                 }
