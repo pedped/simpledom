@@ -1,7 +1,8 @@
 <?php
-namespace Simpledom\Admin\Controllers;
-    use Simpledom\Admin\BaseControllers\ControllerBase;
 
+namespace Simpledom\Admin\Controllers;
+
+use Simpledom\Admin\BaseControllers\ControllerBase;
 use AtaPaginator;
 use Melk;
 use MelkForm;
@@ -85,12 +86,11 @@ class MelkController extends ControllerBase {
         ));
 
 
-        $paginator->
-                setTableHeaders(array(
-                    'ID','Valid Date','User ID','Type','Purpose','Condition','Home Size','Lot Size','Sale Price','Price Per Unit','Ejare','Rahn','Bedrooms','Bath','State ID','City ID','Create By','Featured','Approved','Date'
+        $paginator->setTableHeaders(array(
+                     'کد ملک', 'نوع', 'منظور', 'وضعیت', 'ارائه شده توسط', 'شهر', 'ویژه', 'تایید شده', 'تاریخ', 'شماره تماس'
                 ))->
                 setFields(array(
-                    'id','validdate','userid','melktypeid','melkpurposeid','melkconditionid','home_size','lot_size','sale_price','price_per_unit','rent_price','rent_pricerahn','bedroom','bath','stateid','cityid','createby','featured','approved','getDate()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getCreateByTilte()', 'getCityName()', 'featured', 'approved', 'getDate()' , 'getContactPhone()'
                 ))->
                 setEditUrl(
                         'edit'
@@ -156,43 +156,43 @@ class MelkController extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $melk = Melk::findFirst($id);
-                                $melk->validdate = $this->request->getPost('validdate', 'string');
+                $melk->validdate = $this->request->getPost('validdate', 'string');
 
-                                $melk->userid = $this->request->getPost('userid', 'string');
+                $melk->userid = $this->request->getPost('userid', 'string');
 
-                                $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
+                $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
 
-                                $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
+                $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
 
-                                $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
+                $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
 
-                                $melk->home_size = $this->request->getPost('home_size', 'string');
+                $melk->home_size = $this->request->getPost('home_size', 'string');
 
-                                $melk->lot_size = $this->request->getPost('lot_size', 'string');
+                $melk->lot_size = $this->request->getPost('lot_size', 'string');
 
-                                $melk->sale_price = $this->request->getPost('sale_price', 'string');
+                $melk->sale_price = $this->request->getPost('sale_price', 'string');
 
-                                $melk->price_per_unit = $this->request->getPost('price_per_unit', 'string');
+                $melk->price_per_unit = $this->request->getPost('price_per_unit', 'string');
 
-                                $melk->rent_price = $this->request->getPost('rent_price', 'string');
+                $melk->rent_price = $this->request->getPost('rent_price', 'string');
 
-                                $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
+                $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
 
-                                $melk->bedroom = $this->request->getPost('bedroom', 'string');
+                $melk->bedroom = $this->request->getPost('bedroom', 'string');
 
-                                $melk->bath = $this->request->getPost('bath', 'string');
+                $melk->bath = $this->request->getPost('bath', 'string');
 
-                                $melk->stateid = $this->request->getPost('stateid', 'string');
+                $melk->stateid = $this->request->getPost('stateid', 'string');
 
-                                $melk->cityid = $this->request->getPost('cityid', 'string');
+                $melk->cityid = $this->request->getPost('cityid', 'string');
 
-                                $melk->createby = $this->request->getPost('createby', 'string');
+                $melk->createby = $this->request->getPost('createby', 'string');
 
-                                $melk->featured = $this->request->getPost('featured', 'string');
+                $melk->featured = $this->request->getPost('featured', 'string');
 
-                                $melk->approved = $this->request->getPost('approved', 'string');
+                $melk->approved = $this->request->getPost('approved', 'string');
 
-                                $melk->date = $this->request->getPost('date', 'string');
+                $melk->date = $this->request->getPost('date', 'string');
                 if (!$melk->save()) {
                     $melk->showErrorMessages($this);
                 } else {
@@ -202,32 +202,31 @@ class MelkController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('validdate')->setDefault($melkItem->validdate);
-                        $fr->get('userid')->setDefault($melkItem->userid);
-                        $fr->get('melktypeid')->setDefault($melkItem->melktypeid);
-                        $fr->get('melkpurposeid')->setDefault($melkItem->melkpurposeid);
-                        $fr->get('melkconditionid')->setDefault($melkItem->melkconditionid);
-                        $fr->get('home_size')->setDefault($melkItem->home_size);
-                        $fr->get('lot_size')->setDefault($melkItem->lot_size);
-                        $fr->get('sale_price')->setDefault($melkItem->sale_price);
-                        $fr->get('price_per_unit')->setDefault($melkItem->price_per_unit);
-                        $fr->get('rent_price')->setDefault($melkItem->rent_price);
-                        $fr->get('rent_pricerahn')->setDefault($melkItem->rent_pricerahn);
-                        $fr->get('bedroom')->setDefault($melkItem->bedroom);
-                        $fr->get('bath')->setDefault($melkItem->bath);
-                        $fr->get('stateid')->setDefault($melkItem->stateid);
-                        $fr->get('cityid')->setDefault($melkItem->cityid);
-                        $fr->get('createby')->setDefault($melkItem->createby);
-                        $fr->get('featured')->setDefault($melkItem->featured);
-                        $fr->get('approved')->setDefault($melkItem->approved);
-                        $fr->get('date')->setDefault($melkItem->date); 
-            }
-            
+            $fr->get('validdate')->setDefault($melkItem->validdate);
+            $fr->get('userid')->setDefault($melkItem->userid);
+            $fr->get('melktypeid')->setDefault($melkItem->melktypeid);
+            $fr->get('melkpurposeid')->setDefault($melkItem->melkpurposeid);
+            $fr->get('melkconditionid')->setDefault($melkItem->melkconditionid);
+            $fr->get('home_size')->setDefault($melkItem->home_size);
+            $fr->get('lot_size')->setDefault($melkItem->lot_size);
+            $fr->get('sale_price')->setDefault($melkItem->sale_price);
+            $fr->get('price_per_unit')->setDefault($melkItem->price_per_unit);
+            $fr->get('rent_price')->setDefault($melkItem->rent_price);
+            $fr->get('rent_pricerahn')->setDefault($melkItem->rent_pricerahn);
+            $fr->get('bedroom')->setDefault($melkItem->bedroom);
+            $fr->get('bath')->setDefault($melkItem->bath);
+            $fr->get('stateid')->setDefault($melkItem->stateid);
+            $fr->get('cityid')->setDefault($melkItem->cityid);
+            $fr->get('createby')->setDefault($melkItem->createby);
+            $fr->get('featured')->setDefault($melkItem->featured);
+            $fr->get('approved')->setDefault($melkItem->approved);
+            $fr->get('date')->setDefault($melkItem->date);
+        }
+
         $this->view->form = $fr;
     }
 
@@ -238,8 +237,27 @@ class MelkController extends ControllerBase {
 
         $form = new MelkForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('validdate')->setDefault($item->validdate);$form->get('userid')->setDefault($item->userid);$form->get('melktypeid')->setDefault($item->melktypeid);$form->get('melkpurposeid')->setDefault($item->melkpurposeid);$form->get('melkconditionid')->setDefault($item->melkconditionid);$form->get('home_size')->setDefault($item->home_size);$form->get('lot_size')->setDefault($item->lot_size);$form->get('sale_price')->setDefault($item->sale_price);$form->get('price_per_unit')->setDefault($item->price_per_unit);$form->get('rent_price')->setDefault($item->rent_price);$form->get('rent_pricerahn')->setDefault($item->rent_pricerahn);$form->get('bedroom')->setDefault($item->bedroom);$form->get('bath')->setDefault($item->bath);$form->get('stateid')->setDefault($item->stateid);$form->get('cityid')->setDefault($item->cityid);$form->get('createby')->setDefault($item->createby);$form->get('featured')->setDefault($item->featured);$form->get('approved')->setDefault($item->approved);$form->get('date')->setDefault($item->date);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('validdate')->setDefault($item->validdate);
+        $form->get('userid')->setDefault($item->userid);
+        $form->get('melktypeid')->setDefault($item->melktypeid);
+        $form->get('melkpurposeid')->setDefault($item->melkpurposeid);
+        $form->get('melkconditionid')->setDefault($item->melkconditionid);
+        $form->get('home_size')->setDefault($item->home_size);
+        $form->get('lot_size')->setDefault($item->lot_size);
+        $form->get('sale_price')->setDefault($item->sale_price);
+        $form->get('price_per_unit')->setDefault($item->price_per_unit);
+        $form->get('rent_price')->setDefault($item->rent_price);
+        $form->get('rent_pricerahn')->setDefault($item->rent_pricerahn);
+        $form->get('bedroom')->setDefault($item->bedroom);
+        $form->get('bath')->setDefault($item->bath);
+        $form->get('stateid')->setDefault($item->stateid);
+        $form->get('cityid')->setDefault($item->cityid);
+        $form->get('createby')->setDefault($item->createby);
+        $form->get('featured')->setDefault($item->featured);
+        $form->get('approved')->setDefault($item->approved);
+        $form->get('date')->setDefault($item->date);
+        $this->view->form = $form;
     }
 
 }

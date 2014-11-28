@@ -84,7 +84,7 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Type', 'Purpose', 'Phone', 'B Start', 'B End', 'Rent Price Start', 'Rent Price End', 'Rahn Start', 'Rahn End', 'Sale Start', 'Sale End', 'Date', 'City', 'Areas', 'Received Count', 'Status'
+                    'شناسه', 'نوع', 'منظور', 'موبایل', 'حداقل خواب', 'حداکثر خواب', ' حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تارخ', 'شهر', 'مناطق', 'پیامک', 'وضعیت'
                 ))->
                 setFields(array(
                     'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'receivedcount', 'status',
