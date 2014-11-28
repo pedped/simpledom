@@ -59,6 +59,8 @@ class MelkController extends ControllerBaseFrontEnd {
         } else {
             parent::initialize();
         }
+
+        $this->loadSmallPriceOption();
     }
 
     public function startAction() {
@@ -348,6 +350,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function listAction($page = 1) {
 
+
         $cityID = $this->dispatcher->getParam("cityid");
         $stateID = 1;
         if (!isset($cityID)) {
@@ -379,8 +382,8 @@ class MelkController extends ControllerBaseFrontEnd {
                     $bindparams["melktypeid"] = $this->request->getPost("melktypeid");
                     $bindparams["melkpurposeid"] = $this->request->getPost("melkpurposeid");
                     $bindparams["cityid"] = $this->request->getPost("cityid");
-                    $bindparams["sale_price_start"] = $this->request->getPost("sale_price_start");
-                    $bindparams["sale_price_end"] = $this->request->getPost("sale_price_end");
+                    $bindparams["sale_price_start"] = $this->request->getPost("sale_range_min");
+                    $bindparams["sale_price_end"] = $this->request->getPost("sale_range_max");
                     break;
                 case 2:
                     // RENT
@@ -388,10 +391,10 @@ class MelkController extends ControllerBaseFrontEnd {
                     $bindparams["melktypeid"] = $this->request->getPost("melktypeid");
                     $bindparams["melkpurposeid"] = $this->request->getPost("melkpurposeid");
                     $bindparams["cityid"] = $this->request->getPost("cityid");
-                    $bindparams["rent_price_start"] = $this->request->getPost("rent_price_start");
-                    $bindparams["rent_price_end"] = $this->request->getPost("rent_price_end");
-                    $bindparams["rent_pricerahn_start"] = $this->request->getPost("rent_pricerahn_start");
-                    $bindparams["rent_pricerahn_end"] = $this->request->getPost("rent_pricerahn_end");
+                    $bindparams["rent_price_start"] = $this->request->getPost("ejare_range_min");
+                    $bindparams["rent_price_end"] = $this->request->getPost("ejare_range_max");
+                    $bindparams["rent_pricerahn_start"] = $this->request->getPost("rahn_range_min");
+                    $bindparams["rent_pricerahn_end"] = $this->request->getPost("rahn_range_max");
                     break;
             }
 
@@ -405,9 +408,11 @@ class MelkController extends ControllerBaseFrontEnd {
                     // apartemnatn
                     // daftar kar
                     // otaghe kar
-                    $query.= " AND bedroom >= :bedroom_start: AND bedroom <= :bedroom_end: ";
-                    $bindparams["bedroom_start"] = $this->request->getPost("bedroom_start");
-                    $bindparams["bedroom_end"] = $this->request->getPost("bedroom_end");
+                    if (intval($this->request->getPost("bedroom_range_max")) > 0) {
+                        $query.= " AND bedroom >= :bedroom_start: AND bedroom <= :bedroom_end: ";
+                        $bindparams["bedroom_start"] = $this->request->getPost("bedroom_range_min");
+                        $bindparams["bedroom_end"] = $this->request->getPost("bedroom_range_max");
+                    }
                     break;
                 case 4 :
                     break;
@@ -419,20 +424,66 @@ class MelkController extends ControllerBaseFrontEnd {
             }
 
             // check if user posted mobile phone
-            if ($this->request->hasPost("subscribephone")) {
+            if ($this->request->hasPost("subscribephone") && strlen($this->request->getPost("subscribephone")) > 0) {
                 // user want to subscribe to phone
                 $phone = $this->request->getPost("subscribephone");
                 if (strlen($phone) != 11 && strlen($phone) != 12) {
                     // user enetred invalid phone number
                     $this->flash->error("شماره موبایل وارد شده نامعتبر است");
                 } else {
-                    $this->subscribeUserPhone($phone);
+                    $userId = isset($this->user) ? $this->user->id : null;
+                    $subscrbeResult = MelkPhoneListner::subscribeUser($this->errors, $userId, $phone);
+                    if ($subscrbeResult > 0) {
+                        if ($subscrbeResult == 1) {
+                            // added successfully
+                            $this->flash->success("شماره شما با موفقیت به سامانه اضافه گردید، املاک جدید برای شما ارسال خواهد گردید");
+                        } else if ($subscrbeResult == 2) {
+                            // need to verify
+                            $this->flash->success("لطفا شماره تماس خود را تایید نمایید");
+                            $this->dispatcher->forward(array(
+                                "controller" => "phone",
+                                "action" => "verify",
+                                "params" => array(
+                                    $phone
+                                )
+                            ));
+                        }
+                    } else {
+                        // there is problem in adding item
+                    }
                 }
             }
+
+            // set default values
+            $form->get("bedroom_range")->setCurrentMinValue($this->request->getPost("bedroom_range_min"));
+            $form->get("bedroom_range")->setCurrentMaxValue($this->request->getPost("bedroom_range_max"));
+
+            $form->get("sale_range")->setCurrentMinValue(array_search($this->request->getPost("sale_range_min"), $this->saleRangeValues));
+            $form->get("sale_range")->setCurrentMaxValue(array_search($this->request->getPost("sale_range_max"), $this->saleRangeValues));
+
+            $form->get("rahn_range")->setCurrentMinValue(array_search($this->request->getPost("rahn_range_min"), $this->rahnRangeValues));
+            $form->get("rahn_range")->setCurrentMaxValue(array_search($this->request->getPost("rahn_range_max"), $this->rahnRangeValues));
+
+            $form->get("ejare_range")->setCurrentMinValue(array_search($this->request->getPost("ejare_range_min"), $this->ejareRangeValues));
+            $form->get("ejare_range")->setCurrentMaxValue(array_search($this->request->getPost("ejare_range_max"), $this->ejareRangeValues));
+
+
+
+            if (isset($_POST['address']) && strlen($_POST['address']) > 0) {
+                $areaIDs = Area::GetMultiID($cityID, $_POST['address']);
+                //$query = " 1 = ( SELECT COUNT(melkarea) FROM melkarea WHERE melkarea.melkid  = 1 AND melkarea.areaid IN (1) ) AND " . $query;
+                //var_dump($areaIDs, $query);
+                //die();
+            }
+
+
+//            var_dump($_POST, array_search($this->request->getPost("rahn_range_max"), $this->rahnRangeValues));
+//            die();
         } else {
             $query = "cityid = :cityid: AND approved = 1";
             $bindparams["cityid"] = $cityID;
         }
+
 
 
         $this->handleFormScripts($form);
@@ -451,6 +502,9 @@ class MelkController extends ControllerBaseFrontEnd {
                                 'order' => 'id DESC'
             ));
         }
+
+
+
 
         $numberPage = $page;
 
@@ -721,81 +775,6 @@ class MelkController extends ControllerBaseFrontEnd {
 
     protected function ValidateAccess($id) {
         return intval(Melk::findFirst($id)->userid) == intval($this->user->userid);
-    }
-
-    public function subscribeUserPhone($phone) {
-
-        // valid phone number, we have to check if the phone number is exist
-        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
-
-
-        // check for userid
-        if ($userPhone && (!isset($this->user) || (isset($this->user) && intval($userPhone->userid) != intval($this->user->userid)))) {
-            // user is ot valid
-            $this->flash->error("شماره تماس شما توسط شخص دیگری ثبت گردیده است، در صورت اطمینان از شماره خود، توسط فرم تماس با ما این مهم را در جریان بگزارید");
-            return;
-        }
-
-        if (isset($this->user) && $userPhone && intval($userPhone->userid) == intval($this->user->userid)) {
-            
-        } else if (!$userPhone) {
-            // create user phone
-            $userPhone = new UserPhone();
-            $userPhone->phone = $phone;
-            $userPhone->userid = isset($this->user) ? $this->user->userid : null;
-            if (!$userPhone->create()) {
-                $this->flash->error("خطا در هنگام اضافه کردن شماره تماس");
-                $userPhone->showErrorMessages($this);
-                $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane shomare shaks : " . $userPhone->getMessagesAsLines());
-                return;
-            } else {
-                
-            }
-        }
-
-
-        $melkListner = new MelkPhoneListner();
-
-        $melkListner->cityid = $this->request->getPost("cityid");
-        $melkListner->melkpurposeid = $this->request->getPost("melkpurposeid");
-        $melkListner->melktypeid = $this->request->getPost("melktypeid");
-
-        $melkListner->phoneid = $userPhone->id;
-
-        $melkListner->bedroom_start = $this->request->getPost("bedroom_start");
-        $melkListner->bedroom_end = $this->request->getPost("bedroom_end");
-
-        $melkListner->rent_price_start = $this->request->getPost("rent_price_start");
-        $melkListner->rent_price_end = $this->request->getPost("rent_price_end");
-
-        $melkListner->rent_pricerahn_start = $this->request->getPost("rent_pricerahn_start");
-        $melkListner->rent_pricerahn_end = $this->request->getPost("rent_pricerahn_end");
-
-        $melkListner->sale_price_start = $this->request->getPost("sale_price_start");
-        $melkListner->sale_price_end = $this->request->getPost("sale_price_end");
-
-        if (!$melkListner->create()) {
-            $this->flash->success("خطا در هنگام اضافه کردن شماره تماس");
-            $this->LogError("Problem In Adding User Phone", "khata dar hengame ezafe kardane agahsaz : " . $melkListner->getMessagesAsLines());
-            return;
-        }
-
-
-        // check if the phone is valid
-        if (!$userPhone->verified) {
-            $userPhone->sendVerificationNumber();
-            $this->flash->success("برای دریافت املاک، نیاز است تا شماره خود را تایید نمایید");
-            $this->dispatcher->forward(array(
-                "controller" => "phone",
-                "action" => "verify",
-                "params" => array(
-                    $phone
-                )
-            ));
-        } else {
-            $this->flash->success(
-                    "شماره شما با موفقیت به سامانه اضافه گردید، املاک جدید برای شما ارسال خواهد گردید");
-        }
     }
 
     public function redirectToPhoneVerifyPage($melkid, $phone) {

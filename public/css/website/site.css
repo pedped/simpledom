@@ -539,3 +539,29 @@ footer .btn {
     background: none !important;
     background-color: #E22FA4 !important;
 }
+
+.request-melk-page{
+    font-family: naskh !important;
+}
+
+.request-melk-page select{
+    height:  auto !important;
+    font-size: 15px;
+}
+
+.request-melk-page ._range-info{
+    font-family: yekan;
+}
+
+.request-melk-page .panel  .panel .panel-heading{
+    border-bottom: 1px solid #EAEAEA !important;
+}
+
+.request-melk-page .panel  .panel .panel-heading .panel-title{
+    color: #585858;
+    font-size: 13px;
+}
+
+.request-melk-page .panel  .panel {
+    border: 1px solid #E8E8E8;
+}

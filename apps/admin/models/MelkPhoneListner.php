@@ -294,6 +294,16 @@ class MelkPhoneListner extends AtaModel {
         $this->status = "1";
         $this->receivedcount = "0";
         $this->ip = $_SERVER["REMOTE_ADDR"];
+
+        if (intval($this->melkpurposeid) == 1) {
+            $this->rent_price_start = "-1";
+            $this->rent_price_end = "-1";
+            $this->rent_pricerahn_start = "-1";
+            $this->rent_pricerahn_end = "-1";
+        } else {
+            $this->sale_price_start = "-1";
+            $this->sale_price_end = "-1";
+        }
     }
 
     public function beforeValidationOnSave() {
@@ -371,13 +381,7 @@ class MelkPhoneListner extends AtaModel {
 
 
         // check for userid
-        if ($userPhone && intval($userPhone->userid) != intval($userid)) {
-            // user is ot valid
-            $errors[] = ("شماره تماس شما توسط شخص دیگری ثبت گردیده است، در صورت اطمینان از شماره خود، توسط فرم تماس با ما این مهم را در جریان بگزارید");
-            return false;
-        } else if ($userPhone && intval($userPhone->userid) == intval($userid)) {
-            
-        } else {
+        if (!$userPhone) {
             // user phone is not exist, create user phone
             $userPhone = new UserPhone();
             $userPhone->phone = $phone;
@@ -399,20 +403,17 @@ class MelkPhoneListner extends AtaModel {
 
         $melkListner->phoneid = $userPhone->id;
 
-        $melkListner->bedroom_start = $_POST["bedroom_start"];
-        $melkListner->bedroom_end = $_POST["bedroom_end"];
+        $melkListner->bedroom_start = $_POST["bedroom_range_min"];
+        $melkListner->bedroom_end = $_POST["bedroom_range_max"];
 
-        $melkListner->rent_price_start = $_POST["rent_price_start"];
-        $melkListner->rent_price_end = $_POST["rent_price_end"];
+        $melkListner->rent_price_start = $_POST["ejare_range_min"];
+        $melkListner->rent_price_end = $_POST["ejare_range_max"];
 
-        $melkListner->rent_pricerahn_start = $_POST["rent_pricerahn_start"];
-        $melkListner->rent_pricerahn_end = $_POST["rent_pricerahn_end"];
+        $melkListner->rent_pricerahn_start = $_POST["rahn_range_min"];
+        $melkListner->rent_pricerahn_end = $_POST["rahn_range_max"];
 
-        $melkListner->sale_price_start = $_POST["sale_price_start"];
-        $melkListner->sale_price_end = $_POST["sale_price_end"];
-
-
-
+        $melkListner->sale_price_start = $_POST["sale_range_min"];
+        $melkListner->sale_price_end = $_POST["sale_range_max"];
 
         if (!$melkListner->create()) {
             $errors[] = ("خطا در هنگام اضافه کردن شماره تماس");
@@ -422,14 +423,15 @@ class MelkPhoneListner extends AtaModel {
 
 
         // add supported areas
-        $areaIDs = Area::GetMultiID($melkListner->cityid, $_POST['address']);
-        foreach ($areaIDs as $areaid) {
-            $melklistnerarea = new MelkPhoneListnerArea();
-            $melklistnerarea->melkphonelistnerid = $melkListner->id;
-            $melklistnerarea->areaid = $areaid;
-            $melklistnerarea->create();
+        if (isset($_POST["address"]) && strlen($_POST["address"])) {
+            $areaIDs = Area::GetMultiID($melkListner->cityid, $_POST['address']);
+            foreach ($areaIDs as $areaid) {
+                $melklistnerarea = new MelkPhoneListnerArea();
+                $melklistnerarea->melkphonelistnerid = $melkListner->id;
+                $melklistnerarea->areaid = $areaid;
+                $melklistnerarea->create();
+            }
         }
-
         // check if the phone is valid
         if (!$userPhone->verified) {
             $userPhone->sendVerificationNumber();

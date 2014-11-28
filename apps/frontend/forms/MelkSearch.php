@@ -101,134 +101,149 @@ class MelkSearch extends AtaForm {
         $melkpurposeid->addValidator(new PresenceOf(array(
         )));
         $this->add($melkpurposeid);
-
-        // Sale Price
-        $sale_price_start = new SelectElement('sale_price_start');
-        $sale_price_start->setLabel('حداقل قیمت');
-        $sale_price_start->setOptions($largePriceOptions);
-        //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
-        $sale_price_start->setAttribute('class', 'form-control');
-        $sale_price_start->addValidator(new PresenceOf(array(
-        )));
-        $this->add($sale_price_start);
-
-
-        $sale_price_end = new SelectElement('sale_price_end');
-        $sale_price_end->setLabel('حداکثر قیمت');
-        $sale_price_end->setOptions($largePriceOptions);
-        //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
-        $sale_price_end->setAttribute('class', 'form-control');
-        $sale_price_end->setAttribute('size', '1');
-        $sale_price_end->addValidator(new PresenceOf(array(
-        )));
-        $this->add($sale_price_end);
-
-
-
-        // Ejare
-        $rent_price_start = new SelectElement('rent_price_start');
-        $rent_price_start->setOptions($smallPricingOptions);
-        $rent_price_start->setLabel('حداقل اجاره ماهیانه');
-        //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
-        $rent_price_start->setAttribute('class', 'form-control');
-        $rent_price_start->addValidator(new PresenceOf(array(
-        )));
-        $this->add($rent_price_start);
-
-        $rent_price_end = new SelectElement('rent_price_end');
-        $rent_price_end->setOptions($smallPricingOptions);
-        $rent_price_end->setLabel('حداکثر اجاره ماهیانه');
-        //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
-        $rent_price_end->setAttribute('class', 'form-control');
-        $rent_price_end->addValidator(new PresenceOf(array(
-        )));
-        $this->add($rent_price_end);
-        $rent_price_start->setDefault(-1);
-        $rent_price_end->setDefault(-1);
-
-
-
-
-        // Rahn
-        $rent_pricerahn_start = new SelectElement('rent_pricerahn_start');
-        $rent_pricerahn_start->setLabel("حداقل رهن");
-        $rent_pricerahn_start->setOptions($largePriceOptions);
-        //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
-        $rent_pricerahn_start->setAttribute('class', 'form-control');
-        $rent_pricerahn_start->addValidator(new PresenceOf(array(
-        )));
-        $this->add($rent_pricerahn_start);
-
-
-        $rent_pricerahn_end = new SelectElement('rent_pricerahn_end');
-        $rent_pricerahn_end->setLabel("حداکثر رهن");
-        $rent_pricerahn_end->setOptions($largePriceOptions);
-        //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
-        $rent_pricerahn_end->setAttribute('class', 'form-control');
-        $rent_pricerahn_end->addValidator(new PresenceOf(array(
-        )));
-        $this->add($rent_pricerahn_end);
-
-        // Bedrooms
-        $bedroom_start = new SelectElement('bedroom_start');
-        $bedroom_start->setLabel('حداقل تعداد اتاق خواب');
-        $bedroom_start->setOptions(array(
-            "0" => "یک مورد را انتخاب نمایید",
-            "1" => "1",
-            "2" => "2",
-            "3" => "3",
-            "4" => "4",
-            "5" => "5",
-            "6" => "6",
-            "7" => "7",
-            "8" => "8",
-            "9" => "9",
-            "10" => "10",
-        ));
-
-
-
+//
+//        // Sale Price
+//        $sale_price_start = new SelectElement('sale_price_start');
+//        $sale_price_start->setLabel('حداقل قیمت');
+//        $sale_price_start->setOptions($largePriceOptions);
+//        //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
+//        $sale_price_start->setAttribute('class', 'form-control');
+//        $sale_price_start->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($sale_price_start);
+//
+//
+//        $sale_price_end = new SelectElement('sale_price_end');
+//        $sale_price_end->setLabel('حداکثر قیمت');
+//        $sale_price_end->setOptions($largePriceOptions);
+//        //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
+//        $sale_price_end->setAttribute('class', 'form-control');
+//        $sale_price_end->setAttribute('size', '1');
+//        $sale_price_end->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($sale_price_end);
+//
+//
+//
+//        // Ejare
+//        $rent_price_start = new SelectElement('rent_price_start');
+//        $rent_price_start->setOptions($smallPricingOptions);
+//        $rent_price_start->setLabel('حداقل اجاره ماهیانه');
+//        //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
+//        $rent_price_start->setAttribute('class', 'form-control');
+//        $rent_price_start->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($rent_price_start);
+//
+//        $rent_price_end = new SelectElement('rent_price_end');
+//        $rent_price_end->setOptions($smallPricingOptions);
+//        $rent_price_end->setLabel('حداکثر اجاره ماهیانه');
+//        //$rent_price->setAttribute('placeholder', 'Enter your Ejare');
+//        $rent_price_end->setAttribute('class', 'form-control');
+//        $rent_price_end->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($rent_price_end);
+//        $rent_price_start->setDefault(-1);
+//        $rent_price_end->setDefault(-1);
+//
+//
+//
+//
+//        // Rahn
+//        $rent_pricerahn_start = new SelectElement('rent_pricerahn_start');
+//        $rent_pricerahn_start->setLabel("حداقل رهن");
+//        $rent_pricerahn_start->setOptions($largePriceOptions);
+//        //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
+//        $rent_pricerahn_start->setAttribute('class', 'form-control');
+//        $rent_pricerahn_start->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($rent_pricerahn_start);
+//
+//
+//        $rent_pricerahn_end = new SelectElement('rent_pricerahn_end');
+//        $rent_pricerahn_end->setLabel("حداکثر رهن");
+//        $rent_pricerahn_end->setOptions($largePriceOptions);
+//        //$rent_pricerahn->setAttribute('placeholder', 'Enter your Rahn');
+//        $rent_pricerahn_end->setAttribute('class', 'form-control');
+//        $rent_pricerahn_end->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($rent_pricerahn_end);
+//
+//        // Bedrooms
+//        $bedroom_start = new SelectElement('bedroom_start');
+//        $bedroom_start->setLabel('حداقل تعداد اتاق خواب');
+//        $bedroom_start->setOptions(array(
+//            "0" => "یک مورد را انتخاب نمایید",
+//            "1" => "1",
+//            "2" => "2",
+//            "3" => "3",
+//            "4" => "4",
+//            "5" => "5",
+//            "6" => "6",
+//            "7" => "7",
+//            "8" => "8",
+//            "9" => "9",
+//            "10" => "10",
+//        ));
         //$bedroom->setAttribute('placeholder', 'Enter your Bedrooms');
-        $bedroom_start->setAttribute('class', 'form-control');
-        $bedroom_start->addValidator(new PresenceOf(array(
-        )));
-        $this->add($bedroom_start);
+//        $bedroom_start->setAttribute('class', 'form-control');
+//        $bedroom_start->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($bedroom_start);
 
 
-        // Bedrooms
-        $bedroom_end = new SelectElement('bedroom_end');
-        $bedroom_end->setLabel('حداکثر تعداد اتاق خواب');
-        $bedroom_end->setOptions(array(
-            "0" => "یک مورد را انتخاب نمایید",
-            "1" => "1",
-            "2" => "2",
-            "3" => "3",
-            "4" => "4",
-            "5" => "5",
-            "6" => "6",
-            "7" => "7",
-            "8" => "8",
-            "9" => "9",
-            "10" => "10",
-            "11" => "بیشتر",
-        ));
-        $bedroom_end->setAttribute('class', 'form-control');
-        $bedroom_end->addValidator(new PresenceOf(array(
-        )));
-        $this->add($bedroom_end);
+        // Address
+        $address = new CityAreaSelector('address');
+        $address->setLabel('مناطق درخواستی');
+        $address->setCityID("$('#cityid').val()");
+        $address->setInfo("نام مناطقی که به دنبال ملک می گردید را وارد نمایید");
+        //$address->setAttribute('placeholder', 'Enter your Address');
+        $address->setAttribute('class', 'form-control');
+//        $address->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($address);
+
+
+        
+
+//
+//        // Bedrooms
+//        $bedroom_end = new SelectElement('bedroom_end');
+//        $bedroom_end->setLabel('حداکثر تعداد اتاق خواب');
+//        $bedroom_end->setOptions(array(
+//            "0" => "یک مورد را انتخاب نمایید",
+//            "1" => "1",
+//            "2" => "2",
+//            "3" => "3",
+//            "4" => "4",
+//            "5" => "5",
+//            "6" => "6",
+//            "7" => "7",
+//            "8" => "8",
+//            "9" => "9",
+//            "10" => "10",
+//            "11" => "بیشتر",
+//        ));
+//        $bedroom_end->setAttribute('class', 'form-control');
+//        $bedroom_end->addValidator(new PresenceOf(array(
+//        )));
+//        $this->add($bedroom_end);
 
 
         // Sale Range
         $salerange = new RangeSlider('sale_range');
         $salerange->setMin(0);
-        $salerange->setMax(500);
+        $salerange->setMax("saleValuesMap.length - 1");
         $salerange->setCurrentMinValue(0);
-        $salerange->setCurrentMaxValue(500);
+        $salerange->setCurrentMaxValue("saleValuesMap.length - 1");
         $salerange->setBetweenRangeTitle("تا");
         $salerange->setLabel('بازه قیمت');
         $salerange->setOnSlide("
-                $('#sale_range_range_start_info').text(getIranianPrice(endValue));
-                $('#sale_range_range_end_info').text(getIranianPrice(startValue));
+                $('#sale_range_range_start_info').text(getIranianPrice(saleValuesMap[endValue]));
+                $('#sale_range_range_end_info').text(getIranianPrice(saleValuesMap[startValue]));
+                
+                $('#sale_range_max').val(saleValuesMap[endValue]);
+                $('#sale_range_min').val(saleValuesMap[startValue]);
             ");
         $this->add($salerange);
 
@@ -243,6 +258,7 @@ class MelkSearch extends AtaForm {
                 $('#bedroom_range_range_end_info').text(startValue);
                 $('#bedroom_range_range_start_info').text(endValue);
                 $('#bedroom_range_range_end_info').text( startValue +  ' ' + 'خواب');
+   
             ");
         $bedroomrange->setBetweenRangeTitle("تا");
         $this->add($bedroomrange);
@@ -250,28 +266,34 @@ class MelkSearch extends AtaForm {
         // Ejare Range
         $ejarerange = new RangeSlider('ejare_range');
         $ejarerange->setMin(0);
-        $ejarerange->setMax(500);
+        $ejarerange->setMax("window.ejareValuesMap.length - 1 ");
         $ejarerange->setCurrentMinValue(0);
-        $ejarerange->setCurrentMaxValue(500);
+        $ejarerange->setCurrentMaxValue("window.ejareValuesMap.length - 1");
         $ejarerange->setBetweenRangeTitle("تا");
         $ejarerange->setLabel('بازه اجاره');
         $ejarerange->setOnSlide("
-                $('#ejare_range_range_start_info').text(getIranianPrice(endValue));
-                $('#ejare_range_range_end_info').text(getIranianPrice(startValue));
+                $('#ejare_range_range_start_info').text(getIranianPrice(ejareValuesMap[endValue]));
+                $('#ejare_range_range_end_info').text(getIranianPrice(ejareValuesMap[startValue]));
+                
+                $('#ejare_range_max').val(ejareValuesMap[endValue]);
+                $('#ejare_range_min').val(ejareValuesMap[startValue]);    
             ");
         $this->add($ejarerange);
 
         // Rahn Range
         $rahnrange = new RangeSlider('rahn_range');
         $rahnrange->setMin(0);
-        $rahnrange->setMax(1000);
+        $rahnrange->setMax("rahnValuesMap.length - 1 ");
         $rahnrange->setCurrentMinValue(0);
-        $rahnrange->setCurrentMaxValue(1000);
+        $rahnrange->setCurrentMaxValue("rahnValuesMap.length - 1");
         $rahnrange->setBetweenRangeTitle("تا");
         $rahnrange->setLabel('بازه رهن');
         $rahnrange->setOnSlide("
-                $('#rahn_range_range_start_info').text(getIranianPrice(endValue));
-                $('#rahn_range_range_end_info').text(getIranianPrice(startValue));
+                $('#rahn_range_range_start_info').text(getIranianPrice(rahnValuesMap[endValue]));
+                $('#rahn_range_range_end_info').text(getIranianPrice(rahnValuesMap[startValue]));
+                
+                $('#rahn_range_max').val(rahnValuesMap[endValue]);
+                $('#rahn_range_min').val(rahnValuesMap[startValue]);    
             ");
         $this->add($rahnrange);
 

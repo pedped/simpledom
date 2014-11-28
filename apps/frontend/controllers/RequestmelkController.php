@@ -9,16 +9,21 @@ use Phalcon\Validation\Validator\PresenceOf;
 use RequestMelkForm;
 use Settings;
 use Simpledom\Core\Classes\Helper;
-use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSManager;
 use SmsNumber;
 use SystemLogType;
 use User;
 
-class RequestmelkController extends ControllerBase {
+class RequestmelkController extends ControllerBaseFrontEnd {
 
     protected function ValidateAccess($id) {
         
+    }
+
+    public function initialize() {
+        parent::initialize();
+
+        $this->loadSmallPriceOption();
     }
 
     public function addAction() {
@@ -30,22 +35,8 @@ class RequestmelkController extends ControllerBase {
 
         $fr = new RequestMelkForm();
 
-        if (!isset($this->user)) {
-            $fr->get("fname")->addValidator(new PresenceOf(array(
-            )));
-
-            $fr->get("lname")->addValidator(new PresenceOf(array(
-            )));
-
-            $fr->get("email")->addValidator(new PresenceOf(array(
-            )));
-        } else {
-            $fr->remove("email");
-            $fr->remove("fname");
-            $fr->remove("lname");
-        }
-
         if ($this->request->isPost()) {
+
             if (!$fr->isValid($_POST)) {
                 // invalid request
                 foreach ($fr->getMessages() as $message) {
@@ -61,30 +52,9 @@ class RequestmelkController extends ControllerBase {
 
                 if (!$this->hasError()) {
 
-                    // valid request
-                    // we have to check if the user is logged in
-                    if (!isset($this->user)) {
-                        // we need to create an account for the user
-                        $user = new User();
-                        $fname = $this->request->getPost("fname");
-                        $lname = $this->request->getPost("lname");
-                        $email = $this->request->getPost("email", "email");
-                        $password = Helper::GenerateRandomString(8);
-                        $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone);
-                        if (!$this->hasError() && $result == true) {
-                            // user successfully created 
-                            $this->user = $user;
-                            $user->setSession($this);
-
-                            $loginMessage = "کاربر گرامی" . "\n" . "اطلاعات ورود شما به " . Settings::Get()->websitename . " " . "به صورت زیر است" . "\n" . "ایمیل: " . $email . "\n" . "رمز عبور: " . $password . "\n\n با تشکر\n" . "www.amlakgostar.ir";
-
-                            // send user login information
-                            SMSManager::SendSMS($phone, $loginMessage, SmsNumber::findFirst()->id);
-                        }
-                    }
 
                     // create listner
-                    $result = MelkPhoneListner::subscribeUser($this->errors, $this->user->userid, $phone);
+                    $result = MelkPhoneListner::subscribeUser($this->errors, null, $phone);
                     if ($result > 0) {
                         if ($result == 1) {
                             // added successfully
@@ -110,6 +80,20 @@ class RequestmelkController extends ControllerBase {
                     }
                 }
             }
+
+
+            // set default values
+            $fr->get("bedroom_range")->setCurrentMinValue($this->request->getPost("bedroom_range_min"));
+            $fr->get("bedroom_range")->setCurrentMaxValue($this->request->getPost("bedroom_range_max"));
+
+            $fr->get("sale_range")->setCurrentMinValue(array_search($this->request->getPost("sale_range_min"), $this->saleRangeValues));
+            $fr->get("sale_range")->setCurrentMaxValue(array_search($this->request->getPost("sale_range_max"), $this->saleRangeValues));
+
+            $fr->get("rahn_range")->setCurrentMinValue(array_search($this->request->getPost("rahn_range_min"), $this->rahnRangeValues));
+            $fr->get("rahn_range")->setCurrentMaxValue(array_search($this->request->getPost("rahn_range_max"), $this->rahnRangeValues));
+
+            $fr->get("ejare_range")->setCurrentMinValue(array_search($this->request->getPost("ejare_range_min"), $this->ejareRangeValues));
+            $fr->get("ejare_range")->setCurrentMaxValue(array_search($this->request->getPost("ejare_range_max"), $this->ejareRangeValues));
         }
 
         if ($this->hasError()) {

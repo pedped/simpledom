@@ -3,301 +3,108 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<script>
+    window.saleValuesMap = [<?php echo implode(", ", $salePriceOptions); ?>];
+    window.rahnValuesMap = [<?php echo implode(", ", $largePriceOptions); ?>];
+    window.ejareValuesMap = [<?php echo implode(", ", $smallPriceOptions); ?>];
+
+</script>  
 <form method='post' enctype="multipart/form-data">
-    <div class='row'>
-        <div class='col-lg-12'>
-
-            <!-- Wizards -->
-            <div class="nav nav-pills nav-justified navbar melk-wizard hidden-sm hidden-xs">
-                <li data-step="0" class="melk-wizard-step active"><a href="#">توضیحات</a></li>
-                <li data-step="1" class="melk-wizard-step"><a href="#"><span class="glyphicon glyphicon-home"></span>نوع ملک</a></li>
-                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-pencil"></span>مشخصات ملک</a></li>
-                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-map-marker"></span>موقعیت ملک</a></li>
-                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-dollar"></span>قیمت</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-phone"></span>اطلاعات تماس</a></li>
-            </div>
-
-
-            <div class='row'>
-                <div class='col-md-3'>
-
+    <div class='row request-melk-page'>
+        <div class='col-md-12'>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">درخواست ملک</h3>
                 </div>
-                <div class='col-md-6'>
-                    <!-- Tozihat  !-->
-                    <div data-step="0" class="panel panel-default melk-step-panel" >
-                        <div class="panel-heading">
-                            <h3 class="panel-title">توضیحات</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p style="font-size: 22px;">بدون آنکه به بنگاه مراجعه نمایید، مشخصات ملک خود را وارد نمایید تا در هنگام دریافت ملک جدید متناسب با نیاز شما، توسط پیامک شما را مطلع گردانیم</p>
-                            <p class="request-melk-info"><span class="fa fa-check-circle"></span> در هنگام اضافه شدن یک ملک جدید متناسب با نیاز شما، شما را توسط پیامک مطلع خواهیم نمود</p>
-                            <p class="request-melk-info"><span class="fa fa-check-circle"></span> در هر زمان که دوست داشتید میتوانید برای عدم دریافت پیامک اقدام نمایید</p>
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="0" class="btn btn-primary">شروع</div>
-                        </div>
-                    </div>
+                <div class="panel-body">
+                    <p>مشخصات ملک مورد نیاز خود را وارد نمایید تا در هنگام دریافت ملک جدید متناسب با درخواست شما،  <span style="color:red;font-weight: bold">رایگان</span> توسط پیامک مطلع گردید.</p>
+                    <hr/>
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <div class="panel panel-default">
+                                <div class="panel-heading  hidden-sm hidden-xs">
+                                    <h4 class="panel-title">مشخصات ملک مورد نظر</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- Type Selection !-->
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Type !-->
+                                            <?php $form->renderDecorated('melktypeid'); ?> 
 
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Purpose !-->
+                                            <?php $form->renderDecorated('melkpurposeid'); ?> 
 
-                    <!-- Noe Melk  !-->
-                    <div data-step="1" class="panel panel-default melk-step-panel" >
-                        <div class="panel-heading">
-                            <h3 class="panel-title">نوع ملک</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>لطفا نوع ملک و نوع درخواست را مشخص نمایید</p>
-                            <!--  ADD Type !-->
-                            <?php $form->renderDecorated('melktypeid'); ?> 
+                                        </div>
+                                    </div>
 
-                            <!--  ADD Purpose !-->
-                            <?php $form->renderDecorated('melkpurposeid'); ?> 
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="1" class="btn btn-primary">مرحله بعد</div>
-                        </div>
-                    </div>
+                                    <hr/>
+                                    <!-- Range Infos !-->
+                                    <div data-colname="bedroom_range" class='col-md-12'>
+                                        <?php $form->renderDecorated('bedroom_range'); ?>
+                                    </div>
 
+                                    <div data-colname="sale_range" class='col-md-12'>
+                                        <?php $form->renderDecorated('sale_range'); ?> 
+                                    </div>
 
-                    <!-- Moshakasate Melk !-->
-                    <div data-step="2" class="panel panel-default melk-step-panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">مشخصات ملک</h3>
-                        </div>
-                        <div class="panel-body">
+                                    <div data-colname="rahn_range" class='col-md-12'>
+                                        <?php $form->renderDecorated('rahn_range'); ?> 
+                                    </div>
 
-                            <p>در صورت لزوم مشخصات زیر را پر نمایید</p>
-
-                            <!--  ADD Bedrooms !-->
-                            <?php $form->renderDecorated('bedroom_start'); ?> 
-                            <?php $form->renderDecorated('bedroom_end'); ?> 
-
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="2" class="btn btn-primary">مرحله بعد</div>
-                            <div id="backbtn" data-step="2" class="btn btn-default">مرحله قبل</div>
-                        </div>
-                    </div>
-
-
-                    <!--Moghiyate Melk !-->
-                    <div data-step="3" class="panel panel-default melk-step-panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">موقعیت ملک</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>در این قسمت شما میبایست موقعیت و محدوده ملک را مشخص نمایید</p>
-
-                            <div class='row'>
-                                <div class='col-md-12'>
-                                    <!--  ADD State ID !-->
-                                    <?php $form->renderDecorated('stateid'); ?> 
-
-                                    <!--  ADD City ID !-->
-                                    <?php $form->renderDecorated('cityid'); ?> 
-
-                                    <!--  ADD Address !-->
-                                    <?php $form->renderDecorated('address'); ?> 
-
+                                    <div data-colname="ejare_range" class='col-md-12'>
+                                        <?php $form->renderDecorated('ejare_range'); ?> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="3" class="btn btn-primary">مرحله بعد</div>
-                            <div id="backbtn" data-step="3" class="btn btn-default">مرحله قبل</div>
-                        </div>
-                    </div>
-
-
-                    <!--Gheymat !-->
-                    <div data-step="4" class="panel panel-default melk-step-panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">قیمت</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>حداقل و حداکثر هزینه های ملک را وارد نمایید</p>
-
-                            <!--  ADD Sale Price !-->
-                            <?php $form->renderDecorated('sale_price_start'); ?> 
-                            <?php $form->renderDecorated('sale_price_end'); ?> 
-
-                            <!--  ADD Rahn !-->
-                            <?php $form->renderDecorated('rent_pricerahn_start'); ?> 
-                            <?php $form->renderDecorated('rent_pricerahn_end'); ?> 
-
-                            <!--  ADD Ejare !-->
-                            <?php $form->renderDecorated('rent_price_start'); ?> 
-                            <?php $form->renderDecorated('rent_price_end'); ?> 
-
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="4" class="btn btn-primary">مرحله بعد</div>
-                            <div id="backbtn" data-step="4" class="btn btn-default">مرحله قبل</div>
-                        </div>
-                    </div>
-
-                    <!-- Contact !-->
-                    <div data-step="5" class="panel panel-default melk-step-panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">اطلاعات تماس</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>اطلاعات تماس مستقیم خودتان را وارد نمایید تا مشتریان و بنگاه داران بتوانند با شما تماس داشته باشند</p>
-
-                            <!--  ADD Name !-->
-                            <?php if (!$this->session->has("userid")) : ?>
-                                <div class='row'>
-                                    <div class='col-md-6'>
-                                        <?php $form->renderDecorated('fname'); ?>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <?php $form->renderDecorated('lname'); ?> 
-                                    </div>
+                        <div class='col-md-6'>
+                            <!-- Location Info !-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading  hidden-sm hidden-xs">
+                                    <h4 class="panel-title">موقعیت ملک</h4>
                                 </div>
-                                <?php $form->renderDecorated('email'); ?> 
-                            <?php endif; ?>
-
-
-                            <!--  ADD Mobile !-->
-                            <?php $form->renderDecorated('mobile'); ?> 
-
-
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="5" class="btn btn-primary">مرحله بعد</div>
-                            <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
-                        </div>
-                    </div>
-
-
-                    <!-- Finish  !-->
-                    <div data-step="6" class="panel panel-default melk-step-panel" >
-                        <div class="panel-heading">
-                            <h3 class="panel-title">پایان</h3>
-                        </div>
-                        <div class="panel-body final-step">
-                            <H1>پایان</H1>
-                            <h3>برای ارسال نهایی درخواست بر روی کلید ارسال کلیک نمایید</h3>
-                            <!-- Submit Button !-->
-                            <br/>
-                            <?php $form->renderDecorated('submit'); ?> 
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
-                        </div>
-                    </div>
-                </div>
-                <div class='col-md-3'>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class='row hidden-md hidden-lg hidden-xl hidden'>
-        <div class='col-lg-12'>
-
-            <!-- Wizards -->
-            <div class="nav nav-pills nav-justified navbar melk-wizard hidden-sm hidden-xs">
-                <li data-step="0" class="melk-wizard-step active"><a href="#">توضیحات</a></li>
-                <li data-step="1" class="melk-wizard-step"><a href="#"><span class="glyphicon glyphicon-home"></span>نوع ملک</a></li>
-                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-pencil"></span>مشخصات ملک</a></li>
-                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-map-marker"></span>موقعیت ملک</a></li>
-                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-dollar"></span>قیمت</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-phone"></span>اطلاعات تماس</a></li>
-            </div>
-
-
-            <div class='row'>
-                <div class='col-md-3'>
-
-                </div>
-                <div class='col-md-6'>
-                    <!-- Options  !-->
-                    <div data-step="0" class="panel panel-default melk-step-panel" >
-                        <div class='panel-heading'>
-                            <h3 class='panel-title'><span class="fa fa-home"></span>درخواست ملک</h3>
-                        </div>
-                        <div class='panel-body'>
-                            <p style="font-size: 22px;">بدون آنکه به بنگاه مراجعه نمایید، مشخصات ملک خود را وارد نمایید تا در هنگام دریافت ملک جدید متناسب با نیاز شما، توسط پیامک شما را مطلع گردانیم</p>
-
-                            <hr/>
-                            <p>لطفا نوع ملک و نوع درخواست را مشخص نمایید</p>
-                            <!--  ADD Type !-->
-                            <?php $form->renderDecorated('melktypeid'); ?> 
-
-                            <!--  ADD Purpose !-->
-                            <?php $form->renderDecorated('melkpurposeid'); ?> 
-
-                            <hr/>
-                            <p>در صورت لزوم مشخصات زیر را پر نمایید</p>
-
-                            <!--  ADD Bedrooms !-->
-                            <?php $form->renderDecorated('bedroom_start'); ?> 
-                            <?php $form->renderDecorated('bedroom_end'); ?> 
-
-
-                            <hr/>
-                            <p>در این قسمت شما میبایست موقعیت و محدوده ملک را مشخص نمایید</p>
-
-                            <div class='row'>
-                                <div class='col-md-12'>
-                                    <!--  ADD State ID !-->
-                                    <?php $form->renderDecorated('stateid'); ?> 
-
-                                    <!--  ADD City ID !-->
-                                    <?php $form->renderDecorated('cityid'); ?> 
-
-                                    <!--  ADD Address !-->
-                                    <?php $form->renderDecorated('address'); ?> 
-
+                                <div class="panel-body">
+                                    <div class='row'>
+                                        <div class='col-md-12'>
+                                            <div class='row'>
+                                                <div class='col-md-6'>
+                                                    <!--  ADD State ID !-->
+                                                    <?php $form->renderDecorated('stateid'); ?> 
+                                                </div>
+                                                <div class='col-md-6'>
+                                                    <!--  ADD City ID !-->
+                                                    <?php $form->renderDecorated('cityid'); ?> 
+                                                </div>
+                                            </div>
+                                            <!--  ADD Address !-->
+                                            <?php $form->renderDecorated('address'); ?> 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <hr/>
-                            <p>حداقل و حداکثر هزینه های ملک را وارد نمایید</p>
 
-                            <!--  ADD Sale Price !-->
-                            <?php $form->renderDecorated('sale_price_start'); ?> 
-                            <?php $form->renderDecorated('sale_price_end'); ?> 
-
-                            <!--  ADD Rahn !-->
-                            <?php $form->renderDecorated('rent_pricerahn_start'); ?> 
-                            <?php $form->renderDecorated('rent_pricerahn_end'); ?> 
-
-                            <!--  ADD Ejare !-->
-                            <?php $form->renderDecorated('rent_price_start'); ?> 
-                            <?php $form->renderDecorated('rent_price_end'); ?> 
-
-                            <hr/>
-                            <p>اطلاعات تماس مستقیم خودتان را وارد نمایید تا مشتریان و بنگاه داران بتوانند با شما تماس داشته باشند</p>
-
-                            <!--  ADD Name !-->
-                            <?php if (!$this->session->has("userid")) : ?>
-                                <div class='row'>
-                                    <div class='col-md-6'>
-                                        <?php $form->renderDecorated('fname'); ?>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <?php $form->renderDecorated('lname'); ?> 
-                                    </div>
+                            <!-- Contact Info !-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading hidden-sm hidden-xs">
+                                    <h4 class="panel-title">شماره تماس</h4>
                                 </div>
-                                <?php $form->renderDecorated('email'); ?> 
-                            <?php endif; ?>
-
-
-                            <!--  ADD Mobile !-->
-                            <?php $form->renderDecorated('mobile'); ?> 
-                        </div>
-                        <div class="panel-footer panel-footer-btn-group">
-                            <div id="nextbtn" data-step="0" ><?php $form->renderDecorated('submit'); ?> </div>
+                                <div class="panel-body">
+                                    <!--  ADD Mobile !-->
+                                    <?php $form->renderDecorated('mobile'); ?> 
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class='col-md-3'>
-
+                    <hr/>
+                    <div class="center">
+                        <?php $form->renderDecorated('submit'); ?> 
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </form>
@@ -632,6 +439,7 @@
         }
 
     });
+
     // add event on next button click
     $('body').on('click', '#backbtn', function() {
         // get step
@@ -639,7 +447,91 @@
         showStep(currenctStep - 1, currenctStep);
     });
     // show step 1
-    showStep(0, 0);</script>
+    showStep(0, 0);
+
+
+    function onPurposeChange() {
+        $("div[data-colname='sale_range']").hide();
+
+        $("div[data-colname='ejare_range']").hide();
+
+        $("div[data-colname='rahn_range']").hide();
+
+
+        switch ($("#melkpurposeid").val())
+        {
+            case "1":
+                // forosh
+                $("div[data-colname='sale_range']").show().focus();
+                break;
+            case "2":
+                //  ejare
+                $("div[data-colname='ejare_range']").show().focus();
+                $("div[data-colname='rahn_range']").show();
+                break;
+            default:
+                // Type Is Not valid
+                alert("منظور ملک معتبر نمیباشد");
+                break;
+        }
+    }
+
+    function onMelkTypeChange() {
+        // hide all fields 
+        hideAll();
+
+        switch ($("#melktypeid").val())
+        {
+            case "1":
+                // khane
+                $("div[data-colname='bedroom_range']").show();
+                break;
+            case "2":
+                // aparteman
+                $("div[data-colname='bedroom_range']").show();
+                break;
+            case "3":
+                // daftar kar
+                $("div[data-colname='bedroom_range']").show();
+                break;
+            case "4":
+                // vila
+                break;
+            case "5":
+                // zamin
+                break;
+            case "6":
+                // otaghe kar
+                $("div[data-colname='bedroom_range']").show();
+                break;
+            default:
+                // Type Is Not valid
+                alert("نوع ملک معتبر نمیباشد");
+                break;
+        }
+
+    }
+
+    function hideAll() {
+        $("div[data-colname='bedroom_range']").hide();
+    }
+
+    $("#melkpurposeid").change(function() {
+        onPurposeChange();
+    });
+
+
+    $("#melktypeid").change(function() {
+        onMelkTypeChange();
+
+        // focous on purpose
+        $("#melkpurposeid").focus();
+    });
+
+    onPurposeChange();
+    onMelkTypeChange();
+
+</script>
 
 <script>
 

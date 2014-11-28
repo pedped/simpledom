@@ -1,7 +1,8 @@
 <?php
-namespace Simpledom\Admin\Controllers;
-    use Simpledom\Admin\BaseControllers\ControllerBase;
 
+namespace Simpledom\Admin\Controllers;
+
+use Simpledom\Admin\BaseControllers\ControllerBase;
 use AtaPaginator;
 use MelkPhoneListner;
 use MelkPhoneListnerForm;
@@ -83,10 +84,10 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID','Purpose ID','Type ID','Bedroom Start','Bedroom End','Phone ID','Received Count','Status','Rent Price Start','Rent Price End','Rahn Start','Rahn End','Sale Start','Sale End','Date','City ID' , 'Areas'
+                    'ID', 'Type', 'Purpose', 'Phone', 'B Start', 'B End', 'Rent Price Start', 'Rent Price End', 'Rahn Start', 'Rahn End', 'Sale Start', 'Sale End', 'Date', 'City', 'Areas', 'Received Count', 'Status'
                 ))->
                 setFields(array(
-                    'id','melkpurposeid','melktypeid','bedroom_start','bedroom_end','phoneid','receivedcount','status','rent_price_start','rent_price_end','rent_pricerahn_start','rent_pricerahn_end','sale_price_start','sale_price_end','getDate()','cityid' , 'getAreasNames()'
+                    'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'receivedcount', 'status',
                 ))->
                 setEditUrl(
                         'edit'
@@ -152,35 +153,35 @@ class MelkPhoneListnerController extends ControllerBase {
             if ($fr->isValid($_POST)) {
                 // form is valid
                 $melkphonelistner = MelkPhoneListner::findFirst($id);
-                                $melkphonelistner->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
+                $melkphonelistner->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
 
-                                $melkphonelistner->melktypeid = $this->request->getPost('melktypeid', 'string');
+                $melkphonelistner->melktypeid = $this->request->getPost('melktypeid', 'string');
 
-                                $melkphonelistner->bedroom_start = $this->request->getPost('bedroom_start', 'string');
+                $melkphonelistner->bedroom_start = $this->request->getPost('bedroom_start', 'string');
 
-                                $melkphonelistner->bedroom_end = $this->request->getPost('bedroom_end', 'string');
+                $melkphonelistner->bedroom_end = $this->request->getPost('bedroom_end', 'string');
 
-                                $melkphonelistner->phoneid = $this->request->getPost('phoneid', 'string');
+                $melkphonelistner->phoneid = $this->request->getPost('phoneid', 'string');
 
-                                $melkphonelistner->receivedcount = $this->request->getPost('receivedcount', 'string');
+                $melkphonelistner->receivedcount = $this->request->getPost('receivedcount', 'string');
 
-                                $melkphonelistner->status = $this->request->getPost('status', 'string');
+                $melkphonelistner->status = $this->request->getPost('status', 'string');
 
-                                $melkphonelistner->rent_price_start = $this->request->getPost('rent_price_start', 'string');
+                $melkphonelistner->rent_price_start = $this->request->getPost('rent_price_start', 'string');
 
-                                $melkphonelistner->rent_price_end = $this->request->getPost('rent_price_end', 'string');
+                $melkphonelistner->rent_price_end = $this->request->getPost('rent_price_end', 'string');
 
-                                $melkphonelistner->rent_pricerahn_start = $this->request->getPost('rent_pricerahn_start', 'string');
+                $melkphonelistner->rent_pricerahn_start = $this->request->getPost('rent_pricerahn_start', 'string');
 
-                                $melkphonelistner->rent_pricerahn_end = $this->request->getPost('rent_pricerahn_end', 'string');
+                $melkphonelistner->rent_pricerahn_end = $this->request->getPost('rent_pricerahn_end', 'string');
 
-                                $melkphonelistner->sale_price_start = $this->request->getPost('sale_price_start', 'string');
+                $melkphonelistner->sale_price_start = $this->request->getPost('sale_price_start', 'string');
 
-                                $melkphonelistner->sale_price_end = $this->request->getPost('sale_price_end', 'string');
+                $melkphonelistner->sale_price_end = $this->request->getPost('sale_price_end', 'string');
 
-                                $melkphonelistner->date = $this->request->getPost('date', 'string');
+                $melkphonelistner->date = $this->request->getPost('date', 'string');
 
-                                $melkphonelistner->cityid = $this->request->getPost('cityid', 'string');
+                $melkphonelistner->cityid = $this->request->getPost('cityid', 'string');
                 if (!$melkphonelistner->save()) {
                     $melkphonelistner->showErrorMessages($this);
                 } else {
@@ -190,28 +191,27 @@ class MelkPhoneListnerController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-            
-        }else{
+        } else {
 
-        // set default values
+            // set default values
 
-                        $fr->get('melkpurposeid')->setDefault($melkphonelistnerItem->melkpurposeid);
-                        $fr->get('melktypeid')->setDefault($melkphonelistnerItem->melktypeid);
-                        $fr->get('bedroom_start')->setDefault($melkphonelistnerItem->bedroom_start);
-                        $fr->get('bedroom_end')->setDefault($melkphonelistnerItem->bedroom_end);
-                        $fr->get('phoneid')->setDefault($melkphonelistnerItem->phoneid);
-                        $fr->get('receivedcount')->setDefault($melkphonelistnerItem->receivedcount);
-                        $fr->get('status')->setDefault($melkphonelistnerItem->status);
-                        $fr->get('rent_price_start')->setDefault($melkphonelistnerItem->rent_price_start);
-                        $fr->get('rent_price_end')->setDefault($melkphonelistnerItem->rent_price_end);
-                        $fr->get('rent_pricerahn_start')->setDefault($melkphonelistnerItem->rent_pricerahn_start);
-                        $fr->get('rent_pricerahn_end')->setDefault($melkphonelistnerItem->rent_pricerahn_end);
-                        $fr->get('sale_price_start')->setDefault($melkphonelistnerItem->sale_price_start);
-                        $fr->get('sale_price_end')->setDefault($melkphonelistnerItem->sale_price_end);
-                        $fr->get('date')->setDefault($melkphonelistnerItem->date);
-                        $fr->get('cityid')->setDefault($melkphonelistnerItem->cityid); 
-            }
-            
+            $fr->get('melkpurposeid')->setDefault($melkphonelistnerItem->melkpurposeid);
+            $fr->get('melktypeid')->setDefault($melkphonelistnerItem->melktypeid);
+            $fr->get('bedroom_start')->setDefault($melkphonelistnerItem->bedroom_start);
+            $fr->get('bedroom_end')->setDefault($melkphonelistnerItem->bedroom_end);
+            $fr->get('phoneid')->setDefault($melkphonelistnerItem->phoneid);
+            $fr->get('receivedcount')->setDefault($melkphonelistnerItem->receivedcount);
+            $fr->get('status')->setDefault($melkphonelistnerItem->status);
+            $fr->get('rent_price_start')->setDefault($melkphonelistnerItem->rent_price_start);
+            $fr->get('rent_price_end')->setDefault($melkphonelistnerItem->rent_price_end);
+            $fr->get('rent_pricerahn_start')->setDefault($melkphonelistnerItem->rent_pricerahn_start);
+            $fr->get('rent_pricerahn_end')->setDefault($melkphonelistnerItem->rent_pricerahn_end);
+            $fr->get('sale_price_start')->setDefault($melkphonelistnerItem->sale_price_start);
+            $fr->get('sale_price_end')->setDefault($melkphonelistnerItem->sale_price_end);
+            $fr->get('date')->setDefault($melkphonelistnerItem->date);
+            $fr->get('cityid')->setDefault($melkphonelistnerItem->cityid);
+        }
+
         $this->view->form = $fr;
     }
 
@@ -222,8 +222,23 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $form = new MelkPhoneListnerForm();
         $this->handleFormScripts($form);
-$form->get('id')->setDefault($item->id);$form->get('melkpurposeid')->setDefault($item->melkpurposeid);$form->get('melktypeid')->setDefault($item->melktypeid);$form->get('bedroom_start')->setDefault($item->bedroom_start);$form->get('bedroom_end')->setDefault($item->bedroom_end);$form->get('phoneid')->setDefault($item->phoneid);$form->get('receivedcount')->setDefault($item->receivedcount);$form->get('status')->setDefault($item->status);$form->get('rent_price_start')->setDefault($item->rent_price_start);$form->get('rent_price_end')->setDefault($item->rent_price_end);$form->get('rent_pricerahn_start')->setDefault($item->rent_pricerahn_start);$form->get('rent_pricerahn_end')->setDefault($item->rent_pricerahn_end);$form->get('sale_price_start')->setDefault($item->sale_price_start);$form->get('sale_price_end')->setDefault($item->sale_price_end);$form->get('date')->setDefault($item->date);$form->get('cityid')->setDefault($item->cityid);$this->view->form = $form;
-        
+        $form->get('id')->setDefault($item->id);
+        $form->get('melkpurposeid')->setDefault($item->melkpurposeid);
+        $form->get('melktypeid')->setDefault($item->melktypeid);
+        $form->get('bedroom_start')->setDefault($item->bedroom_start);
+        $form->get('bedroom_end')->setDefault($item->bedroom_end);
+        $form->get('phoneid')->setDefault($item->phoneid);
+        $form->get('receivedcount')->setDefault($item->receivedcount);
+        $form->get('status')->setDefault($item->status);
+        $form->get('rent_price_start')->setDefault($item->rent_price_start);
+        $form->get('rent_price_end')->setDefault($item->rent_price_end);
+        $form->get('rent_pricerahn_start')->setDefault($item->rent_pricerahn_start);
+        $form->get('rent_pricerahn_end')->setDefault($item->rent_pricerahn_end);
+        $form->get('sale_price_start')->setDefault($item->sale_price_start);
+        $form->get('sale_price_end')->setDefault($item->sale_price_end);
+        $form->get('date')->setDefault($item->date);
+        $form->get('cityid')->setDefault($item->cityid);
+        $this->view->form = $form;
     }
 
 }
