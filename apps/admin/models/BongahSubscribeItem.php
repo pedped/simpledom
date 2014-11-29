@@ -265,10 +265,10 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
 
         $plan = BongahSubscribeItem::findFirst($id);
 
-        $user = Bongah::findFirst($userid);
-        $user->bongahsubscribeitemid = $id;
-        $user->planvaliddate = ($plan->validdate * 3600 * 24 ) + time();
-        if (!$user->save()) {
+        $bongah = Bongah::findFirst($userid);
+        $bongah->bongahsubscribeitemid = $id;
+        $bongah->planvaliddate = ($plan->validdate * 3600 * 24 ) + time();
+        if (!$bongah->save()) {
             $errors[] = "خطا در هنگام پایان سفارش";
 
             $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای بنگاه داران $userid خطایی رخ داده است");
@@ -281,6 +281,23 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
             $bongahSubscriber->userid = $userid;
             $bongahSubscriber->orderid = $orderid;
             $bongahSubscriber->create();
+
+
+            // increase user sms credit
+            if (SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $userid)))) {
+                $item = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $userid)));
+                $item->value += $plan->defaultsmscredit;
+                return $item->save();
+            } else {
+                // we have to create new item
+                $smscredit = new SMSCredit();
+                $smscredit->value = $plan->defaultsmscredit;
+                $smscredit->userid = $userid;
+                return $smscredit->create();
+            }
+
+            // incraese bongah valid date
+            $bongah->validdate = $bongah->validdate + ($plan->aliddate * 3600 * 24);
 
             // saved successfully
             Helper::RedirectToURL(Config::getPublicUrl() . "bongah");
