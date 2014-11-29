@@ -3,7 +3,7 @@
     <div class='col-md-12'>
         <?php echo $this->getContent() ?>
     </div>
-    
+
     <div class='col-md-12'>
         <blockquote>
             <p>املاک تحت پوشش، املاکی هستند که در شعاع 10 کیلیومتری از شما باشند</p>
@@ -112,66 +112,71 @@
         <div class='row'>
             <div class='col-md-12'>
                 <!-- Amlak Motenseb !-->
-                <?php
-                // echo $melks->table;
-                ?>
-                <table class="table table-bordered table-striped table-condensed mb-none ">
-                    <tbody>
-                        <tr><th>کد ملک</th><th>نوع</th><th>منظور</th><th>وضعیت</th><th>متراژ</th><th>زیربنا</th><th>قیمت فروش</th><th>اجاره</th><th>رهن</th><th>اتاق خواب</th><th>حمام</th><th>شهر</th><th>ارائه شده توسط</th><th>تاریخ</th><th>مشاهده</th><th>ارسال ملک</th></tr>
-                        <?php foreach ($melks->items as $item) : ?>
-                            <tr>
-                                <td>
-                                    <?php echo $item->id; ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getTypeName(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getPurposeType(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getCondiationType(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getZirbana(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getMetraj(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getSalePrice(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getEjarePrice(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getRahnPrice(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->bedroom; ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->bath; ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getCityName(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getCreateByTilte(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getSimpleDate(); ?>
-                                </td>
-                                <td>
-                                    <?php echo $item->getViewButton(); ?>
-                                </td>
-                                <td>
-                                    <a class='btn btn-primary btn-sm' href='<?php echo $this->url->get("bongah/$currentBongah->id/sendmelktolistner/$item->id/$phoneListner->id"); ?>' >ارسال ملک</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <?php if (count($melks->items) > 0): ?>
+                    <table class="table table-bordered table-striped table-condensed mb-none ">
+                        <tbody>
+                            <tr><th>کد ملک</th><th>نوع</th><th>منظور</th><th>وضعیت</th><th>متراژ</th><th>زیربنا</th><th>قیمت فروش</th><th>اجاره</th><th>رهن</th><th>اتاق خواب</th><th>حمام</th><th>شهر</th><th>ارائه شده توسط</th><th>تاریخ</th><th>مشاهده</th><th>ارسال ملک</th></tr>
+                            <?php foreach ($melks->items as $item) : ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $item->id; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getTypeName(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getPurposeType(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getCondiationType(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getZirbana(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getMetraj(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getSalePrice(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getEjarePrice(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getRahnPrice(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->bedroom; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->bath; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getCityName(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getCreateByTilte(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getSimpleDate(); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $item->getViewButton(); ?>
+                                    </td>
+                                    <td>
+                                        <a class='btn btn-primary btn-sm' href='<?php echo $this->url->get("bongah/$currentBongah->id/sendmelktolistner/$item->id/$phoneListner->id"); ?>' >ارسال ملک</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="alert alert-warning">
+                        <h4 class="center" style="margin-bottom: 0px;"> 
+                            شما ملکی متناسب با نیاز این شخص موجود ندارید، املاک خود را به سامانه اضافه نمایید تا املاک متنساب شما پیدا گردند
+                        </h4>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
         <h2>املاک ارسالی</h2>
@@ -179,10 +184,18 @@
         <div class='row'>
             <div class='col-md-12'>
                 <!-- Amlak Ersali !-->
-                <?php
-                echo $sentmelklist->header;
-                echo $sentmelklist->table;
-                ?>
+                <?php if (count($sentmelklist->items) > 0) : ?>
+                    <?php
+                    echo $sentmelklist->header;
+                    echo $sentmelklist->table;
+                    ?>
+                <?php else: ?>
+                    <div class="alert alert-warning">
+                        <h4 class="center" style="margin-bottom: 0px;"> 
+                            شما تا کنون ملکی برای این شخص ارسال نکرده اید
+                        </h4>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

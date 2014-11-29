@@ -5,10 +5,11 @@
         <div class="panel-heading">
             <div class='row'>
                 <div class='col-md-7'>
-                    <h2 style="margin-bottom: 20px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
+                    <h2 style="margin-bottom: 20px;margin-top: 13px;"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
                 </div>
                 <div class='col-md-5 bongah-cuurent-subscription'>
-                    <h2 style="margin-bottom: 20px;">وضعیت اشتراک: <?php echo $subscriptionText; ?></h2>
+                    <p class="bongah-subscription-info">وضعیت اشتراک: <?php echo $subscriptionText; ?></p>
+                    <p class="bongah-smscredit">اعتبار پیامک: <?php echo $currentSMSCredit; ?></p>
                 </div>
             </div>
         </div>

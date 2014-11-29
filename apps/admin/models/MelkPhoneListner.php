@@ -613,8 +613,10 @@ class MelkPhoneListner extends AtaModel {
 
         // 1 : have melk that can be supported and did not sent yet
         $melkCount = $this->findApprochMelkCountByBongah();
-        $rate +=$melkCount > 0 ? 2 : 0;
-        $messages[] = "شما " . "<b>" . $melkCount . "</b>" . " ملک متناسب با نیاز این متقاضی دارید";
+        if ($melkCount > 0) {
+            $rate +=$melkCount > 0 ? 2 : 0;
+            $messages[] = "شما " . "<b>" . $melkCount . "</b>" . " ملک متناسب با نیاز این متقاضی دارید";
+        }
 
         // 2 : user request date is lower than 30 day
         $rate += $this->date > time() - (3600 * 24 * 30) ? 1 : 0;
@@ -627,8 +629,15 @@ class MelkPhoneListner extends AtaModel {
         // set rate
         $result->rate = $rate;
 
+
+
+        $infos = array();
+        foreach ($messages as $value) {
+            $infos[] = "<li>$value</li>";
+        }
+        
         // set message
-        $result->messages = implode("\n", $messages);
+        $result->messages = implode("\n", $infos);
 
         return $result;
     }

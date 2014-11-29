@@ -34,8 +34,23 @@
 
 
     .bongah-cuurent-subscription{
-        float: right  !important;
+        text-align: right;
+        padding-right: 5px;
+        border-right: 5px solid #aaa;
+        margin-right: 26px;
     }
+
+
+    .bongah-cuurent-subscription .bongah-smscredit {
+        font-size: 15px !important;
+        margin-bottom: 5px;
+    }
+
+    .bongah-cuurent-subscription .bongah-subscription-info {
+        margin-top: 3px;
+    }
+
+
     .bongah-cuurent-subscription > *{
         margin-bottom: 20px;
         font-size: 20px !important;
@@ -55,6 +70,7 @@
 
 .bongah-cuurent-subscription{
     float: left  !important;
+    text-align: center;
 }
 
 
@@ -564,4 +580,17 @@ footer .btn {
 
 .request-melk-page .panel  .panel {
     border: 1px solid #E8E8E8;
+}
+
+.bongah-subscription-info{
+    font-size: 22px;
+    margin-top: 12px;
+    margin-bottom: 2px;
+    color: #424242;
+}
+
+.bongah-smscredit{
+    padding-bottom: 0px;
+    color: #464646;
+    font-size: 16px;
 }

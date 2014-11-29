@@ -6,7 +6,7 @@
     <tbody>
         <tr>
             <th>کد</th>
-            <th>میزان بازدهی</th>
+            <th>احتمال سوددهی</th>
             <th>مناطق درخواستی</th> 
             <th>منظور</th> 
             <th>نوع ملک</th>
@@ -30,8 +30,8 @@
                 <td>
                     <?php echo $item->id; ?>
                 </td>
-                <td>
-                    <?php $successChart = $item->getSuccessRateForBongah($currentBongah); ?>
+                <?php $successChart = $item->getSuccessRateForBongah($currentBongah); ?>
+                <td class="rate-info" data-toggle="popover" title="میزان بازدهی درخواست برای بنگاه شما" data-content="<?php echo "<ul>" . $successChart->messages . "</ul>" ?>">
                     <div style="display: flex;direction: ltr;">
                         <?php for ($i = 0; $i <= $successChart->rate; $i++) : ?>
                             <img style="float: right;" src='<?php echo $this->url->get("img/money_icon.png"); ?>' />
@@ -91,7 +91,14 @@
     </tbody>
 </table>
 
-
+<script>
+    $('.rate-info').popover({
+        trigger: "hover",
+        container: "body",
+        placement: "left",
+        html: true
+    });
+</script>
 
 <?php
 //echo $list->header;

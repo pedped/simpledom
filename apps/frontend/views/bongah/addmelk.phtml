@@ -1,0 +1,510 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post' enctype="multipart/form-data">
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='row'>
+                <div class='col-md-6'>
+
+                    <!--  ADD Type !-->
+                    <?php $form->renderDecorated('melktypeid'); ?> 
+
+                    <!--  ADD Purpose !-->
+                    <?php $form->renderDecorated('melkpurposeid'); ?> 
+
+                    <!--  ADD Home Size !-->
+                    <?php $form->renderDecorated('home_size'); ?> 
+
+                    <!--  ADD Lot Size !-->
+                    <?php $form->renderDecorated('lot_size'); ?>
+
+                    <!--  ADD Bedrooms !-->
+                    <?php $form->renderDecorated('bedroom'); ?> 
+
+                    <!--  ADD Bath !-->
+                    <?php $form->renderDecorated('bath'); ?> 
+
+                    <!--  Description  !-->
+                    <?php $form->renderDecorated('description'); ?> 
+                    <hr/>
+
+
+                    <p> هزینه ای که برای فروش یا اجاره بر روی ملک گذاشته اید را وارد نمایید </p>
+
+                    <!--  ADD Sale Price !-->
+                    <?php $form->renderDecorated('sale_price'); ?> 
+
+                    <!--  ADD Rahn !-->
+                    <?php $form->renderDecorated('rent_pricerahn'); ?> 
+
+                    <!--  ADD Ejare !-->
+                    <?php $form->renderDecorated('rent_price'); ?> 
+                    <hr/>
+                    <!--  ADD Private Phone !-->
+                    <?php $form->renderDecorated('private_phone'); ?> 
+
+                    <!--  ADD Private Mobile !-->
+                    <?php $form->renderDecorated('private_mobile'); ?> 
+                </div>
+                <div class="col-md-6">
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <!--  ADD State ID !-->
+                            <?php $form->renderDecorated('stateid'); ?> 
+
+                            <!--  ADD City ID !-->
+                            <?php $form->renderDecorated('cityid'); ?> 
+
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
+
+                            <!--  ADD Private Address !-->
+                            <?php $form->renderDecorated('private_address'); ?>
+
+                            <!--  Map !-->
+                            <?php $form->renderDecorated('map'); ?> 
+                        </div>
+                    </div>
+                    <hr/>
+                    <?php
+                    $facilites = MelkFacilities::find();
+                    ?>
+                    <div class='row'>
+                        <?php foreach ($facilites as $facilty) : ?>
+                            <div class='col-md-3'>
+                                <label class="create-melk-facility-item" for='facilities[]'>
+                                    <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
+                                    <?php echo $facilty->name; ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <hr/>
+                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                    <!--  Image !-->
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img1'); ?> 
+                            <?php $form->renderDecorated('img3'); ?> 
+                            <?php $form->renderDecorated('img5'); ?> 
+                            <?php $form->renderDecorated('img7'); ?> 
+                            <?php $form->renderDecorated('img9'); ?> 
+                            <?php $form->renderDecorated('img11'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('img2'); ?> 
+                            <?php $form->renderDecorated('img4'); ?> 
+                            <?php $form->renderDecorated('img6'); ?> 
+                            <?php $form->renderDecorated('img8'); ?> 
+                            <?php $form->renderDecorated('img10'); ?> 
+                            <?php $form->renderDecorated('img12'); ?> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+
+
+    // hide all steps at start
+    $(".melk-step-panel").hide();
+    /**
+     * this function will go to the requestd step without any validate
+     * @param {type} newStep
+     * @param {type} oldStep
+     * @returns {undefined}
+     */
+    function showStep(newStep, oldStep)
+    {
+        // hide all steps at first time
+        $(".melk-step-panel[data-step='" + oldStep + "']").fadeOut(250, function() {
+            $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250, function() {
+                if (newStep == 3)
+                {
+                    google.maps.event.trigger(map, 'resize');
+                }
+            });
+        });
+        // show in wizard mode
+        $(".melk-wizard-step[data-step='" + oldStep + "']").removeClass('active').addClass("done");
+        $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
+
+
+        $('html, body').animate({scrollTop: 0}, 400);
+        return false;
+    }
+
+    /**
+     * this function will ready step
+     * @param {type} step
+     * @returns {undefined}
+     */
+    function readyStep(step)
+    {
+        if (step == 2)
+        {
+            // get melk type
+            // we have to show all optiosn first
+            $("#lot_size_holder").show();
+            $("#bedroom_holder").show();
+            $("#bath_holder").show();
+            $("#home_size_holder").show();
+            switch ($("#melktypeid").val())
+            {
+                case "1":
+                    // khane
+                    break;
+                case "2":
+                    // aparteman
+                    $("#lot_size_holder").hide();
+                    break;
+                case "3":
+                    // daftar kar
+                    $("#bath_holder").hide();
+                    $("#lot_size_holder").hide();
+                    break;
+                case "4":
+                    // vila
+                    break;
+                case "5":
+                    // zamin
+                    $("#bedroom_holder").hide();
+                    $("#bath_holder").hide();
+                    $("#home_size_holder").hide();
+                    break;
+                case "6":
+                    // otaghe kar
+                    $("#lot_size_holder").hide();
+                    $("#bedroom_holder").hide();
+                    $("#bath_holder").hide();
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("نوع ملک معتبر نمیباشد");
+                    break;
+            }
+
+
+            // check for purpose
+            switch ($("#melkpurposeid").val())
+            {
+                case "1":
+                    // forosh
+                    $("#sale_price_holder").show();
+                    $("#rent_price_holder").hide();
+                    $("#rent_pricerahn_holder").hide();
+                    break;
+                case "2":
+                    // ejare
+                    $("#sale_price_holder").hide();
+                    $("#rent_price_holder").show();
+                    $("#rent_pricerahn_holder").show();
+                    break;
+                case "3":
+                    // forosh va ejare
+                    $("#sale_price_holder").show();
+                    $("#rent_price_holder").show();
+                    $("#rent_pricerahn_holder").show();
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("منظور ملک معتبر نمیباشد");
+                    break;
+            }
+        }
+
+
+        if (step == 3)
+        {
+
+        }
+
+
+
+        if (step == 4)
+        {
+
+        }
+
+
+        if (step == 5)
+        {
+
+        }
+
+
+        if (step == 6)
+        {
+
+        }
+    }
+
+    /**
+     * this function will validate step
+     * @param {type} step
+     * @returns {undefined}
+     */
+    function validStep(step) {
+
+        // step one is choose type and purpose
+        if (step == 2)
+        {
+            // Moshakasatee Melk
+            switch ($("#melktypeid").val())
+            {
+                case "1":
+                    // khane
+                    if ($("#home_size").val() == "")
+                    {
+                        alert("مقدار سایز خانه را وارد نمایید");
+                        return false;
+                    }
+
+                    if ($("#lot_size").val() == "")
+                    {
+                        alert("مقدار متراژ زمین را وارد نمایید");
+                        return false;
+                    }
+
+                    break;
+                case "2":
+                    // aparteman
+                    if ($("#home_size").val() == "")
+                    {
+                        alert("متراژ آپارتمان را وارد نمایید");
+                        return false;
+                    }
+
+                    break;
+                case "3":
+                    // daftar kar
+                    if ($("#home_size").val() == "")
+                    {
+                        alert("متراژ دفتر را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                case "4":
+                    // vila
+                    if ($("#lot_size").val() == "")
+                    {
+                        alert("مقدار متراژ زمین را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                case "5":
+                    // zamin
+                    if ($("#lot_size").val() == "")
+                    {
+                        alert("مقدار متراژ زمین را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                case "6":
+                    // otaghe kar
+                    if ($("#home_size").val() == "")
+                    {
+                        alert("متراژ اتاق را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("نوع ملک معتبر نمیباشد");
+                    break;
+            }
+
+
+
+        }
+        if (step == 3)
+        {
+            // Moghiyate  Melk
+            if ($("#address").val() == "")
+            {
+                alert("خیابان اصلی را وارد نمایید");
+                return false;
+            }
+            // Moghiyate  Melk
+            if ($("#private_address").val() == "")
+            {
+                alert("آدرس دقیق ملک را وارد نمایید");
+                return false;
+            }
+        }
+        if (step == 4)
+        {
+            // Gheymat  Melk
+            // check for purpose
+            switch ($("#melkpurposeid").val())
+            {
+                case "1":
+                    // forosh
+                    if ($("#sale_price").val() == "")
+                    {
+                        alert("قیمت ملک را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                case "2":
+                    // ejare
+
+                    if ($("#rent_pricerahn").val() == "")
+                    {
+                        alert("قیمت رهن را وارد نمایید");
+                        return false;
+                    }
+
+                    if ($("#rent_price").val() == "")
+                    {
+                        alert("قیمت اجاره را وارد نمایید");
+                        return false;
+                    }
+
+                    break;
+                case "3":
+                    // forosh va ejare
+                    if ($("#sale_price").val() == "")
+                    {
+                        alert("قیمت ملک را وارد نمایید");
+                        return false;
+                    }
+
+                    if ($("#rent_pricerahn").val() == "")
+                    {
+                        alert("قیمت رهن را وارد نمایید");
+                        return false;
+                    }
+
+                    if ($("#rent_price").val() == "")
+                    {
+                        alert("قیمت اجاره را وارد نمایید");
+                        return false;
+                    }
+                    break;
+                default:
+                    // Type Is Not valid
+                    alert("منظور ملک معتبر نمیباشد");
+                    break;
+            }
+        }
+
+        if (step == 6)
+        {
+            // Etelate Tamas
+            if ($("#private_phone").val() == "")
+            {
+                alert("تلفن تماس را وارد نمایید");
+                return false;
+            }
+
+            if ($("#private_mobile").val() == "")
+            {
+                alert("شماره موبایل را وارد نمایید");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    // add event on next button click
+    $('body').on('click', '#nextbtn', function() {
+        // get step
+        var currenctStep = $(this).data('step');
+        if (validStep(currenctStep))
+        {
+            readyStep(currenctStep + 1);
+            showStep(currenctStep + 1, currenctStep);
+
+        }
+
+    });
+    // add event on next button click
+    $('body').on('click', '#backbtn', function() {
+        // get step
+        var currenctStep = $(this).data('step');
+        showStep(currenctStep - 1, currenctStep);
+    });
+    // show step0
+    showStep(0, 0);</script>
+
+<script>
+
+    var citiesid = [];
+    var cities = [];
+<?php
+foreach ($cities as $city) {
+    echo "citiesid[$city->id] = \"$city->name\";\n";
+    $ci = $city->getStateCitiesIDWithComma();
+    echo "cities[$city->stateid] = \"$ci\";\n";
+}
+?>
+
+
+    function onstatechange(selectedstate)
+    {
+        var ids = cities[selectedstate];
+        var cityids = ids.split(",");
+        // remove old cities
+        var citylisteleemnt = $('#cityid');
+        citylisteleemnt.find('option').remove().end();
+        $.each(cityids, function(index, id) {
+            if (index == 0)
+            {
+                oncitychange(citiesid[id]);
+            }
+            citylisteleemnt.append('<option value="' + id + '">' + citiesid[id] + '</option>');
+        });
+    }
+
+    function locatteToAddress(address)
+    {
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                $("#map_latitude").val(results[0].geometry.location.lat().toFixed(6)).trigger("change");
+                $("#map_longitude").val(results[0].geometry.location.lng().toFixed(6)).trigger("change");
+            } else {
+                alert("Lat and long cannot be found.");
+            }
+        });
+    }
+
+    function oncitychange(city)
+    {
+        var state = $("#stateid").find("option:selected").text();
+        var address = "ایران، " + city;
+        console.log(address);
+        locatteToAddress(address);
+    }
+
+    $("#stateid").change(function() {
+        onstatechange(this.value);
+    });
+    var addressChangeTimeOut = 0;
+    $("#address").change(function() {
+
+        clearTimeout(addressChangeTimeOut);
+        addressChangeTimeOut = setTimeout(function() {
+            var city = $("#cityid").find("option:selected").text();
+            var address = $("#address").val();
+            var address = "ایران، " + city + "،" + address;
+            console.log(address);
+            locatteToAddress(address);
+        }, 150);
+    });
+    var geocoder = new google.maps.Geocoder();
+    $("#cityid").change(function() {
+        var city = citiesid[$(this).val()];
+        oncitychange(city);
+    });
+
+
+</script>
+

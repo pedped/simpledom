@@ -10,15 +10,21 @@ use BongahSentMessage;
 use BongahSubscribeItem;
 use City;
 use CreateBongahForm;
+use CreateMelkForm;
 use Melk;
+use MelkArea;
+use MelkImage;
+use MelkInfo;
 use MelkPhoneListner;
 use SendBongahSmsForm;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
+use UserPhone;
 
 class BongahController extends ControllerBase {
 
@@ -86,6 +92,10 @@ class BongahController extends ControllerBase {
             $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><span style='color:#EE22BD'>" . $subscriptionTitle . "</span></a>";
         }
 
+        // load sms credit
+        $this->view->currentSMSCredit = $this->user->getSMSCredit();
+
+        // load bongah
         $this->view->currentBongah = $this->bongah;
     }
 
@@ -95,6 +105,139 @@ class BongahController extends ControllerBase {
 
     public function waitforapproveAction() {
         $this->setPageTitle("در انتظار تایید");
+    }
+
+    public function addmelkAction() {
+
+        $this->setPageTitle("افزودن ملک");
+
+        // show cities to view
+        $this->view->cities = City::find();
+
+        $fr = new CreateMelkForm();
+        $this->handleFormScripts($fr);
+
+        if ($this->request->isPost()) {
+
+            //var_dump($_POST);
+            if ($fr->isValid($_POST)) {
+
+                // get correcrt phone number
+                $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
+                if (!$phone) {
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                }
+
+                // check if we have any error
+                if (!$this->hasError()) {
+
+                    // form is valid
+                    $melk = new Melk();
+                    $melk->userid = $this->user->userid;
+                    $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
+                    $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
+                    $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
+                    $melk->home_size = $this->request->getPost('home_size', 'string');
+                    $melk->lot_size = $this->request->getPost('lot_size', 'string');
+                    $melk->sale_price = $this->request->getPost('sale_price', 'string');
+                    $melk->rent_price = $this->request->getPost('rent_price', 'string');
+                    $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
+                    $melk->bedroom = $this->request->getPost('bedroom', 'string');
+                    $melk->bath = $this->request->getPost('bath', 'string');
+                    $melk->stateid = $this->request->getPost('stateid', 'string');
+                    $melk->cityid = $this->request->getPost('cityid', 'string');
+                    $melk->createby = 2;
+                    $melk->featured = 0;
+                    $melk->approved = 0;
+
+                    if (!$melk->create()) {
+                        $melk->showErrorMessages($this);
+                    } else {
+
+                        // we have to create melk info
+                        $melkinfo = new MelkInfo();
+                        $melkinfo->description = $this->request->getPost('description', 'string');
+                        $melkinfo->address = $this->request->getPost('address', 'string');
+                        $melkinfo->latitude = $this->request->getPost('map_latitude');
+                        $melkinfo->longitude = $this->request->getPost('map_longitude');
+                        $melkinfo->melkid = $melk->id;
+                        $melkinfo->private_address = $this->request->getPost('private_address', "string");
+                        $melkinfo->private_mobile = $phone;
+                        $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
+                        $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
+                        if (!$melkinfo->create()) {
+                            $melkinfo->showErrorMessages($this);
+                        } else {
+
+
+                            // save images
+                            if ($this->request->hasFiles()) {
+                                // valid request, load the files
+                                foreach ($this->request->getUploadedFiles() as $file) {
+                                    $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                                    if ($image) {
+                                        $melkImage = new MelkImage();
+                                        $melkImage->imageid = $image->id;
+                                        $melkImage->melkid = $melk->id;
+                                        $melkImage->create();
+                                    }
+                                }
+                            }
+
+                            // create area if not exist
+                            $areaid = Area::GetID($melk->cityid, $melkinfo->address);
+
+                            // add melk area
+                            $melkArea = new MelkArea();
+                            $melkArea->areaid = $areaid;
+                            $melkArea->byuserid = $this->user->userid;
+                            $melkArea->cityid = $melk->cityid;
+                            $melkArea->ip = $_SERVER["REMOTE_ADDR"];
+                            $melkArea->melkid = $melk->id;
+                            $melkArea->create();
+
+                            // check if we have user phone
+                            $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
+                            if (!$userPhone) {
+                                // user phone is not exist
+                                $userPhone = new UserPhone();
+                                $userPhone->phone = $melkinfo->private_mobile;
+                                $userPhone->userid = $this->user->userid;
+                                if ($userPhone->create()) {
+                                    $userPhone->sendVerificationNumber();
+                                    $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                                }
+                            } else {
+                                if (intval($userPhone->userid) == intval($this->user->userid)) {
+                                    // user phone is for the user
+                                    if (intval($userPhone->verified) == 1) {
+                                        // redirect to after melk create
+                                        $this->redirectAfterMelkCreating($melk->id, $melkinfo->private_mobile);
+                                    } else {
+                                        // user phone is not verified yet
+                                        $userPhone->sendVerificationNumber();
+                                        $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+                                    }
+                                } else {
+                                    // shomare tamase shakse digar
+                                    $USERID = $this->user->userid;
+                                    $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
+                                    $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
+                                }
+                            }
+
+                            // clear the title and message so the user can add better info
+                            $fr->clear();
+                        }
+                    }
+                }
+            } else {
+                // invalid
+                $fr->flashErrors($this);
+            }
+        }
+
+        $this->view->form = $fr;
     }
 
     /**
@@ -386,13 +529,13 @@ class BongahController extends ControllerBase {
         //
         // find user sent messages
         //
-        $sentMelk = BongahSentMelk::find(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->bongah->id)));
-        $paginator = new AtaPaginator(array(
+        $sentMelk = BongahSentMelk::find(array("bongahid = :bongahid: AND melkphonelistnerid = :melkphonelistnerid:", "bind" => array("bongahid" => $this->bongah->id, "melkphonelistnerid" => $phonelistnerid)));
+        $sentMelkPaginator = new AtaPaginator(array(
             'data' => $sentMelk,
             'limit' => 1000,
             'page' => 1
         ));
-        $paginator->
+        $sentMelkPaginator->
                 setTableHeaders(array(
                     'کد', 'کد بنگاه', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
                 ))->
@@ -401,7 +544,7 @@ class BongahController extends ControllerBase {
                 ))->setListPath(
                 "");
 
-        $this->view->sentmelklist = $paginator->getPaginate();
+        $this->view->sentmelklist = $sentMelkPaginator->getPaginate();
 
 
         // 
@@ -626,6 +769,7 @@ class BongahController extends ControllerBase {
     public function settingsAction($id) {
 
         $bongah = Bongah::findFirst($id);
+        $this->view->cities = City::find();
 
         if (!$this->ValidateAccess($id)) {
             // user do not have permission to edut this object
