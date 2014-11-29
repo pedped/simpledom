@@ -15,7 +15,7 @@ body{
 }
 
 #page-container-body{
-    padding-bottom: 380px;
+    padding-bottom: 20px;
 }
 
 html{
@@ -130,10 +130,21 @@ footer {
     border-top: 2px solid #79A736;
     background-color: rgba(245, 245, 245, 0.5);
     padding-bottom: 20px;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    color: #838383;
+
+}
+
+footer .form-control {
+    background-color: #000;
+    color: #eee;
+}
+
+
+footer .btn {
+    background-color: #000;
+    color: #fff;
+    border-color: #f00;
+    font-size: 120%;
+
 }
 
 .page-opinion ._opinion-item{
