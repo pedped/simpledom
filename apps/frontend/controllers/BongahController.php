@@ -115,6 +115,9 @@ class BongahController extends ControllerBase {
         $this->view->cities = City::find();
 
         $fr = new CreateMelkForm();
+        $fr->remove("fname");
+        $fr->remove("lname");
+        $fr->remove("email");
         $this->handleFormScripts($fr);
 
         if ($this->request->isPost()) {
@@ -146,9 +149,10 @@ class BongahController extends ControllerBase {
                     $melk->bath = $this->request->getPost('bath', 'string');
                     $melk->stateid = $this->request->getPost('stateid', 'string');
                     $melk->cityid = $this->request->getPost('cityid', 'string');
-                    $melk->createby = 2;
+                    $melk->createby = 1;
                     $melk->featured = 0;
-                    $melk->approved = 0;
+                    $melk->approved = 1;
+                    $melk->validdate = 3600 * 24 * 180;
 
                     if (!$melk->create()) {
                         $melk->showErrorMessages($this);
@@ -163,12 +167,12 @@ class BongahController extends ControllerBase {
                         $melkinfo->melkid = $melk->id;
                         $melkinfo->private_address = $this->request->getPost('private_address', "string");
                         $melkinfo->private_mobile = $phone;
+                        $melkinfo->bongahid = $this->bongah->id;
                         $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
                         $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
                         if (!$melkinfo->create()) {
                             $melkinfo->showErrorMessages($this);
                         } else {
-
 
                             // save images
                             if ($this->request->hasFiles()) {
@@ -204,27 +208,18 @@ class BongahController extends ControllerBase {
                                 $userPhone->phone = $melkinfo->private_mobile;
                                 $userPhone->userid = $this->user->userid;
                                 if ($userPhone->create()) {
-                                    $userPhone->sendVerificationNumber();
-                                    $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
-                                }
-                            } else {
-                                if (intval($userPhone->userid) == intval($this->user->userid)) {
-                                    // user phone is for the user
-                                    if (intval($userPhone->verified) == 1) {
-                                        // redirect to after melk create
-                                        $this->redirectAfterMelkCreating($melk->id, $melkinfo->private_mobile);
-                                    } else {
-                                        // user phone is not verified yet
-                                        $userPhone->sendVerificationNumber();
-                                        $this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
-                                    }
-                                } else {
-                                    // shomare tamase shakse digar
-                                    $USERID = $this->user->userid;
-                                    $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
-                                    $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
+                                    //$userPhone->sendVerificationNumber();
+                                    //$this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
                                 }
                             }
+
+                            // forward location
+                            $this->dispatcher->forward(array(
+                                "controller" => "bongah",
+                                "action" => "melks",
+                                "bongahid" => $this->bongah->id,
+                                "params" => array()
+                            ));
 
                             // clear the title and message so the user can add better info
                             $fr->clear();
@@ -468,7 +463,7 @@ class BongahController extends ControllerBase {
                     'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
                 ))->
                 setFields(array(
-                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getMetraj()', 'getZirbana()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
                 ))->setListPath(
                 $listpath);
 

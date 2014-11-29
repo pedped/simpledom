@@ -11,10 +11,10 @@
                 <h3 class="title">
                     <?php echo $plan->title; ?>
                 </h3>
+                <p class="smscansent"><?php echo $plan->totalsms; ?> پیامک</p>
                 <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
-                <p>تعداد پیامک های قابل ارسال : <?php echo $plan->totalsms; ?></p>
                 <hr/>
-                <p><?php echo $plan->description; ?></p>
+                <p class="description"><?php echo $plan->description; ?></p>
                 <hr/>
                 <!-- Button !-->
                 <a class="btn btn-lg btn-success" href="<?php echo $this->url->get("smscredit/buy/" . $plan->id); ?>">سفارش</a>

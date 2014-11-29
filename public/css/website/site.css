@@ -124,20 +124,38 @@
 }
 
 .plan-thumbnail .price{
-    margin-top: 12px;
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
+
+.plan-thumbnail .smscansent{
+    margin-bottom: 0px;
+    font-size: 27px;
+    margin-top: 24px;
+}
+
+.plan-thumbnail .description{
+    font-size: 19px;
+    color: #D60982;
+}
+
 .plan-thumbnail hr{
     margin: 10px 90px;
     border-top: 1px dotted #C7C7C7;
 }
 
-.plan-thumbnail.plan-3{
+.plan-thumbnail.plan-4{
     color: #fff;
     background-color: #FF1F5B;
 }
 
-.plan-thumbnail.plan-3 .price,
-.plan-thumbnail.plan-3 .title
+.plan-thumbnail.plan-2 .description{
+    line-height: 297%;
+}
+
+.plan-thumbnail.plan-4 .price,
+.plan-thumbnail.plan-4 .title,
+.plan-thumbnail.plan-4 .description
 {
     color : #fff !important;
 }
@@ -593,4 +611,9 @@ footer .btn {
     padding-bottom: 0px;
     color: #464646;
     font-size: 16px;
+}
+
+
+.bongah-melk-count-info{
+    font-size: 20px;
 }
