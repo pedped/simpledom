@@ -1,5 +1,5 @@
 <footer>
-    <div class="footer">
+    <div class="footer congruent-outline-bg">
         <div class="container">
             <div class="row">
                 <!-- Contact Us !-->
@@ -37,3 +37,13 @@
         </div>
     </div>   
 </footer>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var docHeight = $(window).height();
+        var footerHeight = $('footer').height();
+        var footerTop = $('footer').position().top + footerHeight;
+        if (footerTop < docHeight) {
+            $('footer').css('margin-top', (docHeight - footerTop) - 66 + 'px');
+        }
+    });
+</script>

@@ -1,11 +1,5 @@
 body{
-    background-color: #f0f0f0;
-    background: url("../../img/background.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    color : #555;
+    background-color: #48898D;
     padding-top: 63px;
     overflow-y: scroll;
     font-family: 'Source Sans Pro';
@@ -14,14 +8,21 @@ body{
 
 }
 
-#page-container-body{
-    padding-bottom: 20px;
-}
-
 html{
     height: 100%;
 }
 
+.tweed-bg{
+    background-color: #000;
+    background-image: url('../../img/tweed.png');
+    background-repeat: repeat;
+}
+
+.congruent-outline-bg{
+    background-color: #000;
+    background-image: url('../../img/congruent_outline.png');
+    background-repeat: repeat;
+}
 
 h1,
 h2,
@@ -107,8 +108,7 @@ hr{
 
 
 .footer .head {
-    font-size: 16px;
-    color: #838383;
+    color: rgb(154, 245, 235);;
     font-weight: 800;
     text-transform: uppercase;
 }
@@ -120,17 +120,14 @@ hr{
 
 .footer .link-item {
     font-size: 14px;
-    color: #838383;
+    color: #fff;
     font-weight: 200;
     text-transform: uppercase;
 }
 
 footer {
-    margin-top: 80px;
     border-top: 2px solid #79A736;
     background-color: rgba(245, 245, 245, 0.5);
-    padding-bottom: 20px;
-
 }
 
 footer .form-control {
@@ -145,6 +142,10 @@ footer .btn {
     border-color: #f00;
     font-size: 120%;
 
+}
+
+footer p {
+    color: #fff;
 }
 
 .page-opinion ._opinion-item{
@@ -539,7 +540,7 @@ ul.tagit li{
 #sequence .title {
     bottom: 60%;
     font-size: 3.8em;
-    left: 0;
+    right: 0;
     opacity: 0;
     text-transform: none;
     width: 35%;
@@ -550,36 +551,36 @@ ul.tagit li{
     transition-duration: 1.5s;
 }
 #sequence .animate-in .title {
-    left: 15%;
+    right: 15%;
     opacity: 1;
     transition-duration: 0.5s;
 }
 #sequence .animate-out .title {
-    left: 35%;
+    right: 35%;
     opacity: 0;
     transition-duration: 0.5s;
 }
 .subtitle {
     color: black;
     font-size: 2em;
-    left: 35%;
+    right: 35%;
     opacity: 0;
     top: 40%;
     width: 35%;
 }
 .animate-in .subtitle {
-    left: 15%;
+    right: 15%;
     opacity: 1;
     transition-duration: 0.5s;
 }
 .animate-out .subtitle {
-    left: 65%;
+    right: 65%;
     opacity: 0;
     transition-duration: 0.5s;
 }
 .slide-img {
     height: auto !important;
-    left: 90%;
+    right: 90%;
     max-height: 450px !important;
     max-width: 45% !important;
     opacity: 0;
@@ -587,12 +588,12 @@ ul.tagit li{
     top: 20%;
 }
 .animate-in .slide-img {
-    left: 55%;
+    right: 55%;
     opacity: 1;
     transition-duration: 1s;
 }
 .animate-out .slide-img {
-    left: 15%;
+    right: 15%;
     opacity: 0;
     transition-duration: 1s;
 }
@@ -628,32 +629,32 @@ ul.tagit li{
 }
 @media only screen and (max-width: 568px) {
     .slide-img {
-        left: 50%;
+        right: 50%;
         max-width: 80% !important;
         width: auto;
     }
     #sequence .animate-in .slide-img {
-        left: 50%;
+        right: 50%;
         margin-left: -40%;
     }
     #sequence .animate-out .slide-img {
-        left: 20%;
+        right: 20%;
         margin-left: -20%;
     }
     #sequence .title {
         background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
         bottom: 0;
-        left: 100%;
+        right: 100%;
         margin-bottom: 0;
         padding: 4%;
         width: 100%;
         z-index: 10;
     }
     #sequence .animate-in .title {
-        left: 0;
+        right: 0;
     }
     #sequence .animate-out .title {
-        left: -100%;
+        right: -100%;
     }
     #sequence .subtitle {
         visibility: hidden;
