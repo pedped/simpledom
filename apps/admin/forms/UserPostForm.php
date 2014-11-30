@@ -19,17 +19,17 @@ class UserPostForm extends AtaForm {
 
         // User ID
         $userid = new TextElement('userid');
-        $userid->setLabel('User ID');
+        $userid->setLabel('کد کاربر');
         //$userid->setAttribute('placeholder', 'Enter your User ID');
         $userid->setAttribute('class', 'form-control');
-        $userid->addValidator(new PresenceOf(array(
-        )));
         $this->add($userid);
 
 
         // Post ID
-        $postid = new TextElement('postid');
-        $postid->setLabel('Post ID');
+        $postid = new SelectElement('postid', Post::find(), array(
+            "using" => array("id", "name")
+        ));
+        $postid->setLabel('سمت');
         //$postid->setAttribute('placeholder', 'Enter your Post ID');
         $postid->setAttribute('class', 'form-control');
         $postid->addValidator(new PresenceOf(array(
@@ -39,15 +39,17 @@ class UserPostForm extends AtaForm {
 
         // Code
         $code = new TextElement('code');
-        $code->setLabel('Code');
+        $code->setLabel('کد اختصاصی');
         //$code->setAttribute('placeholder', 'Enter your Code');
         $code->setAttribute('class', 'form-control');
         $this->add($code);
-        
+
         // Code
         $phonenumber = new TextElement('phonenumber');
-        $phonenumber->setLabel('Phone Number');
+        $phonenumber->setLabel('شماره تماس');
         $phonenumber->setAttribute('class', 'form-control');
+        $phonenumber->addValidator(new PresenceOf(array(
+        )));
         $this->add($phonenumber);
 
         // Submit Button
