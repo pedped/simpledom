@@ -17,19 +17,18 @@
                 </header>
                 <div class='panel-body'>
 
-
-
-                    <!--  ADD User ID !-->
-                    <?php $form->renderDecorated('userid'); ?> 
-
-                    <!--  ADD Post ID !-->
-                    <?php $form->renderDecorated('postid'); ?> 
-
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!--  ADD Post ID !-->
+                            <?php $form->renderDecorated('postid'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('phonenumber'); ?> 
+                        </div>
+                    </div>
+                    
                     <!--  ADD Code !-->
                     <?php $form->renderDecorated('code'); ?> 
-                    
-                    <?php $form->renderDecorated('phonenumber'); ?> 
-
 
                     <!-- Submit Button !-->
                     <br/>

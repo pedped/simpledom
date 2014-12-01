@@ -236,11 +236,7 @@ class UserControllerBase extends ControllerBase {
                     // we need to log this action for the user
                     BaseUserLog::byUserID($user->userid)->setAction("Login To System")->Create();
 
-                    // go to welcome page
-                    return $this->dispatcher->forward(array(
-                                "controller" => "index",
-                                "action" => "index"
-                    ));
+                    return $this->redirectAfterLoginAction($user);
                 } else {
                     // unabel to find the user
                     $this->flash->error(_("Unable to find user"));
@@ -556,6 +552,14 @@ class UserControllerBase extends ControllerBase {
 
     protected function ValidateAccess($id) {
         return true;
+    }
+
+    public function redirectAfterLoginAction($user) {
+        // go to welcome page
+        return $this->dispatcher->forward(array(
+                    "controller" => "index",
+                    "action" => "index"
+        ));
     }
 
 }

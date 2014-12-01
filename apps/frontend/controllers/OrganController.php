@@ -44,6 +44,8 @@ class OrganController extends ControllerBase {
     }
 
     public function dashboardAction() {
+        
+        
         $fr = new OrganDashboardForm();
         $this->handleFormScripts($fr);
 
@@ -303,7 +305,7 @@ class OrganController extends ControllerBase {
         // load the users
         $sendpermissions = SendPermission::find(
                         array(
-                            'order' => 'id DESC'
+                            'order' => 'userpost1 DESC , id DESC '
         ));
 
 
@@ -487,7 +489,7 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User Name', 'Post Name', 'User ID', 'Post ID', 'User Phone', 'Code'
+                    'کد', 'نام', 'سمت', 'کد کاربر', 'کد سمت', 'شماره تماس', 'کد'
                 ))->
                 setFields(array(
                     'id', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'phonenumber', 'code'

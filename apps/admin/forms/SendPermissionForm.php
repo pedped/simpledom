@@ -18,8 +18,12 @@ class SendPermissionForm extends AtaForm {
 
 
         // User Post From
-        $userpost1 = new TextElement('userpost1');
-        $userpost1->setLabel('User Post From');
+        $userpost1 = new SelectElement('userpost1', Post::find(), array(
+            "using" => array(
+                "id", "name"
+            )
+        ));
+        $userpost1->setLabel('ارسال کننده');
         //$userpost1->setAttribute('placeholder', 'Enter your User Post From');
         $userpost1->setAttribute('class', 'form-control');
         $userpost1->addValidator(new PresenceOf(array(
@@ -28,8 +32,12 @@ class SendPermissionForm extends AtaForm {
 
 
         // User Post To
-        $userpost2 = new TextElement('userpost2');
-        $userpost2->setLabel('User Post To');
+        $userpost2 = new SelectElement('userpost2', Post::find(), array(
+            "using" => array(
+                "id", "name"
+            )
+        ));
+        $userpost2->setLabel('گیرنده');
         //$userpost2->setAttribute('placeholder', 'Enter your User Post To');
         $userpost2->setAttribute('class', 'form-control');
         $userpost2->addValidator(new PresenceOf(array(
@@ -39,7 +47,7 @@ class SendPermissionForm extends AtaForm {
 
         // Can Send
         $cansend = new EnableDisableElement('cansend');
-        $cansend->setLabel('Can Send');
+        $cansend->setLabel('قابلیت ارسال');
         //$cansend->setAttribute('placeholder', 'Enter your Can Send');
         $cansend->setAttribute('class', 'form-control');
         $cansend->addValidator(new PresenceOf(array(
