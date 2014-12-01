@@ -11,7 +11,7 @@ class UserPostForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel('شناسه');
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -56,6 +56,7 @@ class UserPostForm extends AtaForm {
         $submit = new Submit('submit');
         $submit->setName('submit');
         $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute('value', 'ذخیره');
         $this->add($submit);
     }
 

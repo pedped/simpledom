@@ -321,7 +321,7 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'سمت ارسال کننده', 'سمت گیرنده', 'قابلیت ارسال'
+                    'شناسه', 'سمت ارسال کننده', 'سمت گیرنده', 'قابلیت ارسال'
                 ))->
                 setFields(array(
                     'id', 'getUserPostOneName()', 'getUserPostTwoName()', 'canSendTitle()'
@@ -909,7 +909,7 @@ class OrganController extends ControllerBase {
 
 
         // set title
-        $this->setPageTitle('Edit Organ');
+        $this->setPageTitle('ویرایش ارگان');
 
         $organItem = Organ::findFirst(array("id = :id:", "bind" => array("id" => $this->organID)));
 
@@ -931,7 +931,7 @@ class OrganController extends ControllerBase {
                 if (!$organ->save()) {
                     $organ->showErrorMessages($this);
                 } else {
-                    $organ->showSuccessMessages($this, 'Organ Saved Successfully');
+                    $organ->showSuccessMessages($this, 'با موفقیت ذخیره شد.');
                 }
             } else {
                 // invalid

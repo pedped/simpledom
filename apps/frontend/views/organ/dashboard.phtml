@@ -146,7 +146,7 @@
                     <td>
                         <?= $item->id ?>
                     </td>
-                    <td style="text-align: right">
+                    <td class='message-holder' data-content='<?= nl2br($item->message) ?>' style="text-align: right">
                         <?= Helper::wordLimiter($item->message, 10) ?>
                     </td>
                     <td>
@@ -171,3 +171,13 @@
 
     </div>
 </div>
+
+<script>
+$(".message-holder").popover({
+    show : 'hover',
+    container : 'body',
+    html : true,
+    placement : 'top',
+    trigger : 'hover'
+});
+</script>

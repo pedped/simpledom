@@ -11,7 +11,7 @@ class PostForm extends AtaForm {
 
         // ID
         $id = new TextElement('id');
-        $id->setLabel('ID');
+        $id->setLabel('شناسه');
         //$id->setAttribute('placeholder', 'Enter your ID');
         $id->setAttribute('class', 'form-control');
         $this->add($id);
@@ -21,7 +21,7 @@ class PostForm extends AtaForm {
         $organid = new SelectElement('organid', Organ::find(), array(
             "using" => array("id", "name")
         ));
-        $organid->setLabel('Organ ID');
+        $organid->setLabel('شناسه سازمان');
         //$organid->setAttribute('placeholder', 'Enter your Organ ID');
         $organid->setAttribute('class', 'form-control');
         $organid->addValidator(new PresenceOf(array(
@@ -31,7 +31,7 @@ class PostForm extends AtaForm {
 
         // Name
         $name = new TextElement('name');
-        $name->setLabel('Name');
+        $name->setLabel('نام');
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
         $name->addValidator(new PresenceOf(array(
@@ -41,7 +41,7 @@ class PostForm extends AtaForm {
 
         // Key
         $key = new TextElement('key');
-        $key->setLabel('Key');
+        $key->setLabel('کلید');
         //$key->setAttribute('placeholder', 'Enter your Key');
         $key->setAttribute('class', 'form-control');
         $key->addValidator(new PresenceOf(array(
@@ -51,7 +51,7 @@ class PostForm extends AtaForm {
 
         // SMS Key
         $smskey = new TextElement('smskey');
-        $smskey->setLabel('SMS Key');
+        $smskey->setLabel('کلید پیامک');
         //$smskey->setAttribute('placeholder', 'Enter your SMS Key');
         $smskey->setAttribute('class', 'form-control');
         $smskey->addValidator(new PresenceOf(array(
@@ -62,6 +62,7 @@ class PostForm extends AtaForm {
         $submit = new Submit('submit');
         $submit->setName('submit');
         $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute('value', 'ذخیره');
         $this->add($submit);
     }
 
