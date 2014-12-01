@@ -112,7 +112,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('http://notifysystem.edspace.org/');
+    $url->setBaseUri('http://www.feij.ir/');
 
     return $url;
 };
