@@ -138,14 +138,14 @@ try {
         "organid" => 1,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/posts/edit/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/posts/edit/:params", array(
         "controller" => "post",
         "action" => "edit",
         "organid" => 1,
         "params" => 2,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/posts/delete/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/posts/delete/:params", array(
         "controller" => "post",
         "action" => "delete",
         "organid" => 1,
@@ -160,14 +160,14 @@ try {
         "organid" => 1,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/users/edit/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/users/edit/:params", array(
         "controller" => "userpost",
         "action" => "edit",
         "organid" => 1,
         "params" => 2,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/users/delete/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/users/delete/:params", array(
         "controller" => "userpost",
         "action" => "delete",
         "organid" => 1,
@@ -181,14 +181,14 @@ try {
         "organid" => 1,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/permissions/edit/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/permissions/edit/:params", array(
         "controller" => "sendpermission",
         "action" => "edit",
         "organid" => 1,
         "params" => 2,
             )
     );
-    $di['router']->add("/organ/([0-9]+)/permissions/delete/([0-9]+)", array(
+    $di['router']->add("/organ/([0-9]+)/permissions/delete/:params", array(
         "controller" => "sendpermission",
         "action" => "delete",
         "organid" => 1,

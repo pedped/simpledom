@@ -3,6 +3,7 @@
 namespace Simpledom\Frontend\Controllers;
 
 use Phalcon\Mvc\View;
+use Simpledom\Core\Classes\NotifySMSManager;
 use Simpledom\Frontend\BaseControllers\IndexControllerBase;
 
 class IndexController extends IndexControllerBase {
@@ -14,14 +15,15 @@ class IndexController extends IndexControllerBase {
         // we have to create sample new message received
         //  $smsNumber = "30002666262609";
         //   $phone = "9399477290";
-        //$message = "استاد 8985213\nاین یک پیام جدید از طرف من است به شما دانشجوی گرامی";
         $smsNumber = "30002666262609";
-        $phone = "9378231418";
-        $message = "اعضا کلاس 20\nاین یک پاست به شما دانشجوی گرامی";
+        $phone = "09399477290";
+        $message = "استاد 8985213\nشببو قناری";
+        //$message = "اعضا کلاس 20\nاین یک پاست به شما دانشجوی گرامی";
         //$message = ReceivedSMS::find()->getLast()->message;
         //NotifySMSManager::onNewMessageReceived($this->errors, $smsNumber, $phone, $message);
         //var_dump($this->errors);
-        //die();
+        // die();
+        //
     }
 
 }

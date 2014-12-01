@@ -48,18 +48,14 @@ class NotifySMSManager {
         $parsedHeader = self::parseHeader($parsedMessageByLine[0]);
 
         // (4) Check Sender Post In Organ
-        $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
-        if (!$userPhone) {
-            // this phone is not belong to anyone
-            $errors[] = "sender phone, $phone is not belong to anyone";
-            return;
-        }
-        $senderUserPost = UserPost::findFirst(array("userid = :userid:", "bind" => array("userid" => $userPhone->userid)));
+        $senderUserPost = UserPost::findFirst(array("phonenumber = :phonenumber:", "bind" => array("phonenumber" => $phone)));
         if (!$senderUserPost) {
             // this post is not exist for the user
             $errors[] = "this post is not exist for the user";
             return;
         }
+
+
         $senderPost = Post::findFirst($senderUserPost->postid);
 
         // create header based on sender
@@ -81,6 +77,7 @@ class NotifySMSManager {
             $errors[] = "receiver post is not exist : " . $parsedHeader->smsKey;
             return;
         }
+
         $receivers = UserPost::find(array("postid = :postid: AND code = :code:", "bind" => array(
                         "postid" => $receiverPost->id,
                         "code" => $parsedHeader->code,
@@ -106,30 +103,26 @@ class NotifySMSManager {
         // Create a message that have to be sent
         $messageToBeSent = self::createMessage($header, $userMessage);
 
-        //var_dump($receivers->toArray());
+        var_dump($receivers->toArray());
         // send message to each recivers
         foreach ($receivers as $receiver) {
-            $user = $receiver->GetUser();
-            if ($user->hasVerifiedPhone()) {
-                // get user phone
-                $phoneNumber = $user->getVerifiedPhone();
-                //var_dump("Message have to be send to " . $phoneNumber);
-                // TODO fix sms number [SmsNumber::findFirst()->id to $smsnum->id]
-                $smsSender = SmsNumber::findFirst();
-                $smsID = SMSManager::SendSMS($phoneNumber, $messageToBeSent, $smsSender->id);
-                if ($smsID) {
-                    // TODO calc sms cost and user for total sms
-                    SMSCredit::decreaseCredit($errors, $organ->byuserid, $smsID, 1);
-                }
 
-                // log sent message
-                self::logNewSentMessage($organ->id, $phone, $phoneNumber, $messageToBeSent, $smsSender->number);
-                var_dump("sent", $messageToBeSent);
-                $errors[] = _("Message Sent!");
-            } else {
-                // user do not have verified phone
-                $errors[] = "user do not have verified phone number";
+            // var_dump($receiver->toArray());
+            // get user phone
+            $phoneNumber = $receiver->phonenumber;
+            //var_dump($receiver->toArray(), "Message have to be send to " . $phoneNumber);
+            // TODO fix sms number [SmsNumber::findFirst()->id to $smsnum->id]
+            $smsSender = SmsNumber::findFirst();
+            $smsID = SMSManager::SendSMS($phoneNumber, $messageToBeSent, $smsSender->id);
+            if ($smsID) {
+                // TODO calc sms cost and user for total sms
+                SMSCredit::decreaseCredit($errors, $organ->byuserid, $smsID, 1);
             }
+
+            // log sent message
+            self::logNewSentMessage($organ->id, $phone, $phoneNumber, $messageToBeSent, $smsSender->number);
+            var_dump("sent", $messageToBeSent);
+            $errors[] = _("Message Sent!");
         }
     }
 
@@ -206,6 +199,7 @@ class NotifySMSManager {
     }
 
     public static function logNewSentMessage($organID, $fromNumber, $toNumber, $message, $senderNumber) {
+
         $sentMessage = new OrganSentMessage();
         // TODO calc cost
         $sentMessage->cost = 1;
