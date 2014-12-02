@@ -22,11 +22,13 @@
             <th>شهر</th>
             <th>شماره تماس</th>
             <th>پیامک های دریافتی</th> 
+            <th>کل پیامک های دریافتی</th> 
             <th>تعداد املاک متناسب شما</th>
         </tr>
         <?php foreach ($list->items as $item) : ?>
             <?php $melkscanbesent = $item->findApprochMelkCountByBongah(); ?>
-            <tr <?= $melkscanbesent > 0 ? "class='success'" : "" ?> >
+            <?php $receivedCount = $item->getReceivedCount(); ?>
+            <tr style="cursor: pointer;" onclick="location.href = '<?php echo $this->url->get("bongah/$currentBongah->id/approchmelks/$item->id"); ?>'" <?= $receivedCount > 0 ? "class='success'" : "" ?> >
                 <td>
                     <?php echo $item->id; ?>
                 </td>
@@ -80,11 +82,14 @@
                 <td>
                     <?php echo $item->getPhoneNumber(); ?>
                 </td>
-                <td>
-                    <?php echo $item->getReceivedCount(); ?>
+                <td class="rate-info" data-content='تعداد پیامک های دریافتی از طرف بنگاه شما'>
+                    <?php echo $receivedCount; ?>
                 </td>
-                <td>
-                    <a href="<?php echo $this->url->get("bongah/$currentBongah->id/approchmelks/$item->id"); ?>"><?php echo $melkscanbesent; ?></a>
+                <td class="rate-info" data-content='تعداد کل پیامک های دریافتی از املاک مختلف'>
+                    <?php echo $successChart->totalMessageSent; ?>
+                </td>
+                <td class="rate-info" data-content='تعداد کل املاک شما که متناسب با نیاز این فرد میباشد'>
+                    <?php echo $melkscanbesent; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -95,7 +100,7 @@
     $('.rate-info').popover({
         trigger: "hover",
         container: "body",
-        placement: "left",
+        placement: "top",
         html: true
     });
 </script>

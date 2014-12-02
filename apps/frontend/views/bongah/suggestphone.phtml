@@ -1,0 +1,60 @@
+<div class='row approch-melk-view'>
+
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+
+    <div class='col-md-12'>
+        <?php if (count($melkPhoneListners->items) > 0) : ?>
+            <blockquote>
+                <form method="post">
+                    <p class="pull-right" style="font-size: 19px;color: #000;padding-top: 10px;">هم اکنون <?php echo "<b style='color:red;'>" . count($melkPhoneListners->items) . "</b>"; ?> نفر نیازمند ملکی با مشخصات ملک شما هستند.برای ارسال اطلاعات ملک خود بر روی کلید روبرو کلیک نمایید</p>
+                    <input type="submit" value="ارسال ملک" class="btn btn-primary btn-lg pull-left" />
+                    <div style="clear: both">
+
+                    </div>
+                </form>
+            </blockquote>
+            <hr/>
+
+        <?php endif; ?>
+        <h2>املاک درخواستی</h2>
+        <p>لیست افرادی که نیازمند ملک شما هستند و تاکنون پیامی در مورد این ملک دریافت نکرده اند</p>
+        <div class='row'>
+            <div class='col-md-12'>
+                <!-- Amlak Motenseb !-->
+                <?php if (count($melkPhoneListners->items) > 0): ?>
+                    <?php
+                    echo $melkPhoneListners->header;
+                    echo $melkPhoneListners->table;
+                    ?>
+                <?php else: ?>
+                    <div class="alert alert-warning">
+                        <h4 class="center" style="margin-bottom: 0px;">
+                            تاکنون درخواست جدیدی متناسب با این ملک دریافت نشده است
+                        </h4>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <h2>پیام های ارسالی</h2>
+        <p>لیست کامل پیام های ارسال شده توسط بنگاه شما برای این ملک</p>
+        <div class='row'>
+            <div class='col-md-12'>
+                <!-- Amlak Ersali !-->
+                <?php if (count($sentmelklist->items) > 0) : ?>
+                    <?php
+                    echo $sentmelklist->header;
+                    echo $sentmelklist->table;
+                    ?>
+                <?php else: ?>
+                    <div class="alert alert-warning">
+                        <h4 class="center" style="margin-bottom: 0px;"> 
+                            شما تا کنون ملکی برای این شخص ارسال نکرده اید
+                        </h4>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

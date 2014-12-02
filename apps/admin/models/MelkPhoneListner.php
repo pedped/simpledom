@@ -623,7 +623,8 @@ class MelkPhoneListner extends AtaModel {
         $messages[] = "از زمان درخواست ملک کمتر از یک ماه میگذرد";
 
         // 3 : user received less than 20 melk
-        $rate += BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id))) < 20 ? 1 : 0;
+        $result->totalMessageSent = BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id)));
+        $rate += $result->totalMessageSent < 20 ? 1 : 0;
         $messages[] = "تعداد پیامک های دریافتی این شخص کمتر از 20 مورد است";
 
         // set rate
@@ -635,7 +636,7 @@ class MelkPhoneListner extends AtaModel {
         foreach ($messages as $value) {
             $infos[] = "<li>$value</li>";
         }
-        
+
         // set message
         $result->messages = implode("\n", $infos);
 

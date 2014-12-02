@@ -398,4 +398,12 @@ class Bongah extends AtaModel {
         }
     }
 
+    /**
+     * get total melk count
+     * @return integer
+     */
+    public function getTotalMelks() {
+        return MelkInfo::count(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->id)));
+    }
+
 }

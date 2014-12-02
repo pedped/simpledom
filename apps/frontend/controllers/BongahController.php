@@ -213,13 +213,28 @@ class BongahController extends ControllerBase {
                                 }
                             }
 
-                            // forward location
-                            $this->dispatcher->forward(array(
-                                "controller" => "bongah",
-                                "action" => "melks",
-                                "bongahid" => $this->bongah->id,
-                                "params" => array()
-                            ));
+
+                            // check total number of users who need this melk
+                            if ($melk->findApprochMelkPhoneListners()->count() > 0) {
+
+                                // we have some phone suggestion
+                                $this->dispatcher->forward(array(
+                                    "controller" => "bongah",
+                                    "action" => "suggestphone",
+                                    "bongahid" => $this->bongah->id,
+                                    "params" => array(
+                                        $melk->id
+                                    )
+                                ));
+                            } else {
+                                // we do not have any phone lsitner who need this melk
+                                $this->dispatcher->forward(array(
+                                    "controller" => "bongah",
+                                    "action" => "melks",
+                                    "bongahid" => $this->bongah->id,
+                                    "params" => array()
+                                ));
+                            }
 
                             // clear the title and message so the user can add better info
                             $fr->clear();
@@ -489,9 +504,89 @@ class BongahController extends ControllerBase {
         $this->getMelksList($page, "cityid = :cityid: AND approved = 1", array("cityid" => $this->bongah->cityid), 'id DESC', 'bongah' . "/" . $bongahid);
     }
 
+    public function suggestphoneAction($melkid) {
+
+        // check if melk exist
+        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
+        if (!$melk) {
+            // invalid request
+            $this->show404();
+            return;
+        }
+
+        // check if melk is for bongah
+        if ($melk->getInfo()->bongahid != $this->bongah->id) {
+            // invalid request
+            $this->show404();
+            return;
+        }
+
+        // find ideal melk phone listners
+        $melkPhoneListners = $melk->findApprochMelkPhoneListners();
+
+        // check if user want to send melk info
+        if ($this->request->isPost()) {
+            // user want to send melk info
+            foreach ($melkPhoneListners as $melkPhoneListner) {
+                $this->sendMelkInfoToPhone($melkPhoneListner, $melk, FALSE);
+            }
+
+            // show success message
+            $this->flash->success("اطلاعات ملک شما با موفقیت برای " . count($melkPhoneListners) . " نفر ارسال گردید");
+        }
+
+
+        //
+        // find user sent messages
+        //
+        $sentMelk = BongahSentMelk::find(array("bongahid = :bongahid: AND melkid = :melkid:", "bind" => array("melkid" => $melk->id, "bongahid" => $this->bongah->id)));
+        $sentMelkPaginator = new AtaPaginator(array(
+            'data' => $sentMelk,
+            'limit' => 1000,
+            'page' => 1
+        ));
+        $sentMelkPaginator->
+                setTableHeaders(array(
+                    'کد', 'کد بنگاه', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
+                ))->
+                setFields(array(
+                    'id', 'bongahid', 'melkid', 'message', 'getPhoneNumber()', 'getDate()'
+                ))->setListPath(
+                "");
+
+        $this->view->sentmelklist = $sentMelkPaginator->getPaginate();
+
+
+        //
+        // Find Phone Listners
+        //
+        
+
+        // create paginator
+        $melkPhoneListnerPaginator = new AtaPaginator(array(
+            'data' => $melkPhoneListners,
+            'limit' => 1000,
+            'page' => 1
+        ));
+
+
+        $melkPhoneListnerPaginator->
+                setTableHeaders(array(
+                    'کد', "مناطق درخواستی", 'منظور', 'نوع ملک', 'حداقل اتاق', 'حداکثر اتاق', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شهر', 'شماره تماس', 'پیامک های دریافتی', 'تعداد املاک متناسب شما'
+                ))->
+                setFields(array(
+                    'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'getReceivedCount()', 'findApprochMelkCountByBongah()'
+                ))->setListPath(
+                'bongah/' . $this->bongah->id . "/userscansupport");
+
+        $this->view->melkPhoneListners = $melkPhoneListnerPaginator->getPaginate();
+    }
+
     public function melksAction($page = 1) {
 
         $this->setPageTitle("لیست املاک شما");
+
+        $this->view->totalMelks = $this->bongah->getTotalMelks();
         $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid), 'id DESC', 'bongah' . "/" . $this->bongah->id . "/melks");
     }
 
@@ -563,8 +658,6 @@ class BongahController extends ControllerBase {
 
     public function sendmelktolistnerAction($melkid, $phonelistnerID) {
 
-
-
         // check for melk
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
         $phonelistner = \MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $phonelistnerID)));
@@ -579,6 +672,7 @@ class BongahController extends ControllerBase {
                         "melkid" => $melkid,
                         "melkphonelistnerid" => $phonelistnerID
             ))) > 0;
+
         if ($sentBefore) {
             // user 
             $this->flash->error("شما قبلا ملک شماره " . $melkid . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
@@ -594,7 +688,24 @@ class BongahController extends ControllerBase {
             return;
         }
 
+        // send melk info
+        $this->sendMelkInfoToPhone($phonelistner, $melk);
 
+
+
+
+        // forward to user page
+        $this->dispatcher->forward(array(
+            "controller" => "bongah",
+            "action" => "approchmelks",
+            "bongahid" => $this->bongah->id,
+            "params" => array(
+                $phonelistnerID
+            )
+        ));
+    }
+
+    private function sendMelkInfoToPhone($phonelistner, $melk, $showMessage = true) {
         // check for user credit
         if ($this->user->getSMSCredit() <= 0) {
             // user do not have enogh money to send message
@@ -605,10 +716,9 @@ class BongahController extends ControllerBase {
                 "action" => "plans",
                 "bongahid" => $this->bongah->id,
                 "params" => array(
-                    $phonelistnerID
                 )
             ));
-            return;
+            return false;
         }
 
         // create message
@@ -635,24 +745,16 @@ class BongahController extends ControllerBase {
         // we have to create new sent message
         $bongahSentMessage = new BongahSentMelk();
         $bongahSentMessage->bongahid = $this->bongah->id;
-        $bongahSentMessage->melkid = $melkid;
-        $bongahSentMessage->melkphonelistnerid = $phonelistnerID;
+        $bongahSentMessage->melkid = $melk->id;
+        $bongahSentMessage->melkphonelistnerid = $phonelistner->id;
         $bongahSentMessage->message = $message;
         $bongahSentMessage->create();
 
         // show success messgae
-        $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر میباشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
-
-
-        // forward to user page
-        $this->dispatcher->forward(array(
-            "controller" => "bongah",
-            "action" => "approchmelks",
-            "bongahid" => $this->bongah->id,
-            "params" => array(
-                $phonelistnerID
-            )
-        ));
+        if ($showMessage) {
+            $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر میباشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
+        }
+        return true;
     }
 
     public function userscansupportAction($page = 1, $maxDistance = 10) {
@@ -737,6 +839,7 @@ class BongahController extends ControllerBase {
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
+
 
                     $this->dispatcher->forward(array(
                         "controller" => "bongah",

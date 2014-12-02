@@ -619,6 +619,102 @@ class Melk extends AtaModel {
     }
 
     /**
+     * find approch phone listner based on this melk
+     * @param int $melkid
+     * @return Resultset
+     */
+    public static function findMelkIdealPhoneListners($melkid) {
+        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
+        return $melk->findApprochMelkPhoneListners();
+    }
+
+    /**
+     * find approch phone listner based on this melk
+     * @param Melk $melk
+     * @return Resultset
+     */
+    public function findApprochMelkPhoneListners() {
+
+        $query = "";
+        $parameters = array();
+
+        // add cityid
+        $query .= "SELECT melkphonelistner.* FROM melkphonelistner LEFT JOIN melkphonelistnerarea ON melkphonelistner.id = melkphonelistnerarea.melkphonelistnerid LEFT JOIN bongahsentmelk ON bongahsentmelk.melkphonelistnerid = melkphonelistner.id AND bongahsentmelk.melkid = ? WHERE cityid = ? AND status = 1 ";
+        $parameters[] = $this->id;
+        $parameters[] = $this->cityid;
+
+        // add melk type
+        $query .= "AND melktypeid = ? ";
+        $parameters[] = $this->melktypeid;
+
+        // check for melk purpose
+        switch ($this->melkpurposeid) {
+            case 1:
+                // sale
+                $query .= "AND melkpurposeid  = ? ";
+                $parameters[] = $this->melkpurposeid;
+
+                // check for price
+                $query .= "AND  ? >= sale_price_start  AND ? <= sale_price_end ";
+                $parameters[] = $this->sale_price;
+                $parameters[] = $this->sale_price;
+
+                break;
+            case 2:
+                // rent
+                $query .= "AND melkpurposeid  = ? ";
+                $parameters[] = $this->melkpurposeid;
+
+                // check for price
+                $query .= "AND  ? >= rent_price_start  AND ? <= rent_price_end ";
+                $parameters[] = $this->rent_price;
+                $parameters[] = $this->rent_price;
+
+                $query .= "AND  ? >= rent_pricerahn_start  AND ? <= rent_pricerahn_end ";
+                $parameters[] = $this->rent_pricerahn;
+                $parameters[] = $this->rent_pricerahn;
+
+                break;
+            case 3:
+                // sale and rent
+                $query .= "AND melkpurposeid IN ( 1 , 2 ) ";
+                $query .= "AND   ( ? >= sale_price_start  AND ? <= sale_price_end ) OR ( ? >= rent_price_start  AND ? <= rent_price_end  AND ? >= rent_pricerahn_start  AND ? <= rent_pricerahn_end ) ";
+                $parameters[] = $this->sale_price;
+                $parameters[] = $this->sale_price;
+                $parameters[] = $this->rent_price;
+                $parameters[] = $this->rent_price;
+                $parameters[] = $this->rent_pricerahn;
+                $parameters[] = $this->rent_pricerahn;
+                break;
+            default:
+                // invalid melk type
+                break;
+        }
+
+        switch ($this->melktypeid) {
+            case 1:
+            case 2:
+            case 4:
+            case 6:
+                $query .= "AND ? >= bedroom_start AND ? <= bedroom_end ";
+                $parameters[] = $this->bedroom;
+                $parameters[] = $this->bedroom;
+                break;
+        }
+
+
+        // and areaid
+        $areaid = $this->getLocatedAreaIDs();
+        $query .= "AND ( melkphonelistnerarea.areaid IS NULL OR (melkphonelistnerarea.areaid IN (" . implode(",", $areaid) . "))) AND bongahsentmelk.id IS NULL ";
+
+        // order by id
+        $query.= "GROUP BY melkphonelistner.phoneid ORDER BY id DESC ";
+
+        $melkPhoneListner = new MelkPhoneListner();
+        return $melkPhoneListner->rawQuery($query, $parameters);
+    }
+
+    /**
      * find distance between melk and location
      * @param type $latitude
      * @param type $longitude
@@ -647,6 +743,19 @@ class Melk extends AtaModel {
         } else {
             return $melk->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id = melkarea.melkid WHERE melkarea.areaid IN (" . implode(", ", $areas) . ") AND melk.approved = 1");
         }
+    }
+
+    /**
+     * integer values of areaids
+     * @return Array(int)
+     */
+    public function getLocatedAreaIDs() {
+        $items = MelkArea::find(array("melkid = :melkid:", "bind" => array("melkid" => $this->id)));
+        $result = array();
+        foreach ($items as $item) {
+            $result[] = (int) $item->areaid;
+        }
+        return $result;
     }
 
 }
