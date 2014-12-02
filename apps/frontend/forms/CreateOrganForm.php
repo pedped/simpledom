@@ -114,7 +114,6 @@ class CreateOrganForm extends AtaForm {
         $useinterface = new EnableDisableElement('useinterface');
         $useinterface->setLabel('استقاده از اینترفیس');
         //$useinterface->setAttribute('placeholder', 'Enter your Use Interface');
-        $useinterface->setAttribute('class', 'form-control');
         $useinterface->addValidator(new PresenceOf(array(
         )));
         $this->add($useinterface);

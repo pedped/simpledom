@@ -1,39 +1,17 @@
 <?php
 
-use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Check;
 
 /**
  * Uses
  */
-class EnableDisableElement extends Select {
-
-    protected $footer;
-    protected $info;
-
-    public function __construct($name, $options = null, $attributes = null) {
-        parent::__construct($name, $options, $attributes);
-        $this->setOptions(array(
-            "1" => "Yes",
-            "0" => "No"
+class EnableDisableElement extends Check {
+    public function __construct($name, $attributes=null) {
+        parent::__construct($name, $attributes);
+        $this->setAttributes(array(
+            "class" => "switch-checkbox",
+            "data-on-text" => "بله",
+            "data-off-text" => "خیر"
         ));
     }
-
-    public function getFooter() {
-        return $this->footer;
-    }
-
-    public function getInfo() {
-        return $this->info;
-    }
-
-    public function setFooter($footer) {
-        $this->footer = $footer;
-        return $this;
-    }
-
-    public function setInfo($info) {
-        $this->info = $info;
-        return $this;
-    }
-
 }

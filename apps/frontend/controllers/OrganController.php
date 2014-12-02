@@ -44,8 +44,8 @@ class OrganController extends ControllerBase {
     }
 
     public function dashboardAction() {
-        
-        
+
+
         $fr = new OrganDashboardForm();
         $this->handleFormScripts($fr);
 
@@ -920,7 +920,7 @@ class OrganController extends ControllerBase {
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $organ = Organ::findFirst($id);
+                $organ = Organ::findFirst($this->organID);
                 $organ->name = $this->request->getPost('name', 'string');
                 $organ->address = $this->request->getPost('address', 'string');
                 $organ->stateid = $this->request->getPost('stateid', 'string');

@@ -98,6 +98,7 @@ abstract class ControllerBase extends AtaController {
                 ->collection('header')
                 ->setPrefix('http://www.feij.ir/')
                 ->addCss('css/bt3/bootstrap.min.css', true)
+                ->addCss('css/bt3/bootstrap-switch.min.css', true)
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
 
@@ -111,7 +112,8 @@ abstract class ControllerBase extends AtaController {
                 ->addJs('js/scripts.js', true)
                 ->addJs('js/jquery.sequence-min.js', true)
                 ->addJs('js/template.js', true)
-                ->addJs('bootstrap/bootstrap.js', true);
+                ->addJs('bootstrap/bootstrap.js', true)
+                ->addJs('js/bootstrap-switch.min.js', true);
 
 
         //Javascripts in the footer

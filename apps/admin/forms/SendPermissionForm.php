@@ -49,7 +49,7 @@ class SendPermissionForm extends AtaForm {
         $cansend = new EnableDisableElement('cansend');
         $cansend->setLabel('قابلیت ارسال');
         //$cansend->setAttribute('placeholder', 'Enter your Can Send');
-        $cansend->setAttribute('class', 'form-control');
+        //$cansend->setAttribute('class', 'form-control');
         $cansend->addValidator(new PresenceOf(array(
         )));
         $this->add($cansend);
