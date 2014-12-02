@@ -8,13 +8,13 @@ use SendPermissionForm;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 
 class SendpermissionController extends ControllerBase {
-
+    
+    private $_organId;
     public function initialize() {
         parent::initialize();
         $this->setPageTitle('SendPermission');
-        
-        $this->view->organID = $this->dispatcher->getParam("organid");
-                
+        $this->_organId = $this->dispatcher->getParam("organid");
+        $this->view->organId = $this->_organId;
     }
 
     /**
@@ -37,7 +37,7 @@ class SendpermissionController extends ControllerBase {
 
                 $sendpermission->userpost1 = $this->request->getPost('userpost1', 'string');
                 $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
-                $sendpermission->cansend = $this->request->hasPost('cansend')?$this->request->getPost('cansend'):0;
+                $sendpermission->cansend = $this->request->hasPost('cansend') ? $this->request->getPost('cansend') : 0;
                 if (!$sendpermission->create()) {
                     $sendpermission->showErrorMessages($this);
                 } else {
@@ -103,8 +103,9 @@ class SendpermissionController extends ControllerBase {
         if (!$item) {
             // item is not exist any more
             return $this->dispatcher->forward(array(
-                        'controller' => 'sendpermission',
-                        'action' => 'list'
+                        'controller' => 'organ',
+                        'action' => 'permissions',
+                        "organid" => $this->_organId
             ));
         }
 
@@ -116,8 +117,9 @@ class SendpermissionController extends ControllerBase {
             } else {
                 $this->flash->success('SendPermission item deleted successfully');
                 return $this->dispatcher->forward(array(
-                            'controller' => 'sendpermission',
-                            'action' => 'list'
+                            'controller' => 'organ',
+                            'action' => 'permissions',
+                            "organid" => $this->_organId
                 ));
             }
         }
@@ -148,7 +150,7 @@ class SendpermissionController extends ControllerBase {
 
                 $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
 
-                $sendpermission->cansend = $this->request->hasPost('cansend')?$this->request->getPost('cansend'):0;
+                $sendpermission->cansend = $this->request->hasPost('cansend') ? $this->request->getPost('cansend') : 0;
                 if (!$sendpermission->save()) {
                     $sendpermission->showErrorMessages($this);
                 } else {

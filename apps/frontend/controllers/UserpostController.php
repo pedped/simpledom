@@ -9,10 +9,13 @@ use UserPostForm;
 
 class UserPostController extends ControllerBase {
 
+    private $_orderId;
+
     public function initialize() {
         parent::initialize();
         $this->setPageTitle('UserPost');
-        $this->view->organId = $this->dispatcher->getParam("organid");
+        $this->_orderId = $this->dispatcher->getParam("organid");
+        $this->view->organId = $this->_orderId;
     }
 
     /**
@@ -40,7 +43,7 @@ class UserPostController extends ControllerBase {
                 if (!$userpost->create()) {
                     $userpost->showErrorMessages($this);
                 } else {
-                    $userpost->showSuccessMessages($this, 'New UserPost added Successfully');
+                    $userpost->showSuccessMessages($this, 'کاربر جدید با موفقیت اضافه شد.');
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
@@ -102,8 +105,9 @@ class UserPostController extends ControllerBase {
         if (!$item) {
             // item is not exist any more
             return $this->dispatcher->forward(array(
-                        'controller' => 'userpost',
-                        'action' => 'list'
+                        'controller' => 'organ',
+                        'action' => 'users',
+                        'organid' => $this->_orderId
             ));
         }
 
@@ -111,21 +115,19 @@ class UserPostController extends ControllerBase {
         if ($this->request->isPost()) {
             $result = UserPost::findFirst($id)->delete();
             if (!$result) {
-                $this->flash->error('unable to remove this UserPost item');
+                $this->flash->error('متاسفانه قادر به حذف کاربر نیستیم.');
             } else {
-                $this->flash->success('UserPost item deleted successfully');
+                $this->flash->success('کاربر با موفقیت حذف شد.');
                 return $this->dispatcher->forward(array(
-                            'controller' => 'userpost',
-                            'action' => 'list'
+                            'controller' => 'organ',
+                            'action' => 'users',
+                            'organid' => $this->_orderId
                 ));
             }
         }
     }
 
     public function editAction($id) {
-
-
-   
         if (!$this->ValidateAccess($id)) {
             // user do not have permission to edut this object
             return $this->response->setStatusCode('403', 'You do not have permission to access this page');
@@ -151,7 +153,7 @@ class UserPostController extends ControllerBase {
                 if (!$userpost->save()) {
                     $userpost->showErrorMessages($this);
                 } else {
-                    $userpost->showSuccessMessages($this, 'UserPost Saved Successfully');
+                    $userpost->showSuccessMessages($this, 'کاربر با موفقیت ذخیره شد.');
                 }
             } else {
                 // invalid
