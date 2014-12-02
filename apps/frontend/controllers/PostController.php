@@ -11,6 +11,7 @@ class PostController extends ControllerBase {
     public function initialize() {
         parent::initialize();
         $this->setPageTitle('Post');
+        $this->view->organId = $this->dispatcher->getParam("organid");
     }
 
     /**

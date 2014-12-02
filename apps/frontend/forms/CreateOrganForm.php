@@ -73,7 +73,7 @@ class CreateOrganForm extends AtaForm {
 
 
         // Description
-        $description = new TextElement('description');
+        $description = new TextAreaElement('description');
         $description->setLabel('توضیحات');
         //$description->setAttribute('placeholder', 'Enter your Description');
         $description->setAttribute('class', 'form-control');
@@ -102,15 +102,16 @@ class CreateOrganForm extends AtaForm {
 
         // Interface URL
         $interfaceurl = new TextElement('interfaceurl');
-        $interfaceurl->setLabel(' درگاهURL');
+        $interfaceurl->setLabel('آدرس رابط');
         //$interfaceurl->setAttribute('placeholder', 'Enter your Interface URL');
         $interfaceurl->setAttribute('class', 'form-control');
+        $interfaceurl->setAttribute('style', 'text-align: left; direction: ltr;');
         $this->add($interfaceurl);
 
 
         // Use Interface
         $useinterface = new EnableDisableElement('useinterface');
-        $useinterface->setLabel('استقاده از اینترفیس');
+        $useinterface->setLabel('استقاده از رابط');
         $this->add($useinterface);
 
 

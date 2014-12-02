@@ -41,6 +41,7 @@ class OrganController extends ControllerBase {
             $this->organ = Organ::findFirst(array("id = :id:", "bind" => array("id" => $this->organID)));
             $this->view->currentOrgan = $this->organ;
         }
+        $this->view->organId = $this->organID;
     }
 
     public function dashboardAction() {

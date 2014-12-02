@@ -11,22 +11,32 @@
                     افزودن سمت
                 </div>
                 <div class='panel-body'>
-                    <!--  ADD Organ ID !-->
-                    <?php $form->renderDecorated('organid'); ?> 
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!--  ADD Organ ID !-->
+                            <?php $form->renderDecorated('organid'); ?> 
 
-                    <!--  ADD Name !-->
-                    <?php $form->renderDecorated('name'); ?> 
+                            <!--  ADD Name !-->
+                            <?php $form->renderDecorated('name'); ?> 
+                        </div>
+                        <div class="col-sm-6">
+                            <!--  ADD Key !-->
+                            <?php $form->renderDecorated('key'); ?> 
 
-                    <!--  ADD Key !-->
-                    <?php $form->renderDecorated('key'); ?> 
-
-                    <!--  ADD SMS Key !-->
-                    <?php $form->renderDecorated('smskey'); ?> 
-
+                            <!--  ADD SMS Key !-->
+                            <?php $form->renderDecorated('smskey'); ?>
+                        </div>
+                    </div>
+                    <hr>
                     <!-- Submit Button !-->
-                    <br/>
-                    <?php $form->renderDecorated('submit'); ?>
-
+                    <div class="row">
+                        <div class="col-sm-4"><?php $form->renderDecorated('submit'); ?></div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <a href="<?php echo $this->url->get("organ/$organId/posts/") ?>" class="btn btn-info pull-left">بازگشت</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

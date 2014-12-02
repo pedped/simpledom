@@ -3,9 +3,15 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<div class="jumbotron">
+    <h3>اعتبار پیامکی</h3>
+    <p>اعتبار پیامکی تعداد پیامکی است که شما میتوانید به اعضای خود ارسال نمایید.</p>
+    <p>توجه داشته باشید تعداد پیامک های باقی مانده تان از تعداد اعضا کمتر نشود تا در موقع ضروری کمبود اعتبار باعث عدم ارسال پیام به همه اعضا نشود.</p>
+</div>
 <div class='row'>
     <div class='col-md-12'>
-        <p>your credit : <?php echo $smsCredit; ?> payameke ghabel ersal</p>
-        <a href="<?php echo $this->url->get("smscredit/plans"); ?>">خرید اعتبار</a>
+        <p class="alert alert-info" style="font-size: 16px;">اعتبار پیامک شما : <strong><u><?php echo $smsCredit; ?></u></strong> پیامک</p>
+        <a class="btn btn-warning pull-left" href="<?php echo $this->url->get("smscredit/plans"); ?>">خرید اعتبار</a>
+        <div class="clearfix"></div>
     </div>
 </div>

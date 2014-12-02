@@ -12,6 +12,7 @@ class UserPostController extends ControllerBase {
     public function initialize() {
         parent::initialize();
         $this->setPageTitle('UserPost');
+        $this->view->organId = $this->dispatcher->getParam("organid");
     }
 
     /**

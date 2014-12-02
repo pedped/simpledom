@@ -20,17 +20,16 @@
                     <!--  ADD Can Send !-->
                     <?php $form->renderDecorated('cansend'); ?> 
 
+                    <hr>
                     <!-- Submit Button !-->
                     <div class="row">
                         <div class="col-sm-4"><?php $form->renderDecorated('submit'); ?></div>
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
-                            <a href="<?php echo $this->url->get("organ/$organID/permissions/") ?>" class="btn btn-info pull-left">بازگشت</a>
+                            <a href="<?php echo $this->url->get("organ/$organId/permissions/") ?>" class="btn btn-info pull-left">بازگشت</a>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    
-
                 </div>
             </section>
         </div>

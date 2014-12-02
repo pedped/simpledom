@@ -1,41 +1,42 @@
 <div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
-                                </div>
-                            </div>
-                            <form method='post'>
-                                <div class='row'>
-                                    <div class='col-lg-12'>
-                                        <section class='panel'>
-                                            <header class='panel-heading'>
-                                                <div class='panel-actions'>
-                                                    <a href='#' class='fa fa-caret-down'></a>
-                                                    <a href='#' class='fa fa-times'></a>
-                                                </div>
-                                                <h2 class='panel-title'>Edit UserPost</h2>
-                                                <p class='panel-subtitle'Use this form to edit your UserPost</p>
-                                            </header>
-                                            <div class='panel-body'>
-
-                             
-
-                                <!--  ADD User ID !-->
-                                <?php $form->renderDecorated('userid'); ?> 
-
-                                <!--  ADD Post ID !-->
-                                <?php $form->renderDecorated('postid'); ?> 
-
-                                <!--  ADD Code !-->
-                                <?php $form->renderDecorated('code'); ?> 
-                                
-                                <?php $form->renderDecorated('phonenumber'); ?> 
-
-
-                                <!-- Submit Button !-->
-                                <br/>
-                                <?php $form->renderDecorated('submit'); ?>
-
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
 </div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-default'>
+                <header class='panel-heading'>
+                    <h2 class='panel-title'>ویرایش سمت کاربر</h2>
+                </header>
+                <div class='panel-body'>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!--  ADD User ID !-->
+                            <?php $form->renderDecorated('userid'); ?> 
+
+                            <!--  ADD Post ID !-->
+                            <?php $form->renderDecorated('postid'); ?> 
+                        </div>
+                        <div class="col-sm-6">
+                            <!--  ADD Code !-->
+                            <?php $form->renderDecorated('code'); ?> 
+
+                            <?php $form->renderDecorated('phonenumber'); ?> 
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Submit Button !-->
+                    <div class="row">
+                        <div class="col-sm-4"><?php $form->renderDecorated('submit'); ?></div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <a href="<?php echo $this->url->get("organ/$organId/users/") ?>" class="btn btn-info pull-left">بازگشت</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>

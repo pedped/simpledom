@@ -1,14 +1,72 @@
+<?php use Simpledom\Core\Classes\Helper;?>
 <div class='row'>
+
     <div class='col-md-12'>
         <?php echo $this->getContent() ?>
     </div>
 </div>
 <div class='row'>
     <div class='col-md-12'>
-        <?php
-        echo $list->header;
-        echo $list->table;
-        echo $list->footer;
-        ?>
+        <table class="table table-bordered table-striped table-center">
+            <tr>
+                <th>
+                    شناسه
+                </th>
+                <th>
+                    پیام
+                </th>
+                <th>
+                    تاریخ
+                </th>
+                <th>
+                    شماره ارسال کننده
+                </th>
+                <th>
+                    از شماره
+                </th>
+                <th>
+                    به شماره
+                </th>
+                <th>
+                    هزینه
+                </th>
+            </tr>
+
+            <?php foreach ($list->items as $item) : ?>
+                <tr>
+                    <td>
+                        <?= $item->id ?>
+                    </td>
+                    <td class='message-holder' data-content='<?= nl2br($item->message) ?>' style="text-align: right">
+                        <?= Helper::wordLimiter($item->message, 10) ?>
+                    </td>
+                    <td>
+                        <?= $item->getDate() ?>
+                    </td>
+                    <td>
+                        <?= $item->sendernumber ?>
+                    </td>
+                    <td>
+                        <?= $item->fromnumber ?>
+                    </td>
+                    <td>
+                        <?= $item->tonumber ?>
+                    </td>
+                    <td>
+                        <?= $item->cost ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
 </div>
+
+<script>
+$(".message-holder").popover({
+    show : 'hover',
+    container : 'body',
+    html : true,
+    placement : 'top',
+    trigger : 'hover'
+});
+</script>
