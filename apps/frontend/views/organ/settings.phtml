@@ -58,3 +58,23 @@
         });
     });
 </script>
+<script>
+    $(function() {
+        var state = {};
+        <?php foreach($state as $st): ?>
+        state["<?=$st->id?>"] = {};
+        <?php endforeach; ?>
+        <?php foreach($city as $ct): ?>
+        state["<?=$ct->stateid?>"]["<?=$ct->id?>"] = '<?=$ct->name?>';        
+        <?php endforeach; ?>
+
+        $("#stateid").change(function() {
+            $("#cityid").find('option').remove().end();
+            if (state[$(this).val()]) {
+                $.each(state[$(this).val()], function(id, name) {
+                    $("#cityid").append('<option value="' + id + '">' + name + '</option>');
+                });
+            }
+        });
+    });
+</script>

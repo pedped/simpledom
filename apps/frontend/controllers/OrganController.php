@@ -952,6 +952,8 @@ class OrganController extends ControllerBase {
         $fr->get('useinterface')->setDefault($organ->useinterface);
         
         $this->view->form = $fr;
+        $this->view->state = State::find();
+        $this->view->city = City::find();
     }
 
     public function viewAction($id) {
