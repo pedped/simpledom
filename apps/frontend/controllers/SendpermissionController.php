@@ -12,7 +12,6 @@ class SendpermissionController extends ControllerBase {
     private $_organId;
     public function initialize() {
         parent::initialize();
-        $this->setPageTitle('SendPermission');
         $this->_organId = $this->dispatcher->getParam("organid");
         $this->view->organId = $this->_organId;
     }
@@ -134,7 +133,7 @@ class SendpermissionController extends ControllerBase {
         }
 
         // set title
-        $this->setPageTitle('Edit SendPermission');
+        $this->setPageTitle('ویرایش مجوز ارسال');
 
         $sendpermissionItem = SendPermission::findFirst($id);
 

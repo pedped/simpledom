@@ -13,7 +13,6 @@ class UserPostController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
-        $this->setPageTitle('UserPost');
         $this->_orderId = $this->dispatcher->getParam("organid");
         $this->view->organId = $this->_orderId;
     }
@@ -134,7 +133,7 @@ class UserPostController extends ControllerBase {
         }
 
         // set title
-        $this->setPageTitle('Edit UserPost');
+        $this->setPageTitle('ویرایش کاربر');
 
         $userpostItem = UserPost::findFirst($id);
 
