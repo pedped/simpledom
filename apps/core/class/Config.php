@@ -31,11 +31,11 @@ class Config {
     }
 
     public static function GetDefaultProfileLink($gender) {
-        return "http://notifysystem.edspace.org/userupload/image/4MqyybZ94UNDsXsJ2M3FGmb8I9XmZ8X4.jpg";
+        return "http://www.feij.ir/userupload/image/4MqyybZ94UNDsXsJ2M3FGmb8I9XmZ8X4.jpg";
     }
 
     public static function getPublicUrl() {
-        return "http://notifysystem.edspace.org/";
+        return "http://www.feij.ir/";
     }
 
     public static function GetPaylineAPI() {

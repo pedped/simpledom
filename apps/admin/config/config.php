@@ -12,7 +12,7 @@ return new \Phalcon\Config(array(
         'controllersDir' => __DIR__ . '/../controllers/',
         'modelsDir' => __DIR__ . '/../models/',
         'viewsDir' => __DIR__ . '/../views/',
-        'baseUri' => 'http://notifysystem.edspace.org/admin/',
+        'baseUri' => 'http://www.feij.ir/admin/',
         "hello" => "test",
         "bang" => "he"
     )

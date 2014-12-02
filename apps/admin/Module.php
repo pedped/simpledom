@@ -105,7 +105,7 @@ class Module implements ModuleDefinitionInterface {
         $di->set('url', function() {
             $url = new Url();
             $url->setBaseUri('/admin/');
-            $url->publicurl = "http://notifysystem.edspace.org/";
+            $url->publicurl = "http://www.feij.ir/";
             return $url;
         });
 

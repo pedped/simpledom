@@ -124,6 +124,7 @@ class UserPostController extends ControllerBase {
     public function editAction($id) {
 
 
+   
         if (!$this->ValidateAccess($id)) {
             // user do not have permission to edut this object
             return $this->response->setStatusCode('403', 'You do not have permission to access this page');
