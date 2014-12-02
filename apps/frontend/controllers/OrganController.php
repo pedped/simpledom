@@ -44,8 +44,8 @@ class OrganController extends ControllerBase {
     }
 
     public function dashboardAction() {
-        
-        
+
+
         $fr = new OrganDashboardForm();
         $this->handleFormScripts($fr);
 
@@ -489,10 +489,10 @@ class OrganController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'نام', 'سمت', 'کد کاربر', 'کد سمت', 'شماره تماس', 'کد'
+                    'شناسه', 'نام', 'سمت', 'شماره تماس', 'کد اختصاصی'
                 ))->
                 setFields(array(
-                    'id', 'getUserName()', 'getPostTitle()', 'userid', 'postid', 'phonenumber', 'code'
+                    'id', 'getUserName()', 'getPostTitle()', 'phonenumber', 'code'
                 ))->
                 setEditUrl(
                         'edit'
@@ -911,7 +911,7 @@ class OrganController extends ControllerBase {
         // set title
         $this->setPageTitle('ویرایش ارگان');
 
-        $organItem = Organ::findFirst(array("id = :id:", "bind" => array("id" => $this->organID)));
+        $organ = Organ::findFirst(array("id = :id:", "bind" => array("id" => $this->organID)));
 
         // create form
         $fr = new \CreateOrganForm();
@@ -920,14 +920,16 @@ class OrganController extends ControllerBase {
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                $organ = Organ::findFirst($id);
+                $organ = Organ::findFirst($this->organID);
                 $organ->name = $this->request->getPost('name', 'string');
                 $organ->address = $this->request->getPost('address', 'string');
                 $organ->stateid = $this->request->getPost('stateid', 'string');
                 $organ->cityid = $this->request->getPost('cityid', 'string');
                 $organ->description = $this->request->getPost('description', 'string');
                 $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
-                $organ->useinterface = $this->request->getPost('useinterface', 'string');
+                $organ->useinterface = $this->request->hasPost('useinterface') ? $this->request->getPost('useinterface') : 0;
+                
+                
                 if (!$organ->save()) {
                     $organ->showErrorMessages($this);
                 } else {
@@ -937,19 +939,17 @@ class OrganController extends ControllerBase {
                 // invalid
                 $fr->flashErrors($this);
             }
-        } else {
-
-            // set default values
-            $fr->get('name')->setDefault($organItem->name);
-            $fr->get('address')->setDefault($organItem->address);
-            $fr->get('stateid')->setDefault($organItem->stateid);
-            $fr->get('cityid')->setDefault($organItem->cityid);
-            $fr->get('description')->setDefault($organItem->description);
-            $fr->get('phonenumber')->setDefault($organItem->phonenumber);
-            $fr->get('interfaceurl')->setDefault($organItem->interfaceurl);
-            $fr->get('useinterface')->setDefault($organItem->useinterface);
         }
-
+        // set default values
+        $fr->get('name')->setDefault($organ->name);
+        $fr->get('address')->setDefault($organ->address);
+        $fr->get('stateid')->setDefault($organ->stateid);
+        $fr->get('cityid')->setDefault($organ->cityid);
+        $fr->get('description')->setDefault($organ->description);
+        $fr->get('phonenumber')->setDefault($organ->phonenumber);
+        $fr->get('interfaceurl')->setDefault($organ->interfaceurl);
+        $fr->get('useinterface')->setDefault($organ->useinterface);
+        
         $this->view->form = $fr;
     }
 

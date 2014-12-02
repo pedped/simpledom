@@ -12,6 +12,9 @@ class SendpermissionController extends ControllerBase {
     public function initialize() {
         parent::initialize();
         $this->setPageTitle('SendPermission');
+        
+        $this->view->organID = $this->dispatcher->getParam("organid");
+                
     }
 
     /**
@@ -34,7 +37,7 @@ class SendpermissionController extends ControllerBase {
 
                 $sendpermission->userpost1 = $this->request->getPost('userpost1', 'string');
                 $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
-                $sendpermission->cansend = $this->request->getPost('cansend', 'string');
+                $sendpermission->cansend = $this->request->hasPost('cansend')?$this->request->getPost('cansend'):0;
                 if (!$sendpermission->create()) {
                     $sendpermission->showErrorMessages($this);
                 } else {
@@ -145,7 +148,7 @@ class SendpermissionController extends ControllerBase {
 
                 $sendpermission->userpost2 = $this->request->getPost('userpost2', 'string');
 
-                $sendpermission->cansend = $this->request->getPost('cansend', 'string');
+                $sendpermission->cansend = $this->request->hasPost('cansend')?$this->request->getPost('cansend'):0;
                 if (!$sendpermission->save()) {
                     $sendpermission->showErrorMessages($this);
                 } else {

@@ -43,7 +43,7 @@ class CreateOrganForm extends AtaForm {
         $smsNumber = new SelectElement('smsnumberid', SmsNumber::find(), array(
             "using" => array("id", "number")
         ));
-        
+
         $smsNumber->setLabel('شماره پیامک');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $smsNumber->setAttribute('class', 'form-control');
@@ -61,8 +61,8 @@ class CreateOrganForm extends AtaForm {
 
 
         // City ID
-        $cityid = new SelectElement('cityid' , City::find() , array(
-            "using" => array("id" , "name")
+        $cityid = new SelectElement('cityid', City::find(), array(
+            "using" => array("id", "name")
         ));
         $cityid->setLabel('شهر');
         //$cityid->setAttribute('placeholder', 'Enter your City ID');
@@ -97,8 +97,6 @@ class CreateOrganForm extends AtaForm {
         $smscredit->setLabel('اعتبار پیامک');
         //$smscredit->setAttribute('placeholder', 'Enter your SMS Credit');
         $smscredit->setAttribute('class', 'form-control');
-        $smscredit->addValidator(new PresenceOf(array(
-        )));
         $this->add($smscredit);
 
 
@@ -113,10 +111,6 @@ class CreateOrganForm extends AtaForm {
         // Use Interface
         $useinterface = new EnableDisableElement('useinterface');
         $useinterface->setLabel('استقاده از اینترفیس');
-        //$useinterface->setAttribute('placeholder', 'Enter your Use Interface');
-        $useinterface->setAttribute('class', 'form-control');
-        $useinterface->addValidator(new PresenceOf(array(
-        )));
         $this->add($useinterface);
 
 
@@ -125,8 +119,6 @@ class CreateOrganForm extends AtaForm {
         $status->setLabel('وضعیت');
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
-        $status->addValidator(new PresenceOf(array(
-        )));
         $this->add($status);
 
 
