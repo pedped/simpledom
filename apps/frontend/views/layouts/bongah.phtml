@@ -16,9 +16,9 @@
         <div class="panel-body">
             <div class='page-bongah'>
                 <ul class="nav nav-pills nav-justified bongah-panel">
-                    <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/userscansupport"); ?>">املاک درخواستی</a></li> 
-                    <li class="<?php echo $actionName == "index" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/"); ?>">لیست کامل املاک</a></li> 
                     <li class="<?php echo $actionName == "melks" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melks/"); ?>">املاک شما</a></li> 
+                    <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/userscansupport"); ?>">املاک درخواستی</a></li> 
+                    <li class="<?php echo $actionName == "allmelks" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/allmelks/"); ?>">لیست کامل املاک</a></li> 
                     <li class="<?php echo $actionName == "melkcansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/melkcansupport/"); ?>">املاک تحت پوشش شما</a></li> 
                     <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/settings"); ?>">تنظیمات بنگاه</a></li> 
                     <li class="<?php echo ($actionName == "sendsms" || $actionName == "checksms") ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/$currentBongah->id/sendsms"); ?>">ارسال پیامک</a></li> 

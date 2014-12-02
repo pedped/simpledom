@@ -141,8 +141,14 @@ try {
 
     $di['router']->add("/bongah/([0-9]+)/", array(
         "controller" => "bongah",
-        "action" => "index",
+        "action" => "melks",
         "bongahid" => 1,
+            )
+    );
+
+    $di['router']->add("/bongah", array(
+        "controller" => "bongah",
+        "action" => "melks",
             )
     );
 

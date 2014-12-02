@@ -5,6 +5,7 @@ namespace Simpledom\Frontend\Controllers;
 use Area;
 use AtaPaginator;
 use Bongah;
+use BongahAmlakKeshvar;
 use BongahSentMelk;
 use BongahSentMessage;
 use BongahSubscribeItem;
@@ -24,6 +25,8 @@ use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
+use Tempuser;
+use User;
 use UserPhone;
 
 class BongahController extends ControllerBase {
@@ -38,6 +41,36 @@ class BongahController extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
+
+//        // create user and password based on each user
+//        $bongahs = BongahAmlakKeshvar::find(array("group" => "mobile"));
+//        foreach ($bongahs as $bongah) {
+//            $user = new User();
+//            $user->email = $bongah->code;
+//            $user->fname = "نامشخص";
+//            $user->lname = "نامشخص";
+//            $user->gender = 1;
+//            $user->level = USERLEVEL_BONGAHDAR;
+//            $pass = $user->generateRandomString(8);
+//            $user->password = $pass;
+//            if ($user->create()) {
+//
+//                // check if user phone is not exist
+//                $userPhone = new UserPhone();
+//                $userPhone->phone = $bongah->mobile;
+//                $userPhone->userid = $user->userid;
+//                $userPhone->create();
+//
+//                // save to database
+//                $tempUser = new Tempuser();
+//                $tempUser->bongahamlakid = $bongah->id;
+//                $tempUser->userid = $user->userid;
+//                $tempUser->password = $pass;
+//                $tempUser->create();
+//            }
+//
+//            //return;
+//        }
 
         if (!isset($this->user)) {
 
@@ -433,12 +466,16 @@ class BongahController extends ControllerBase {
 
     public function checksmsAction($areas, $text, $tolistners = true, $tousers = true) {
 
+
+
+        // set text
+        $text.="\n=====\n" . "ارسال شده از طرف بنگاه " . $this->bongah->title . " توسط سامانه املاک گستر" . "\n" . $this->bongah->phone;
+
         // calc total sms count
         $totalSMSCount = $this->getMessageSize($text, $isPersian);
         $totalCalculatedCount = $isPersian ? $totalSMSCount : $totalSMSCount * 2; // becasue english messages has two time cost
         $this->view->messageSize = $totalCalculatedCount;
         $totalUsersSMSCount = 0;
-
 
         // set view variables
         $areaIDs = Area::GetMultiID($this->bongah->cityid, $areas);
@@ -497,7 +534,7 @@ class BongahController extends ControllerBase {
                 getMelkPaginator($page, $melks, $listpath);
     }
 
-    public function indexAction($page = 1) {
+    public function allmelksAction($page = 1) {
 
         $bongahid = $this->bongah->id;
         $this->setPageTitle("لیست املاک");
