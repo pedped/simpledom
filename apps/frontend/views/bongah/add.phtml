@@ -95,6 +95,17 @@
                 </div>
                 <div class="panel-body">
 
+                    <?php if (!isset($this->user)) : ?>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <?php $form->renderDecorated('email'); ?> 
+                            </div>
+                            <div class='col-md-6'>
+                                <?php $form->renderDecorated('password'); ?> 
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <!--  ADD Private Phone !-->
                     <?php $form->renderDecorated('phone'); ?> 
 
@@ -169,8 +180,7 @@
      * this function will go to the requestd step without any validate
      * @param {type} newStep
      * @param {type} oldStep
-     * @returns {undefined}
-     */
+     * @returns {undefined}      */
     function showStep(newStep, oldStep)
     {
         // hide all steps at first time
@@ -192,8 +202,7 @@
      * @param {type} step
      * @returns {undefined}
      */
-    function readyStep(step)
-    {
+    function readyStep(step) {
         google.maps.event.trigger(map, 'resize');
     }
 

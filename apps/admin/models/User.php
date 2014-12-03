@@ -13,7 +13,12 @@ class User extends BaseUser {
      * @return type
      */
     public function getSMSCredit() {
-        return SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)))->value;
+        $smsCredit = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+        if (!$smsCredit) {
+            return 0;
+        } else {
+            return $smsCredit->value;
+        }
     }
 
 }

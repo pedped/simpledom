@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Simpledom\Core\AtaForm;
 
@@ -17,6 +18,27 @@ class CreateBongahForm extends AtaForm {
         $title->addValidator(new PresenceOf(array(
         )));
         $this->add($title);
+
+
+
+
+        // ٍEmail
+        $email = new TextElement("email");
+        $email->setLabel(_("Email"));
+        $email->setInfo("ایمیل خود را وارد نمایید");
+        $email->setAttribute("class", "form-control");
+        $email->addValidator(new Email(array(
+        )));
+        $this->add($email);
+
+
+        // Password
+        $password = new PasswordElement("password");
+        $password->setLabel(_("Password"));
+        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
+        $password->setAttribute("class", "form-control");
+        $this->add($password);
+
 
 
         // Shomare Peygiri

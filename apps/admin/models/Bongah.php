@@ -317,9 +317,6 @@ class Bongah extends AtaModel {
         $this->visitedtutorial = "0";
     }
 
-    public function beforeValidationOnSave() {
-        
-    }
 
     public function getPublicResponse() {
         

@@ -301,7 +301,6 @@ class BongahController extends ControllerBase {
 
                 $oldStatus = $bongah->enable;
                 // form is valid
-                $bongah->userid = $this->user->userid;
                 $bongah->title = $this->request->getPost('title', 'string');
                 $bongah->peygiri = $this->request->getPost('peygiri', 'string');
                 $bongah->enable = $this->request->getPost('enable');

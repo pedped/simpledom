@@ -11,11 +11,11 @@
                 <span class="fa fa-building"></span>
                 <!-- Title !-->
                 <h3 class="info-title">
-                    دریافت آنی اطلاعات املاک
+                    اضافه نمودن املاک
                 </h3>
                 <!-- Description !-->
                 <p class="info-description">
-                    بعد از عضویت شما در سامانه املاک گستر، شما قادر خواهید بود اطلاعات تمامی املاک اضافه شده در شهر خود را مشاهده نمایید
+                    بعد از عضویت در سامانه املاک گستر شما قادر خواهید بود املاک خود را به سامانه اضافه نمایید تا متقاضیان بتوانند به راحتی املاک شما را مشاهده نمایند
                 </p>
             </div>
             <div class='col-md-4'>
@@ -77,11 +77,7 @@
         <div class='row center'>
             <div class='col-md-12'>
                 <a class="btn btn-lg btn-default" href="<?php echo $this->url->get("user/login"); ?>">ورود به پنل بنگاه داران</a>
-                <?php if (!$this->session->has("userid")) : ?>
-                    <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("user/register"); ?>">عضویت رایگان</a>
-                <?php else : ?>
-                    <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("bongah/add"); ?>">عضویت</a>
-                <?php endif; ?>
+                <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("bongah/add"); ?>">عضویت</a>
             </div>
         </div>
     </div>

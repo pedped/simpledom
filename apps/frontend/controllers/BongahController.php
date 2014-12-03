@@ -16,6 +16,7 @@ use MelkArea;
 use MelkImage;
 use MelkInfo;
 use MelkPhoneListner;
+use Phalcon\Validation\Validator\PresenceOf;
 use SendBongahSmsForm;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
@@ -24,6 +25,7 @@ use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
+use User;
 use UserPhone;
 
 class BongahController extends ControllerBase {
@@ -70,13 +72,22 @@ class BongahController extends ControllerBase {
 //        }
 
         if (!isset($this->user)) {
-
-            $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
-            $this->dispatcher->forward(array(
-                "controller" => "bongah",
-                "action" => "review",
-                "params" => array()
-            ));
+            // check if we have to show review page
+            if ($this->dispatcher->getActionName() == "home") {
+                $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
+                $this->dispatcher->forward(array(
+                    "controller" => "bongah",
+                    "action" => "review",
+                    "params" => array()
+                ));
+            } else if ($this->dispatcher->getActionName() == "add") {
+                // we have to show add page
+                $this->dispatcher->forward(array(
+                    "controller" => "bongah",
+                    "action" => "add",
+                    "params" => array()
+                ));
+            }
             return;
         }
 
@@ -902,49 +913,93 @@ class BongahController extends ControllerBase {
 
         // create form
         $fr = new CreateBongahForm();
+        
         $this->handleFormScripts($fr);
+
+
+        // check if user is not logged in, set the reuqired for email and password
+        if (!isset($this->user)) {
+            $fr->get("email")->addValidator(new PresenceOf(array(
+            )));
+            $fr->get("password")->addValidator(new PresenceOf(array(
+            )));
+        } else {
+            $fr->remove("email");
+            $fr->remove("password");
+        }
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
-                // form is valid
-                $bongah = new Bongah();
 
-                $bongah->userid = $this->user->userid;
-                $bongah->title = $this->request->getPost('title', 'string');
-                $bongah->peygiri = $this->request->getPost('peygiri', 'string');
-                $bongah->fname = $this->request->getPost('fname', 'string');
-                $bongah->lname = $this->request->getPost('lname', 'string');
-                $bongah->address = $this->request->getPost('address', 'string');
-                $bongah->cityid = $this->request->getPost('cityid', 'string');
-                $bongah->latitude = $this->request->getPost('map_latitude');
-                $bongah->longitude = $this->request->getPost('map_longitude');
-                $areaIDs = Area::GetMultiID($bongah->cityid, $this->request->getPost('locationscansupport', 'string'));
-                $bongah->locationscansupport = implode(',', $areaIDs);
-                $bongah->mobile = $this->request->getPost('mobile', 'string');
-                $bongah->phone = $this->request->getPost('phone', 'string');
+                $needToVerify = false;
+                // we have to check if the user is logged in
+                if (!isset($this->user)) {
+                    // we need to create an account for the user
+                    $user = new User();
+                    $fname = $this->request->getPost("fname");
+                    $lname = $this->request->getPost("lname");
+                    $email = $this->request->getPost("email", "email");
+                    $password = $this->request->getPost("password");
+                    $mobile = $this->request->getPost("mobile");
+                    $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_BONGAHDAR, $mobile);
+                    if (!$this->hasError() && $result == true) {
+                        // user successfully created 
+                        $this->user = $user;
+                        $user->setSession($this);
+                        $needToVerify = true;
+                    }
+                }
 
-                // valid bongah for 30 days
-                $bongah->planvaliddate = (3600 * 24 * 30) + time();
+                if (!$this->hasError()) {
+                    // form is valid
+                    $bongah = new Bongah();
+                    $bongah->userid = $this->user->userid;
+                    $bongah->title = $this->request->getPost('title', 'string');
+                    $bongah->peygiri = $this->request->getPost('peygiri', 'string');
+                    $bongah->fname = $this->request->getPost('fname', 'string');
+                    $bongah->lname = $this->request->getPost('lname', 'string');
+                    $bongah->address = $this->request->getPost('address', 'string');
+                    $bongah->cityid = $this->request->getPost('cityid', 'string');
+                    $bongah->latitude = $this->request->getPost('map_latitude');
+                    $bongah->longitude = $this->request->getPost('map_longitude');
+                    $areaIDs = Area::GetMultiID($bongah->cityid, $this->request->getPost('locationscansupport', 'string'));
+                    $bongah->locationscansupport = implode(',', $areaIDs);
+                    $bongah->mobile = $this->request->getPost('mobile', 'string');
+                    $bongah->phone = $this->request->getPost('phone', 'string');
 
-                if (!$bongah->create()) {
-                    $bongah->showErrorMessages($this);
-                } else {
-                    $bongah->showSuccessMessages($this, 'بنگاه با موفقیت اضافه گردید');
+                    // valid bongah for 30 days
+                    $bongah->planvaliddate = (3600 * 24 * 30) + time();
 
-                    // clear the title and message so the user can add better info
-                    $fr->clear();
+                    if (!$bongah->create()) {
+                        $bongah->showErrorMessages($this);
+                    } else {
+                        $bongah->showSuccessMessages($this, 'بنگاه با موفقیت اضافه گردید');
 
+                        // clear the title and message so the user can add better info
+                        $fr->clear();
 
-                    $this->dispatcher->forward(array(
-                        "controller" => "bongah",
-                        "action" => "index",
-                        "params" => array(
-                            "bongahid" => $bongah->id
-                        )
-                    ));
-
-
-                    // send sms about add
-                    SMSManager::SendSMS($bongah->mobile, "بنگاه دار گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
+                        if ($needToVerify) {
+                            // user need to verify phone number
+                            $this->dispatcher->forward(array(
+                                "controller" => "phone",
+                                "action" => "verify",
+                                "params" => array(
+                                    $bongah->mobile
+                                )
+                            ));
+                        } else {
+                            // user do not need to verify phone, he can visit home page
+                            $this->dispatcher->forward(array(
+                                "controller" => "bongah",
+                                "action" => "index",
+                                "bongahid" => $bongah->id,
+                                "params" => array(
+                                    "bongahid" => $bongah->id
+                                )
+                            ));
+                        }
+                        // send sms about add
+                        SMSManager::SendSMS($bongah->mobile, "بنگاه دار گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
+                    }
                 }
             } else {
                 // invalid
@@ -953,6 +1008,9 @@ class BongahController extends ControllerBase {
         }
 
 
+        if (count($this->errors) > 0) {
+            $this->flash->error(implode("<br/>", $this->errors));
+        }
 
         $this->view->form = $fr;
     }
