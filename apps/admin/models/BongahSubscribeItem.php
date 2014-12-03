@@ -265,9 +265,17 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
 
         $plan = BongahSubscribeItem::findFirst($id);
 
-        $bongah = Bongah::findFirst($userid);
+        $bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $userid)));
         $bongah->bongahsubscribeitemid = $id;
-        $bongah->planvaliddate = ($plan->validdate * 3600 * 24 ) + time();
+        if (intval($bongah->planvaliddate) == 0) {
+            $bongah->planvaliddate = time();
+        } else if (intval($bongah->planvaliddate) < time()) {
+            $bongah->planvaliddate = time();
+        }
+
+        // incraese bongah valid date
+        $bongah->planvaliddate = $bongah->planvaliddate + ($plan->validdate * 3600 * 24);
+
         if (!$bongah->save()) {
             $errors[] = "خطا در هنگام پایان سفارش";
 
@@ -296,8 +304,7 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
                 return $smscredit->create();
             }
 
-            // incraese bongah valid date
-            $bongah->validdate = $bongah->validdate + ($plan->aliddate * 3600 * 24);
+
 
             // saved successfully
             Helper::RedirectToURL(Config::getPublicUrl() . "bongah");

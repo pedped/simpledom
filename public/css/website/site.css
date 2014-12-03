@@ -629,3 +629,9 @@ footer .btn {
     font-size: 14px;
     margin-bottom: 20px;
 }
+
+.bongah-panel .fa {
+    padding-left: 7px;
+    top: 1px;
+    position: relative;
+}

@@ -314,7 +314,6 @@ class Bongah extends AtaModel {
         $this->featured = "0";
         $this->enable = "-1"; // wait for approve
         $this->bongahsubscribeitemid = "0";
-        $this->planvaliddate = "0";
         $this->visitedtutorial = "0";
     }
 
@@ -406,6 +405,10 @@ class Bongah extends AtaModel {
      */
     public function getTotalMelks() {
         return MelkInfo::count(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->id)));
+    }
+
+    public function getRemainingPlanDays() {
+        return (int) (($this->planvaliddate - time()) / (3600 * 24));
     }
 
 }

@@ -93,6 +93,22 @@ class BongahController extends ControllerBase {
                 ));
                 return;
             }
+
+            // check if bongah has valid date
+            if (intval($this->bongah->getRemainingPlanDays()) < 0) {
+                // bongah need to renew plans
+                // show message
+                $this->flash->error("مدت زمان سرویس شما پایان یافته است، لطفا یکی از پلان های زیر را خریداری نمایید");
+
+                // forward
+                $this->dispatcher->forward(array(
+                    "controller" => "bongahsubscribe",
+                    "action" => "plans",
+                    "params" => array()
+                ));
+                return;
+            }
+
             $bongahID = $this->bongah->id;
         } else {
             $this->bongah = Bongah::findFirst(array("id = :id:", "bind" => array("id" => $bongahID)));
@@ -905,6 +921,9 @@ class BongahController extends ControllerBase {
                 $bongah->locationscansupport = implode(',', $areaIDs);
                 $bongah->mobile = $this->request->getPost('mobile', 'string');
                 $bongah->phone = $this->request->getPost('phone', 'string');
+
+                // valid bongah for 30 days
+                $bongah->planvaliddate = (3600 * 24 * 30) + time();
 
                 if (!$bongah->create()) {
                     $bongah->showErrorMessages($this);
