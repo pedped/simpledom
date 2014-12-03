@@ -5,7 +5,6 @@ namespace Simpledom\Frontend\Controllers;
 use Area;
 use AtaPaginator;
 use Bongah;
-use BongahAmlakKeshvar;
 use BongahSentMelk;
 use BongahSentMessage;
 use BongahSubscribeItem;
@@ -25,8 +24,6 @@ use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
-use Tempuser;
-use User;
 use UserPhone;
 
 class BongahController extends ControllerBase {
@@ -132,12 +129,52 @@ class BongahController extends ControllerBase {
         $this->view->currentBongah = $this->bongah;
     }
 
+    public function homeAction() {
+        if (intval($this->bongah->visitedtutorial) == 0) {
+            // user need to visit tourial page
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "tutorial",
+                "bongahid" => $this->bongah->id,
+                "params" => array()
+            ));
+        } else {
+            // user need to visit melks page
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "melks",
+                "bongahid" => $this->bongah->id,
+                "params" => array()
+            ));
+        }
+    }
+
     public function reviewAction() {
         
     }
 
     public function waitforapproveAction() {
         $this->setPageTitle("در انتظار تایید");
+    }
+
+    public function tutorialAction() {
+
+        // user visited home page
+        if ($this->request->isPost()) {
+            $this->bongah->visitedtutorial = 1;
+            $this->bongah->save();
+
+            // forward to melks page
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "melks",
+                "bongahid" => $this->bongah->id,
+                "params" => array()
+            ));
+        }
+
+
+        $this->setPageTitle("راهنمای استفاده");
     }
 
     public function addmelkAction() {

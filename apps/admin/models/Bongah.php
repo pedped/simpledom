@@ -257,6 +257,7 @@ class Bongah extends AtaModel {
     public $validdate;
     public $bongahsubscribeitemid;
     public $planvaliddate;
+    public $visitedtutorial;
 
     public function getBongahsubscribeitemid() {
         return $this->bongahsubscribeitemid;
@@ -314,6 +315,7 @@ class Bongah extends AtaModel {
         $this->enable = "-1"; // wait for approve
         $this->bongahsubscribeitemid = "0";
         $this->planvaliddate = "0";
+        $this->visitedtutorial = "0";
     }
 
     public function beforeValidationOnSave() {

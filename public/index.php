@@ -148,7 +148,7 @@ try {
 
     $di['router']->add("/bongah", array(
         "controller" => "bongah",
-        "action" => "melks",
+        "action" => "home",
             )
     );
 
