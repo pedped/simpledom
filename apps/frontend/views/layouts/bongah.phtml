@@ -9,7 +9,7 @@
                 </div>
                 <div class='col-md-5 bongah-cuurent-subscription'>
                     <p class="bongah-subscription-info">وضعیت اشتراک: <?php echo $subscriptionText; ?></p>
-                    <p class="bongah-smscredit"><span>اعتبار پیامک: <?php echo $currentSMSCredit; ?></span> - <span>مدت اعتبار: <?php echo $currentBongah->getRemainingPlanDays(); ?> روز</span></p>
+                    <p class="bongah-smscredit"><span>اعتبار پیامک: <a href="<?php echo $this->url->get("smscredit/plans"); ?>"><?php echo $currentSMSCredit; ?></a></span> - <span>مدت اعتبار: <?php echo $currentBongah->getRemainingPlanDays(); ?> روز</span></p>
                 </div>
             </div>
         </div>
