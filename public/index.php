@@ -130,18 +130,32 @@ try {
             )
     );
 
-    $di['router']->add("/bongah/([0-9]+)/:action/:params", array(
+
+
+
+    $di['router']->add("/bongah/{bongahid:[0-9]+}/:action/:params", array(
         "controller" => "bongah",
-        "action" => 2,
         "bongahid" => 1,
+        "action" => 2,
         "params" => 3
             )
     );
 
 
+    $di['router']->add("/bongah/([0-9]+)/:action/:params", array(
+        "controller" => "bongah",
+        "bongahid" => 1,
+        "action" => 2,
+        "params" => 3
+            )
+    );
+
+   
+
+
     $di['router']->add("/bongah/([0-9]+)/", array(
         "controller" => "bongah",
-        "action" => "melks",
+        "action" => "home",
         "bongahid" => 1,
             )
     );

@@ -92,7 +92,8 @@ class BongahController extends ControllerBase {
         }
 
         // get bongah id
-        $bongahID = $this->dispatcher->getParam("bongahid");
+        $bParam = $this->dispatcher->getParam("bongahid");
+        $bongahID = isset($bParam) ? $bParam : false;
         if (!$bongahID) {
             $this->bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
             if (!$this->bongah) {
@@ -132,7 +133,7 @@ class BongahController extends ControllerBase {
         // bongah found
         if ($this->dispatcher->getActionName() != "waitforapprove") {
             if (intval($this->bongah->enable) == -1) {
-                Helper::RedirectToURL("bongah/$bongahID/waitforapprove");
+                Helper::RedirectToURL("bongah/waitforapprove");
                 return;
             } else if (intval($this->bongah->enable) == 0) {
                 $this->show404();
@@ -353,9 +354,10 @@ class BongahController extends ControllerBase {
      */
     private function calcUserCredit() {
         // get user credit
-        $smsCredit = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+        $smsCredit = $this->user->getSMSCredit();
         if (!$smsCredit) {
             $this->view->hadSMSCredit = false;
+            $this->view->totalSMSCanSend = 0;
         } else {
             $this->view->hadSMSCredit = true;
             $this->view->totalSMSCanSend = $smsCredit->value;
@@ -678,13 +680,12 @@ class BongahController extends ControllerBase {
                 setFields(array(
                     'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'getReceivedCount()', 'findApprochMelkCountByBongah()'
                 ))->setListPath(
-                'bongah/' . $this->bongah->id . "/userscansupport");
+                'bongah/userscansupport');
 
         $this->view->melkPhoneListners = $melkPhoneListnerPaginator->getPaginate();
     }
 
     public function melksAction($page = 1) {
-
         $this->setPageTitle("لیست املاک شما");
 
         $this->view->totalMelks = $this->bongah->getTotalMelks();
@@ -858,7 +859,7 @@ class BongahController extends ControllerBase {
         return true;
     }
 
-    public function userscansupportAction($page = 1, $maxDistance = 10) {
+    public function userscansupportAction($currentPage = 1, $maxDistance = 10) {
 
         $this->setPageTitle("املاک درخواستی");
 
@@ -872,14 +873,11 @@ class BongahController extends ControllerBase {
                             )
         ));
 
-
-        $numberPage = $page;
-
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $melkphonelistners,
             'limit' => 10,
-            'page' => $numberPage
+            'page' => $currentPage
         ));
 
 
@@ -890,7 +888,7 @@ class BongahController extends ControllerBase {
                 setFields(array(
                     'id', 'getAreasNames()', 'getPurposeTitle()', 'getTypeTitle()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getPhoneNumber()', 'getReceivedCount()', 'findApprochMelkCountByBongah()'
                 ))->setListPath(
-                'bongah/' . $this->bongah->id . "/userscansupport");
+                "bongah/userscansupport");
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -913,7 +911,7 @@ class BongahController extends ControllerBase {
 
         // create form
         $fr = new CreateBongahForm();
-        
+
         $this->handleFormScripts($fr);
 
 
@@ -1015,12 +1013,12 @@ class BongahController extends ControllerBase {
         $this->view->form = $fr;
     }
 
-    public function settingsAction($id) {
+    public function settingsAction() {
 
-        $bongah = Bongah::findFirst($id);
+        $bongah = $this->bongah;
         $this->view->cities = City::find();
 
-        if (!$this->ValidateAccess($id)) {
+        if (!$this->ValidateAccess($bongah->id)) {
             // user do not have permission to edut this object
             return $this->response->setStatusCode('403', 'You do not have permission to access this page');
         }
