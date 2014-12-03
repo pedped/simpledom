@@ -7,7 +7,9 @@ class Organ extends AtaModel {
     public function getSource() {
         return 'organ';
     }
-
+    
+    private $password;
+    
     /**
      * ID
      * @var string
@@ -278,6 +280,10 @@ class Organ extends AtaModel {
      */
     public function getUser() {
         return User::findFirst($this->byuserid);
+    }
+    
+    public function beforeCreate() {
+        $this->password = $this->getDI()->getSecurity()->hash($this->password);
     }
 
 }

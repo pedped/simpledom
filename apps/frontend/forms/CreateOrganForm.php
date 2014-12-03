@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Simpledom\Core\AtaForm;
 
@@ -22,21 +23,15 @@ class CreateOrganForm extends AtaForm {
         $name->setLabel('نام');
         //$name->setAttribute('placeholder', 'Enter your Name');
         $name->setAttribute('class', 'form-control');
-        $name->addValidator(new PresenceOf(array(
-        )));
+        $name->addValidator(new PresenceOf(array("message" => "فیلد ".$name->getLabel()." ضروری است.")));
         $this->add($name);
 
-
-
-
-
         // Address
-        $address = new TextElement('address');
+        $address = new TextAreaElement('address');
         $address->setLabel('آدرس');
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
-        $address->addValidator(new PresenceOf(array(
-        )));
+        $address->addValidator(new PresenceOf(array("message" => "فیلد ".$address->getLabel()." ضروری است.")));
         $this->add($address);
 
         // SMS Number
@@ -55,8 +50,7 @@ class CreateOrganForm extends AtaForm {
         $stateid->setLabel('استان');
         //$stateid->setAttribute('placeholder', 'Enter your State ID');
         $stateid->setAttribute('class', 'form-control');
-        $stateid->addValidator(new PresenceOf(array(
-        )));
+        $stateid->addValidator(new PresenceOf(array("message" => "فیلد ".$stateid->getLabel()." ضروری است.")));
         $this->add($stateid);
 
 
@@ -67,8 +61,7 @@ class CreateOrganForm extends AtaForm {
         $cityid->setLabel('شهر');
         //$cityid->setAttribute('placeholder', 'Enter your City ID');
         $cityid->setAttribute('class', 'form-control');
-        $cityid->addValidator(new PresenceOf(array(
-        )));
+        $cityid->addValidator(new PresenceOf(array("message" => "فیلد ".$cityid->getLabel()." ضروری است.")));
         $this->add($cityid);
 
 
@@ -77,8 +70,7 @@ class CreateOrganForm extends AtaForm {
         $description->setLabel('توضیحات');
         //$description->setAttribute('placeholder', 'Enter your Description');
         $description->setAttribute('class', 'form-control');
-        $description->addValidator(new PresenceOf(array(
-        )));
+        $description->addValidator(new PresenceOf(array("message" => "فیلد ".$description->getLabel()." ضروری است.")));
         $this->add($description);
 
 
@@ -87,9 +79,32 @@ class CreateOrganForm extends AtaForm {
         $phonenumber->setLabel('شماره تلفن');
         //$phonenumber->setAttribute('placeholder', 'Enter your Phone Number');
         $phonenumber->setAttribute('class', 'form-control');
-        $phonenumber->addValidator(new PresenceOf(array(
-        )));
+        $phonenumber->addValidator(new PresenceOf(array("message" => "فیلد ".$phonenumber->getLabel()." ضروری است.")));
         $this->add($phonenumber);
+
+        //username
+        $username = new TextElement("username");
+        $username->setLabel("نام کاربری");
+        $username->setAttribute("class", "form-control");
+        $username->addValidator(new PresenceOf(array("message" => "فیلد نام کاربری ضروری است.")));
+        $this->add($username);
+
+        //password
+        $password = new PasswordElement("password");
+        $password->setLabel("کلمه عبور");
+        $password->setAttribute("class", "form-control");
+        $password->addValidator(new PresenceOf(array("message" => "فیلد کلمه عبور ضروری است.")));
+        $this->add($password);
+
+        //email
+        $email = new TextElement("email");
+        $email->setLabel("ایمیل");
+        $email->setAttribute("class", "form-control");
+        $email->addValidator(new Email(array(
+            'message' => "ایمیل وارد شده صحیح نیست.",
+            'allowEmpty' => true
+        )));
+        $this->add($email);
 
 
         // SMS Credit

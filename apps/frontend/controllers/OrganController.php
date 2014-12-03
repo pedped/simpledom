@@ -806,31 +806,33 @@ class OrganController extends ControllerBase {
                 $organ = new \Organ();
 
                 $organ->name = $this->request->getPost('name', 'string');
-                $organ->byuserid = $this->getUser()->userid;
+                $organ->username = $this->request->getPost('username', 'string');
+                $organ->password = $this->request->getPost('password', 'string');
+                $organ->email = $this->request->getPost('email', 'email');
+                // todo  in ghesmat alaki 1 gozashtam hatman barresi shavad.
+                $organ->byuserid = "1";
+                $organ->smscredit = "12";
+                $organ->status = "1";
+                
                 $organ->address = $this->request->getPost('address', 'string');
                 $organ->stateid = $this->request->getPost('stateid', 'string');
                 $organ->cityid = $this->request->getPost('cityid', 'string');
                 $organ->description = $this->request->getPost('description', 'string');
                 $organ->phonenumber = $this->request->getPost('phonenumber', 'string');
-                $organ->smscredit = $this->request->getPost('smscredit', 'string');
                 $organ->interfaceurl = $this->request->getPost('interfaceurl', 'string');
                 $organ->useinterface = $this->request->getPost('useinterface', 'string');
-                $organ->status = $this->request->getPost('status', 'string');
                 $organ->disablemessage = $this->request->getPost('disablemessage', 'string');
                 $organ->date = $this->request->getPost('date', 'string');
                 $organ->smsnumberid = $this->request->getPost('smsnumberid', 'string');
                 if (!$organ->create()) {
                     $organ->showErrorMessages($this);
                 } else {
-                    $organ->showSuccessMessages($this, 'New Organ added Successfully');
+                    $organ->showSuccessMessages($this, 'سازمان با موفقیت به سیستم اضافه شد.');
 
                     // clear the title and message so the user can add better info
                     $fr->clear();
                 }
-            } else {
-                // invalid
-                $fr->flashErrors($this);
-            }
+            } 
         }
         $this->view->form = $fr;
         $this->view->state = State::find();
