@@ -538,6 +538,7 @@ class MelkController extends ControllerBaseFrontEnd {
 
         if (!$this->ValidateAccess($id)) {
             // user do not have permission to remove this object
+            $this->show404();
             return $this->response->setStatusCode('403', 'You do not have permission to access this page');
         }
 
@@ -549,6 +550,12 @@ class MelkController extends ControllerBaseFrontEnd {
                         'controller' => 'melk',
                         'action' => 'list'
             ));
+        }
+
+        // check if user is belong to user
+        if ($item->userid != $this->user->userid) {
+            $this->flash->error("شما مجوز حذف این ملک را ندارید");
+            return;
         }
 
         // check if user want to remove it
@@ -565,101 +572,6 @@ class MelkController extends ControllerBaseFrontEnd {
                 ));
             }
         }
-    }
-
-    public function editAction($id) {
-
-
-        if (!$this->ValidateAccess($id)) {
-            // user do not have permission to edut this object
-            return $this->response->setStatusCode('403', 'You do not have permission to access this page');
-        }
-
-        // set title
-        $this->setTitle('Edit Melk');
-
-        $melkItem = Melk::findFirst($id);
-
-        // create form
-        $fr = new MelkForm();
-        $this->handleFormScripts($fr);
-        // check for post request
-        if ($this->request->isPost()) {
-            if ($fr->isValid($_POST)) {
-                // form is valid
-                $melk = Melk::findFirst($id);
-                $melk->validdate = $this->request->getPost('validdate', 'string');
-
-                $melk->userid = $this->request->getPost('userid', 'string');
-
-                $melk->melktypeid = $this->request->getPost('melktypeid', 'string');
-
-                $melk->melkpurposeid = $this->request->getPost('melkpurposeid', 'string');
-
-                $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
-
-                $melk->home_size = $this->request->getPost('home_size', 'string');
-
-                $melk->lot_size = $this->request->getPost('lot_size', 'string');
-
-                $melk->sale_price = $this->request->getPost('sale_price', 'string');
-
-                $melk->price_per_unit = $this->request->getPost('price_per_unit', 'string');
-
-                $melk->rent_price = $this->request->getPost('rent_price', 'string');
-
-                $melk->rent_pricerahn = $this->request->getPost('rent_pricerahn', 'string');
-
-                $melk->bedroom = $this->request->getPost('bedroom', 'string');
-
-                $melk->bath = $this->request->getPost('bath', 'string');
-
-                $melk->stateid = $this->request->getPost('stateid', 'string');
-
-                $melk->cityid = $this->request->getPost('cityid', 'string');
-
-                $melk->createby = $this->request->getPost('createby', 'string');
-
-                $melk->featured = $this->request->getPost('featured', 'string');
-
-                $melk->approved = $this->request->getPost('approved', 'string');
-
-                $melk->date = $this->request->getPost('date', 'string');
-                if (!$melk->save()) {
-                    $melk->showErrorMessages($this);
-                } else {
-                    $melk->showSuccessMessages($this, 'Melk Saved Successfully');
-                }
-            } else {
-                // invalid
-                $fr->flashErrors($this);
-            }
-        } else {
-
-            // set default values
-
-            $fr->get('validdate')->setDefault($melkItem->validdate);
-            $fr->get('userid')->setDefault($melkItem->userid);
-            $fr->get('melktypeid')->setDefault($melkItem->melktypeid);
-            $fr->get('melkpurposeid')->setDefault($melkItem->melkpurposeid);
-            $fr->get('melkconditionid')->setDefault($melkItem->melkconditionid);
-            $fr->get('home_size')->setDefault($melkItem->home_size);
-            $fr->get('lot_size')->setDefault($melkItem->lot_size);
-            $fr->get('sale_price')->setDefault($melkItem->sale_price);
-            $fr->get('price_per_unit')->setDefault($melkItem->price_per_unit);
-            $fr->get('rent_price')->setDefault($melkItem->rent_price);
-            $fr->get('rent_pricerahn')->setDefault($melkItem->rent_pricerahn);
-            $fr->get('bedroom')->setDefault($melkItem->bedroom);
-            $fr->get('bath')->setDefault($melkItem->bath);
-            $fr->get('stateid')->setDefault($melkItem->stateid);
-            $fr->get('cityid')->setDefault($melkItem->cityid);
-            $fr->get('createby')->setDefault($melkItem->createby);
-            $fr->get('featured')->setDefault($melkItem->featured);
-            $fr->get('approved')->setDefault($melkItem->approved);
-            $fr->get('date')->setDefault($melkItem->date);
-        }
-
-        $this->view->form = $fr;
     }
 
     public function viewAction($id) {

@@ -98,7 +98,7 @@ class BongahController extends ControllerBase {
             if (intval($this->bongah->getRemainingPlanDays()) < 0) {
                 // bongah need to renew plans
                 // show message
-                $this->flash->error("مدت زمان سرویس شما پایان یافته است، لطفا یکی از پلان های زیر را خریداری نمایید");
+                $this->flash->error("مشاور املاک گرامی، مدت زمان سرویس شما پایان یافته است، لطفا یکی از پلان های زیر را خریداری نمایید");
 
                 // forward
                 $this->dispatcher->forward(array(

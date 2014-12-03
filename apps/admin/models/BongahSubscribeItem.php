@@ -274,7 +274,7 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
         }
 
         // incraese bongah valid date
-        $bongah->planvaliddate = $bongah->planvaliddate + ($plan->validdate * 3600 * 24);
+        $bongah->planvaliddate = $bongah->planvaliddate + ($plan->validdate * 3600 * 24) + 1800;
 
         if (!$bongah->save()) {
             $errors[] = "خطا در هنگام پایان سفارش";
