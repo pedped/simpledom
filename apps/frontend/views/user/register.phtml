@@ -45,7 +45,9 @@
 
 
                     <!-- Captcha !-->
-                    <?php echo Recaptcha::get(Settings::Get()->recaptchapublic); ?>
+                    <div style="direction: ltr">
+                        <?php echo Recaptcha::get(Settings::Get()->recaptchapublic); ?>
+                    </div>
 
                     <!-- Submit !-->
                     <?php echo $registerform->renderDecorated('submit'); ?>
