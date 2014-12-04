@@ -643,4 +643,8 @@ class MelkPhoneListner extends AtaModel {
         return $result;
     }
 
+    public function getStatusText() {
+        return $this->status ? "فعال" : "غیر فعال";
+    }
+
 }

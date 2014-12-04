@@ -2,10 +2,13 @@
 
 namespace Simpledom\Admin\Controllers;
 
-use Simpledom\Admin\BaseControllers\ControllerBase;
+use Area;
 use AtaPaginator;
+use BongahSentMelk;
 use MelkPhoneListner;
+use MelkPhoneListnerArea;
 use MelkPhoneListnerForm;
+use Simpledom\Admin\BaseControllers\ControllerBase;
 
 class MelkPhoneListnerController extends ControllerBase {
 
@@ -84,10 +87,10 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'شناسه', 'نوع', 'منظور', 'موبایل', 'حداقل خواب', 'حداکثر خواب', ' حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تارخ', 'شهر', 'مناطق', 'پیامک', 'وضعیت'
+                    'کد', 'نوع', 'منظور', 'موبایل', 'حداقل خواب', 'حداکثر خواب', ' حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تارخ', 'شهر', 'مناطق', 'پیامک', 'وضعیت'
                 ))->
                 setFields(array(
-                    'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'receivedcount', 'status',
+                    'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'getReceivedCount()', 'getStatusText()',
                 ))->
                 setEditUrl(
                         'edit'
@@ -143,7 +146,7 @@ class MelkPhoneListnerController extends ControllerBase {
         // set title
         $this->setTitle('Edit MelkPhoneListner');
 
-        $melkphonelistnerItem = MelkPhoneListner::findFirst($id);
+        $melkphonelistner = MelkPhoneListner::findFirst($id);
 
         // create form
         $fr = new MelkPhoneListnerForm();
@@ -182,37 +185,88 @@ class MelkPhoneListnerController extends ControllerBase {
                 $melkphonelistner->date = $this->request->getPost('date', 'string');
 
                 $melkphonelistner->cityid = $this->request->getPost('cityid', 'string');
+
+                // remove old melkphone listners and add new one
+                $oldMelkPhoneListners = MelkPhoneListnerArea::find(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $melkphonelistner->id)));
+                foreach ($oldMelkPhoneListners as $oldAreaItem) {
+                    $oldAreaItem->delete();
+                }
+
+                // add new melk phone listners
+                $areaIDs = Area::GetMultiID($melkphonelistner->cityid, $this->request->getPost('address', 'string'));
+                foreach ($areaIDs as $areaid) {
+                    $melklistnerarea = new MelkPhoneListnerArea();
+                    $melklistnerarea->melkphonelistnerid = $melkphonelistner->id;
+                    $melklistnerarea->areaid = $areaid;
+                    $melklistnerarea->create();
+                }
+
                 if (!$melkphonelistner->save()) {
                     $melkphonelistner->showErrorMessages($this);
                 } else {
-                    $melkphonelistner->showSuccessMessages($this, 'MelkPhoneListner Saved Successfully');
+                    $melkphonelistner->showSuccessMessages($this, 'اطلاعات درخواستی با موفقیت ذخیره گردید');
                 }
             } else {
                 // invalid
                 $fr->flashErrors($this);
             }
-        } else {
-
-            // set default values
-
-            $fr->get('melkpurposeid')->setDefault($melkphonelistnerItem->melkpurposeid);
-            $fr->get('melktypeid')->setDefault($melkphonelistnerItem->melktypeid);
-            $fr->get('bedroom_start')->setDefault($melkphonelistnerItem->bedroom_start);
-            $fr->get('bedroom_end')->setDefault($melkphonelistnerItem->bedroom_end);
-            $fr->get('phoneid')->setDefault($melkphonelistnerItem->phoneid);
-            $fr->get('receivedcount')->setDefault($melkphonelistnerItem->receivedcount);
-            $fr->get('status')->setDefault($melkphonelistnerItem->status);
-            $fr->get('rent_price_start')->setDefault($melkphonelistnerItem->rent_price_start);
-            $fr->get('rent_price_end')->setDefault($melkphonelistnerItem->rent_price_end);
-            $fr->get('rent_pricerahn_start')->setDefault($melkphonelistnerItem->rent_pricerahn_start);
-            $fr->get('rent_pricerahn_end')->setDefault($melkphonelistnerItem->rent_pricerahn_end);
-            $fr->get('sale_price_start')->setDefault($melkphonelistnerItem->sale_price_start);
-            $fr->get('sale_price_end')->setDefault($melkphonelistnerItem->sale_price_end);
-            $fr->get('date')->setDefault($melkphonelistnerItem->date);
-            $fr->get('cityid')->setDefault($melkphonelistnerItem->cityid);
         }
+        $fr->get('melkpurposeid')->setDefault($melkphonelistner->melkpurposeid);
+        $fr->get('melktypeid')->setDefault($melkphonelistner->melktypeid);
+        $fr->get('bedroom_start')->setDefault($melkphonelistner->bedroom_start);
+        $fr->get('bedroom_end')->setDefault($melkphonelistner->bedroom_end);
+        $fr->get('phoneid')->setDefault($melkphonelistner->phoneid);
+        $fr->get('receivedcount')->setDefault($melkphonelistner->getReceivedCount());
+        $fr->get('status')->setDefault($melkphonelistner->status);
+        $fr->get('rent_price_start')->setDefault($melkphonelistner->rent_price_start);
+        $fr->get('rent_price_end')->setDefault($melkphonelistner->rent_price_end);
+        $fr->get('rent_pricerahn_start')->setDefault($melkphonelistner->rent_pricerahn_start);
+        $fr->get('rent_pricerahn_end')->setDefault($melkphonelistner->rent_pricerahn_end);
+        $fr->get('sale_price_start')->setDefault($melkphonelistner->sale_price_start);
+        $fr->get('sale_price_end')->setDefault($melkphonelistner->sale_price_end);
+        $fr->get('date')->setDefault($melkphonelistner->date);
+        $fr->get('cityid')->setDefault($melkphonelistner->cityid);
+        $fr->get('address')->setDefault(implode(',', $melkphonelistner->getAreasNames(false)));
+
+
+        // create sent melk list
+        $this->listSentMelkAction($id);
 
         $this->view->form = $fr;
+    }
+
+    public function listSentMelkAction($melkphonelistnerid) {
+
+        // load the users
+        $bongahsentmelks = BongahSentMelk::find(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $melkphonelistnerid)));
+
+
+
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $bongahsentmelks,
+            'limit' => 10000,
+            'page' => 1
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'کد بنگاه', 'کد درخواست', 'کد ملک ارسالی', 'پیام', 'تاریخ'
+                ))->
+                setFields(array(
+                    'id', 'bongahid', 'melkphonelistnerid', 'melkid', 'message', 'getDate()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     public function viewAction($id) {

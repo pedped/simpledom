@@ -18,10 +18,11 @@ class MelkPhoneListnerForm extends AtaForm {
 
 
         // Purpose ID
-        $melkpurposeid = new SelectElement('melkpurposeid', MelkPurpose::find(), array(
-            "using" => array("id", "name")
+        $melkpurposeid = new SelectElement('melkpurposeid', array(
+            "1" => "خرید",
+            "2" => "رهن و اجاره",
         ));
-        $melkpurposeid->setLabel('Purpose ID');
+        $melkpurposeid->setLabel('منظور');
         //$melkpurposeid->setAttribute('placeholder', 'Enter your Purpose ID');
         $melkpurposeid->setAttribute('class', 'form-control');
         $melkpurposeid->addValidator(new PresenceOf(array(
@@ -33,7 +34,7 @@ class MelkPhoneListnerForm extends AtaForm {
         $melktypeid = new SelectElement('melktypeid', MelkType::find(), array(
             "using" => array("id", "name")
         ));
-        $melktypeid->setLabel('Type ID');
+        $melktypeid->setLabel('نوع ملک');
         //$melktypeid->setAttribute('placeholder', 'Enter your Type ID');
         $melktypeid->setAttribute('class', 'form-control');
         $melktypeid->addValidator(new PresenceOf(array(
@@ -43,7 +44,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Bedroom Start
         $bedroom_start = new SelectElement('bedroom_start');
-        $bedroom_start->setLabel('Bedroom Start');
+        $bedroom_start->setLabel('حداقل خواب');
         //$bedroom_start->setAttribute('placeholder', 'Enter your Bedroom Start');
         $bedroom_start->setAttribute('class', 'form-control');
         $bedroom_start->setOptions(array(
@@ -65,7 +66,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Bedroom End
         $bedroom_end = new SelectElement('bedroom_end');
-        $bedroom_end->setLabel('Bedroom End');
+        $bedroom_end->setLabel('حداکثر خواب');
         //$bedroom_end->setAttribute('placeholder', 'Enter your Bedroom End');
         $bedroom_end->setAttribute('class', 'form-control');
         $bedroom_end->setOptions(array(
@@ -97,7 +98,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Received Count
         $receivedcount = new TextElement('receivedcount');
-        $receivedcount->setLabel('Received Count');
+        $receivedcount->setLabel('تعداد پیامک های دریافتی');
         //$receivedcount->setAttribute('placeholder', 'Enter your Received Count');
         $receivedcount->setAttribute('class', 'form-control');
         $receivedcount->addValidator(new PresenceOf(array(
@@ -107,10 +108,10 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Status
         $status = new SelectElement('status');
-        $status->setLabel('Status');
+        $status->setLabel('وضعیت');
         $status->setOptions(array(
-            "1" => "Enable",
-            "0" => "Disable",
+            "1" => "فعال",
+            "0" => "غیر فعال",
         ));
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
@@ -121,7 +122,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Rent Price Start
         $rent_price_start = new TextElement('rent_price_start');
-        $rent_price_start->setLabel('Rent Price Start');
+        $rent_price_start->setLabel('حداقل اجاره');
         //$rent_price_start->setAttribute('placeholder', 'Enter your Rent Price Start');
         $rent_price_start->setAttribute('class', 'form-control');
         $this->add($rent_price_start);
@@ -129,7 +130,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Rent Price End
         $rent_price_end = new TextElement('rent_price_end');
-        $rent_price_end->setLabel('Rent Price End');
+        $rent_price_end->setLabel('حداکثر اجاره');
         //$rent_price_end->setAttribute('placeholder', 'Enter your Rent Price End');
         $rent_price_end->setAttribute('class', 'form-control');
         $this->add($rent_price_end);
@@ -137,7 +138,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Rahn Start
         $rent_pricerahn_start = new TextElement('rent_pricerahn_start');
-        $rent_pricerahn_start->setLabel('Rahn Start');
+        $rent_pricerahn_start->setLabel('حداقل رهن');
         //$rent_pricerahn_start->setAttribute('placeholder', 'Enter your Rahn Start');
         $rent_pricerahn_start->setAttribute('class', 'form-control');
         $this->add($rent_pricerahn_start);
@@ -145,7 +146,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Rahn End
         $rent_pricerahn_end = new TextElement('rent_pricerahn_end');
-        $rent_pricerahn_end->setLabel('Rahn End');
+        $rent_pricerahn_end->setLabel('حداکثر رهن');
         //$rent_pricerahn_end->setAttribute('placeholder', 'Enter your Rahn End');
         $rent_pricerahn_end->setAttribute('class', 'form-control');
         $this->add($rent_pricerahn_end);
@@ -153,7 +154,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Sale Start
         $sale_price_start = new TextElement('sale_price_start');
-        $sale_price_start->setLabel('Sale Start');
+        $sale_price_start->setLabel('حداقل قیمت');
         //$sale_price_start->setAttribute('placeholder', 'Enter your Sale Start');
         $sale_price_start->setAttribute('class', 'form-control');
         $this->add($sale_price_start);
@@ -161,7 +162,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Sale End
         $sale_price_end = new TextElement('sale_price_end');
-        $sale_price_end->setLabel('Sale End');
+        $sale_price_end->setLabel('حداکثر قیمت');
         //$sale_price_end->setAttribute('placeholder', 'Enter your Sale End');
         $sale_price_end->setAttribute('class', 'form-control');
         $this->add($sale_price_end);
@@ -169,7 +170,7 @@ class MelkPhoneListnerForm extends AtaForm {
 
         // Date
         $date = new TextElement('date');
-        $date->setLabel('Date');
+        $date->setLabel('تاریخ');
         //$date->setAttribute('placeholder', 'Enter your Date');
         $date->setAttribute('class', 'form-control');
         $this->add($date);
@@ -179,17 +180,30 @@ class MelkPhoneListnerForm extends AtaForm {
         $cityid = new SelectElement('cityid', City::find(), array(
             "using" => array("id", "name")
         ));
-        $cityid->setLabel('City ID');
+        $cityid->setLabel('شهر');
         //$cityid->setAttribute('placeholder', 'Enter your City ID');
         $cityid->setAttribute('class', 'form-control');
         $cityid->addValidator(new PresenceOf(array(
         )));
         $this->add($cityid);
 
+
+        // Address
+        $address = new CityAreaSelector('address');
+        $address->setLabel('مناطق درخواستی');
+        $address->setCityID("$('#cityid').val()");
+        $address->setInfo("نام مناطقی که به دنبال ملک می گردید را وارد نمایید");
+        //$address->setAttribute('placeholder', 'Enter your Address');
+        $address->setAttribute('class', 'form-control');
+//        $address->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($address);
+
         // Submit Button
         $submit = new Submit('submit');
         $submit->setName('submit');
         $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute('value', 'ارسال');
         $this->add($submit);
     }
 
