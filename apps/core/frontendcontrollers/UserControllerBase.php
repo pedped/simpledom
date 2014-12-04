@@ -571,7 +571,7 @@ class UserControllerBase extends ControllerBase {
         if ($user->isBongahDar()) {
             $this->dispatcher->forward(array(
                 "controller" => "bongah",
-                "action" => "index",
+                "action" => "home",
                 "params" => array()
             ));
         } else {

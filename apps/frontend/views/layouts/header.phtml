@@ -19,8 +19,14 @@ use Phalcon\Text;
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("opinion"); ?>"><?= _("OPINIONS"); ?></a></li>
-                <li><a href="<?php echo $this->url->get("melk/start"); ?>">افزودن ملک</a></li>
+
+                <!-- Bongah Menu !-->
+                <?php if (isset($user) && $user->isBongahDar()) : ?>
+                    <li class="menu-bongah-header"><a href="<?php echo $this->url->get("bongah/home"); ?>"><span class="fa fa-home"></span>پنل بنگاه داران</a></li>
+                <?php endif; ?>
+
+                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("opinion"); ?>"><span class="fa fa-comment"></span><?= _("OPINIONS"); ?></a></li>
+                <li><a href="<?php echo $this->url->get("melk/start"); ?>"><span class="fa fa-plus"></span>افزودن ملک</a></li>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
                 <?php endforeach; ?>
@@ -40,7 +46,7 @@ use Phalcon\Text;
                 <?php endif; ?>
                 <?php if ($this->session->has("userid")) : ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->get("fname"); ?> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"></span><?php echo $this->session->get("fname"); ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
 
                             <li><a href="<?php echo $this->url->get("user/edit") ?>"><?= _("Profile Settings"); ?></a></li>
@@ -56,7 +62,7 @@ use Phalcon\Text;
             </ul>
             <!-- FAQ - CONTACT US !-->
             <ul class="nav navbar-nav navbar-<?= $websiteSettings->rtl ? "left" : "right" ?>">
-                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("contact"); ?>"><?= _("CONTACT US"); ?></a></li>
+                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("contact"); ?>"><span class="fa fa-phone"></span><?= _("CONTACT US"); ?></a></li>
                 <!--<li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("faq"); ?>"><?= _("FAQ"); ?></a></li>-->
             </ul>
         </div><!-- /.navbar-collapse -->

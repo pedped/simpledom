@@ -88,6 +88,12 @@ class BongahController extends ControllerBase {
                     "params" => array()
                 ));
             }
+
+            $this->dispatcher->forward(array(
+                "controller" => "user",
+                "action" => "login",
+                "params" => array()
+            ));
             return;
         }
 
