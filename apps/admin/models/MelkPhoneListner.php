@@ -611,12 +611,21 @@ class MelkPhoneListner extends AtaModel {
 
         $rate = 0;
 
+
         // 1 : have melk that can be supported and did not sent yet
         $melkCount = $this->findApprochMelkCountByBongah();
         if ($melkCount > 0) {
-            $rate +=$melkCount > 0 ? 2 : 0;
+            $rate +=$melkCount > 0 ? 1 : 0;
             $messages[] = "شما " . "<b>" . $melkCount . "</b>" . " ملک متناسب با نیاز این متقاضی دارید";
         }
+
+        // 0 : find located areas
+        $unionAreas = $this->getUnionAreaNames($bongah);
+        if (strlen($unionAreas) > 0) {
+            $rate += 2;
+            $messages[] = "متقاضی به دنبال ملکی میباشد که در محدوده بنگاه شما است" . " : <b>" . $unionAreas . "</b>";
+        }
+
 
         // 2 : user request date is lower than 30 day
         $rate += $this->date > time() - (3600 * 24 * 30) ? 1 : 0;
@@ -645,6 +654,62 @@ class MelkPhoneListner extends AtaModel {
 
     public function getStatusText() {
         return $this->status ? "فعال" : "غیر فعال";
+    }
+
+    /**
+     * find union areas in bongah and melk area
+     * @param Bongah $bongah
+     * @return Boolean|Resultset when we find some items, we get result set, otherwise we get false
+     */
+    public function getUnionAreas($bongah) {
+        $melkAreas = MelkPhoneListnerArea::find(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id)));
+        if ($melkAreas->count() == 0) {
+            return false;
+        }
+
+        // find bongah areas
+        $bongahSupportedAreas = explode(",", $bongah->locationscansupport);
+        if (count($bongahSupportedAreas) == 0) {
+            return false;
+        }
+
+
+        $unionIDs = array();
+        // find union area
+        foreach ($melkAreas as $melkArea) {
+            foreach ($bongahSupportedAreas as $bongahArea) {
+                if (intval($melkArea->areaid) == intval($bongahArea)) {
+                    $unionIDs[] = intval($bongahArea);
+                }
+            }
+        }
+
+        // check if we have any union item
+        if (count($unionIDs) > 0) {
+            return Area::find("id IN (" . implode(",", $unionIDs) . ")");
+        } else {
+            // we do not have any union items
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param Bongah $bongah
+     * @return string
+     */
+    public function getUnionAreaNames($bongah) {
+        $items = $this->getUnionAreas($bongah);
+        if ($items) {
+            $k = array();
+            foreach ($items as $v) {
+                $k[] = $v->name;
+            }
+            return implode(", ", $k);
+        } else {
+
+            return "";
+        }
     }
 
 }

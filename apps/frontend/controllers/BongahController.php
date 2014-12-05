@@ -366,7 +366,7 @@ class BongahController extends ControllerBase {
             $this->view->totalSMSCanSend = 0;
         } else {
             $this->view->hadSMSCredit = true;
-            $this->view->totalSMSCanSend = $smsCredit->value;
+            $this->view->totalSMSCanSend = $smsCredit;
         }
         return $smsCredit;
     }
@@ -1033,6 +1033,7 @@ class BongahController extends ControllerBase {
         $this->setPageTitle('تنظیمات بنگاه');
 
         $fr = new CreateBongahForm();
+        $fr->remove("email");
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {

@@ -35,7 +35,7 @@
                 <?php $successChart = $item->getSuccessRateForBongah($currentBongah); ?>
                 <td class="rate-info" data-toggle="popover" title="میزان بازدهی درخواست برای بنگاه شما" data-content="<?php echo "<ul>" . $successChart->messages . "</ul>" ?>">
                     <div style="display: flex;direction: ltr;">
-                        <?php for ($i = 0; $i <= $successChart->rate; $i++) : ?>
+                        <?php for ($i = 0; $i < $successChart->rate; $i++) : ?>
                             <img style="float: right;" src='<?php echo $this->url->get("img/money_icon.png"); ?>' />
                         <?php endfor; ?>
                     </div>
