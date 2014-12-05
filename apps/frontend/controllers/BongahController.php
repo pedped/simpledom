@@ -150,10 +150,10 @@ class BongahController extends ControllerBase {
         // fetch user subscription
         $publicUrl = Config::getPublicUrl();
         if (intval($this->bongah->bongahsubscribeitemid) == 0) {
-            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><b style='color:#e30'>رایگان</b></a>";
+            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl" . "bongahsubscribe/plans'><b style='color:#e30'>رایگان</b></a>";
         } else {
             $subscriptionTitle = BongahSubscribeItem::findFirst($this->bongah->bongahsubscribeitemid)->name;
-            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl/bongahsubscribe/plans'><span style='color:#EE22BD'>" . $subscriptionTitle . "</span></a>";
+            $this->view->subscriptionText = "<a class='current-subscription-plan' href='$publicUrl" . "bongahsubscribe/plans'><span style='color:#EE22BD'>" . $subscriptionTitle . "</span></a>";
         }
 
         // load sms credit
@@ -351,6 +351,9 @@ class BongahController extends ControllerBase {
             }
         }
 
+        if (count($this->errors) > 0) {
+            $this->flash->error(implode("<br/>", $this->errors));
+        }
         $this->view->form = $fr;
     }
 

@@ -10,6 +10,11 @@
         margin-right: 15px;
         margin-left: 0px;
     }
+
+    .bongah-cuurent-subscription{
+        float: left  !important;
+        text-align: center;
+    }
 }
 
 
@@ -38,8 +43,14 @@
         padding-right: 5px;
         border-right: 5px solid #aaa;
         margin-right: 26px;
+        float: right !important;
+        text-align: right;
     }
 
+    .bongah-title-holder small{
+        display: none;
+        padding-right: 12px;
+    }
 
     .bongah-cuurent-subscription .bongah-smscredit {
         font-size: 15px !important;
@@ -68,10 +79,6 @@
 }
 
 
-.bongah-cuurent-subscription{
-    float: left  !important;
-    text-align: center;
-}
 
 
 
@@ -657,4 +664,8 @@ footer .btn {
 }
 .navbar-default .navbar-nav > li > a {
     color: #424242;
+}
+
+.bongah-title-holder{
+    margin-bottom: 20px;margin-top: 13px;
 }
