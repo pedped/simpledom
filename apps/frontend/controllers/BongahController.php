@@ -87,13 +87,13 @@ class BongahController extends ControllerBase {
                     "action" => "add",
                     "params" => array()
                 ));
+            } else {
+                $this->dispatcher->forward(array(
+                    "controller" => "user",
+                    "action" => "login",
+                    "params" => array()
+                ));
             }
-
-            $this->dispatcher->forward(array(
-                "controller" => "user",
-                "action" => "login",
-                "params" => array()
-            ));
             return;
         }
 
@@ -184,7 +184,7 @@ class BongahController extends ControllerBase {
     }
 
     public function reviewAction() {
-        
+        $this->setPageTitle("ویژگی پنل بنگاه داران");
     }
 
     public function waitforapproveAction() {
@@ -972,6 +972,20 @@ class BongahController extends ControllerBase {
 
                     // valid bongah for 30 days
                     $bongah->planvaliddate = (3600 * 24 * 30) + time();
+
+                    // add sms credit for the user
+                    // increase user credit
+                    if (SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))) {
+                        $item = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+                        $item->value += Config::GetDefaultSMSCreditOnBongahSignUp();
+                        return $item->save();
+                    } else {
+                        // we have to create new item
+                        $smscredit = new SMSCredit();
+                        $smscredit->value = Config::GetDefaultSMSCreditOnBongahSignUp();
+                        $smscredit->userid = $this->user->userid;
+                        return $smscredit->create();
+                    }
 
                     if (!$bongah->create()) {
                         $bongah->showErrorMessages($this);

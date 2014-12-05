@@ -26,6 +26,95 @@
 </div>
 
 <div class="row">
+    <div class="col-md-12">
+
+
+
+        <div class='row'>
+            <!-- Total Bongahs !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-tertiary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-tertiary">
+                                    <i class="fa fa-building"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">بنگاه</h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $totalBongahs ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("bongah/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Total Melks !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-warning">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-warning">
+                                    <i class="fa fa-home"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">ملک</h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $totalMelks ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("melk/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Total Phone Listners !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-success">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-success">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">املاک درخواستی</h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $totalPhoneListners ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("melkphonelistner/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-md-12'>
+            <hr/>
+        </div>
+    </div>
     <!-- Total Users !-->
     <div class="col-md-12 col-lg-6 col-xl-6">
         <section class="panel panel-featured-left panel-featured-quartenary">
