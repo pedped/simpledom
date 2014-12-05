@@ -74,7 +74,7 @@ class Helper {
         } else if ($price == 1) {
             return "یک میلیون تومان";
         } else if ($price > 1 && $price < 1000) {
-            return number_format($price) . " " . "میلیون تومان";
+            return number_format($price, 2 ) . " " . "میلیون تومان";
         } else {
             return number_format($price / 1000, 2) . " " . "میلیارد تومان";
         }

@@ -228,6 +228,8 @@ class MelkPhoneListnerController extends ControllerBase {
         $fr->get('cityid')->setDefault($melkphonelistner->cityid);
         $fr->get('address')->setDefault(implode(',', $melkphonelistner->getAreasNames(false)));
 
+        $this->view->phoneNumber = $melkphonelistner->getPhoneNumber();
+
 
         // create sent melk list
         $this->listSentMelkAction($id);
