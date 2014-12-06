@@ -28,7 +28,7 @@ class RequestMelkForm extends MelkSearch {
         // Submit Button
         $submit = new Submit('submit');
         $submit->setAttribute("value", _("Submit"));
-        $submit->setAttribute('class', 'btn btn-success btn-lg');
+        $submit->setAttribute('class', 'btn btn-primary btn-lg');
         $this->add($submit);
     }
 
