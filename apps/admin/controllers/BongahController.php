@@ -7,6 +7,7 @@ use AtaPaginator;
 use BaseUserLog;
 use Bongah;
 use BongahForm;
+use BongahSentMelk;
 use BongahSentMessage;
 use BongahSubscriber;
 use City;
@@ -94,10 +95,10 @@ class BongahController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Title', 'Shomare Peygiri', 'First Name', 'Last Name', 'Address', 'City', 'Locations Can Support', 'Mobile', 'Phone', 'Enable', 'Featured', 'Date'
+                    'کد', 'نام بنگاه', 'کدصنفی', 'نام', 'نام خانوادگی', 'آدرس', 'شهر', 'مناطق تخت پوشش', 'شماره موبایل', 'شماره تماس', 'وضعیت', 'ویژه', 'تاریخ', 'املاک ارسالی'
                 ))->
                 setFields(array(
-                    'id', 'title', 'peygiri', 'fname', 'lname', 'address', 'cityid', 'getSupporrtedLocationsNameAsString()', 'mobile', 'phone', 'enable', 'featured', 'getDate()'
+                    'id', 'title', 'peygiri', 'fname', 'lname', 'address', 'getCityName()', 'getSupporrtedLocationsNameAsString()', 'mobile', 'phone', 'enable', 'featured', 'getDate()', 'getSentMelkCount()'
                 ))->
                 setEditUrl(
                         'view'
@@ -253,6 +254,9 @@ class BongahController extends ControllerBase {
             case "sentmessages" :
                 $this->viewTabSentMessagess($id, $page);
                 break;
+            case "sentmelkinfo" :
+                $this->viewTabSentMelkInfo($id, $page);
+                break;
 
             default :
                 var_dump("invalid tab");
@@ -365,10 +369,12 @@ class BongahController extends ControllerBase {
     }
 
     public function viewTabImages($id) {
-        
+        $this->setTitle("تصاویر");
     }
 
     public function viewTabUserLogs($id, $page) {
+
+        $this->setTitle("لاگ");
 
         // load the users
         $userLogs = BaseUserLog::find(array("userid = :userid:", "bind" => array("userid" => Bongah::findFirst($id)->userid), 'order' => 'id DESC'));
@@ -400,6 +406,8 @@ class BongahController extends ControllerBase {
     }
 
     public function viewTabPurchasedSMSPackages($id, $page) {
+
+        $this->setTitle("بسته های پیامکی خریداری شده");
 
         $bongah = Bongah::findFirst($id);
 
@@ -438,6 +446,8 @@ class BongahController extends ControllerBase {
 
     public function viewTabSentMessagess($id, $page) {
 
+        $this->setTitle("پیامک های ارسالی");
+
         // load the users
         $sentMessages = BongahSentMessage::find(array(
                     "bongahid = :bongahid:",
@@ -472,6 +482,9 @@ class BongahController extends ControllerBase {
     }
 
     public function viewTabOrder($id, $page) {
+
+        $this->setTitle("بسته های خریداری شده");
+
         // load the users
         $userorders = UserOrder::find(array("userid = :userid:", "bind" => array("userid" => Bongah::findFirst($id)->userid), 'order' => 'id DESC'));
 
@@ -503,8 +516,10 @@ class BongahController extends ControllerBase {
 
     public function viewTabPurchasedPackages($id, $page) {
 
+        $this->setTitle("بسته های خریداری شده");
+
         $userid = Bongah::findFirst($id)->userid;
-        
+
         // load the users
         $bongahsubscribers = BongahSubscriber::find(array("userid = :userid:", "bind" => array("userid" => $userid), 'order' => 'id DESC'));
 
@@ -533,6 +548,44 @@ class BongahController extends ControllerBase {
                         'delete'
                 )->setListPath(
                 'bongah/view/' . $id . "/purchasedpackages/{pn}");
+
+        $this->view->list = $paginator->getPaginate();
+    }
+
+    public function viewTabSentMelkInfo($id, $page) {
+
+        $this->setTitle("املاک ارسالی");
+
+        // load the users
+        $bongahsentmelks = BongahSentMelk::find(
+                        array("bongahid = :bongahid:", "bind" => array("bongahid" => $id))
+        );
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $bongahsentmelks,
+            'limit' => 10,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'ID', 'Bongah ID', 'Melk Phone Listner', 'Melk ID', 'Message', 'Date'
+                ))->
+                setFields(array(
+                    'id', 'bongahid', 'melkphonelistnerid', 'melkid', 'message', 'getDate()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
 
         $this->view->list = $paginator->getPaginate();
     }

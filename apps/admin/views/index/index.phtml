@@ -108,6 +108,85 @@
                     </div>
                 </section>
             </div>
+
+            <!-- Total Purchased Bongah Packages !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-tertiary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-tertiary">
+                                    <i class="fa fa-bomb"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">بسته بنگاه</h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $totalBongahPackages ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("bongah/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Total Sent Melk Info !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-tertiary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-tertiary">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">املاک ارسالی</h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $totalSentMelk ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("bongahsentmelk/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Total Revenue !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-tertiary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-tertiary">
+                                    <i class="fa fa-dollar"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">درآمد</h4>
+                                    <div class="info">
+                                        <strong class="amount" style="font-size: 15px;"><?php echo $totalRevenue ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("order/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
         </div>
     </div>
     <div class='row'>

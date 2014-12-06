@@ -57,25 +57,28 @@
         <div class="tabs tabs-dark">
             <ul class="nav nav-tabs">
                 <li class="<?php echo $tab == "userinfo" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userinfo"); ?>" >اطلاعات بنگاه</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userinfo"); ?>" ><span class="glyphicon glyphicon-info-sign"></span></a>
                 </li>
                 <li class="<?php echo $tab == "profileimage" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/images"); ?>" >تصاویر</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/images"); ?>" ><span class="glyphicon glyphicon-picture"></span></a>
+                </li>
+                <li class="<?php echo $tab == "sentmelkinfo" ? "active" : "" ?>">
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/sentmelkinfo"); ?>" ><span class="glyphicon glyphicon-home"></span></a>
                 </li>
                 <li class="<?php echo $tab == "sentmessages" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/sentmessages"); ?>" >پیامک های ارسالی</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/sentmessages"); ?>" ><span class="glyphicon glyphicon-envelope"></span></a>
                 </li>
                 <li class="<?php echo $tab == "purchasedsmspackages" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedsmspackages"); ?>" >تغییرات پیامک</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedsmspackages"); ?>" ><span class="fa fa-arrow-down"></span></a>
                 </li>
                 <li class="<?php echo $tab == "userlogs" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userlogs"); ?>" >لاگ</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/userlogs"); ?>" ><span class="glyphicon glyphicon-list"></span></a>
                 </li>
                 <li class="<?php echo $tab == "orders" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/orders"); ?>" >سفارشات</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/orders"); ?>" ><span class="glyphicon glyphicon-usd"></span></a>
                 </li>
                 <li class="<?php echo $tab == "purchasedpackages" ? "active" : "" ?>">
-                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedpackages"); ?>" >بسته های بنگاه</a>
+                    <a href="<?php echo $this->url->get("bongah/view/$bongah->id/purchasedpackages"); ?>" ><span class="fa fa-dollar"></span></a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -146,7 +149,7 @@
                                 <div class='col-md-6'>
                                     <?php $viewForm->renderDecorated("stateid"); ?>
                                 </div>
-                            </div>
+                            </div> 
 
                             <!-- Address !-->
                             <?php $viewForm->renderDecorated("address"); ?>
@@ -217,6 +220,15 @@
                 <?php elseif ($tab == "purchasedsmspackages") : ?>
                     <!-- Orders !-->
                     <div id="recent6" class="tab-pane <?php echo $tab == "purchasedsmspackages" ? "active" : "" ?>">
+                        <?php
+                        echo $list->header;
+                        echo $list->table;
+                        echo $list->footer;
+                        ?>
+                    </div>
+                <?php elseif ($tab == "sentmelkinfo") : ?>
+                    <!-- Sent Melk !-->
+                    <div id="recent6" class="tab-pane <?php echo $tab == "sentmelkinfo" ? "active" : "" ?>">
                         <?php
                         echo $list->header;
                         echo $list->table;

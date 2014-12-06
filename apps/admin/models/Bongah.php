@@ -250,7 +250,7 @@ class Bongah extends AtaModel {
     }
 
     public function getDate() {
-        return date('Y-m-d H:m:s', $this->date);
+        return Jalali::date('Y-m-d H:i:s', $this->date);
     }
 
     public $userid;
@@ -316,7 +316,6 @@ class Bongah extends AtaModel {
         $this->bongahsubscribeitemid = "0";
         $this->visitedtutorial = "0";
     }
-
 
     public function getPublicResponse() {
         
@@ -406,6 +405,14 @@ class Bongah extends AtaModel {
 
     public function getRemainingPlanDays() {
         return (int) (($this->planvaliddate - time()) / (3600 * 24));
+    }
+
+    /**
+     * find total number of melks that has been sent
+     * @return int
+     */
+    public function getSentMelkCount() {
+        return BongahSentMelk::count(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->id)));
     }
 
 }
