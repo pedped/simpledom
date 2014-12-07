@@ -34,6 +34,8 @@
         <script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery/jquery.js"></script>
         <script src="<?php echo $pfurl; ?>adminfiles/assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
 
+        <?php $this->assets->outputCss('elementscss') ?>
+
         <?php $this->assets->outputJs('externalscripts') ?>
         <?php $this->assets->outputJs('elementscripts') ?> 
 

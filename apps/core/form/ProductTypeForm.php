@@ -45,9 +45,6 @@ class ProductTypeForm extends AtaForm {
         $enable = new EnableDisableElement('enable');
         $enable->setLabel(_('Enable'));
         //$enable->setAttribute('placeholder', 'Enter your Enable');
-        $enable->setAttribute('class', 'form-control');
-        $enable->addValidator(new PresenceOf(array(
-        )));
         $this->add($enable);
 
         // Submit Button

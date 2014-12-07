@@ -59,6 +59,9 @@ abstract class ControllerBase extends AtaController {
                 ->collection('elementscripts')
                 ->setPrefix('http://www.feij.ir/');
         $this->assets
+                ->collection('elementscss')
+                ->setPrefix('http://www.feij.ir/');
+        $this->assets
                 ->collection('externalscripts');
 
 

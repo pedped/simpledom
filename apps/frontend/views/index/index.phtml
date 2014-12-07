@@ -13,12 +13,10 @@ use Phalcon\Tag; ?>
         <?php endif; ?>
         <?php $this->assets->outputCss('header') ?>
         <?php $this->assets->outputJs('footer') ?>
-
         <?php $this->assets->outputJs('externalscripts') ?>
         <?php $this->assets->outputJs('elementscripts') ?>
         <?php $this->assets->outputCss('elementscss') ?>
         <?php echo Tag::getTitle() ?>
-
         <!-- Meta Keywords and Meta Description !-->
         <?php if (!(isset($metaDescription) && strlen($metaDescription) > 0) && isset($websiteSettings->metadata) && strlen($websiteSettings->metadata) > 0) : ?>
             <meta name="description" content="<?php echo $websiteSettings->metadata; ?>">
@@ -32,29 +30,28 @@ use Phalcon\Tag; ?>
         <?php endif; ?>
         <?php if (isset($metaKeywords) && strlen($metaKeywords) > 0) : ?>
             <meta name="keywords" content="<?php echo $metaKeywords; ?>">
-        <?php endif; ?>
+<?php endif; ?>
     </head>
     <!-- Load The Header !-->
-    <?php $this->partial("layouts/header") ?>
+<?php $this->partial("layouts/header") ?>
     <body>
         <div id='page-container'>
             <div id='page-container-body'>
                 <!-- Check For Global Message !-->
-                <?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
+<?php if (isset($websiteSettings->globalmessage) && strlen($websiteSettings->globalmessage) > 0) : ?>
                     <div class="container">
-                        <div class="col-md-12"> 
+                        <div class="col-md-12">
                             <div class='alert alert-info _global-message'>
                                 <h4 style="margin-top: 0px;"><?= _("Public Message"); ?></h4>
-                                <?php echo $websiteSettings->globalmessage; ?>
+    <?php echo $websiteSettings->globalmessage; ?>
                             </div>
                         </div>
                     </div>
                 <?php endif; ?>
-
                 <!-- Check For Verified Phone -->
-                <?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
+<?php if (isset($websiteSettings->requestverifiedphone) && isset($user) && !$user->hasVerifiedPhone()) : ?>
                     <div class="container">
-                        <div class="col-md-12"> 
+                        <div class="col-md-12">
                             <div class='alert alert-danger'>
                                 <h4 style="margin-top: 0px;"><?= _("Need Verified Phone"); ?></h4>
                                 <p><?= _("You have not verified phone, Please add and verify your phone"); ?></p>
@@ -63,8 +60,7 @@ use Phalcon\Tag; ?>
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
-
+<?php endif; ?>
                 <!-- Page Content !-->
                 <!-- Homepage Slider -->
                 <div class="homepage-slider">
@@ -93,9 +89,9 @@ use Phalcon\Tag; ?>
                             <!-- Slide 3 -->
                             <li class="tweed-bg">
                                 <!-- Slide Title -->
-                                <h2 class="title">امکانات زیاد</h2>
+                                <h2 class="title">امکانات گسترده</h2>
                                 <!-- Slide Text -->
-                                <h3 class="subtitle">استفاده راحت از امکانات زیاد</h3>
+                                <h3 class="subtitle">امکانات گسترده و کارآمد و استفاده آسان</h3>
                                 <!-- Slide Image -->
                                 <img class="slide-img" src="img/homepage-slider/slide3.png" alt="Slide 3" />
                             </li>
@@ -127,19 +123,53 @@ use Phalcon\Tag; ?>
                         <div class="panel-body home-description">
                             <div class="container" >
                                 <h1>سیستم اطلاع رسانی پیامکی چیست؟</h1>
-                                <p>
-                                    لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-                                </p>
+                                <p>ارسال پیام گروهی به دانشجویان دانشکده ، رشته ، درس ، گروه درسی ، استاد و ... خاص.</p>
+                                <p>ارسال پیام از طرف دانشجو به بخش های مختلف دانشکده با قالب خاص مثل بخش آموزش ، بخش مالی و ...</p>
+                                <p>ارسال پیام به استاد از طرف دانشجو با ذکر کد استاد در متن پیام.</p>
+                                <p>ارسال پیام به دانشجوی خاص با ذکر شماره دانشجویی در قالب تعریف شده در سیستم.</p>
+                                <p>ارسال پیام عدم برگزاری کلاس و یا هر موضوعی که احتیاج به ارسال پیام عمومی دارد که استاد و یا مسئول با نوشتن متن و ارسال پیام در قالب یک پیام کوتاه و یا استفاده از کدهای خاص تعریف شده در سیستم توسط خود استاد برای ارسال متون ثابت و ... به سیستم ، پیام را به دانشجویان مربوط به خود ارسال کند.</p>
+                                <p>رای گیری برای درس، گروه درسی &nbsp;و ... برای تعیین بهترین زمان برای برگزاری امتحانات میان ترم و... ، و ارسال نتیجه رای گیری به استاد و یا مسئول مربوطه.</p>
+                                <p>نظر سنجی از دانشجویان و اساتید در زمینه های گوناگون از قبیل نظر دانشجویان درمورد استاد خاص و ...</p>
+                                <p>ایجاد مسابقه برای دانشجویان درس، گروه درسی و ... خاص.</p>
+                                <p>&nbsp;</p>
+                                <p><strong>مزایای این سیستم:</strong></p>
+                                <ul>
+                                    <li>ارتباط سریع و راحت با دانشجو و مسئولین</li>
+                                    <li>نظرسنجی های دقیق و عادلانه</li>
+                                    <li>ایجاد مسابقه های گوناگون برای دانشجویان و اساتید</li>
+                                    <li>آگاه سازی دانشجو از مناسبتها و همایش های دانشگاه</li>
+                                    <li>ارسال پیشنهادات و انتقادات دانشجو به استاد و یا مسئول مورد نظر</li>
+                                    <li>کاهش هزینه های دانشجو و دانشگاه</li>
+                                    <li>جلوگیری از اتلاف وقت دانشجو</li>
+                                    <li>کاهش ترافیک شهری و آلودگی محیط زیست</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="panel-body home-costumer">
+                        <div class="panel-body home-costumer" style="background-color: #C5CBC7;">
                             <div class="container" >
-                                <h1>سیستم اطلاع رسانی پیامکی چیست؟</h1>
-                                <p>
-                                    لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-                                </p>
+                                <h1>برخی از مشتریان ما</h1>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/11.gif" alt="" border="0" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/31.gif" alt="" border="0" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/a1.jpg" alt="" border="0" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/smsmart31.jpg" alt="" border="0" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/smsmart81.jpg" alt="" border="0" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="img/moshtarian/31.gif" alt="" border="0" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +182,6 @@ use Phalcon\Tag; ?>
             if (isset($websiteSettings->googleanalytics) && strlen($websiteSettings->googleanalytics) > 0) {
                 echo $websiteSettings->googleanalytics;
             }
-
             if (isset($websiteSettings->clickyanalitics) && strlen($websiteSettings->clickyanalitics) > 0) {
                 echo $websiteSettings->clickyanalitics;
             }

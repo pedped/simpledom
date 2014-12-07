@@ -1,19 +1,29 @@
 <?php
 
-use Phalcon\Forms\Element\Check;
-
 /**
  * Uses
  */
-class EnableDisableElement extends Check {
-    public function __construct($name, $attributes=null) {
+class EnableDisableElement extends BaseElement {
+
+    public function __construct($name, $attributes = null) {
         parent::__construct($name, $attributes);
-        $this->setAttributes(array(
-            "class" => "switch-checkbox",
-            "data-on-text" => "بله",
-            "data-off-text" => "خیر",
-            'checked' => $this->getDefault(),
-            'value' => 1
+
+        $this->setScriptnames(array(
+            "js/bootstrap-switch.min.js"
         ));
+
+        $this->setCssnames(array(
+            "css/bt3/bootstrap-switch.min.css"
+        ));
+
     }
+
+    public function render($attributes = null) {
+        $elementName = $this->getName();
+        $default = $this->getDefault();
+        $html = "<input type='checkbox' data-on-text='بله' data-off-text='خیر' name='$elementName' id='$elementName' value='1' class='switch-checkbox' checked='$default' />";
+        $html .= "<script> $(document).ready(function() { $('#" . $elementName . "').bootstrapSwitch()}); </script>";
+        return $html;
+    }
+
 }
