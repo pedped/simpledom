@@ -807,14 +807,7 @@ class OrganController extends ControllerBase {
                 $organ = new \Organ();
 
                 $organ->name = $this->request->getPost('name', 'string');
-                $organ->username = $this->request->getPost('username', 'string');
-                $organ->password = $this->request->getPost('password', 'string');
-                $organ->email = $this->request->getPost('email', 'email');
-                // todo  in ghesmat alaki 1 gozashtam hatman barresi shavad.
-                $organ->byuserid = "1";
-                $organ->smscredit = "12";
-                $organ->status = "1";
-                
+                $organ->byuserid = $this->getUser()->userid;
                 $organ->address = $this->request->getPost('address', 'string');
                 $organ->stateid = $this->request->getPost('stateid', 'string');
                 $organ->cityid = $this->request->getPost('cityid', 'string');

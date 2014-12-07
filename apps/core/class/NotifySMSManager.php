@@ -9,7 +9,6 @@ use SendPermission;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
-use UserPhone;
 use UserPost;
 
 class ParsedHeader {
@@ -22,6 +21,10 @@ class ParsedHeader {
 class NotifySMSManager {
 
     public static function onNewMessageReceived(&$errors, $smsNumber, $phone, $message) {
+
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(-1);
 
         // check for smsNumber
         $smsnum = SmsNumber::findFirst(array("number = :number:", "bind" => array("number" => $smsNumber)));
@@ -47,83 +50,39 @@ class NotifySMSManager {
         // (3) parse line one
         $parsedHeader = self::parseHeader($parsedMessageByLine[0]);
 
-        // (4) Check Sender Post In Organ
-        $senderUserPost = UserPost::findFirst(array("phonenumber = :phonenumber:", "bind" => array("phonenumber" => $phone)));
-        if (!$senderUserPost) {
-            // this post is not exist for the user
-            $errors[] = "this post is not exist for the user";
-            return;
+
+        // check if organ need to fetch from interface
+        if ($organ->useinterface) {
+            self::startUserInterface($errors, $organ, $smsnum, $parsedHeader, $phone, $userMessage);
+        } else {
+            self::startNormalWay($errors, $organ, $smsnum, $parsedHeader, $phone, $userMessage);
+        }
+        die();
+    }
+
+    /**
+     * 
+     * @param array $errors
+     * @param Organ $organ
+     * @param type $fromPhoneNumber
+     * @param type $toPhoneNumber
+     * @param type $message
+     * @param SmsNumber $smsnum
+     */
+    public static function sendSMS(&$errors, $organ, $fromPhoneNumber, $toPhoneNumber, $message, $smsnum) {
+        // get user phone
+        // TODO fix sms number [SmsNumber::findFirst()->id to $smsnum->id]
+        $smsSender = SmsNumber::findFirst();
+        $smsID = SMSManager::SendSMS($toPhoneNumber, $message, $smsSender->id);
+        if ($smsID) {
+            // TODO calc sms cost and user for total sms
+            SMSCredit::decreaseCredit($errors, $organ->byuserid, $smsID, 1);
         }
 
-
-        $senderPost = Post::findFirst($senderUserPost->postid);
-
-        // create header based on sender
-        $header = self::createHeader($senderPost, $senderUserPost);
-
-
-        // (5) Check receiver حخسف
-        $receiverPost = Post::findFirst(array(
-                    "organid = :organid: AND smskey = :smskey:",
-                    "bind" => array(
-                        "organid" => $organ->id,
-                        "smskey" => $parsedHeader->smsKey
-                    )
-        ));
-        var_dump($parsedHeader);
-
-        if (!$receiverPost) {
-            // receiver post is not exist
-            $errors[] = "receiver post is not exist : " . $parsedHeader->smsKey;
-            return;
-        }
-
-        $receivers = UserPost::find(array("postid = :postid: AND code = :code:", "bind" => array(
-                        "postid" => $receiverPost->id,
-                        "code" => $parsedHeader->code,
-        )));
-        if ($receivers->count() == 0) {
-            // receiver is not exist
-            $errors[] = "receiver is not exist";
-            return;
-        }
-
-
-        // check if the sender can send message to receiver
-        $sendPermission = SendPermission::findFirst(array("userpost1 = :userpost1: AND userpost2 = :userpost2:", "bind" => array(
-                        "userpost1" => $senderPost->id,
-                        "userpost2" => $receiverPost->id,
-        )));
-        if (!$sendPermission || intval($sendPermission->cansend) == 0) {
-            // user do not have permission to send message
-            $errors[] = "user do not have permission to send message";
-            return;
-        }
-
-        // Create a message that have to be sent
-        $messageToBeSent = self::createMessage($header, $userMessage);
-
-        var_dump($receivers->toArray());
-        // send message to each recivers
-        foreach ($receivers as $receiver) {
-
-            // var_dump($receiver->toArray());
-            // get user phone
-            $phoneNumber = $receiver->phonenumber;
-            //var_dump($receiver->toArray(), "Message have to be send to " . $phoneNumber);
-            // TODO fix sms number [SmsNumber::findFirst()->id to $smsnum->id]
-            $smsSender = SmsNumber::findFirst();
-            $smsID = SMSManager::SendSMS($phoneNumber, $messageToBeSent, $smsSender->id);
-            if ($smsID) {
-                // TODO calc sms cost and user for total sms
-                SMSCredit::decreaseCredit($errors, $organ->byuserid, $smsID, 1);
-            }
-
-            // log sent message
-            self::logNewSentMessage($organ->id, $phone, $phoneNumber, $messageToBeSent, $smsSender->number);
-            var_dump("sent", $messageToBeSent);
-            $errors[] = _("Message Sent!");
-        }
+        // log sent message
+        self::logNewSentMessage($organ->id, $fromPhoneNumber, $toPhoneNumber, $message, $smsSender->number);
+        var_dump("sent", $message);
+        $errors[] = _("Message Sent!");
     }
 
     /**
@@ -209,6 +168,205 @@ class NotifySMSManager {
         $sentMessage->sendernumber = $senderNumber;
         $sentMessage->tonumber = $toNumber;
         $sentMessage->create();
+    }
+
+    /**
+     * 
+     * @param type $errors
+     * @param Organ $organ
+     * @param SmsNumber $smsnum
+     * @param ParsedHeader $parsedHeader
+     * @param type $phone
+     * @param type $userMessage
+     */
+    public static function startUserInterface(&$errors, $organ, $smsnum, $parsedHeader, $phone, $userMessage) {
+
+
+
+
+        // (4) Check Sender Post In Organ
+        $curlResult = self::curl($organ, array(
+                    "request" => "getpost",
+                    "phonenumber" => $phone
+        ));
+
+        // find post in interal database based on remote result
+        $senderPost = Post::findFirst(array("organid = :organid: AND key = :key: ", "bind" => array(
+                        "organid" => $organ->id,
+                        "key" => $curlResult[0]
+        )));
+        if (!$senderPost) {
+            // this post is not exist for the user
+            $errors[] = "this post is not exist for the user";
+            return;
+        }
+
+        // check sender user post in database
+        $senderUserPost = UserPost::findFirst(array("postid = :postid:", "bind" => array("postid" => $senderPost->id)));
+        if (!$senderUserPost) {
+            // this post is not exist for the user
+            $errors[] = "this post is not exist for the user";
+            return;
+        }
+
+        // create header based on sender
+        $header = self::createHeader($senderPost, $senderUserPost);
+
+        // (5) Check Receiver
+        $receiverPost = Post::findFirst(array(
+                    "organid = :organid: AND smskey = :smskey:",
+                    "bind" => array(
+                        "organid" => $organ->id,
+                        "smskey" => $parsedHeader->smsKey
+                    )
+        ));
+
+        //var_dump($parsedHeader, $header, $senderPost->toArray(), $senderUserPost->toArray());
+
+        if (!$receiverPost) {
+            // receiver post is not exist
+            $errors[] = "receiver post is not exist : " . $parsedHeader->smsKey;
+            return;
+        }
+
+        // fetch receiver Numbers from database
+        $curlReceivers = self::curl($organ, array(
+                    "request" => "getphones",
+                    "smskey" => $receiverPost->key,
+                    "usercode" => $parsedHeader->code,
+        ));
+        if (count($curlReceivers) == 0) {
+            // receiver is not exist
+            $errors[] = "receiver is not exist";
+            return;
+        }
+
+
+        // check if the sender can send message to receiver
+        $sendPermission = SendPermission::findFirst(array("userpost1 = :userpost1: AND userpost2 = :userpost2:", "bind" => array(
+                        "userpost1" => $senderPost->id,
+                        "userpost2" => $receiverPost->id,
+        )));
+
+        if (!$sendPermission || intval($sendPermission->cansend) == 0) {
+            // user do not have permission to send message
+            $errors[] = "user do not have permission to send message";
+            return;
+        }
+
+        // Create a message that have to be sent
+        $messageToBeSent = self::createMessage($header, $userMessage);
+
+        var_dump($organ->toArray());
+
+        // send message to each recivers
+        foreach ($curlReceivers as $phoneNumber) {
+            self::sendSMS($errors, $organ, $phone, $phoneNumber, $messageToBeSent, $smsnum);
+        }
+    }
+
+    /**
+     * 
+     * @param type $errors
+     * @param Organ $organ
+     * @param SmsNumber $smsnum
+     * @param ParsedHeader $parsedHeader
+     * @param type $phone
+     * @param type $userMessage
+     */
+    public static function startNormalWay(&$errors, $organ, $smsnum, $parsedHeader, $phone, $userMessage) {
+
+        // (4) Check Sender Post In Organ
+        $senderUserPost = UserPost::findFirst(array("phonenumber = :phonenumber:", "bind" => array("phonenumber" => $phone)));
+        if (!$senderUserPost) {
+            // this post is not exist for the user
+            $errors[] = "this post is not exist for the user";
+            return;
+        }
+
+
+        $senderPost = Post::findFirst($senderUserPost->postid);
+
+        // create header based on sender
+        $header = self::createHeader($senderPost, $senderUserPost);
+
+        // (5) Check Receiver
+        $receiverPost = Post::findFirst(array(
+                    "organid = :organid: AND smskey = :smskey:",
+                    "bind" => array(
+                        "organid" => $organ->id,
+                        "smskey" => $parsedHeader->smsKey
+                    )
+        ));
+        var_dump($parsedHeader);
+
+        if (!$receiverPost) {
+            // receiver post is not exist
+            $errors[] = "receiver post is not exist : " . $parsedHeader->smsKey;
+            return;
+        }
+
+        $receivers = UserPost::find(array("postid = :postid: AND code = :code:", "bind" => array(
+                        "postid" => $receiverPost->id,
+                        "code" => $parsedHeader->code,
+        )));
+        if ($receivers->count() == 0) {
+            // receiver is not exist
+            $errors[] = "receiver is not exist";
+            return;
+        }
+
+
+        // check if the sender can send message to receiver
+        $sendPermission = SendPermission::findFirst(array("userpost1 = :userpost1: AND userpost2 = :userpost2:", "bind" => array(
+                        "userpost1" => $senderPost->id,
+                        "userpost2" => $receiverPost->id,
+        )));
+        if (!$sendPermission || intval($sendPermission->cansend) == 0) {
+            // user do not have permission to send message
+            $errors[] = "user do not have permission to send message";
+            return;
+        }
+
+        // Create a message that have to be sent
+        $messageToBeSent = self::createMessage($header, $userMessage);
+
+        var_dump($receivers->toArray());
+        // send message to each recivers
+        foreach ($receivers as $receiver) {
+            $this->sendSMS($errors, $organ, $phone, $receiver->phonenumber, $messageToBeSent, $smsnum);
+        }
+    }
+
+    /**
+     * 
+     * @param Organ $organ
+     * @param type $parameters
+     */
+    public static function curl($organ, $parameters = array()) {
+        $result = self::post_to_url($organ->interfaceurl, $parameters);
+        var_dump($parameters, $result);
+        //die();
+        return json_decode($result);
+    }
+
+    public static function post_to_url($url, $data) {
+        $fields = '';
+        foreach ($data as $key => $value) {
+            $fields .= $key . '=' . $value . '&';
+        }
+        rtrim($fields, '&');
+
+        $post = curl_init();
+
+        curl_setopt($post, CURLOPT_URL, $url);
+        curl_setopt($post, CURLOPT_POST, count($data));
+        curl_setopt($post, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($post);
+        curl_close($post);
+        return $result;
     }
 
 }

@@ -82,30 +82,6 @@ class CreateOrganForm extends AtaForm {
         $phonenumber->addValidator(new PresenceOf(array("message" => "فیلد ".$phonenumber->getLabel()." ضروری است.")));
         $this->add($phonenumber);
 
-        //username
-        $username = new TextElement("username");
-        $username->setLabel("نام کاربری");
-        $username->setAttribute("class", "form-control");
-        $username->addValidator(new PresenceOf(array("message" => "فیلد نام کاربری ضروری است.")));
-        $this->add($username);
-
-        //password
-        $password = new PasswordElement("password");
-        $password->setLabel("کلمه عبور");
-        $password->setAttribute("class", "form-control");
-        $password->addValidator(new PresenceOf(array("message" => "فیلد کلمه عبور ضروری است.")));
-        $this->add($password);
-
-        //email
-        $email = new TextElement("email");
-        $email->setLabel("ایمیل");
-        $email->setAttribute("class", "form-control");
-        $email->addValidator(new Email(array(
-            'message' => "ایمیل وارد شده صحیح نیست.",
-            'allowEmpty' => true
-        )));
-        $this->add($email);
-
 
         // SMS Credit
         $smscredit = new TextElement('smscredit');
