@@ -187,6 +187,32 @@
                 </section>
             </div>
 
+            <!-- Total User Phone !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-danger">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-danger">
+                                    <i class="fa fa-mobile-phone"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">تعداد شماره تماس ها</h4>
+                                    <div class="info">
+                                        <strong class="amount" style="font-size: 15px;"><?php echo $totalUserPhone ?><small>(<?php echo $todayUserPhone; ?>)</small></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("userphone/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
         </div>
     </div>
     <div class='row'>

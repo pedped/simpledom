@@ -135,4 +135,8 @@ class Helper {
         }
     }
 
+    public static function GetTodayStartTime() {
+        return strtotime("12:00:00");
+    }
+
 }

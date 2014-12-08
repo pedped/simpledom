@@ -10,6 +10,7 @@ use MelkPhoneListner;
 use Simpledom\Admin\BaseControllers\IndexControllerBase;
 use Simpledom\Core\Classes\Helper;
 use UserOrder;
+use UserPhone;
 
 class IndexController extends IndexControllerBase {
 
@@ -33,6 +34,12 @@ class IndexController extends IndexControllerBase {
 
         // load revenue
         $this->view->totalRevenue = Helper::GetPrice(UserOrder::sum(array("done = '1'", 'column' => "price")) / 1000000);
+
+        // load user phone
+        $this->view->totalUserPhone = UserPhone::Count();
+
+        // Today User Phone
+        $this->view->todayUserPhone = UserPhone::Count(array("date >= :date:", "bind" => array("date" => Helper::GetTodayStartTime())));
     }
 
 }

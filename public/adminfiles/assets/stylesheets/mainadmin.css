@@ -48,3 +48,8 @@
     margin-bottom: 0px;
     margin-left: 5px;
 }
+
+.widget-summary-col .info small{
+    color : #888;
+    padding-left: 10px;
+}
