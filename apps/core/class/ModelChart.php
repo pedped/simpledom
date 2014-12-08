@@ -108,6 +108,9 @@ class ModelChart {
             $lastTime = strtotime("-1 day", $lastTime);
             $endTime = strtotime("+1 day", $lastTime);
         }
+
+        // reverse the array
+        $this->dateRange = array_reverse($this->dateRange);
     }
 
 }
