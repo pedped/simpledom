@@ -17,7 +17,7 @@ class ModelChart {
 
     /**
      * Chart ELement
-     * @var BarChartElement
+     * @var LineChartElement
      */
     private $chart;
 
@@ -27,14 +27,26 @@ class ModelChart {
      */
     private $dateRange;
 
+    /**
+     * 
+     * @return AtaModel
+     */
     public function getModel() {
         return $this->model;
     }
 
+    /**
+     * 
+     * @return LineChartElement
+     */
     public function getChart() {
         return $this->chart;
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function getDateRange() {
         return $this->dateRange;
     }
@@ -44,7 +56,7 @@ class ModelChart {
         return $this;
     }
 
-    public function setChart(BarChartElement $chart) {
+    public function setChart(LineChartElement $chart) {
         $this->chart = $chart;
         return $this;
     }
