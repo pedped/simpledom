@@ -58,17 +58,16 @@ class IndexController extends IndexControllerBase {
         // fetch data
         $modelChart = new ModelChart("userphonechart", new UserPhone());
         $chartlement = $modelChart->getChart();
-        $chartlement->setTitle("Register Chart");
+        $chartlement->setTitle("User Phone Chart");
         $chartlement->setSubtitle("total register count per day");
         $chartlement->setXName("Date");
         $chartlement->setYAxis("Count");
-        $chartlement->setValues($user->getLastMonthRegistarChart());
 
         // add element to form
         $form->add($chartlement);
 
         // set view form
-        $this->view->form = $form;
+        $this->view->amlakgostarform = $form;
         $this->handleFormScripts($form);
     }
 
