@@ -18,6 +18,9 @@
                     <!-- Last Name!-->
                     <?php echo $loginform->renderDecorated('password'); ?>
 
+                    <!-- Remember !-->
+                    <?php echo $loginform->renderDecorated('remember'); ?>
+
                     <br/>
                     <p>
                         <a href="<?php echo $this->url->get("user/forgetpassword") ?>"><?= _("Forget Password"); ?></a>

@@ -2,6 +2,7 @@
 
 namespace Simpledom\Core;
 
+use CheckElement;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\Email;
@@ -22,6 +23,13 @@ class LoginForm extends AtaForm {
         )));
         $this->add($email);
 
+
+        // Remember
+        $remmeber = new CheckElement("remember");
+        $remmeber->setCheckboxText("Remember Login Information");
+        $remmeber->setAttribute("value", "1");
+        $remmeber->setAttribute("checked", "checked");
+        $this->add($remmeber);
 
         // Password
         $password = new Password("password");

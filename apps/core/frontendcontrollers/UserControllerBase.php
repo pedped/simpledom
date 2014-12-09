@@ -12,8 +12,8 @@ use LoginDetailsForm;
 use ProfileImageForm;
 use Recaptcha;
 use ResetVerficationCode;
+use Session;
 use Settings;
-use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\ForgetPasswordForm;
@@ -119,11 +119,19 @@ class UserControllerBase extends ControllerBase {
     }
 
     public function LogoutAction() {
+
+        // check if we have remmber cookie, destrory that
+        if ($this->cookies->has("rm")) {
+            $this->cookies->get("rm")->delete();
+            $this->cookies->get("rmuser")->delete();
+        }
+
         // destroy session
         $this->session->destroy();
 
         // show message
         $this->flash->success(_("You have successfully logged out from webiste"));
+
 
         return $this->response->redirect("");
     }
@@ -207,6 +215,8 @@ class UserControllerBase extends ControllerBase {
         $this->view->loginform = $lf;
         if ($this->request->isPost()) {
 
+//            var_dump($_POST);
+//            die();
             if (!$lf->isValid($_POST)) {
                 // invalid post
             } else {
@@ -224,6 +234,23 @@ class UserControllerBase extends ControllerBase {
 
                     // set session
                     $user->setSession($this);
+
+                    // check if the user need to save remember me
+                    if ($this->request->hasPost("remember") && intval($this->request->getPost("remember")) == 1) {
+                        // we have to create save session for the user
+                        $session = new Session();
+                        $session->agent = $this->request->getUserAgent();
+                        $session->ip = $_SERVER["REMOTE_ADDR"];
+                        $session->session = Helper::GenerateRandomString(256);
+                        $session->userid = $user->userid;
+                        if ($session->create()) {
+                            // set user cookie
+                            $this->cookies->set("rm", $session->session, time() + 60 * 86400);
+                            $this->cookies->set("rmuser", $session->userid, time() + 60 * 86400);
+                        }
+                    }
+
+
 
                     // set login for the user
                     $user->trackLogin($this->request->getUserAgent(), $_SERVER["REMOTE_ADDR"]);
