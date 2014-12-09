@@ -58,10 +58,10 @@ class IndexController extends IndexControllerBase {
         // fetch data
         $modelChart = new ModelChart("userphonechart", new UserPhone());
         $chartlement = $modelChart->getChart();
-        $chartlement->setTitle("User Phone Chart");
-        $chartlement->setSubtitle("total register count per day");
-        $chartlement->setXName("Date");
-        $chartlement->setYAxis("Count");
+        $chartlement->setTitle("املاک درخواستی");
+        $chartlement->setSubtitle("تعداد املاک درخواستی در هر روز");
+        $chartlement->setXName("تاریخ");
+        $chartlement->setYAxis("تعداد");
 
         // add element to form
         $form->add($chartlement);

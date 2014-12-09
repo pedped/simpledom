@@ -5,6 +5,7 @@ namespace Simpledom\Frontend\Controllers;
 use Area;
 use AtaPaginator;
 use Bongah;
+use BongahImage;
 use BongahSentMelk;
 use BongahSentMessage;
 use BongahSubscribeItem;
@@ -993,6 +994,23 @@ class BongahController extends ControllerBase {
                     if (!$bongah->create()) {
                         $bongah->showErrorMessages($this);
                     } else {
+
+
+                        // save images
+                        if ($this->request->hasFiles()) {
+                            // valid request, load the files
+                            foreach ($this->request->getUploadedFiles() as $file) {
+                                $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                                if ($image) {
+                                    $melkImage = new BongahImage();
+                                    $melkImage->imageid = $image->id;
+                                    $melkImage->bongahid = $bongah->id;
+                                    $melkImage->create();
+                                }
+                            }
+                        }
+
+
                         $bongah->showSuccessMessages($this, 'بنگاه با موفقیت اضافه گردید');
 
                         // clear the title and message so the user can add better info
