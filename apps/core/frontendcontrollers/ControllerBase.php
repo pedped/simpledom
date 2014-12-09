@@ -93,6 +93,7 @@ abstract class ControllerBase extends AtaController {
     }
 
     public function initialize() {
+        parent::initialize();
         // CSS in the header
         $this->assets
                 ->collection('header')

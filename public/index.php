@@ -6,6 +6,7 @@
 use Phalcon\Events\Manager;
 use Phalcon\Exception;
 use Phalcon\Flash\Direct;
+use Phalcon\Http\Response\Cookies;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Security;
@@ -102,10 +103,22 @@ try {
         return $flash;
     });
 
+    // set cookie
+    $di->set('cookies', function() {
+        $cookies = new Cookies();
+        $cookies->useEncryption(false);
+        return $cookies;
+    });
+//    $di->set('crypt', function() {
+//        $crypt = new Phalcon\Crypt();
+//        $crypt->setKey('#1dj8$=dp?.ak//j1V$'); //Use your own key!
+//        return $crypt;
+//    });
+
 
     $di->set('security', function() {
         $security = new Security();
-        
+
         //Set the password hashing factor to 12 rounds
         $security->setWorkFactor(12);
 

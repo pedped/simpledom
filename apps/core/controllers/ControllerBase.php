@@ -17,7 +17,7 @@ abstract class ControllerBase extends AtaController {
     protected $user;
 
     public function initialize() {
-
+        parent::initialize();
         putenv("LC_ALL=en_Us");
         setlocale(LC_ALL, "en_Us");
         bindtextdomain('messages', $_SERVER["DOCUMENT_ROOT"] . "/Local/");

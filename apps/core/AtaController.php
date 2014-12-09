@@ -5,6 +5,33 @@ use Simpledom\Core\AtaForm;
 
 abstract class AtaController extends Controller {
 
+    public function initialize() {
+        // check for the user session, if user has any save cookie, check for the user
+        if (!$this->session->has("userid") && $this->cookies->has("rm")) {
+            // try to get user cookei
+            try {
+                $rememberCookie = $this->cookies->get("rm")->getValue();
+                $rememberCookieUser = intval($this->cookies->get("rmuser")->getValue());
+
+
+                // check for session
+                if (Session::hasSession($rememberCookie, $rememberCookieUser)) {
+                    // we have to set user cookie
+                    $user = User::findFirst(array("userid = :userid:", "bind" => array("userid" => $rememberCookieUser)));
+
+                    // check if we have user
+                    if ($user) {
+                        // set user session
+                        $user->setSession($this);
+                    }
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+                die();
+            }
+        }
+    }
+
     /**
      * hold the errors about controller
      * @var ArrayObject 
