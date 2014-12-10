@@ -26,7 +26,7 @@ class LoginForm extends AtaForm {
 
         // Remember
         $remmeber = new CheckElement("remember");
-        $remmeber->setCheckboxText("Remember Login Information");
+        $remmeber->setCheckboxText("مرا به خاطر بسپار");
         $remmeber->setAttribute("value", "1");
         $remmeber->setAttribute("checked", "checked");
         $this->add($remmeber);

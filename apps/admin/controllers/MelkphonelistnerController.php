@@ -80,7 +80,7 @@ class MelkPhoneListnerController extends ControllerBase {
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $melkphonelistners,
-            'limit' => 10,
+            'limit' => 50,
             'page' => $numberPage
         ));
 

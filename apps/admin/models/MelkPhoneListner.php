@@ -711,5 +711,13 @@ class MelkPhoneListner extends AtaModel {
             return "";
         }
     }
+            
+    /**
+     * get invlisible phone number 0917XXXXX18
+     * @return string
+     */
+    public function getSimplePhoneNumber() {
+        return substr($this->getPhoneNumber(), 0, 4) . "XXXXX" . substr($this->getPhoneNumber(), 9);
+    }
 
 }

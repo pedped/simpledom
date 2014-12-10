@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">
+            آخرین املاک درخواستی
+        </h1>
+    </div>
+    <div class="panel-body">
+        <div class='row'>
+            <div class='col-md-12'>
+
+                <p>در زیر لیست کاملی از افراد نیازمند ملک را میتوانید مشاهده نمایید. شماره تماس کامل، تنها برای مشاوران املاک عضو در سایت قابل رویت می باشد</p>
+                <hr/>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-12'>
+                <?php
+                echo $list->header;
+                echo $list->table;
+                echo $list->footer;
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

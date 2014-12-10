@@ -2,22 +2,49 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use AtaPaginator;
 use BaseSystemLog;
 use City;
 use MelkPhoneListner;
-use Phalcon\Validation\Validator\PresenceOf;
 use RequestMelkForm;
-use Settings;
 use Simpledom\Core\Classes\Helper;
-use SMSManager;
-use SmsNumber;
 use SystemLogType;
-use User;
 
 class RequestmelkController extends ControllerBaseFrontEnd {
 
     protected function ValidateAccess($id) {
         
+    }
+
+    public function listAction($pagenumber = 1) {
+
+        $this->setPageTitle("املاک درخواستی");
+
+        // find all city
+        $melkphonelistners = MelkPhoneListner::find(
+                        array(
+                            'status = "1"',
+                            'order' => 'id DESC',
+        ));
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $melkphonelistners,
+            'limit' => 10,
+            'page' => $pagenumber
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'کد', 'شهر', 'نوع ملک', 'منظور', "مناطق درخواستی", 'حداقل اتاق', 'حداکثر اتاق', 'حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تاریخ', 'شماره تماس'
+                ))->
+                setFields(array(
+                    'id', 'getCityName()', 'getTypeTitle()', 'getPurposeTitle()', 'getAreasNames()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getSimplePhoneNumber()',
+                ))->setListPath(
+                "requestmelk/list");
+
+        $this->view->list = $paginator->getPaginate();
     }
 
     public function initialize() {
