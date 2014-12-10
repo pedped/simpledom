@@ -3,32 +3,6 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<!--<div class='row'>
-<?php foreach ($plans as $plan) : ?>
-                <div class="col-md-3">
-                    <div class="thumbnail plan-thumbnail plan-<?= $plan->id ?>">
-                         Title !
-                        <h3 class="title">
-    <?php echo $plan->name; ?>
-                        </h3>
-                        <h1 class="price"><?php echo $plan->getHumanPrice(); ?></h1>
-                        <p>نمایش ملک به مدت <?php echo $plan->validdate; ?> روز</p>
-                        <hr/>
-    <?php if ($plan->sendmessagetousers == 1) : ?>
-                                    <b>ارسال پیامک به کاربران</b>
-                                    <p>ملک شما بعد از تایید توسط مدیر، به صورت سراسری برای افرادی که به دنبال ملک با مشخصات شما هستند ارسال می شود</p>
-                                    <hr/>
-    <?php endif; ?>
-    <?php if ($plan->featured == 1) : ?>
-                                    <b>نمایش ملک به صورت ویژه</b>
-                                    <p>ملک شما در لیست به صورت ویژه نمایش داده خواهد شد</p>
-                                    <hr/>
-    <?php endif; ?>
-                    </div>
-
-                </div>
-<?php endforeach; ?>
-</div>-->
 <div class='row'>
     <div class='col-md-12'>
         <div class="alert alert-info">
@@ -135,7 +109,7 @@
 
             <tr>
                 <td>
-                    <a target="_blank" href="http://demo.amlakgostar.ir">دریافت وب سایت اختصاصی املاک</a>
+                    <a target="_blank" href="http://amlak.edspace.org/page/customwebsite">دریافت وب سایت اختصاصی املاک</a>
                 </td>
                 <?php foreach ($plans as $plan) : ?>
                     <td>
