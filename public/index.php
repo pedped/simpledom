@@ -1,6 +1,7 @@
 <?php
 
 //define("DEBUG_MODE", TRUE);
+$_SERVER["REMOTE_ADDR"] = $_SERVER["HTTP_X_REAL_IP"];
 
 use Phalcon\Events\Manager;
 use Phalcon\Exception;
