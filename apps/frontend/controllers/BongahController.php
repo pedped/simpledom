@@ -165,6 +165,7 @@ class BongahController extends ControllerBase {
     }
 
     public function homeAction() {
+
         if (intval($this->bongah->visitedtutorial) == 0) {
             // user need to visit tourial page
             $this->dispatcher->forward(array(
@@ -194,6 +195,8 @@ class BongahController extends ControllerBase {
 
     public function tutorialAction() {
 
+        $this->AddUserLog("مشاهده صفحه آموزش");
+
         // user visited home page
         if ($this->request->isPost()) {
             $this->bongah->visitedtutorial = 1;
@@ -214,6 +217,8 @@ class BongahController extends ControllerBase {
 
     public function addmelkAction() {
 
+        $this->AddUserLog("مشاهده صفحه افزودن ملک");
+
         $this->setPageTitle("افزودن ملک");
 
         // show cities to view
@@ -226,6 +231,8 @@ class BongahController extends ControllerBase {
         $this->handleFormScripts($fr);
 
         if ($this->request->isPost()) {
+
+            $this->AddUserLog("تلاش برای اضافه کردن ملک جدید");
 
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
@@ -262,6 +269,9 @@ class BongahController extends ControllerBase {
                     if (!$melk->create()) {
                         $melk->showErrorMessages($this);
                     } else {
+
+
+                        $this->AddUserLog("ملک جدید اضافه گردید");
 
                         // we have to create melk info
                         $melkinfo = new MelkInfo();
@@ -354,6 +364,7 @@ class BongahController extends ControllerBase {
 
         if (count($this->errors) > 0) {
             $this->flash->error(implode("<br/>", $this->errors));
+            $this->AddUserLog("خطا در اضافه کردن ملک : " . implode("<br/>", $this->errors));
         }
         $this->view->form = $fr;
     }
@@ -504,6 +515,7 @@ class BongahController extends ControllerBase {
 
     public function sendsmsAction() {
 
+        $this->AddUserLog("مشاهده صفحه ارسال پیامک");
         $this->setPageTitle("ارسال پیامک");
 
         // calc sms credit
@@ -619,6 +631,8 @@ class BongahController extends ControllerBase {
 
     public function suggestphoneAction($melkid) {
 
+        $this->AddUserLog("مشاهده صفحه املاک پیشنهادی برای ملک شماره" . $melkid);
+
         // check if melk exist
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
         if (!$melk) {
@@ -639,6 +653,9 @@ class BongahController extends ControllerBase {
 
         // check if user want to send melk info
         if ($this->request->isPost()) {
+
+            $this->AddUserLog("ارسال ملک به افراد پیشنهادی");
+
             // user want to send melk info
             foreach ($melkPhoneListners as $melkPhoneListner) {
                 $this->sendMelkInfoToPhone($melkPhoneListner, $melk, FALSE);
@@ -697,6 +714,7 @@ class BongahController extends ControllerBase {
 
     public function melksAction($page = 1) {
         $this->setPageTitle("لیست املاک شما");
+        $this->AddUserLog("مشاهده لیست املاک");
 
         $this->view->totalMelks = $this->bongah->getTotalMelks();
         $this->getMelksList($page, "userid = :userid:", array("userid" => $this->user->userid), 'id DESC', 'bongah' . "/" . $this->bongah->id . "/melks");
@@ -717,6 +735,8 @@ class BongahController extends ControllerBase {
     }
 
     public function approchmelksAction($phonelistnerid) {
+
+        $this->AddUserLog("مشاهده لیست املاک موجود برای یک ملک درخواستی");
 
         // find phone listner
         $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $phonelistnerid)));
@@ -769,6 +789,8 @@ class BongahController extends ControllerBase {
     }
 
     public function sendmelktolistnerAction($melkid, $phonelistnerID) {
+
+        $this->AddUserLog("تلاش برای ارسال ملک به درخواست کننده ملک");
 
         // check for melk
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
@@ -864,6 +886,7 @@ class BongahController extends ControllerBase {
 
         // show success messgae
         if ($showMessage) {
+            $this->AddUserLog("ملک برای درخواست کننده ملک ارسال گردید");
             $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر میباشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
         }
         return true;
@@ -872,6 +895,8 @@ class BongahController extends ControllerBase {
     public function userscansupportAction($currentPage = 1, $maxDistance = 10) {
 
         $this->setPageTitle("املاک درخواستی");
+
+        $this->AddUserLog("مشاهده املاک درخواستی");
 
         // find all city
         $melkphonelistners = MelkPhoneListner::find(
@@ -1056,6 +1081,8 @@ class BongahController extends ControllerBase {
 
     public function settingsAction() {
 
+        $this->AddUserLog("مشاهده تنظیمات");
+
         $bongah = $this->bongah;
         $this->view->cities = City::find();
 
@@ -1092,6 +1119,7 @@ class BongahController extends ControllerBase {
                     $bongah->showErrorMessages($this);
                 } else {
                     $bongah->showSuccessMessages($this, 'بنگاه با موفقیت ذخیره گردید');
+                    $this->AddUserLog("تغییر تنظیمات");
                 }
             } else {
                 // invalid
