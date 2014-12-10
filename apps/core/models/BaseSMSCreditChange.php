@@ -48,6 +48,20 @@ class BaseSMSCreditChange extends AtaModel {
     public $smsid;
 
     /**
+     * Set Date
+     * @param type $date
+     * @return BaseSMSCreditChange
+     */
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+
+    public function getDate() {
+        return date('Y-m-d H:i:s', $this->date);
+    }
+
+    /**
      * Set SMS ID
      * @param type $smsid
      * @return BaseSMSCreditChange
@@ -78,20 +92,6 @@ class BaseSMSCreditChange extends AtaModel {
      * @var string
      */
     public $date;
-
-    /**
-     * Set Date
-     * @param type $date
-     * @return BaseSMSCreditChange
-     */
-    public function setDate($date) {
-        $this->date = $date;
-        return $this;
-    }
-
-    public function getDate() {
-        return date('Y-m-d H:m:s', $this->date);
-    }
 
     public function beforeValidationOnCreate() {
         $this->date = time();

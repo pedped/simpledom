@@ -20,10 +20,6 @@
             </div>
         </div>
 
-        <span class="separator"></span>
-        <a target="_blank" href='<?php echo $pfurl; ?>' class='btn btn-default'>View Website</a>
-        <span class="separator"></span>
-
         <ul class="notifications">
             <!--            <li>
                             <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
@@ -72,6 +68,40 @@
                                 </div>
                             </div>
                         </li>-->
+            <li>
+                <a href="<?php echo $pfurl; ?>" class="dropdown-toggle notification-icon">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+
+                <div class="dropdown-menu notification-menu">
+                    <div class="notification-title">
+                        <span class="pull-right label label-default">230</span>
+                        Messages
+                    </div>
+
+                    <div class="content">
+                        <ul>
+                            <?php foreach ($lastMessages as $message): ?>
+                                <li>
+                                    <a href="#" class="clearfix">
+                                        <!--<figure class="image">
+                                            <img src="<?php echo $pfurl; ?>adminfiles/assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle" />
+                                        </figure>-->
+                                        <span class="title"><?php echo $message->name ?></span>
+                                        <span class="message"><?php echo $message->message ?></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+
+                        <hr />
+
+                        <div class="text-right">
+                            <a href="#" class="view-more">View All</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li>
                 <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
                     <i class="fa fa-envelope"></i>

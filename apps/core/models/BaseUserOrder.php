@@ -153,7 +153,7 @@ class BaseUserOrder extends AtaModel {
     }
 
     public function getDate() {
-        return date('Y-m-d H:m:s', $this->date);
+        return date('Y-m-d H:i:s', $this->date);
     }
 
     /**
