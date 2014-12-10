@@ -21,6 +21,24 @@
                     </li>
                     <li class='nav-parent'>
                         <a>
+                            <i class='fa fa-building' aria-hidden='true'></i>
+                            <span>بنگاه</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('bongah/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('bongah/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='nav-parent'>
+                        <a>
                             <i class='fa fa-home' aria-hidden='true'></i>
                             <span>املاک</span>
                         </a>
@@ -119,24 +137,7 @@
 
 
                     <hr class="separator"/>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Bongah's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('bongah/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('bongah/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
                     <li class='nav-parent'>
                         <a>
                             <i class='fa fa-question' aria-hidden='true'></i>
