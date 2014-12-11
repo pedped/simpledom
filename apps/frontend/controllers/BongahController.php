@@ -77,7 +77,7 @@ class BongahController extends ControllerBase {
         if (!isset($this->user)) {
             // check if we have to show review page
             if ($this->dispatcher->getActionName() == "home") {
-                $this->flash->notice("عضویت بنگاه داران رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
+                $this->flash->notice("عضویت مشاوران املاک رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
                 $this->dispatcher->forward(array(
                     "controller" => "bongah",
                     "action" => "review",
@@ -188,7 +188,7 @@ class BongahController extends ControllerBase {
     }
 
     public function reviewAction() {
-        $this->setPageTitle("ویژگی پنل بنگاه داران");
+        $this->setPageTitle("ویژگی پنل مشاوران املاک");
     }
 
     public function waitforapproveAction() {
@@ -559,7 +559,7 @@ class BongahController extends ControllerBase {
 
 
         // set text
-        $text.="\n=====\n" . "ارسال شده از طرف بنگاه " . $this->bongah->title . " توسط سامانه املاک گستر" . "\n" . $this->bongah->phone;
+        $text.="\n=====\n" . "ارسال شده از طرف مشاور املاک " . $this->bongah->title . " توسط سامانه املاک گستر" . "\n" . $this->bongah->phone;
 
         // calc total sms count
         $totalSMSCount = $this->getMessageSize($text, $isPersian);
@@ -679,7 +679,7 @@ class BongahController extends ControllerBase {
         ));
         $sentMelkPaginator->
                 setTableHeaders(array(
-                    'کد', 'کد بنگاه', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
+                    'کد', 'کد مشاور املاک', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
                 ))->
                 setFields(array(
                     'id', 'bongahid', 'melkid', 'message', 'getPhoneNumber()', 'getDate()'
@@ -761,7 +761,7 @@ class BongahController extends ControllerBase {
         ));
         $sentMelkPaginator->
                 setTableHeaders(array(
-                    'کد', 'کد بنگاه', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
+                    'کد', 'کد مشاور املاک', 'کد ملک', 'متن', 'شماره موبایل', 'تاریخ'
                 ))->
                 setFields(array(
                     'id', 'bongahid', 'melkid', 'message', 'getPhoneNumber()', 'getDate()'
@@ -858,7 +858,7 @@ class BongahController extends ControllerBase {
         }
 
         // create message
-        $message = "متقاضی گرامی، ملک جدید مطابق با نیاز شما به بنگاه " . $this->bongah->title . " اضافه گردید";
+        $message = "متقاضی گرامی، ملک جدید مطابق با نیاز شما به مشاور املاک " . $this->bongah->title . " اضافه گردید";
         $message .= "\n";
         $message .= "\n";
         $message .= $melk->getQuickInfo();
@@ -941,7 +941,7 @@ class BongahController extends ControllerBase {
 
     public function addAction() {
 
-        $this->setPageTitle("عضویت بنگاه");
+        $this->setPageTitle("عضویت مشاور املاک");
 
         // load citties list
         $this->view->cities = City::find();
@@ -1038,7 +1038,7 @@ class BongahController extends ControllerBase {
                         }
 
 
-                        $bongah->showSuccessMessages($this, 'بنگاه با موفقیت اضافه گردید');
+                        $bongah->showSuccessMessages($this, 'مشاور املاک با موفقیت اضافه گردید');
 
                         // clear the title and message so the user can add better info
                         $fr->clear();
@@ -1064,7 +1064,7 @@ class BongahController extends ControllerBase {
                             ));
                         }
                         // send sms about add
-                        SMSManager::SendSMS($bongah->mobile, "بنگاه دار گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
+                        SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
                     }
                 }
             } else {
@@ -1076,7 +1076,7 @@ class BongahController extends ControllerBase {
 
         if (count($this->errors) > 0) {
             $this->flash->error(implode("<br/>", $this->errors));
-            BaseSystemLog::init($aaa)->setTitle("خطا در عضویت بنگاه برای شماره" . " " . $this->request->getPost('mobile', 'string'))->setType(SystemLogType::Debug)->setMessage(implode("\n", $this->errors))->setIP($_SERVER["REMOTE_ADDR"])->create();
+            BaseSystemLog::init($aaa)->setTitle("خطا در عضویت مشاور املاک برای شماره" . " " . $this->request->getPost('mobile', 'string'))->setType(SystemLogType::Debug)->setMessage(implode("\n", $this->errors))->setIP($_SERVER["REMOTE_ADDR"])->create();
         }
 
         $this->view->form = $fr;
@@ -1095,7 +1095,7 @@ class BongahController extends ControllerBase {
         }
 
         // set title
-        $this->setPageTitle('تنظیمات بنگاه');
+        $this->setPageTitle('تنظیمات مشاور املاک');
 
         $fr = new CreateBongahForm();
         $fr->remove("email");
@@ -1121,7 +1121,7 @@ class BongahController extends ControllerBase {
                 if (!$bongah->save()) {
                     $bongah->showErrorMessages($this);
                 } else {
-                    $bongah->showSuccessMessages($this, 'بنگاه با موفقیت ذخیره گردید');
+                    $bongah->showSuccessMessages($this, 'مشاور املاک با موفقیت ذخیره گردید');
                     $this->AddUserLog("تغییر تنظیمات");
                 }
             } else {

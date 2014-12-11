@@ -279,7 +279,7 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
         if (!$bongah->save()) {
             $errors[] = "خطا در هنگام پایان سفارش";
 
-            $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای بنگاه داران $userid خطایی رخ داده است");
+            $this->LogError("خطا در هنگام پایان سفارش", "در هنگام پایان عملیات سفارش عضویت برای مشاوران املاک $userid خطایی رخ داده است");
             return false;
         } else {
 

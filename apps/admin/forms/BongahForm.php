@@ -11,7 +11,7 @@ class BongahForm extends AtaForm {
 
         // Title
         $title = new TextElement('title');
-        $title->setLabel('نام بنگاه');
+        $title->setLabel('نام مشاور املاک');
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(

@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class='row'>
                 <div class='col-md-7 col-sm-7'>
-                    <h2 class="bongah-title-holder"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل بنگاه داران <small><?php echo $currentBongah->title; ?></small></h2>
+                    <h2 class="bongah-title-holder"><span style="top:7px;padding-left: 10px;" class="glyphicon glyphicon-home"></span>پنل مشاوران املاک <small><?php echo $currentBongah->title; ?></small></h2>
                 </div>
                 <div class='col-md-5 col-sm-5 bongah-cuurent-subscription'>
                     <p class="bongah-subscription-info">وضعیت اشتراک: <?php echo $subscriptionText; ?></p>
@@ -21,7 +21,7 @@
                     <li class="<?php echo $actionName == "userscansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/userscansupport"); ?>"><span class="fa fa-users"></span><span class="">املاک درخواستی</span></a></li> 
                     <!--<li class="<?php echo $actionName == "allmelks" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/allmelks/"); ?>">لیست کامل املاک</a></li>--> 
                     <li class="<?php echo $actionName == "melkcansupport" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/melkcansupport/"); ?>"><span class="fa fa-map-marker"></span><span class="">املاک تحت پوشش شما</span></a></li> 
-                    <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/settings"); ?>"><span class="fa fa-gear"></span><span class="">تنظیمات بنگاه</span></a></li> 
+                    <li class="<?php echo $actionName == "settings" ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/settings"); ?>"><span class="fa fa-gear"></span><span class="">تنظیمات مشاور املاک</span></a></li> 
                     <li class="<?php echo ($actionName == "sendsms" || $actionName == "checksms") ? "active" : "" ?>"><a href="<?php echo $this->url->get("bongah/sendsms"); ?>"><span class="fa fa-envelope"></span><span class="">ارسال پیامک</span></a></li> 
                 </ul>
                 <hr/>    

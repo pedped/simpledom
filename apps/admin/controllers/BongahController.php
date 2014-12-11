@@ -95,7 +95,7 @@ class BongahController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'نام بنگاه', 'کدصنفی', 'نام', 'نام خانوادگی', 'آدرس', 'شهر', 'مناطق تخت پوشش', 'شماره موبایل', 'شماره تماس', 'وضعیت', 'ویژه', 'تاریخ', 'املاک ارسالی'
+                    'کد', 'نام مشاور املاک', 'کدصنفی', 'نام', 'نام خانوادگی', 'آدرس', 'شهر', 'مناطق تخت پوشش', 'شماره موبایل', 'شماره تماس', 'وضعیت', 'ویژه', 'تاریخ', 'املاک ارسالی'
                 ))->
                 setFields(array(
                     'id', 'title', 'peygiri', 'fname', 'lname', 'address', 'getCityName()', 'getSupporrtedLocationsNameAsString()', 'mobile', 'phone', 'enable', 'featured', 'getDate()', 'getSentMelkCount()'
@@ -226,7 +226,7 @@ class BongahController extends ControllerBase {
     public function viewAction($id, $tab = "userinfo", $page = 1) {
 
 
-        $this->setTitle("اطلاعات بنگاه");
+        $this->setTitle("اطلاعات مشاور املاک");
 
 
         switch ($tab) {
@@ -329,12 +329,12 @@ class BongahController extends ControllerBase {
                         // bongah just approved
                         $phone = $bongah->mobile;
                         $name = $bongah->title;
-                        SMSManager::SendSMS($bongah->mobile, "بنگاه دار گرامی " . $name . "، \nبنگاه شما توسط سامانه املاک گستر با موفقیت تایید گردید. هم اکنون میتوانید از سامانه استفاده نمایید.\n با تشکر، املاک گستر\nwww.amlakgostar.ir", SmsNumber::findFirst()->id);
-                        $this->flash->success("پیام تایید بنگاه به شماره $phone ارسال گردید");
+                        SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی " . $name . "، \nمشاور املاک شما توسط سامانه املاک گستر با موفقیت تایید گردید. هم اکنون میتوانید از سامانه استفاده نمایید.\n با تشکر، املاک گستر\nwww.amlakgostar.ir", SmsNumber::findFirst()->id);
+                        $this->flash->success("پیام تایید مشاور املاک به شماره $phone ارسال گردید");
                     }
 
 
-                    $bongah->showSuccessMessages($this, 'بنگاه با موفقیت ذخیره گردید');
+                    $bongah->showSuccessMessages($this, 'مشاور املاک با موفقیت ذخیره گردید');
                 }
             } else {
                 // invalid

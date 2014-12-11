@@ -8,8 +8,8 @@
     $namesArray = implode("، ", $namesArray);
     ?>
     <div class="alert alert-success send-melk-to-bongah-notice">
-        <h1 style="margin-top: 0px;"><span class="fa fa-envelope"></span> ارسال ملک به بنگاه داران</h1>
-        <p>آیا می دانستید بدون مراجعه به بنگاه می توانید همین حالا، مشخصات ملک خود را به<?php echo " <b>" . count($toSendBongahs) . "</b>"; ?> بنگاه که در<?php echo "<b>" . $melk->getInfo()->address . "</b>"; ?> واقع هستند، ارسال نمایید! <br/>برای مشاهده آدرس هر بنگاه نشانگر ماوس را بر روی هر بنگاه نگه دارید.</p>
+        <h1 style="margin-top: 0px;"><span class="fa fa-envelope"></span> ارسال ملک به مشاوران املاک</h1>
+        <p>آیا می دانستید بدون مراجعه به مشاور املاک می توانید همین حالا، مشخصات ملک خود را به<?php echo " <b>" . count($toSendBongahs) . "</b>"; ?> مشاور املاک که در<?php echo "<b>" . $melk->getInfo()->address . "</b>"; ?> واقع هستند، ارسال نمایید! <br/>برای مشاهده آدرس هر مشاور املاک نشانگر ماوس را بر روی هر مشاور املاک نگه دارید.</p>
         <p class="addresses"><blockquote><?php echo $namesArray; ?></blockquote></p>
     <a href="<?php echo $this->url->get("usersubscribe/plans/" . $melk->id . "/"); ?>" class='btn btn-default'>اطلاعات بیشتر</a>
     </div>
@@ -304,7 +304,7 @@
         <?php if ($melk->createby == 1) : ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">بنگاه ارائه کننده</h3>
+                    <h3 class="panel-title">مشاور املاک ارائه کننده</h3>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -314,19 +314,19 @@
                         <div class='col-md-6'>
                             <dl class="dl-horizontal bongah-info">
 
-                                <dt>کد بنگاه</dt>
+                                <dt>کد مشاور املاک</dt>
                                 <dd><?php echo $bongah->id; ?></dd>
 
-                                <dt>نام بنگاه</dt>
+                                <dt>نام مشاور املاک</dt>
                                 <dd><?php echo $bongah->title; ?></dd>
 
-                                <dt>مسئول بنگاه</dt>
+                                <dt>مسئول مشاور املاک</dt>
                                 <dd><?php echo $bongah->fname . " " . $bongah->lname; ?></dd>
 
-                                <dt>شماره تلفن بنگاه</dt>
+                                <dt>شماره تلفن مشاور املاک</dt>
                                 <dd><?php echo $bongah->phone; ?></dd>
 
-                                <dt>شماره موبایل بنگاه</dt>
+                                <dt>شماره موبایل مشاور املاک</dt>
                                 <dd><?php echo $bongah->mobile; ?></dd>
 
                             </dl>
@@ -339,7 +339,7 @@
                             $map->setLongtude($bongah->longitude);
                             $map->setZoom(13);
                             $map->setMarkDescription($bongah->title);
-                            $map->setMarkTitle("موقعیت بنگاه");
+                            $map->setMarkTitle("موقعیت مشاور املاک");
                             echo $map;
                             ?>
                         </div>
@@ -351,14 +351,14 @@
                 <div class='col-md-12'>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3  class="panel-title">بنگاه های قابل مراجعه</h3>
+                            <h3  class="panel-title">آژانسان املاک قابل مراجعه</h3>
                         </div>
                         <div class="panel-body">
                             <div class='row'>
                                 <?php foreach ($bongahs as $bongah) : ?>
                                     <div class='col-md-4'>
                                         <div class="thumbnail">
-                                            <h4><?php echo $bongah->title; ?> (<small>فاصله تا بنگاه : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
+                                            <h4><?php echo $bongah->title; ?> (<small>فاصله تا مشاور املاک : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
                                             <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
                                             <p>شماره تماس: <?php echo $bongah->phone; ?></p>
                                             <div>
@@ -368,8 +368,8 @@
                                                 $mapElement->setLongtude($bongah->longitude);
                                                 $mapElement->setName("melk");
                                                 $mapElement->setZoom(14);
-                                                $mapElement->setMarkTitle("بنگاه " . $bongah->title);
-                                                $mapElement->setMarkDescription("بنگاه " . $bongah->title);
+                                                $mapElement->setMarkTitle("مشاور املاک " . $bongah->title);
+                                                $mapElement->setMarkDescription("مشاور املاک " . $bongah->title);
                                                 echo $mapElement;
                                                 ?>
                                             </div>

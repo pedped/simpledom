@@ -56,7 +56,7 @@ class UsersubscribeController extends ControllerBaseFrontEnd {
             "getHumanPrice()",
         ));
         $viewr->setInfos(array(
-            "ارسال اطلاعات ملک به بنگاه داران",
+            "ارسال اطلاعات ملک به مشاوران املاک",
             "مدت زمان نمایش ملک در سامانه املاک گستر",
             "املاک قابل افزودن",
             "قیمت",

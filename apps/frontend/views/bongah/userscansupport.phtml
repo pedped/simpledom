@@ -33,7 +33,7 @@
                     <?php echo $item->id; ?>
                 </td>
                 <?php $successChart = $item->getSuccessRateForBongah($currentBongah); ?>
-                <td class="rate-info" data-toggle="popover" title="میزان بازدهی درخواست برای بنگاه شما" data-content="<?php echo "<ul>" . $successChart->messages . "</ul>" ?>">
+                <td class="rate-info" data-toggle="popover" title="میزان بازدهی درخواست برای مشاور املاک شما" data-content="<?php echo "<ul>" . $successChart->messages . "</ul>" ?>">
                     <div style="display: flex;direction: ltr;">
                         <?php for ($i = 0; $i < $successChart->rate; $i++) : ?>
                             <img style="float: right;" src='<?php echo $this->url->get("img/money_icon.png"); ?>' />
@@ -82,7 +82,7 @@
                 <td>
                     <?php echo $item->getPhoneNumber(); ?>
                 </td>
-                <td class="rate-info" data-content='تعداد پیامک های دریافتی از طرف بنگاه شما'>
+                <td class="rate-info" data-content='تعداد پیامک های دریافتی از طرف مشاور املاک شما'>
                     <?php echo $receivedCount; ?>
                 </td>
                 <td class="rate-info" data-content='تعداد کل پیامک های دریافتی از املاک مختلف'>

@@ -623,7 +623,7 @@ class MelkPhoneListner extends AtaModel {
         $unionAreas = $this->getUnionAreaNames($bongah);
         if (strlen($unionAreas) > 0) {
             $rate += 2;
-            $messages[] = "متقاضی به دنبال ملکی میباشد که در محدوده بنگاه شما است" . " : <b>" . $unionAreas . "</b>";
+            $messages[] = "متقاضی به دنبال ملکی میباشد که در محدوده مشاور املاک شما است" . " : <b>" . $unionAreas . "</b>";
         }
 
 

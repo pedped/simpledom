@@ -12,7 +12,7 @@ class BongahsubscribeController extends ControllerBaseFrontEnd {
     }
 
     public function plansAction() {
-        $this->setPageTitle("پلان بنگاه داران");
+        $this->setPageTitle("پلان مشاوران املاک");
         $this->view->plans = BongahSubscribeItem::find('enable = 1');
     }
 

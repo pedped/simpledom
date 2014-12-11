@@ -255,7 +255,7 @@ class MelkPhoneListnerController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'کد بنگاه', 'کد درخواست', 'کد ملک ارسالی', 'پیام', 'تاریخ'
+                    'کد', 'کد مشاور املاک', 'کد درخواست', 'کد ملک ارسالی', 'پیام', 'تاریخ'
                 ))->
                 setFields(array(
                     'id', 'bongahid', 'melkphonelistnerid', 'melkid', 'message', 'getDate()'

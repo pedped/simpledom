@@ -11,8 +11,8 @@ class CreateBongahForm extends AtaForm {
 
         // Title
         $title = new TextElement('title');
-        $title->setLabel('نام بنگاه');
-        $title->setInfo("نام کامل نوشته شده بر روی تابلوی بنگاه");
+        $title->setLabel('نام مشاور املاک');
+        $title->setInfo("نام کامل نوشته شده بر روی تابلوی مشاور املاک");
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
@@ -54,7 +54,7 @@ class CreateBongahForm extends AtaForm {
         // First Name
         $fname = new TextElement('fname');
         $fname->setLabel('نام');
-        $fname->setInfo("نام مسئول بنگاه");
+        $fname->setInfo("نام مسئول مشاور املاک");
         //$fname->setAttribute('placeholder', 'Enter your First Name');
         $fname->setAttribute('class', 'form-control');
         $fname->addValidator(new PresenceOf(array(
@@ -65,7 +65,7 @@ class CreateBongahForm extends AtaForm {
         // Last Name
         $lname = new TextElement('lname');
         $lname->setLabel('نام خانوادگی');
-        $lname->setInfo("نام خانوادگی مسئول بنگاه");
+        $lname->setInfo("نام خانوادگی مسئول مشاور املاک");
         //$lname->setAttribute('placeholder', 'Enter your Last Name');
         $lname->setAttribute('class', 'form-control');
         $lname->addValidator(new PresenceOf(array(
@@ -76,7 +76,7 @@ class CreateBongahForm extends AtaForm {
         // Address
         $address = new TextElement('address');
         $address->setLabel('آدرس');
-        $address->setInfo("آدرس دقیق و کامل بنگاه را وارد نمایید، آدرس وارد شده برای کاربران قابل نمایش است");
+        $address->setInfo("آدرس دقیق و کامل مشاور املاک را وارد نمایید، آدرس وارد شده برای کاربران قابل نمایش است");
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(
@@ -106,7 +106,7 @@ class CreateBongahForm extends AtaForm {
         // Latitude
         $latitude = new MapPickElement('map');
         $latitude->setLabel("موقعیت روی نقشه");
-        $latitude->setInfo("موقعیت بنگاه را به صورت کاملا دقیق توسط ماوس بر روی نقشه مشخص نمایید");
+        $latitude->setInfo("موقعیت مشاور املاک را به صورت کاملا دقیق توسط ماوس بر روی نقشه مشخص نمایید");
         //$latitude->setAttribute('placeholder', 'Enter your Latitude');
         $latitude->setAttribute('class', 'form-control');
         $this->add($latitude);
