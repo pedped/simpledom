@@ -19,9 +19,10 @@
                 <?php if ((bool) $websiteSettings->footerenablecontact) : ?>
                     <!-- About Us !-->
                     <div class="col-md-4">
-                        <form>
+                        <form method="post" action="<?php echo $this->url->get("contact"); ?>">
                             <h3 class="head"><?= _("Contact Us"); ?></h3>
                             <p><?= _("Use this form to contact us"); ?></p>
+                            <input type="hidden" name="section" value="1">
                             <input type="text" name="name" placeholder="<?= _("Name"); ?>" class="form-control">
                             <br>
                             <input type="text" name="email" placeholder="<?= _("Email"); ?>" class="form-control">
