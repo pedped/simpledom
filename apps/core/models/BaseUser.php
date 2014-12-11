@@ -608,6 +608,12 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             }
         }
 
+        // check if we have not that email in our database before
+        if ($this->count(array("email = :email:", "bind" => array("email" => $email))) > 0) {
+            $errors[] = "ایمیل شما در حال حاضر در سایت ثبت شده است، در صورتی که این ایمیل متعلق به شماست، با استفاده از اطلاعات کاربری خود وارد سایت گردید";
+            return false;
+        }
+
         $this->fname = $fname;
         $this->lname = $lname;
         $this->email = $email;
