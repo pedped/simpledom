@@ -8,7 +8,7 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\InclusionIn;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
-use SelectElement;
+use StarRatingElement;
 use TextAreaElement;
 use TextElement;
 
@@ -83,10 +83,10 @@ class OpinionForm extends AtaForm {
 
 
         // Rating
-        $rate = new SelectElement('rate');
+        $rate = new StarRatingElement('rate');
         $rate->setLabel(_('Rating'));
-        $rate->setOptions(Opinion::$DateValues);
-        $rate->setAttribute('class', 'form-control');
+        //$rate->setOptions(Opinion::$DateValues);
+        //$rate->setAttribute('class', 'form-control');
         $rate->addValidator(new PresenceOf(array(
         )));
         $rate->addValidator(new InclusionIn(array(

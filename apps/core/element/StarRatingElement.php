@@ -12,16 +12,16 @@ class StarRatingElement extends BaseElement {
     private $showCaption = "true";
     private $defaultCaption = 'undefined';
     private $starCaptions = "{
-                                0.5: 'Half Star',
-                                1: 'One Star',
-                                1.5: 'One & Half Star',
-                                2: 'Two Stars',
-                                2.5: 'Two & Half Stars',
-                                3: 'Three Stars',
-                                3.5: 'Three & Half Stars',
-                                4: 'Four Stars',
-                                4.5: 'Four & Half Stars',
-                                5: 'Five Stars'
+                                0.5: 'نیم ستاره',
+                                1: 'تک ستاره',
+                                1.5: 'یک و نیم ستاره',
+                                2: 'دو ستاره',
+                                2.5: 'دو و نیم ستاره',
+                                3: 'سه ستاره',
+                                3.5: 'سه و نیم ستاره',
+                                4: 'چهار ستاره',
+                                4.5: 'چهار و نیم ستاره',
+                                5: 'پنج ستاره'
                             }";
     private $starCaptionClasses = "{
                                     0.5: 'label label-danger',
@@ -36,7 +36,7 @@ class StarRatingElement extends BaseElement {
                                     5: 'label label-success'
                                 }";
     private $size = "md";
-    private $rtl = "false";
+    private $rtl = "true";
 
     public function getStars() {
         return $this->stars;
@@ -277,7 +277,7 @@ class StarRatingElement extends BaseElement {
         $rtl = $this->rtl;
 
 
-        $html = "<div style='direction: ltr;'><input name='$name' id='$name' type='number' /></div>";
+        $html = "<input name='$name' id='$name' type='number' />";
         $html .= "  <script>
                        $('#$name').rating({
                            'stars': $stars,
