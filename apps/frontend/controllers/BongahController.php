@@ -4,6 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Area;
 use AtaPaginator;
+use BaseSystemLog;
 use Bongah;
 use BongahImage;
 use BongahSentMelk;
@@ -26,6 +27,7 @@ use Simpledom\Frontend\BaseControllers\ControllerBase;
 use SMSCredit;
 use SMSManager;
 use SmsNumber;
+use SystemLogType;
 use User;
 use UserPhone;
 
@@ -1074,6 +1076,7 @@ class BongahController extends ControllerBase {
 
         if (count($this->errors) > 0) {
             $this->flash->error(implode("<br/>", $this->errors));
+            BaseSystemLog::init($aaa)->setTitle("خطا در عضویت بنگاه برای شماره" . " " . $this->request->getPost('mobile', 'string'))->setType(SystemLogType::Debug)->setMessage(implode("\n", $this->errors))->setIP($_SERVER["REMOTE_ADDR"])->create();
         }
 
         $this->view->form = $fr;
