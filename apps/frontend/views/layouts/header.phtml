@@ -25,7 +25,7 @@ use Phalcon\Text;
                     <li class="menu-bongah-header hidden-xs hidden-sm"><a href="<?php echo $this->url->get("bongah/home"); ?>"><span class="fa fa-home"></span>پنل بنگاه داران</a></li>
                 <?php endif; ?>
 
-                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("opinion"); ?>"><span class="fa fa-comment"></span><?= _("OPINIONS"); ?></a></li>
+                <!--<li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("opinion"); ?>"><span class="fa fa-comment"></span><?= _("OPINIONS"); ?></a></li>-->
                 <li><a href="<?php echo $this->url->get("melk/start"); ?>"><span class="fa fa-plus"></span>افزودن ملک</a></li>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
