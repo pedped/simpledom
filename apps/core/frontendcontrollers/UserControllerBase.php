@@ -324,7 +324,7 @@ class UserControllerBase extends ControllerBase {
                     // get correcrt phone number
                     $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost("phone"));
                     if (!$phone) {
-                        $this->errors[] = ("شماره موبایل وارد شده نامعتبر میباشد");
+                        $this->errors[] = ("شماره موبایل وارد شده نامعتبر می باشد");
                     }
 
                     // check if we have no error

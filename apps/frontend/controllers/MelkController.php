@@ -11,7 +11,6 @@ use EmailItems;
 use Melk;
 use MelkArea;
 use MelkContactForm;
-use MelkForm;
 use MelkImage;
 use MelkInfo;
 use MelkInfoViewForm;
@@ -189,7 +188,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 // get correcrt phone number
                 $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
                 if (!$phone) {
-                    $this->errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
                 }
 
                 // check if we have any error
@@ -294,7 +293,7 @@ class MelkController extends ControllerBaseFrontEnd {
                                 } else {
                                     // shomare tamase shakse digar
                                     $USERID = $this->user->userid;
-                                    $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری میباشد');
+                                    $melk->showErrorMessages($this, 'شماره تماس شما مربوط به کاربر دیگری می باشد');
                                     $this->LogWarning("شماره تماس نا معتبر", "کاربر در هنگام اضافه کردن ملک جدید، شماره تماسی را وارد نموده است که مربوط به شخص دیگری است. کد کاربر : $USERID");
                                 }
                             }
@@ -360,6 +359,14 @@ class MelkController extends ControllerBaseFrontEnd {
             $stateID = City::findFirst($cityID)->stateid;
         }
 
+        if (Config::inStartCities($cityID)) {
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "home",
+                "params" => array()
+            ));
+            return;
+        }
 
         // search form
         $form = new MelkSearch();
@@ -636,7 +643,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 // get correcrt phone number
                 $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost("phone", "int"));
                 if (!$phone) {
-                    $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                    $errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
                 }
 
                 if (!$this->hasError()) {

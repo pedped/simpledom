@@ -371,7 +371,7 @@ class MelkPhoneListner extends AtaModel {
         // get correcrt phone number
         $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
         if (!$phone) {
-            $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+            $errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
             return false;
         }
 
@@ -623,7 +623,7 @@ class MelkPhoneListner extends AtaModel {
         $unionAreas = $this->getUnionAreaNames($bongah);
         if (strlen($unionAreas) > 0) {
             $rate += 2;
-            $messages[] = "متقاضی به دنبال ملکی میباشد که در محدوده مشاور املاک شما است" . " : <b>" . $unionAreas . "</b>";
+            $messages[] = "متقاضی به دنبال ملکی می باشد که در محدوده مشاور املاک شما است" . " : <b>" . $unionAreas . "</b>";
         }
 
 

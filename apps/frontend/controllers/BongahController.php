@@ -77,7 +77,7 @@ class BongahController extends ControllerBase {
         if (!isset($this->user)) {
             // check if we have to show review page
             if ($this->dispatcher->getActionName() == "home") {
-                $this->flash->notice("عضویت مشاوران املاک رایگان میباشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
+                $this->flash->notice("عضویت مشاوران املاک رایگان می باشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
                 $this->dispatcher->forward(array(
                     "controller" => "bongah",
                     "action" => "review",
@@ -106,6 +106,10 @@ class BongahController extends ControllerBase {
         if (!$bongahID) {
             $this->bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
             if (!$this->bongah) {
+                // set user level to normal
+                $this->user->level = USERLEVEL_USER;
+                $this->user->save();
+
                 // user do not have any bongah, redirect him to create page
                 $this->dispatcher->forward(array(
                     "controller" => "bongah",
@@ -242,7 +246,7 @@ class BongahController extends ControllerBase {
                 // get correcrt phone number
                 $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
                 if (!$phone) {
-                    $this->errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
                 }
 
                 // check if we have any error
@@ -432,7 +436,7 @@ class BongahController extends ControllerBase {
             $totalCreditNeed = $totalUsersSMSCount * $totalCalculatedCount;
             $smsCredit = \SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
             if ($smsCredit->value < $totalCreditNeed) {
-                $this->errors[] = "اعتبار پیامکی شما برای ارسال پیام کافی نمیباشد. لطفا اعتبار خود را افزایش دهید";
+                $this->errors[] = "اعتبار پیامکی شما برای ارسال پیام کافی نمی باشد. لطفا اعتبار خود را افزایش دهید";
             }
 
 
@@ -889,7 +893,7 @@ class BongahController extends ControllerBase {
         // show success messgae
         if ($showMessage) {
             $this->AddUserLog("ملک برای درخواست کننده ملک ارسال گردید");
-            $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر میباشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
+            $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر می باشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
         }
         return true;
     }
@@ -1002,21 +1006,9 @@ class BongahController extends ControllerBase {
                     $bongah->phone = $this->request->getPost('phone', 'string');
 
                     // valid bongah for 30 days
-                    $bongah->planvaliddate = (3600 * 24 * 30) + time();
+                    $bongah->planvaliddate = (3600 * 24 * Config::GetBongahFreeDate() + 3600) + time();
 
-                    // add sms credit for the user
-                    // increase user credit
-                    if (SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))) {
-                        $item = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
-                        $item->value += Config::GetDefaultSMSCreditOnBongahSignUp();
-                        return $item->save();
-                    } else {
-                        // we have to create new item
-                        $smscredit = new SMSCredit();
-                        $smscredit->value = Config::GetDefaultSMSCreditOnBongahSignUp();
-                        $smscredit->userid = $this->user->userid;
-                        return $smscredit->create();
-                    }
+
 
                     if (!$bongah->create()) {
                         $bongah->showErrorMessages($this);
@@ -1035,6 +1027,20 @@ class BongahController extends ControllerBase {
                                     $melkImage->create();
                                 }
                             }
+                        }
+
+                        // add sms credit for the user
+                        // increase user credit
+                        if (SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))) {
+                            $item = SMSCredit::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)));
+                            $item->value += Config::GetDefaultSMSCreditOnBongahSignUp();
+                            $item->save();
+                        } else {
+                            // we have to create new item
+                            $smscredit = new SMSCredit();
+                            $smscredit->value = Config::GetDefaultSMSCreditOnBongahSignUp();
+                            $smscredit->userid = $this->user->userid;
+                            $smscredit->create();
                         }
 
 
@@ -1056,7 +1062,7 @@ class BongahController extends ControllerBase {
                             // user do not need to verify phone, he can visit home page
                             $this->dispatcher->forward(array(
                                 "controller" => "bongah",
-                                "action" => "index",
+                                "action" => "home",
                                 "bongahid" => $bongah->id,
                                 "params" => array(
                                     "bongahid" => $bongah->id

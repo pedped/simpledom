@@ -74,7 +74,7 @@ class RequestmelkController extends ControllerBaseFrontEnd {
                 // get correcrt phone number
                 $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost("mobile"));
                 if (!$phone) {
-                    $this->errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
                 }
 
                 if (!$this->hasError()) {

@@ -205,7 +205,7 @@ class CreateMelkForm extends AtaForm {
         $address->setLabel('خیابان اصلی');
         $address->setCityID("$('#cityid').val()");
         $address->setTagLimit(1);
-        $address->setInfo("نام بلوار اصلی شهر که ملک در آن میباشد را وارد نمایید");
+        $address->setInfo("نام بلوار اصلی شهر که ملک در آن می باشد را وارد نمایید");
         //$address->setAttribute('placeholder', 'Enter your Address');
         $address->setAttribute('class', 'form-control');
         $address->addValidator(new PresenceOf(array(

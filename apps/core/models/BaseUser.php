@@ -603,7 +603,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         if (isset($phone)) {
             $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
             if (!$phone) {
-                $errors[] = "شماره موبایل وارد شده نامعتبر میباشد";
+                $errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
                 return false;
             }
         }

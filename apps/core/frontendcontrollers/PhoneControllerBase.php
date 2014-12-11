@@ -23,7 +23,7 @@ class PhoneControllerBase extends ControllerBase {
         // get correcrt phone number
         $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
         if (!$phone) {
-            $this->flash->error("شماره موبایل وارد شده نامعتبر میباشد");
+            $this->flash->error("شماره موبایل وارد شده نامعتبر می باشد");
             $this->view->show = 0;
             return;
         }

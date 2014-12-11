@@ -59,4 +59,14 @@ class Config {
         return 50;
     }
 
+    public static function GetBongahFreeDate() {
+        return 7;
+    }
+
+    public static function inStartCities($cityID) {
+        return in_array($cityID, array(
+            60
+        ));
+    }
+
 }
