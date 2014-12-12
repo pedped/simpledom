@@ -1,3 +1,8 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
 <div class="panel review">
     <div class="panel-body">
         <h1 class="center" style="font-family: naskh;color: #970FBA;">املاک گستر چیست؟</h1>
@@ -51,7 +56,7 @@
                     با استفاده از پنل مشاوران املاک شما قادر خواهید بود به افراد نیازمند ملک و افرادی که ملک خود را ارسال نموده اند پیامک ارسال نمایید
                 </p>
             </div>
-            <div class='col-md-4'>
+            <div class='col-md-4 hidden-sm hidden-xs'>
                 <span class="fa fa-home"></span>
                 <h3 class="info-title">
                     مشاهده املاک تحت پوشش
@@ -60,7 +65,7 @@
                     بر اساس موقعیت جغرافیایی شما، املاک نزدیک به مشاور املاک برای شما ارائه خواهد شد تا بتوانید بهترین بازدهی را داشته باشید
                 </p>
             </div>
-            <div class='col-md-4'>
+            <div class='col-md-4  hidden-sm hidden-xs'>
                 <span class="fa fa-map-marker"></span>
                 <h3 class="info-title">
                     نمایش مشاور املاک در صفحه ملک
@@ -72,15 +77,25 @@
 
         </div>
         <hr/>
-        <div class="alert alert-info center" style="font-family: naskh;">
-            در صورتی که نیاز به توضیحات تکمیلی دارید، لطفا با شماره<?php echo "<b>" . $websiteSettings->contactphone . "</b>"; ?>  تماس حاصل فرمایید
-        </div>
-        <hr/>
+
+        <!--        <div class="alert alert-info center" style="font-family: naskh;">
+                    در صورتی که نیاز به توضیحات تکمیلی دارید، لطفا با شماره<?php echo "<b>" . $websiteSettings->contactphone . "</b>"; ?>  تماس حاصل فرمایید
+                </div>
+                <hr/>-->
         <!-- Login Button !-->
         <div class='row center'>
-            <div class='col-md-12'>
-                <a class="btn btn-lg btn-default" href="<?php echo $this->url->get("user/login"); ?>">ورود به پنل مشاوران املاک</a>
-                <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("bongah/add"); ?>">عضویت رایگان</a>
+            <div class='col-md-6 col-md-push-3'>
+                <p style="font-size: 21px;margin-bottom: 22px;color: #035BA5;">عضویت در سامانه املاک گستر رایگان میباشد، لطفا شماره موبایل خود را وارد نمایید تا همکاران ما با شما تماس حاصل نمایند</p>
+                <div class='row'>
+                    <div class='col-md-6 col-md-push-3 center'>
+                        <form method="post">
+                            <?php $form->renderDecorated('phonenumber'); ?>
+                            <?php $form->renderDecorated('submit'); ?> 
+                        </form>
+                    </div>
+                </div>
+<!--                <a class="btn btn-lg btn-default" href="<?php echo $this->url->get("user/login"); ?>">ورود به پنل مشاوران املاک</a>
+                <a class="btn btn-lg btn-primary" href="<?php echo $this->url->get("bongah/add"); ?>">عضویت رایگان</a>-->
             </div>
         </div>
     </div>
