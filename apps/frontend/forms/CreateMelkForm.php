@@ -43,7 +43,7 @@ class CreateMelkForm extends AtaForm {
         // Password
         $password = new PasswordElement("password");
         $password->setLabel(_("Password"));
-        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
+//        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
         $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
         $password->setAttribute("class", "form-control");
         $this->add($password);
@@ -106,6 +106,7 @@ class CreateMelkForm extends AtaForm {
         $description = new TextAreaElement('description');
         $description->setLabel('توضیحات ملک');
         //$sale_price->setAttribute('placeholder', 'Enter your Sale Price');
+        $description->setAttribute('rows', '5');
         $description->setAttribute('class', 'form-control');
         $this->add($description);
 
@@ -313,7 +314,7 @@ class CreateMelkForm extends AtaForm {
         // Submit Button
         $submit = new Submit('submit');
         $submit->setAttribute("value", _("Submit"));
-        $submit->setAttribute('class', 'btn btn-success btn-lg');
+        $submit->setAttribute('class', 'btn btn-primary btn-lg');
         $this->add($submit);
     }
 

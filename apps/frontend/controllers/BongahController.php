@@ -18,8 +18,10 @@ use MelkArea;
 use MelkImage;
 use MelkInfo;
 use MelkPhoneListner;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
 use SendBongahSmsForm;
+use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
@@ -28,6 +30,7 @@ use SMSCredit;
 use SMSManager;
 use SmsNumber;
 use SystemLogType;
+use TextElement;
 use User;
 use UserPhone;
 
@@ -77,7 +80,7 @@ class BongahController extends ControllerBase {
         if (!isset($this->user)) {
             // check if we have to show review page
             if ($this->dispatcher->getActionName() == "home") {
-                $this->flash->notice("عضویت مشاوران املاک رایگان می باشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
+                //$this->flash->notice("عضویت مشاوران املاک رایگان می باشد، در صورتی که قبلا در سایت" . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نموده اید مشخصات ورود خود را وارد نمایید، در غیر این صورت ابتدا در سایت " . "<a href='user/register'>" . _(" ثبت نام") . "</a>" . " نمایید.");
                 $this->dispatcher->forward(array(
                     "controller" => "bongah",
                     "action" => "review",
@@ -193,6 +196,34 @@ class BongahController extends ControllerBase {
 
     public function reviewAction() {
         $this->setPageTitle("ویژگی پنل مشاوران املاک");
+
+        $fr = new AtaForm();
+
+        // Mobile
+        $private_mobile = new TextElement('phonenumber');
+        $private_mobile->setAttribute('placeholder', 'شماره موبایل');
+        $private_mobile->setAttribute('class', 'form-control input-lg');
+        $private_mobile->setAttribute('style', 'text-align:center');
+        $private_mobile->setAttribute('required', 'required');
+        $private_mobile->addValidator(new PresenceOf(array(
+        )));
+        $fr->add($private_mobile);
+
+        // Submit Button
+        $submit = new Submit('submit');
+        $submit->setAttribute("value", _("Submit"));
+        $submit->setAttribute('class', 'btn btn-primary btn-lg');
+        $fr->add($submit);
+
+        if ($this->request->isPost() && $fr->isValid($_POST)) {
+            $phone = $this->request->getPost("phonenumber");
+            SMSManager::SendSMS("09399477290", "want to signup as bongah: " . $phone, SmsNumber::findFirst()->id);
+            $this->flash->success("شماره تماس شما با موفقیت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت");
+            $fr->clear();
+        }
+
+        // show form
+        $this->view->form = $fr;
     }
 
     public function waitforapproveAction() {

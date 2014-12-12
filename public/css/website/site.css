@@ -28,6 +28,11 @@
 @media (max-width: 768px){
 
 
+    .create-melk-facility-item {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+
     .ui-slider-handle {
         /* border-radius: 25px !important; */
         /* padding: 10px !important; */
@@ -673,4 +678,28 @@ footer .btn {
 .btn-bongah{
     color: #FFFFFF;
     background: #D50B95;
+}
+
+.melk-section-header{
+    text-align: center;
+    border-bottom: 1px dotted #AAA;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 25px;
+    background-color: #F5F5F5;
+    border-top: 1px dotted #aaa;
+    color: #1B1B1B;
+}
+.melk-section-header .fa{
+    position: relative;
+    padding-left: 10px;
+    top: 1px;
+}
+
+.create-melk-page{
+    font-family: naskh;
+}
+
+.create-melk-page select{
+    height:  auto !important;
 }

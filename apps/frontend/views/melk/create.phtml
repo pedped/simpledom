@@ -3,413 +3,255 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<form method='post' enctype="multipart/form-data">
-    <div class='row'>
-        <div class='col-lg-12'>
-
-            <!-- Wizards -->
-            <div class="nav nav-pills nav-justified navbar melk-wizard hidden-sm hidden-xs">
-                <li data-step="1" class="melk-wizard-step"><a href="#"><span class="glyphicon glyphicon-home"></span>نوع ملک</a></li>
-                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-pencil"></span>مشخصات ملک</a></li>
-                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-map-marker"></span>موقعیت ملک</a></li>
-                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-dollar"></span>قیمت</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="fa fa-check"></span>امکانات ملک</a></li>
-                <li data-step="6" class="melk-wizard-step "><a href="#"><span class="glyphicon glyphicon-phone"></span>اطلاعات تماس</a></li>
-                <li data-step="7" class="melk-wizard-step "><a href="#"><span class="fa fa-camera"></span>تصاویر ملک</a></li>
+<div class='row create-melk-page'>
+    <div class='col-md-6 col-md-push-3'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-plus"></span>افزودن ملک</h3>
             </div>
-
-
-            <!-- Description  !-->
-            <div data-step="0" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">توضیحات</h3>
-                </div>
-                <div class="panel-body melk-add-quick-info">
-                    <p>شما میتوانید هم اکنون مشخصات ملک خود را به سامانه اضافه نمایید</p>
-                    <p class="request-melk-info"><span class="fa fa-check-circle"></span> ملک شما در سایت برای بازدیدکنندگان نمایش داده خواهد شد</p>
-                    <p class="request-melk-info"><span class="fa fa-check-circle"></span> در صورت تمایل، اطلاعات ملک برای مشاور املاک های در موقعیت ملک ارسال خواهد شد تا در صورت پیدا شدن مشتری به شما خبر دهند</p>
-                    <p class="request-melk-info"><span class="fa fa-check-circle"></span> اطلاعات ملک شما برای افرادی که نیازمند ملکی با مشخصات ملک شما هستند ارسال خواهد گردید</p>
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="0" class="btn btn-primary">شروع</div>
-                </div>
-            </div>
-
-            <!-- Noe Melk  !-->
-            <div data-step="1" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">نوع ملک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>در این فرم، نوع ملک و منظور از ارائه ملک را مشخص نموده</p>
-                    <!--  ADD Type !-->
-                    <?php $form->renderDecorated('melktypeid'); ?> 
-
-                    <!--  ADD Purpose !-->
-                    <?php $form->renderDecorated('melkpurposeid'); ?> 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="1" class="btn btn-primary">مرحله بعد</div>
-                </div>
-            </div>
-
-
-            <!-- Moshakasate Melk !-->
-            <div data-step="2" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">مشخصات ملک</h3>
-                </div>
-                <div class="panel-body">
-
-                    <p>مشخصات کلی ملک را در این قسمت وارد نمایید</p>
-
-                    <!--  ADD Home Size !-->
-                    <?php $form->renderDecorated('home_size'); ?> 
-
-                    <!--  ADD Lot Size !-->
-                    <?php $form->renderDecorated('lot_size'); ?>
-
-                    <!--  ADD Bedrooms !-->
-                    <?php $form->renderDecorated('bedroom'); ?> 
-
-                    <!--  ADD Bath !-->
-                    <?php $form->renderDecorated('bath'); ?> 
-
-                    <!--  Description  !-->
-                    <?php $form->renderDecorated('description'); ?> 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="2" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="2" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
-
-
-            <!--Moghiyate Melk !-->
-            <div data-step="3" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">موقعیت ملک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>در این قسمت شما میبایست محدوده و آدرس ملک را مشخص نمایید</p>
-
+            <div class="panel-body">
+                <form method='post' enctype="multipart/form-data">
                     <div class='row'>
-                        <div class='col-md-6'>
-                            <!--  ADD State ID !-->
-                            <?php $form->renderDecorated('stateid'); ?> 
+                        <div class='col-md-12'>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <h3 class="melk-section-header"><span class="fa fa-pencil"></span>اطلاعات ملک</h3>
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Type !-->
+                                            <?php $form->renderDecorated('melktypeid'); ?> 
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Purpose !-->
+                                            <?php $form->renderDecorated('melkpurposeid'); ?> 
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Home Size !-->
+                                            <?php $form->renderDecorated('home_size'); ?> 
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Lot Size !-->
+                                            <?php $form->renderDecorated('lot_size'); ?>
+                                        </div>
+                                        <div class='col-md-6'>
 
-                            <!--  ADD City ID !-->
-                            <?php $form->renderDecorated('cityid'); ?> 
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Bedrooms !-->
+                                            <?php $form->renderDecorated('bedroom'); ?>
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Bath !-->
+                                            <?php $form->renderDecorated('bath'); ?> 
+                                        </div>
+                                    </div>
+                                    <!--  Description  !-->
+                                    <?php $form->renderDecorated('description'); ?> 
 
-                            <!--  ADD Address !-->
-                            <?php $form->renderDecorated('address'); ?> 
+                                    <h3 class="melk-section-header"><span class="fa fa-dollar"></span>قیمت</h3>
+                                    <!--  ADD Sale Price !-->
+                                    <?php $form->renderDecorated('sale_price'); ?> 
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Rahn !-->
+                                            <?php $form->renderDecorated('rent_pricerahn'); ?> 
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <!--  ADD Ejare !-->
+                                            <?php $form->renderDecorated('rent_price'); ?> 
+                                        </div>
+                                    </div>
 
-                            <!--  ADD Private Address !-->
-                            <?php $form->renderDecorated('private_address'); ?>
-                        </div>
-                        <div class='col-md-6'>
-                            <!--  Map !-->
-                            <?php $form->renderDecorated('map'); ?> 
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="3" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="3" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
+                                    <h3 class="melk-section-header"><span class="fa fa-user"></span>اطلاعات کاربر</h3>
+                                    <?php if (!$this->session->has("userid")) : ?>
+                                        <div class='row'>
+                                            <div class='col-md-6'>
+                                                <!--  ADD First Name !-->
+                                                <?php $form->renderDecorated('fname'); ?> 
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <!--  ADD Last name !-->
+                                                <?php $form->renderDecorated('lname'); ?> 
 
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class='col-md-6'>
+                                                <!--  ADD Email !-->
+                                                <?php $form->renderDecorated('email'); ?> 
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <!--  ADD Password !-->
+                                                <?php $form->renderDecorated('password'); ?>
+                                            </div>
+                                        </div>
 
-            <!--Gheymat !-->
-            <div data-step="4" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">قیمت</h3>
-                </div>
-                <div class="panel-body">
-                    <p> هزینه ای که برای فروش یا اجاره بر روی ملک گذاشته اید را وارد نمایید </p>
+                                    <?php endif; ?>
+                                    <!--  ADD Private Phone !-->
+                                    <?php $form->renderDecorated('private_phone'); ?> 
 
-                    <!--  ADD Sale Price !-->
-                    <?php $form->renderDecorated('sale_price'); ?> 
+                                    <!--  ADD Private Mobile !-->
+                                    <?php $form->renderDecorated('private_mobile'); ?> 
 
-                    <!--  ADD Rahn !-->
-                    <?php $form->renderDecorated('rent_pricerahn'); ?> 
+                                    <h3 class="melk-section-header"><span class="fa fa-map-marker"></span>موقعیت ملک</h3>
+                                    <div class='row'>
+                                        <div class='col-md-12'>
+                                            <!--  ADD State ID !-->
+                                            <?php $form->renderDecorated('stateid'); ?> 
 
-                    <!--  ADD Ejare !-->
-                    <?php $form->renderDecorated('rent_price'); ?> 
+                                            <!--  ADD City ID !-->
+                                            <?php $form->renderDecorated('cityid'); ?> 
 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="4" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="4" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
+                                            <!--  ADD Address !-->
+                                            <?php $form->renderDecorated('address'); ?> 
 
+                                            <!--  ADD Private Address !-->
+                                            <?php $form->renderDecorated('private_address'); ?>
 
-            <!-- Emlkanate Melk !-->
-            <div data-step="5" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">امکانات ملک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>تمامی امکاناتی که ملک شما دارد را وارد نمایید</p>
-
-                    <br/>
-                    <?php
-                    $facilites = MelkFacilities::find();
-                    ?>
-                    <div class='row'>
-                        <?php foreach ($facilites as $facilty) : ?>
-                            <div class='col-md-3'>
-                                <label class="create-melk-facility-item" for='facilities[]'>
-                                    <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
-                                    <?php echo $facilty->name; ?>
-                                </label>
+                                            <!--  Map !-->
+                                            <?php $form->renderDecorated('map'); ?> 
+                                        </div>
+                                    </div>
+                                    <h3 class="melk-section-header"><span class="fa fa-tree"></span>امکانات ملک</h3>
+                                    <?php
+                                    $facilites = MelkFacilities::find();
+                                    ?>
+                                    <div class='row'>
+                                        <?php foreach ($facilites as $facilty) : ?>
+                                            <div class='col-md-6 col-sm-6 col-xs-6'>
+                                                <label class="create-melk-facility-item" for='facilities[]'>
+                                                    <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
+                                                    <?php echo $facilty->name; ?>
+                                                </label>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <h3 class="melk-section-header"><span class="fa fa-picture-o"></span>تصاویر</h3>
+                                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                                    <!--  Image !-->
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <?php $form->renderDecorated('img1'); ?> 
+                                            <?php $form->renderDecorated('img3'); ?> 
+                                            <?php $form->renderDecorated('img5'); ?> 
+                                            <?php $form->renderDecorated('img7'); ?> 
+                                            <?php $form->renderDecorated('img9'); ?> 
+                                            <?php $form->renderDecorated('img11'); ?> 
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <?php $form->renderDecorated('img2'); ?> 
+                                            <?php $form->renderDecorated('img4'); ?> 
+                                            <?php $form->renderDecorated('img6'); ?> 
+                                            <?php $form->renderDecorated('img8'); ?> 
+                                            <?php $form->renderDecorated('img10'); ?> 
+                                            <?php $form->renderDecorated('img12'); ?> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <br/>
-
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="5" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
-
-            <!-- Contact !-->
-            <div data-step="6" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">اطلاعات تماس</h3>
-                </div>
-                <div class="panel-body">
-                    <p>اطلاعات تماس مستقیم خودتان را وارد نمایید تا در صورت نیاز مشتریان بتوانند با شما تماس داشته باشند</p>
-
-                    <?php if (!$this->session->has("userid")) : ?>
-
-                        <div class='row'>
-                            <div class='col-md-6'>
-                                <!--  ADD First Name !-->
-                                <?php $form->renderDecorated('fname'); ?> 
-                            </div>
-                            <div class='col-md-6'>
-                                <!--  ADD Last name !-->
-                                <?php $form->renderDecorated('lname'); ?> 
-
+                            <div class='row'>
+                                <div class='col-md-12 center'>
+                                    <hr/>
+                                    <p style="font-size: 150%;">برای ارسال اطلاعات، بر روی کلید زیر کلیک نمایید</p>
+                                    <?php $form->renderDecorated('submit'); ?> 
+                                </div>
                             </div>
                         </div>
-
-                        <!--  ADD Email !-->
-                        <?php $form->renderDecorated('email'); ?> 
-
-                        <!--  ADD Password !-->
-                        <?php $form->renderDecorated('password'); ?>
-
-                    <?php endif; ?>
-
-                    <!--  ADD Private Phone !-->
-                    <?php $form->renderDecorated('private_phone'); ?> 
-
-                    <!--  ADD Private Mobile !-->
-                    <?php $form->renderDecorated('private_mobile'); ?> 
-
-
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="6" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
-
-
-            <!-- Images  !-->
-            <div data-step="7" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">تصاویر ملک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
-                    <!--  Image !-->
-                    <div class='row'>
-                        <div class='col-md-6'>
-                            <?php $form->renderDecorated('img1'); ?> 
-                            <?php $form->renderDecorated('img3'); ?> 
-                            <?php $form->renderDecorated('img5'); ?> 
-                            <?php $form->renderDecorated('img7'); ?> 
-                            <?php $form->renderDecorated('img9'); ?> 
-                            <?php $form->renderDecorated('img11'); ?> 
-                        </div>
-                        <div class='col-md-6'>
-                            <?php $form->renderDecorated('img2'); ?> 
-                            <?php $form->renderDecorated('img4'); ?> 
-                            <?php $form->renderDecorated('img6'); ?> 
-                            <?php $form->renderDecorated('img8'); ?> 
-                            <?php $form->renderDecorated('img10'); ?> 
-                            <?php $form->renderDecorated('img12'); ?> 
-                        </div>
                     </div>
-
-
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="7" class="btn btn-primary">پایان</div>
-                    <div id="backbtn" data-step="7" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
-
-
-            <!-- Finish  !-->
-            <div data-step="8" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">پایان</h3>
-                </div>
-                <div class="panel-body final-step">
-                    <h3>برای ارسال نهایی ملک بر روی کلید ارسال کلیک نمایید</h3>
-                    <!-- Submit Button !-->
-                    <br/>
-                    <?php $form->renderDecorated('submit'); ?> 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="backbtn" data-step="8" class="btn btn-default">مرحله قبل</div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
 <script>
 
-
-    // hide all steps at start
-    $(".melk-step-panel").hide();
-    /**
-     * this function will go to the requestd step without any validate
-     * @param {type} newStep
-     * @param {type} oldStep
-     * @returns {undefined}
-     */
-    function showStep(newStep, oldStep)
-    {
-        // hide all steps at first time
-        $(".melk-step-panel[data-step='" + oldStep + "']").fadeOut(250, function() {
-            $(".melk-step-panel[data-step='" + newStep + "']").fadeIn(250, function() {
-                if (newStep == 3)
-                {
-                    google.maps.event.trigger(map, 'resize');
-                }
-            });
-        });
-        // show in wizard mode
-        $(".melk-wizard-step[data-step='" + oldStep + "']").removeClass('active').addClass("done");
-        $(".melk-wizard-step[data-step='" + newStep + "']").addClass('active').removeClass("done");
-
-
-        $('html, body').animate({scrollTop: 0}, 400);
-        return false;
-    }
-
-    /**
-     * this function will ready step
-     * @param {type} step
-     * @returns {undefined}
-     */
-    function readyStep(step)
-    {
-        if (step == 2)
+    function onTypeChange() {
+        // get melk type
+        // we have to show all optiosn first
+        $("#lot_size_holder").show();
+        $("#bedroom_holder").show();
+        $("#bath_holder").show();
+        $("#home_size_holder").show();
+        switch ($("#melktypeid").val())
         {
-            // get melk type
-            // we have to show all optiosn first
-            $("#lot_size_holder").show();
-            $("#bedroom_holder").show();
-            $("#bath_holder").show();
-            $("#home_size_holder").show();
-            switch ($("#melktypeid").val())
-            {
-                case "1":
-                    // khane
-                    break;
-                case "2":
-                    // aparteman
-                    $("#lot_size_holder").hide();
-                    break;
-                case "3":
-                    // daftar kar
-                    $("#bath_holder").hide();
-                    $("#lot_size_holder").hide();
-                    break;
-                case "4":
-                    // vila
-                    break;
-                case "5":
-                    // zamin
-                    $("#bedroom_holder").hide();
-                    $("#bath_holder").hide();
-                    $("#home_size_holder").hide();
-                    break;
-                case "6":
-                    // otaghe kar
-                    $("#lot_size_holder").hide();
-                    $("#bedroom_holder").hide();
-                    $("#bath_holder").hide();
-                    break;
-                default:
-                    // Type Is Not valid
-                    alert("نوع ملک معتبر نمی باشد");
-                    break;
-            }
-
-
-            // check for purpose
-            switch ($("#melkpurposeid").val())
-            {
-                case "1":
-                    // forosh
-                    $("#sale_price_holder").show();
-                    $("#rent_price_holder").hide();
-                    $("#rent_pricerahn_holder").hide();
-                    break;
-                case "2":
-                    // ejare
-                    $("#sale_price_holder").hide();
-                    $("#rent_price_holder").show();
-                    $("#rent_pricerahn_holder").show();
-                    break;
-                case "3":
-                    // forosh va ejare
-                    $("#sale_price_holder").show();
-                    $("#rent_price_holder").show();
-                    $("#rent_pricerahn_holder").show();
-                    break;
-                default:
-                    // Type Is Not valid
-                    alert("منظور ملک معتبر نمی باشد");
-                    break;
-            }
+            case "1":
+                // khane
+                break;
+            case "2":
+                // aparteman
+                $("#lot_size_holder").hide();
+                break;
+            case "3":
+                // daftar kar
+                $("#bath_holder").hide();
+                $("#lot_size_holder").hide();
+                break;
+            case "4":
+                // vila
+                break;
+            case "5":
+                // zamin
+                $("#bedroom_holder").hide();
+                $("#bath_holder").hide();
+                $("#home_size_holder").hide();
+                break;
+            case "6":
+                // otaghe kar
+                $("#lot_size_holder").hide();
+                $("#bedroom_holder").hide();
+                $("#bath_holder").hide();
+                break;
+            default:
+                // Type Is Not valid
+                alert("نوع ملک معتبر نمی باشد");
+                break;
         }
 
 
-        if (step == 3)
+        // check for purpose
+        switch ($("#melkpurposeid").val())
         {
-
-        }
-
-
-
-        if (step == 4)
-        {
-
-        }
-
-
-        if (step == 5)
-        {
-
-        }
-
-
-        if (step == 6)
-        {
-
+            case "1":
+                // forosh
+                $("#sale_price_holder").show();
+                $("#rent_price_holder").hide();
+                $("#rent_pricerahn_holder").hide();
+                break;
+            case "2":
+                // ejare
+                $("#sale_price_holder").hide();
+                $("#rent_price_holder").show();
+                $("#rent_pricerahn_holder").show();
+                break;
+            case "3":
+                // forosh va ejare
+                $("#sale_price_holder").show();
+                $("#rent_price_holder").show();
+                $("#rent_pricerahn_holder").show();
+                break;
+            default:
+                // Type Is Not valid
+                alert("منظور ملک معتبر نمی باشد");
+                break;
         }
     }
+
+
+    $("#melkpurposeid").change(function() {
+        onTypeChange();
+    });
+
+
+    $("#melktypeid").change(function() {
+        onTypeChange();
+    });
+
+
+    onTypeChange();
 
     /**
      * this function will validate step
@@ -580,27 +422,7 @@
         return true;
     }
 
-
-    // add event on next button click
-    $('body').on('click', '#nextbtn', function() {
-        // get step
-        var currenctStep = $(this).data('step');
-        if (validStep(currenctStep))
-        {
-            readyStep(currenctStep + 1);
-            showStep(currenctStep + 1, currenctStep);
-
-        }
-
-    });
-    // add event on next button click
-    $('body').on('click', '#backbtn', function() {
-        // get step
-        var currenctStep = $(this).data('step');
-        showStep(currenctStep - 1, currenctStep);
-    });
-    // show step0
-    showStep(0, 0);</script>
+</script>
 
 <script>
 
@@ -674,4 +496,5 @@ foreach ($cities as $city) {
 
 
 </script>
+
 
