@@ -5,130 +5,84 @@
 </div>
 <form method='post'  enctype="multipart/form-data">
     <div class='row'>
-        <div class='col-lg-12'>
+        <div class='col-md-6 col-md-push-3 page-create-bongah'>
 
-            <!-- Wizards -->
-            <div class="nav nav-pills nav-justified navbar melk-wizard hidden-sm hidden-xs">
-                <li data-step="1" class="melk-wizard-step active"><a href="#"><span class="fa fa-info"></span> مشخصات مشاور املاک</a></li>
-                <li data-step="2" class="melk-wizard-step "><a href="#"><span class="fa fa-map-marker"></span> موقعیت مشاور املاک</a></li>
-                <li data-step="3" class="melk-wizard-step "><a href="#"><span class="fa fa-location-arrow"></span> مناطق قابل پوشش</a></li>
-                <li data-step="4" class="melk-wizard-step "><a href="#"><span class="fa fa-mobile"></span> اطلاعات تماس</a></li>
-                <li data-step="5" class="melk-wizard-step "><a href="#"><span class="fa fa-camera"></span> تصاویر مشاور املاک</a></li>
-            </div>
-
-
-            <!--  Moshaksate   !-->
-            <div data-step="1" class="panel panel-default melk-step-panel" >
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">مشخصات مشاور املاک</h3>
+                    <h3 class="panel-title">عضویت بنگاه داران</h3>
                 </div>
                 <div class="panel-body">
-                    <p>در این قسمت مشخصات خواسته شده را وارد نمایید</p>
+                    <p>لطفا تمامی اطلاعات خواسته شده در فرم زیر را وارد نمایید</p>
 
+
+                    <!-- Moshakhaste Moshaver Amlak !-->
+                    <h3 class="melk-section-header">مشخصات مشاور املاک</h3>
                     <?php $form->renderDecorated('title'); ?> 
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('fname'); ?>
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('lname'); ?> 
+                        </div>
+                    </div>
 
-                    <?php $form->renderDecorated('fname'); ?> 
-
-                    <?php $form->renderDecorated('lname'); ?> 
-
-                    <?php $form->renderDecorated('peygiri'); ?> 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="1" class="btn btn-primary">مرحله بعد</div>
-                </div>
-            </div>
-
-            <!--Moghiyate !-->
-            <div data-step="2" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">موقعیت مشاور املاک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>در این قسمت شما میبایست محدوده و آدرس ملک را مشخص نمایید</p>
-
+                    <!--Moghiyate !-->
+                    <h3 class="melk-section-header">موقعیت</h3>
                     <div class='row'>
                         <div class='col-md-6'>
                             <!--  ADD State ID !-->
                             <?php $form->renderDecorated('stateid'); ?> 
-
-                            <!--  ADD City ID !-->
-                            <?php $form->renderDecorated('cityid'); ?> 
-
-                            <!--  ADD Address !-->
-                            <?php $form->renderDecorated('address'); ?> 
-
                         </div>
                         <div class='col-md-6'>
-                            <!--  Map !-->
+                            <!--  ADD City ID !-->
+                            <?php $form->renderDecorated('cityid'); ?> 
+                        </div>
+
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
+                        </div>
+                        <div class='col-md-12'>
                             <?php $form->renderDecorated('map'); ?> 
                         </div>
                     </div>
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="2" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="2" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
 
-
-            <!-- Manategeh Ghabel Poshesh !-->
-            <div data-step="3" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">مناطق قابل پوشش</h3>
-                </div>
-                <div class="panel-body">
-
-                    <?php $form->renderDecorated('locationscansupport'); ?> 
-
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="3" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="3" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
-
-
-            <!-- Contact !-->
-            <div data-step="4" class="panel panel-default melk-step-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">اطلاعات تماس</h3>
-                </div>
-                <div class="panel-body">
-
-                    <?php if (!isset($user)) : ?>
-                        <div class='row'>
-                            <div class='col-md-6'>
-                                <?php $form->renderDecorated('email'); ?> 
-                            </div>
-                            <div class='col-md-6'>
-                                <?php $form->renderDecorated('password'); ?> 
-                            </div>
+                    <!-- Location Can support !-->
+                    <h3 class="melk-section-header">مناطق قابل پوشش</h3>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <?php $form->renderDecorated('locationscansupport'); ?> 
                         </div>
-                    <?php endif; ?>
+                    </div>
 
-                    <!--  ADD Private Phone !-->
-                    <?php $form->renderDecorated('phone'); ?> 
+                    <!-- Contact Info !-->
+                    <h3 class="melk-section-header">اطلاعات تماس</h3>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <?php if (!isset($user)) : ?>
+                                <div class='row'>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('email'); ?> 
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <?php $form->renderDecorated('password'); ?> 
+                                    </div>
+                                </div>
+                            <?php endif; ?>
 
-                    <!--  ADD Private Mobile !-->
-                    <?php $form->renderDecorated('mobile'); ?> 
+                            <!--  ADD Private Phone !-->
+                            <?php $form->renderDecorated('phone'); ?> 
 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="4" class="btn btn-primary">مرحله بعد</div>
-                    <div id="backbtn" data-step="4" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
+                            <!--  ADD Private Mobile !-->
+                            <?php $form->renderDecorated('mobile'); ?> 
+                        </div>
+                    </div>
 
-
-
-            <!-- Images  !-->
-            <div data-step="5" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">تصاویر ملک</h3>
-                </div>
-                <div class="panel-body">
-                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای مشاور املاک خود ارائه نمایید</p>
-                    <!--  Image !-->
+                    <!-- Images !-->
+                    <h3 class="melk-section-header">تصاویر آژانس شما</h3>
                     <div class='row'>
                         <div class='col-md-6'>
                             <?php $form->renderDecorated('img1'); ?> 
@@ -142,32 +96,23 @@
                         </div>
                     </div>
 
+                    <!-- Submit !-->
+                    <hr/>
+                    <div class='row'>
+                        <div class='col-md-12 center'>
+                            <h3>برای ارسال مشخصات بر روی کلید زیر کلیک نمایید</h3>
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $form->renderDecorated('submit'); ?> 
+                        </div>
+                    </div>
 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="nextbtn" data-step="5" class="btn btn-primary">پایان</div>
-                    <div id="backbtn" data-step="5" class="btn btn-default">مرحله قبل</div>
                 </div>
             </div>
 
-
-            <!-- Finish  !-->
-            <div data-step="6" class="panel panel-default melk-step-panel" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">پایان</h3>
-                </div>
-                <div class="panel-body final-step">
-                    <h3>برای ارسال مشخصات بر روی کلید زیر کلیک نمایید</h3>
-                    <!-- Submit Button !-->
-                    <br/>
-                    <?php $form->renderDecorated('submit'); ?> 
-                </div>
-                <div class="panel-footer panel-footer-btn-group">
-                    <div id="backbtn" data-step="6" class="btn btn-default">مرحله قبل</div>
-                </div>
-            </div>
         </div>
     </div>
+
 </form>
 <script>
 
@@ -354,4 +299,6 @@ foreach ($cities as $city) {
         var city = citiesid[$(this).val()];
         oncitychange(city);
     });
+
+    $("#cityid").change();
 </script>

@@ -46,8 +46,8 @@ class CreateBongahForm extends AtaForm {
         $peygiri->setLabel('شماره صنفی');
         //$peygiri->setAttribute('placeholder', 'Enter your Shomare Peygiri');
         $peygiri->setAttribute('class', 'form-control');
-        $peygiri->addValidator(new PresenceOf(array(
-        )));
+//        $peygiri->addValidator(new PresenceOf(array(
+//        )));
         $this->add($peygiri);
 
 
@@ -174,7 +174,7 @@ class CreateBongahForm extends AtaForm {
         // Submit Button
         $submit = new Submit('submit');
         $submit->setAttribute('value', 'ارسال');
-        $submit->setAttribute('class', 'btn btn-success btn-lg');
+        $submit->setAttribute('class', 'btn btn-primary btn-lg');
         $this->add($submit);
     }
 

@@ -217,9 +217,13 @@ class BongahController extends ControllerBase {
 
         if ($this->request->isPost() && $fr->isValid($_POST)) {
             $phone = $this->request->getPost("phonenumber");
+            $this->LogInfo("New Bongah Request", "new request for phone : " . $phone);
             SMSManager::SendSMS("09399477290", "want to signup as bongah: " . $phone, SmsNumber::findFirst()->id);
-            $this->flash->success("شماره تماس شما با موفقیت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت");
-            $fr->clear();
+//            $this->flash->success("شماره تماس شما با موفقیت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت");
+//            $fr->clear();
+            // forward to add page
+            Helper::RedirectToURL("http://amlak.edspace.org/bongah/add");
+            die();
         }
 
         // show form
@@ -1004,17 +1008,16 @@ class BongahController extends ControllerBase {
                 // we have to check if the user is logged in
                 if (!isset($this->user)) {
                     // we need to create an account for the user
-                    $user = new User();
+                    $this->user = new User();
                     $fname = $this->request->getPost("fname");
                     $lname = $this->request->getPost("lname");
                     $email = $this->request->getPost("email", "email");
                     $password = $this->request->getPost("password");
                     $mobile = $this->request->getPost("mobile");
-                    $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_BONGAHDAR, $mobile);
+                    $result = $this->user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $mobile);
                     if (!$this->hasError() && $result == true) {
                         // user successfully created 
-                        $this->user = $user;
-                        $user->setSession($this);
+                        $this->user->setSession($this);
                         $needToVerify = true;
                     }
                 }
@@ -1024,7 +1027,7 @@ class BongahController extends ControllerBase {
                     $bongah = new Bongah();
                     $bongah->userid = $this->user->userid;
                     $bongah->title = $this->request->getPost('title', 'string');
-                    $bongah->peygiri = $this->request->getPost('peygiri', 'string');
+//                    $bongah->peygiri = $this->request->getPost('peygiri', 'string');
                     $bongah->fname = $this->request->getPost('fname', 'string');
                     $bongah->lname = $this->request->getPost('lname', 'string');
                     $bongah->address = $this->request->getPost('address', 'string');
@@ -1045,6 +1048,8 @@ class BongahController extends ControllerBase {
                         $bongah->showErrorMessages($this);
                     } else {
 
+                        $this->user->level = USERLEVEL_BONGAHDAR;
+                        $this->user->save();
 
                         // save images
                         if ($this->request->hasFiles()) {
