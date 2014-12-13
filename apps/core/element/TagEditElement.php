@@ -12,6 +12,7 @@ class TagEditElement extends BaseElement {
     protected $tagLimit = 500;
     protected $singleField = false;
     protected $placeholderText = null;
+    protected $singleFieldDelimiter = ",";
 
     public function getAutocompleteSource() {
         return $this->autocompleteSource;
@@ -30,7 +31,16 @@ class TagEditElement extends BaseElement {
     }
 
     public function getPlaceholderText() {
-        return isset($this->placeholderText) && strlen($this->placeholderText) > 0 ?  "'$this->placeholderText'" : "''";
+        return isset($this->placeholderText) && strlen($this->placeholderText) > 0 ? "'$this->placeholderText'" : "''";
+    }
+
+    public function getSingleFieldDelimiter() {
+        return $this->singleFieldDelimiter;
+    }
+
+    public function setSingleFieldDelimiter($singleFieldDelimiter) {
+        $this->singleFieldDelimiter = $singleFieldDelimiter;
+        return $this;
     }
 
     public function setAutocompleteSource($autocompleteSource) {
@@ -146,6 +156,7 @@ class TagEditElement extends BaseElement {
                         taglimit : " . $this->getTagLimit() . ",
                         singlefield : " . $this->getSingleField() . ",
                         placeholdertext : " . $this->getPlaceholderText() . ",
+                        singleFieldDelimiter : " . $this->getSingleFieldDelimiter() . ",
                   ";
 
 
