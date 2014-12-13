@@ -166,7 +166,7 @@ class BaseUserPhone extends AtaModel {
             return "";
         }
         $link = $this->getDI()->get("url")->getBaseUri() . "api/verifyphone/" . $this->id;
-        return Helper::generateAjaxButton("btn_verify", "Verify", $link, '', 'btn btn-sm btn-primary');
+        return Helper::generateAjaxButton("btn_verify_" . $this->id, "Verify", $link, '', 'btn btn-sm btn-primary');
     }
 
 }
