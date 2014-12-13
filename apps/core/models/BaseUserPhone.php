@@ -9,7 +9,7 @@ class BaseUserPhone extends AtaModel {
     public function getSource() {
         return 'userphone';
     }
- 
+
     /**
      * ID
      * @var string
@@ -163,7 +163,7 @@ class BaseUserPhone extends AtaModel {
     public function getAdminVerifyButton() {
 
         if ($this->verified) {
-            return "";
+            return ""; 
         }
         $link = $this->getDI()->get("url")->getBaseUri() . "api/verifyphone/" . $this->id;
         return Helper::generateAjaxButton("btn_verify_" . $this->id, "Verify", $link, '', 'btn btn-sm btn-primary');
