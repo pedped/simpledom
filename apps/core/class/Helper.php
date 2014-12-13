@@ -74,7 +74,7 @@ class Helper {
         } else if ($price == 1) {
             return "یک میلیون تومان";
         } else if ($price > 1 && $price < 1000) {
-            return number_format($price, 2 ) . " " . "میلیون تومان";
+            return number_format($price, 2) . " " . "میلیون تومان";
         } else {
             return number_format($price / 1000, 2) . " " . "میلیارد تومان";
         }
@@ -137,6 +137,21 @@ class Helper {
 
     public static function GetTodayStartTime() {
         return strtotime("12:00:00");
+    }
+
+    public static function generateAjaxButton($id, $name, $link, $buttonStyle = "", $buttonClass = "btn btn-default", $onData = "") {
+        $html = "<div id='$id' class='$buttonClass' style='$buttonStyle'>$name</div>";
+        $html .= "
+            <script>
+                $('#$id').click(function(){
+                    
+                    $.get('$link', function(data){
+                        console.log('server request to uri : $link', data);
+                        $onData
+                    });
+                });
+            </script>";
+        return $html;
     }
 
 }

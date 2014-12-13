@@ -2,6 +2,7 @@
 
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 
 class BaseUserPhone extends AtaModel {
 
@@ -157,6 +158,15 @@ class BaseUserPhone extends AtaModel {
         $message = "" . _("Verfication Number") . ":\n" . $this->verifycode;
         $this->LogInfo("Verification Number Sent", "verification Number Sent to User : " . $this->userid);
         return SMSManager::SendSMS($this->phone, $message, SmsNumber::findFirst("enable = 1"));
+    }
+
+    public function getAdminVerifyButton() {
+
+        if ($this->verified) {
+            return "";
+        }
+        $link = $this->getDI()->get("url")->getBaseUri() . "api/verifyphone/" . $this->id;
+        return Helper::generateAjaxButton("btn_verify", "Verify", $link, '', 'btn btn-sm btn-primary');
     }
 
 }
