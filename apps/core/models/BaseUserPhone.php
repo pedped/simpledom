@@ -9,7 +9,7 @@ class BaseUserPhone extends AtaModel {
     public function getSource() {
         return 'userphone';
     }
-
+ 
     /**
      * ID
      * @var string
