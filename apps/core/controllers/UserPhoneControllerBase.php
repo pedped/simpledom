@@ -74,10 +74,10 @@ class UserPhoneControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Name', 'Phone', 'Verify Code', 'Verified', 'Last SMS Sent Date', 'Date'
+                    'ID', 'User ID', 'Name', 'Phone', 'Verify Code', 'Verified', 'Verify', 'Last SMS Sent Date', 'Date'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'getUserName()', 'phone', 'verifycode', 'getVerifiedText()', 'lastsmsdate', 'getDate()'
+                    'id', 'userid', 'getUserName()', 'phone', 'verifycode', 'getVerifiedText()', 'getAdminVerifyButton()', 'lastsmsdate', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'

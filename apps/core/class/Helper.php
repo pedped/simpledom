@@ -60,4 +60,19 @@ class Helper {
         return $randomString;
     }
 
+    public static function generateAjaxButton($id, $name, $link, $buttonStyle = "", $buttonClass = "btn btn-default", $onData = "") {
+        $html = "<div id='$id' class='$buttonClass' style='$buttonStyle'>$name</div>";
+        $html .= "
+            <script>
+                $('#$id').click(function(){
+                    
+                    $.get('$link', function(data){
+                        console.log('server request to uri : $link', data);
+                        $onData
+                    });
+                });
+            </script>";
+        return $html;
+    }
+
 }
