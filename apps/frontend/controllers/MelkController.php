@@ -596,6 +596,11 @@ class MelkController extends ControllerBaseFrontEnd {
         }
 
 
+        // check if user logged in, log view
+        if (isset($this->user)) {
+            $this->AddUserLog("مشاهده ملک شماره " . $id);
+        }
+
 
         $melkInfo = \MelkInfo::findFirst(array("melkid = :melkid:", "bind" => array("melkid" => $melk->id)));
         $form = new MelkInfoViewForm();

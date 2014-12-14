@@ -35,7 +35,7 @@ class CreateBongahForm extends AtaForm {
         // Password
         $password = new PasswordElement("password");
         $password->setLabel(_("Password"));
-        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
+        $password->setInfo("یک رمز را به دلخواه انتخاب نمایید");
         $password->setAttribute("class", "form-control");
         $this->add($password);
 

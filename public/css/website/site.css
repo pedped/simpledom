@@ -15,6 +15,10 @@
         float: left  !important;
         text-align: center;
     }
+
+    .header-login-button{
+        background-color: #30C3A3;
+    }
 }
 
 
@@ -40,7 +44,7 @@
         margin-left: -12px !important;
         height: 24px !important;
         width: 25px !important;
-    }
+    } 
 
 
     .bongah-cuurent-subscription{
@@ -56,7 +60,7 @@
         display: none;
         padding-right: 12px;
     }
-
+ 
     .bongah-cuurent-subscription .bongah-smscredit {
         font-size: 15px !important;
         margin-bottom: 5px;
@@ -711,3 +715,4 @@ footer .btn {
 .page-create-bongah select{
     height:  auto !important;
 }
+

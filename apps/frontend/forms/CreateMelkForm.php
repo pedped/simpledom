@@ -43,7 +43,7 @@ class CreateMelkForm extends AtaForm {
         // Password
         $password = new PasswordElement("password");
         $password->setLabel(_("Password"));
-//        $password->setInfo("بک رمز را به دلخواه انتخاب نمایید");
+//        $password->setInfo("یک رمز را به دلخواه انتخاب نمایید");
         $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
         $password->setAttribute("class", "form-control");
         $this->add($password);

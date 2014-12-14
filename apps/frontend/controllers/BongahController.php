@@ -1105,8 +1105,13 @@ class BongahController extends ControllerBase {
                                 )
                             ));
                         }
+
+
                         // send sms about add
                         SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
+
+                        // send sms to myself
+                        SMSManager::SendSMS("09399477290", "بنگاه جدیدی به عضویت در سایت درآمد", SmsNumber::findFirst()->id);
                     }
                 }
             } else {
