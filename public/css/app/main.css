@@ -1,5 +1,5 @@
 body{
-    background-color: #48898D;
+    background-color: #EDEDED;
     padding-top: 63px;
     overflow-y: scroll;
     font-family: 'Source Sans Pro';
@@ -13,9 +13,7 @@ html{
 }
 
 .tweed-bg{
-    background-color: #000;
-    background-image: url('../../img/tweed.png');
-    background-repeat: repeat;
+    background-color: #00a8e3;
 }
 
 .congruent-outline-bg{
@@ -380,10 +378,6 @@ ul.tagit li{
     overflow: hidden;
     position: relative;
     width: 100%;
-
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 
 #sequence img {
@@ -661,27 +655,41 @@ ul.tagit li{
     }
 }
 .home-stat{
-    background-color: rgba(69, 126, 133, 0.8);
+    background-color: #0887B3;
     color: #fff;
     padding-bottom: 30px;
     text-align: center;
     font-size: 19px;
+    padding-top: 15px;
 }
 .home-stat h2{
     color: #fff;
     font-size: 45px;
+    margin-top: 5px;
 }
+.home-stat .fa{
+    font-size: 45px;
+    margin-top: 15px;
+}
+
+.home-stat .title{
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.home-stat .fa{
+    font-size: 45px;
+    margin-top: 15px;
+}
+
 .home-description{
-    background-color: rgba(94, 132, 69, 0.8);
-    color: #fff;
+    background-color: #fff;
+    color: #458086;
     padding-top: 30px;
-    padding-bottom: 30px;    
-    -webkit-box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
+    padding-bottom: 30px;
 }
+
 .home-description h1{
-    color: rgba(91, 255, 220, 1);
+    color: #1E5F51;
     text-shadow: -2px -2px 10px rgba(150, 150, 150, 1);
 }
 .home-costumer{
@@ -689,9 +697,6 @@ ul.tagit li{
     color: #fff;
     padding-top: 30px;
     padding-bottom: 30px;
-    -webkit-box-shadow: inset -6px 96px 17px -91px rgba(0,0,0,0.75);
-    -moz-box-shadow: inset -6px 96px 17px -91px rgba(0,0,0,0.75);
-    box-shadow: inset -6px 96px 17px -91px rgba(0,0,0,0.75);
 }
 
 
@@ -722,4 +727,29 @@ ul.tagit li{
 
 .panel-default>.panel-heading {
     background-color: #F2F2F2;
+}
+
+.navbar-default {
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.navbar-default .navbar-brand {
+    color: #00A8E3;
+}
+
+.navbar-nav > li > a {
+    font-size: 19px !important;
+}
+
+.system-features p .fa{
+    padding-left: 2px;
+}
+
+.system-features p{
+    font-size: 26px;
+    background-color: #EDEDED;
+    padding: 10px 15px;
+    color: #0887B3;
+    margin-bottom: 25px;
 }
