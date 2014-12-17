@@ -69,6 +69,15 @@ h7{
     font-size: 84px;
 }
 
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #3E4040;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #0887B3;
+}
+
 .xdebug-error {
     color : #000;
     font-size: 120%;

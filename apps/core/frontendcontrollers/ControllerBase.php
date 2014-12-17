@@ -101,7 +101,8 @@ abstract class ControllerBase extends AtaController {
                 ->addCss('css/bt3/bootstrap.min.css', true)
                 ->addCss('css/bt3/bootstrap-switch.min.css', true)
                 ->addCss('css/app/main.css', true)
-                ->addCss('css/app/font-awesome/css/font-awesome.css', true);
+                ->addCss('css/app/font-awesome/css/font-awesome.css', true)
+                ->addCss('assets/animate.css/animate.min.css', true);
 
 
         //Javascripts in the footer

@@ -47,5 +47,19 @@
             $('footer').css('margin-top', (docHeight - footerTop) - 66 + 'px');
         }
         
+        
+        $(".navbar-default .navbar-nav>li>a").hover(function(){
+            $(this).addClass("animated rubberBand");
+        });
+        $(".navbar-default .navbar-nav>li>a").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+            $(this).removeClass("animated rubberBand");
+        });
+        
+        $(".navbar-brand").hover(function(){
+            $(this).addClass("animated tada");
+        });
+        $(".navbar-brand").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+            $(this).removeClass("animated tada");
+        });
     });
 </script>
