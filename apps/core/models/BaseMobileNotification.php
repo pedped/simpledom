@@ -181,7 +181,14 @@ class BaseMobileNotification extends AtaModel {
     }
 
     public function getPublicResponse() {
-        
+        $item = new stdClass();
+        $item->id = $this->id;
+        $item->title = $this->title;
+        $item->message = $this->message;
+        $item->link = $this->link;
+        $item->linktext = $this->linktext;
+        $item->date = $this->releasedate;
+        return $item;
     }
 
     /**
