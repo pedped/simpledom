@@ -221,7 +221,8 @@ class AtaPaginator extends Paginator {
         $result .= "
             <div class='table-responsive'>
             <table class='table table-bordered table-striped table-condensed mb-none '>
-                <tr>";
+                <thead>
+                    <tr>";
 
         // add each fileds
         foreach ($this->getTableHeaders() as $value) {
@@ -233,7 +234,8 @@ class AtaPaginator extends Paginator {
             $result .= "<th>" . _("Action") . "</th>";
         }
         // close the table fields
-        $result .= "<tr>";
+        $result .= "</tr>";
+        $result .= "</thead>";
 
 
         // add each item
@@ -282,11 +284,7 @@ class AtaPaginator extends Paginator {
         $result .= "</table>
         </div>";
 
-
-
-
         // return the result
         return $result;
     }
-
 }
