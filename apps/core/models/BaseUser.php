@@ -480,6 +480,8 @@ class BaseUser extends AtaModel implements Searchable {
         $result->userid = $this->userid;
         $result->firstname = $this->fname;
         $result->lastname = $this->lname;
+        $result->imagelink = $this->getImagelink();
+        $result->gender = $this->gender;
         return $result;
     }
 
@@ -592,8 +594,10 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         // check if the login is enabled
         if (Settings::Get()->enabledisablesignup === false) {
             $errors[] = (_("Sorry!<br/>But the register system is disabled by Super Adminstator at this time."));
-            return;
+            return false;
         }
+
+
 
         $this->fname = $fname;
         $this->lname = $lname;
@@ -602,10 +606,19 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         $this->password = $password;
         $this->level = $level;
 
+        // check if email is not registered
+        if (BaseUser::hasEmail($this->email)) {
+            // email exist before
+            $errors[] = _("Email was in database before");
+            return;
+        }
+
+
         // check if we can save user
         if (!$this->create()) {
             // unable to save user
-            $this->showErrorMessages($controller);
+            $errors[] = $this->getMessagesAsLines();
+            return false;
         } else {
 
             // user created in database, we have to generate 
@@ -638,11 +651,20 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                 }
             } else {
                 // phone exist in database before
-                $controller->flash->error(_("Your Entered Phone was exist in database, please add another phone"));
+                $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
             }
 
-            $this->showSuccessMessages($controller, _("User creating was successfull"));
+            return true;
         }
+    }
+
+    /**
+     * checks if the email is in database
+     * @param type $email
+     * @return type
+     */
+    public static function hasEmail($email) {
+        return BaseUser::count(array("email = :email:", "bind" => array("email" => $email))) > 0;
     }
 
 }

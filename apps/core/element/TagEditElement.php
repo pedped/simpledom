@@ -156,7 +156,7 @@ class TagEditElement extends BaseElement {
                         taglimit : " . $this->getTagLimit() . ",
                         singlefield : " . $this->getSingleField() . ",
                         placeholdertext : " . $this->getPlaceholderText() . ",
-                        singleFieldDelimiter : " . $this->getSingleFieldDelimiter() . ",
+                        singleFieldDelimiter : '" . $this->getSingleFieldDelimiter() . "',
                   ";
 
 

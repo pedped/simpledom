@@ -20,6 +20,7 @@ class Module implements ModuleDefinitionInterface {
 
         $loader->registerNamespaces(
                 array(
+                    'Simpledom\Core\Classes' => dirname(__DIR__) . '/core/class/',
                     'Simpledom\Api\Controllers' => __DIR__ . '/controllers/',
                     'Simpledom\Core' => dirname(__DIR__) . '/core/',
                 )
@@ -65,7 +66,11 @@ class Module implements ModuleDefinitionInterface {
                     __DIR__ . '\\core\\',
                     __DIR__ . '\\core\\form\\',
                     __DIR__ . '\\core\\element\\',
-                    __DIR__ . '\\controllers\\'
+                    __DIR__ . '\\controllers\\',
+                    dirname(__DIR__) . '\\core\\class\\',
+                    dirname(__DIR__) . '\\core\\class\\smsproviders\\',
+                    dirname(__DIR__) . '\\core\\class\\paymentproviders\\',
+                    dirname(__DIR__) . '\\core\\interfaces\\',
                 )
         )->register();
 

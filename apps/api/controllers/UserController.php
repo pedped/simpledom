@@ -9,4 +9,5 @@ class UserController extends ControllerBase {
     public function getAction($id) {
         return $this->getResponse(BaseUser::findFirst($id)->getPublicResponse());
     }
+
 }
