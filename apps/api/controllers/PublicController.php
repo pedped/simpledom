@@ -9,6 +9,21 @@ use stdClass;
 
 class PublicController extends ControllerBase {
 
+    public function mobileversionAction() {
+//        int version = json . getInt("versioncode");
+//        String versionName = json . getString("versionname");
+//        String md5 = json . getString("md5");
+//        String downloadlink = json
+//                . getString("downloadlink");
+
+        $result = new stdClass();
+        $result->versioncode = 1;
+        $result->versionname = 2.25;
+        $result->md5 = "232656122152";
+        $result->downloadlink = "http://www.google.com";
+        return $this->getResponse($result);
+    }
+
     public function newnotificationAction() {
 
         // get last visit
@@ -16,11 +31,12 @@ class PublicController extends ControllerBase {
 
         // check for last visit
         if (!isset($lastvisit) || strlen($lastvisit) == 0) {
-            return $this->getResponse(false);
+            // return $this->getResponse(false);
+            $lastvisit = 0;
         }
 
         // get new notfications
-        $notification = MobileNotification::findFirst(array("releasedate >= :releasedate: AND enable = 1", "bind" => array("releasedate" => $lastvisit)));
+        $notification = MobileNotification::findFirst(array("releasedate >= :releasedate: AND enable = 1", "order" => "id DESC", "bind" => array("releasedate" => $lastvisit)));
         if (!$notification) {
             // there is no new notification
             return $this->getResponse(false);
