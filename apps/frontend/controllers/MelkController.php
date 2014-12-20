@@ -138,6 +138,16 @@ class MelkController extends ControllerBaseFrontEnd {
 
     public function createAction() {
 
+
+        if (isset($this->user) && $this->user->isBongahDar()) {
+            $this->dispatcher->forward(array(
+                "controller" => "bongah",
+                "action" => "addmelk",
+                "params" => array()
+            ));
+            return;
+        }
+
         $this->setPageTitle("افزودن ملک");
 
         // find user subscription
