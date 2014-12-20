@@ -482,6 +482,8 @@ class BaseUser extends AtaModel implements Searchable {
         $result->userid = $this->userid;
         $result->firstname = $this->fname;
         $result->lastname = $this->lname;
+        $result->imagelink = $this->getImagelink();
+        $result->gender = $this->gender;
         return $result;
     }
 
@@ -614,12 +616,22 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             return false;
         }
 
+
+
         $this->fname = $fname;
         $this->lname = $lname;
         $this->email = $email;
         $this->gender = $gender;
         $this->password = $password;
         $this->level = $level;
+
+        // check if email is not registered
+        if (BaseUser::hasEmail($this->email)) {
+            // email exist before
+            $errors[] = _("Email was in database before");
+            return;
+        }
+
 
         // check if we can save user
         if (!$this->create()) {
@@ -658,12 +670,21 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                 }
             } else {
                 // phone exist in database before
-                $errors[] = _("Your Entered Phone was exist in database, please add another phone");
+                $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
             }
 
-            $this->showSuccessMessages($controller, _("User creating was successfull"));
+
             return true;
         }
+    }
+
+    /**
+     * checks if the email is in database
+     * @param type $email
+     * @return type
+     */
+    public static function hasEmail($email) {
+        return BaseUser::count(array("email = :email:", "bind" => array("email" => $email))) > 0;
     }
 
 }
