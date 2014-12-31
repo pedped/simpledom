@@ -21,4 +21,13 @@ class User extends BaseUser {
         }
     }
 
+    /**
+     * find first bongah for the user
+     * @return Bongah|boolean
+     */
+    public function getFirstBongah() {
+        $bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+        return $bongah;
+    }
+
 }

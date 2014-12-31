@@ -758,4 +758,76 @@ class Melk extends AtaModel {
         return $result;
     }
 
+    public function getBongahResponse() {
+        $item = new stdClass();
+
+        $item->id = $this->id;
+        $item->type = $this->getTypeName();
+        $item->purpose = $this->getPurposeType();
+        $item->header = $this->getTypeName() . " - " . $this->getPurposeType();
+        $item->date = $this->getDate();
+        $item->price = $this->getPriceTitle();
+        $item->area = $this->getInfo()->address;
+        $item->tobesend = "true";
+        $item->privateaddress = $this->getInfo()->private_address;
+
+        $item->saleprice = $this->sale_price;
+        $item->ejare = $this->rent_price;
+        $item->rahn = $this->rent_pricerahn;
+
+        $item->salepricehuman = Helper::GetPrice($this->sale_price);
+        $item->ejarehuman = Helper::GetPrice($this->rent_price);
+        $item->rahnhuman = Helper::GetPrice($this->rent_pricerahn);
+
+        $item->latitude = $this->getInfo()->latitude;
+        $item->longitude = $this->getInfo()->longitude;
+
+
+        $item->bedroom = $this->bedroom;
+        $item->bath = $this->bath;
+        $item->zirbana = $this->home_size;
+        $item->metraj = $this->lot_size;
+        $item->phone = $this->getInfo()->private_phone;
+        $item->mobile = $this->getInfo()->private_mobile;
+
+        // load images
+        $images = $this->getImages();
+        if ($images->count() > 0) {
+            // load images
+            $item->image = $this->getImages()->getFirst()->getImageLink();
+
+            // Add image array
+            $imageArrays = array();
+            foreach ($images as $image) {
+                $imageArrays[] = $image->getImageLink();
+            }
+
+            // load image arrays
+            $item->imagearray = $imageArrays;
+        } else {
+            $item->image = BaseImage::findFirst((int) Config::GetDefaultMelkImageID())->link;
+            $item->imagearray = array();
+        }
+
+
+        return $item;
+    }
+
+    public function getPriceTitle() {
+        // check for melk purpose
+        switch ($this->melkpurposeid) {
+            case 1:
+                return Helper::GetPrice($this->sale_price);
+            case 2:
+                // rent
+                return "رهن: " . Helper::GetPrice($this->rent_pricerahn) . "، " . "اجاره: " . Helper::GetPrice($this->rent_price);
+            case 3:
+                // sale and rent
+                return "رهن: " . Helper::GetPrice($this->rent_pricerahn) . "، " . "اجاره: " . Helper::GetPrice($this->rent_price) . "\n" . Helper::GetPrice($this->sale_price);
+            default:
+                // invalid melk type
+                break;
+        }
+    }
+
 }

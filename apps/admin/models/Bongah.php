@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Model\Resultset;
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Helper;
 
 class Bongah extends AtaModel {
 
@@ -413,6 +414,85 @@ class Bongah extends AtaModel {
      */
     public function getSentMelkCount() {
         return BongahSentMelk::count(array("bongahid = :bongahid:", "bind" => array("bongahid" => $this->id)));
+    }
+
+    public function getMelksCount() {
+        return Melk::count(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+    }
+
+    public function sendMelkInfo(&$errors, $melkPhoneListnerID, $melkID, &$needToIncreaseSMSCredit = false, &$message = "") {
+
+        BaseUserLog::byUserID($this->userid)->setAction("تلاش برای ارسال ملک به درخواست کننده ملک")->create();
+
+        // check for melk
+        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkID)));
+        $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $melkPhoneListnerID)));
+
+        if (!$melk || !$phonelistner || intval($melk->userid) != intval($this->userid)) {
+            // one thing is not exist
+            //$this->show404();
+            $errors[] = "خطا در هنگام ارسال اطلاعات ملک";
+            return;
+        }
+
+        // check if the bongah have not sent this item before this melk listner
+        $sentBefore = BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid: AND melkid = :melkid:", "bind" => array(
+                        "melkid" => $melkID,
+                        "melkphonelistnerid" => $melkPhoneListnerID
+            ))) > 0;
+
+        if ($sentBefore) {
+            // user 
+            // 
+            // TODO remove below comment
+            //$errors[] = ("شما قبلا ملک شماره " . $melkID . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
+            //return;
+        }
+
+        // send melk info
+        // check for user credit
+        if (User::findFirst($this->userid)->getSMSCredit() <= 0) {
+            // user do not have enogh money to send message
+            $errors[] = ("اعتبار شما برای ارسال پیام کافی نیست، لطفا ابتدا اعتبار خود را افزایش دهید");
+            // forward to user page
+            $needToIncreaseSMSCredit = true;
+            return false;
+        }
+
+        // create message
+        $message = "مشتری گرامی، ملک جدید مطابق با نیاز شما به مشاور املاک " . $this->title . " سپرده گردید";
+        $message .= "\n";
+        $message .= "\n";
+        $message .= $melk->getQuickInfo();
+        $message .="\n";
+        $message .="\n";
+        $message .= "با تشکر";
+        $message .= $this->title;
+        $message .="\n";
+        $message .= $this->phone;
+
+        // we have to send sms
+        // TODO remove below comment
+        //SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, SmsNumber::findFirst()->id);
+        
+        // 
+        // // TODO find sms id and use for decrease credit
+        // decraese user sms credit
+        $isPersian = false;
+        $messageSize = Helper::GetMessageSize($message, $isPersian);
+        SMSCredit::decreaseCredit($errors, $this->userid, 12, $isPersian ? $messageSize * 2 : $messageSize );
+
+        // we have to create new sent message
+        $bongahSentMessage = new BongahSentMelk();
+        $bongahSentMessage->bongahid = $this->id;
+        $bongahSentMessage->melkid = $melk->id;
+        $bongahSentMessage->melkphonelistnerid = $phonelistner->id;
+        $bongahSentMessage->message = $message;
+        $bongahSentMessage->create();
+
+        // show success messgae
+        BaseUserLog::byUserID($this->userid)->setAction("ملک برای درخواست کننده ملک ارسال گردید")->create();
+        return true;
     }
 
 }

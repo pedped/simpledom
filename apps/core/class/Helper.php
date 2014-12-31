@@ -25,6 +25,58 @@ class Helper {
         return $bytes;
     }
 
+    public static function GetMessageSize($text, &$isPersian) {
+
+        $alhphabets = array();
+        $alhphabets[] = "آ";
+        $alhphabets[] = "ا";
+        $alhphabets[] = "ب";
+        $alhphabets[] = "پ";
+        $alhphabets[] = "ت";
+        $alhphabets[] = "ث";
+        $alhphabets[] = "ج";
+        $alhphabets[] = "چ";
+        $alhphabets[] = "ه";
+        $alhphabets[] = "خ";
+        $alhphabets[] = "د";
+        $alhphabets[] = "ذ";
+        $alhphabets[] = "ر";
+        $alhphabets[] = "ز";
+        $alhphabets[] = "ژ";
+        $alhphabets[] = "س";
+        $alhphabets[] = "ش";
+        $alhphabets[] = "ص";
+        $alhphabets[] = "ض";
+        $alhphabets[] = "ط";
+        $alhphabets[] = "ظ";
+        $alhphabets[] = "ع";
+        $alhphabets[] = "غ";
+        $alhphabets[] = "ف";
+        $alhphabets[] = "ق";
+        $alhphabets[] = "ک";
+        $alhphabets[] = "گ";
+        $alhphabets[] = "ل";
+        $alhphabets[] = "م";
+        $alhphabets[] = "ن";
+        $alhphabets[] = "و";
+        $alhphabets[] = "ه";
+        $alhphabets[] = "ی";
+
+        $isPersian = false;
+        foreach ($alhphabets as $alpha) {
+            if (strpos($alpha, $text) >= 0) {
+                $isPersian = true;
+                break;
+            }
+        }
+
+        if ($isPersian) {
+            return ((int) (mb_strlen($text) / 70) ) + 1;
+        } else {
+            return ((int) (mb_strlen($text) / 140) ) + 1;
+        }
+    }
+
     public static function RedirectToURL($url) {
 // add the website link
         $urlinof = parse_url($url);

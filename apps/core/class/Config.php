@@ -52,7 +52,7 @@ class Config {
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return true;
+        return false;
     }
 
     public static function GetDefaultSMSCreditOnBongahSignUp() {
@@ -67,6 +67,10 @@ class Config {
         return in_array($cityID, array(
             60
         ));
+    }
+
+    public static function GetDefaultMelkImageID() {
+        return 48;
     }
 
 }

@@ -311,7 +311,50 @@ class MelkPhoneListner extends AtaModel {
     }
 
     public function getPublicResponse() {
-        
+        $item = new stdClass();
+
+
+
+        return $item;
+    }
+
+    /**
+     * 
+     * @param Bongah $bongah
+     * @return stdClass
+     */
+    public function getMobileResponse($bongah) {
+        $item = new stdClass();
+
+        $item->id = $this->id;
+        $item->header = $this->getPurposeTitle() . " " . $this->getTypeTitle();
+        $item->type = $this->getTypeTitle();
+        $item->phone = $this->getPhoneNumber();
+        $rateInfo = $this->getSuccessRateForBongah($bongah);
+        $item->rate = $rateInfo->rate;
+
+        // get requested areas
+        $item->area = $this->getAreasNames();
+        $item->city = $this->getCityName();
+        $item->bedroom = $this->bedroom_start . "-" . $this->bedroom_end;
+
+
+        // find melks can be sent
+        $item->melkscanbesentcount = $rateInfo->melkscansend;
+
+        // get price range
+        if (intval($this->melkpurposeid) == 1) {
+            // kharid
+            $item->pricerange = $this->getSalePriceStartHuman() . " تا" . $this->getSalePriceEndHuman();
+        } else if (intval($this->melkpurposeid) == 2) {
+            // rahn va ejare
+            $item->pricerange = "رهن: " . $this->getRentPriceRahnStartHuman() . " تا" . $this->getRentPriceRahnEndHuman();
+            $item->pricerange .= "،" . "اجاره: " . $this->getRentPriceStartHuman() . " تا" . $this->getRentPriceEndHuman();
+        }
+
+        $item->date = $this->getDate();
+
+        return $item;
     }
 
     /**
@@ -489,8 +532,11 @@ class MelkPhoneListner extends AtaModel {
         return $this->findApprochMelk()->count();
     }
 
-    public function findApprochMelkCountByBongah() {
-        $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+    public function findApprochMelkCountByBongah($bongahid = null) {
+
+        if (!isset($bongahid)) {
+            $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+        }
         return $this->findApprochMelk($bongahid)->count();
     }
 
@@ -506,8 +552,10 @@ class MelkPhoneListner extends AtaModel {
      * find best melk approch by bongah
      * @return Resultset
      */
-    public function findApprochMelkByBongah() {
-        $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+    public function findApprochMelkByBongah($bongahid = null) {
+        if (!isset($bongahid)) {
+            $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+        }
         return $this->findApprochMelk($bongahid);
     }
 
@@ -613,7 +661,8 @@ class MelkPhoneListner extends AtaModel {
 
 
         // 1 : have melk that can be supported and did not sent yet
-        $melkCount = $this->findApprochMelkCountByBongah();
+        $melkCount = $this->findApprochMelkCountByBongah($bongah->id);
+        $result->melkscansend = $melkCount;
         if ($melkCount > 0) {
             $rate +=$melkCount > 0 ? 1 : 0;
             $messages[] = "شما " . "<b>" . $melkCount . "</b>" . " ملک متناسب با نیاز این متقاضی دارید";
@@ -711,7 +760,7 @@ class MelkPhoneListner extends AtaModel {
             return "";
         }
     }
-            
+
     /**
      * get invlisible phone number 0917XXXXX18
      * @return string

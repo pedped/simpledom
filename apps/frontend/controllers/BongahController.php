@@ -442,7 +442,7 @@ class BongahController extends ControllerBase {
 
             // calc total sms count
             $isPersian = false;
-            $totalSMSCount = $this->getMessageSize($message, $isPersian);
+            $totalSMSCount = Helper::GetMessageSize($message, $isPersian);
             $totalCalculatedCount = $isPersian ? $totalSMSCount : $totalSMSCount * 2; // becasue english messages has two time cost
             $this->view->messageSize = $totalCalculatedCount;
             $totalUsersSMSCount = 0;
@@ -601,7 +601,7 @@ class BongahController extends ControllerBase {
         $text.="\n=====\n" . "ارسال شده از طرف مشاور املاک " . $this->bongah->title . " توسط سامانه املاک گستر" . "\n" . $this->bongah->phone;
 
         // calc total sms count
-        $totalSMSCount = $this->getMessageSize($text, $isPersian);
+        $totalSMSCount = Helper::GetMessageSize($text, $isPersian);
         $totalCalculatedCount = $isPersian ? $totalSMSCount : $totalSMSCount * 2; // becasue english messages has two time cost
         $this->view->messageSize = $totalCalculatedCount;
         $totalUsersSMSCount = 0;
@@ -831,26 +831,12 @@ class BongahController extends ControllerBase {
 
     public function sendmelktolistnerAction($melkid, $phonelistnerID) {
 
-        $this->AddUserLog("تلاش برای ارسال ملک به درخواست کننده ملک");
 
-        // check for melk
-        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
-        $phonelistner = \MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $phonelistnerID)));
+        // try to send melk info
+        if ($this->bongah->sendMelkInfo($this->errors, $phonelistnerID, $melkid, $needToIncreseSMSCredit, $sentMessage)) {
+            // successfully sent
+            $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر می باشد: \n<hr/><blockquote>" . $sentMessage . "</blockquote>"));
 
-        if (!$melk || !$phonelistner) {
-            // one thing is not exist
-            $this->show404();
-        }
-
-        // check if the bongah have not sent this item before this melk listner
-        $sentBefore = BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid: AND melkid = :melkid:", "bind" => array(
-                        "melkid" => $melkid,
-                        "melkphonelistnerid" => $phonelistnerID
-            ))) > 0;
-
-        if ($sentBefore) {
-            // user 
-            $this->flash->error("شما قبلا ملک شماره " . $melkid . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
             // forward to user page
             $this->dispatcher->forward(array(
                 "controller" => "bongah",
@@ -860,77 +846,33 @@ class BongahController extends ControllerBase {
                     $phonelistnerID
                 )
             ));
-            return;
+        } else {
+            if ($needToIncreseSMSCredit) {
+
+                // user had low sms credit
+                $this->dispatcher->forward(array(
+                    "controller" => "smscredit",
+                    "action" => "plans",
+                    "bongahid" => $this->bongah->id,
+                    "params" => array(
+                    )
+                ));
+            } else {
+
+                // problem
+                $this->flash->error(implode("<br/>", $this->errors));
+
+                // forward to user page
+                $this->dispatcher->forward(array(
+                    "controller" => "bongah",
+                    "action" => "approchmelks",
+                    "bongahid" => $this->bongah->id,
+                    "params" => array(
+                        $phonelistnerID
+                    )
+                ));
+            }
         }
-
-        // send melk info
-        $this->sendMelkInfoToPhone($phonelistner, $melk);
-
-
-
-
-        // forward to user page
-        $this->dispatcher->forward(array(
-            "controller" => "bongah",
-            "action" => "approchmelks",
-            "bongahid" => $this->bongah->id,
-            "params" => array(
-                $phonelistnerID
-            )
-        ));
-    }
-
-    private function sendMelkInfoToPhone($phonelistner, $melk, $showMessage = true) {
-        // check for user credit
-        if ($this->user->getSMSCredit() <= 0) {
-            // user do not have enogh money to send message
-            $this->flash->error("اعتبار شما برای ارسال پیام کافی نیست، لطفا ابتدا اعتبار خود را افزایش دهید");
-            // forward to user page
-            $this->dispatcher->forward(array(
-                "controller" => "smscredit",
-                "action" => "plans",
-                "bongahid" => $this->bongah->id,
-                "params" => array(
-                )
-            ));
-            return false;
-        }
-
-        // create message
-        $message = "متقاضی گرامی، ملک جدید مطابق با نیاز شما به مشاور املاک " . $this->bongah->title . " اضافه گردید";
-        $message .= "\n";
-        $message .= "\n";
-        $message .= $melk->getQuickInfo();
-        $message .="\n";
-        $message .="\n";
-        $message .= "با تشکر";
-        $message .= $this->bongah->title;
-        $message .="\n";
-        $message .= $this->bongah->phone;
-
-        // we have to send sms
-        SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, \SmsNumber::findFirst()->id);
-
-        // TODO find sms id and use for decrease credit
-        // decraese user sms credit
-        $isPersian = false;
-        $messageSize = $this->getMessageSize($message, $isPersian);
-        SMSCredit::decreaseCredit($this->errors, $this->user->id, 12, $isPersian ? $messageSize * 2 : $messageSize );
-
-        // we have to create new sent message
-        $bongahSentMessage = new BongahSentMelk();
-        $bongahSentMessage->bongahid = $this->bongah->id;
-        $bongahSentMessage->melkid = $melk->id;
-        $bongahSentMessage->melkphonelistnerid = $phonelistner->id;
-        $bongahSentMessage->message = $message;
-        $bongahSentMessage->create();
-
-        // show success messgae
-        if ($showMessage) {
-            $this->AddUserLog("ملک برای درخواست کننده ملک ارسال گردید");
-            $this->flash->success(nl2br("ملک شما با موفقیت ارسال گردید، متن ارسال شده به صورت زیر می باشد: \n<hr/><blockquote>" . $message . "</blockquote>"));
-        }
-        return true;
     }
 
     public function userscansupportAction($currentPage = 1, $maxDistance = 10) {
@@ -1196,58 +1138,6 @@ class BongahController extends ControllerBase {
 
     public function iranlistAction($cityid = null, $page = 1) {
         
-    }
-
-    public function getMessageSize($text, &$isPersian) {
-
-        $alhphabets = array();
-        $alhphabets[] = "آ";
-        $alhphabets[] = "ا";
-        $alhphabets[] = "ب";
-        $alhphabets[] = "پ";
-        $alhphabets[] = "ت";
-        $alhphabets[] = "ث";
-        $alhphabets[] = "ج";
-        $alhphabets[] = "چ";
-        $alhphabets[] = "ه";
-        $alhphabets[] = "خ";
-        $alhphabets[] = "د";
-        $alhphabets[] = "ذ";
-        $alhphabets[] = "ر";
-        $alhphabets[] = "ز";
-        $alhphabets[] = "ژ";
-        $alhphabets[] = "س";
-        $alhphabets[] = "ش";
-        $alhphabets[] = "ص";
-        $alhphabets[] = "ض";
-        $alhphabets[] = "ط";
-        $alhphabets[] = "ظ";
-        $alhphabets[] = "ع";
-        $alhphabets[] = "غ";
-        $alhphabets[] = "ف";
-        $alhphabets[] = "ق";
-        $alhphabets[] = "ک";
-        $alhphabets[] = "گ";
-        $alhphabets[] = "ل";
-        $alhphabets[] = "م";
-        $alhphabets[] = "ن";
-        $alhphabets[] = "و";
-        $alhphabets[] = "ه";
-        $alhphabets[] = "ی";
-
-        $isPersian = false;
-        foreach ($alhphabets as $alpha) {
-            if (strpos($alpha, $text) >= 0) {
-                $isPersian = true;
-                break;
-            }
-        }
-
-        if ($isPersian) {
-            return ((int) (mb_strlen($text) / 70) ) + 1;
-        } else {
-            return ((int) (mb_strlen($text) / 140) ) + 1;
-        }
     }
 
 }
