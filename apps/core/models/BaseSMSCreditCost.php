@@ -107,7 +107,13 @@ class BaseSMSCreditCost extends AtaModel implements Orderable {
     }
 
     public function getPublicResponse() {
-        
+        $item = new stdClass();
+        $item->id = $this->id;
+        $item->price = $this->price;
+        $item->title = $this->title;
+        $item->totalsms = $this->totalsms;
+        $item->description = $this->description;
+        return $item;
     }
 
     /**

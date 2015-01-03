@@ -8,7 +8,7 @@ use SMSCredit;
 class SmscreditControllerBase extends ControllerBase {
 
     public function indexAction() {
-        SMSCredit::decreaseCredit($this->errors, 1, 10, 5);
+        //SMSCredit::decreaseCredit($this->errors, 1, 10, 5);
     }
 
     public function buyAction($id = 2) {

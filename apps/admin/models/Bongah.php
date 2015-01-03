@@ -428,6 +428,7 @@ class Bongah extends AtaModel {
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkID)));
         $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $melkPhoneListnerID)));
 
+        
         if (!$melk || !$phonelistner || intval($melk->userid) != intval($this->userid)) {
             // one thing is not exist
             //$this->show404();

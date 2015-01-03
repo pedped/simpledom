@@ -8,4 +8,10 @@ class SMSCreditCost extends BaseSMSCreditCost {
         return Helper::GetPrice($this->price / 10000000);
     }
 
+    public function getPublicResponse() {
+        $item = parent::getPublicResponse();
+        $item->price = $this->getHumanPrice();
+        return $item;
+    }
+
 }

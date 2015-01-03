@@ -342,6 +342,8 @@ class MelkPhoneListner extends AtaModel {
         // find melks can be sent
         $item->melkscanbesentcount = $rateInfo->melkscansend;
 
+        $item->tobesend = true;
+
         // get price range
         if (intval($this->melkpurposeid) == 1) {
             // kharid

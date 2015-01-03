@@ -74,7 +74,11 @@ class BaseImage extends AtaModel {
     }
 
     public function getPublicResponse() {
-        
+        $result = new stdClass();
+        $result->id = $this->id;
+        $result->link = $this->link;
+        $result->filesize = $this->filesize;
+        return $result;
     }
 
     public function getImageElement($width = "256px", $height = 'auto') {

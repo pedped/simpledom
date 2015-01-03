@@ -594,8 +594,7 @@ class MelkController extends ControllerBaseFrontEnd {
     public function viewAction($id) {
 
         $melk = Melk::findFirst($id);
-
-        if (!$melk) {
+        if (!$melk || intval($melk->approved) == -2) {
             $this->show404();
             return;
         }

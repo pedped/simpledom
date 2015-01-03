@@ -361,7 +361,9 @@ class Melk extends AtaModel {
     public function beforeValidationOnCreate() {
         $this->date = time();
         // increase total one day
-        $this->validdate = time() + 3600 * 24 * 1;
+        if (isset($this->validdate) || intval($this->validdate) == 0) {
+            $this->validdate = time() + 3600 * 24 * 1;
+        }
         $this->price_per_unit = 1;
         $this->melkconditionid = 1;
     }
