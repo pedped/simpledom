@@ -153,6 +153,15 @@ class BaseUser extends AtaModel implements Searchable {
         }
     }
 
+    /**
+     * find user with user id
+     * @param int $userid user id of person who need to load
+     * @return User
+     */
+    public static function findWithUserID($userid) {
+        return User::findFirst(array("userid = :userid:", "bind" => array("userid" => $userid)));
+    }
+
     public function getFname() {
         return $this->fname;
     }
