@@ -6,6 +6,35 @@ use Simpledom\Core\AtaForm;
 abstract class AtaController extends Controller {
 
     public function initialize() {
+
+
+        // check if we have one tiem token,
+        // one time token can be used in mobile device and broswer comminication,
+        // one time tokens will used only one time and after loadiding session,
+        // one time token will be destoryed
+        if ($this->request->has("ottoken")) {
+            // get one time token
+            $oneTimeTokenByUser = $this->request->get("ottoken", "string");
+
+            // check if one time token is in database
+            $oneTimeToken = OneTimeToken::findFirst(array("token = :token:", "bind" => array("token" => $oneTimeTokenByUser)));
+            if ($oneTimeToken != FALSE) {
+                // person who opened website has valid one time token
+                $user = User::findWithUserID($oneTimeToken->userid);
+                if ($user != FALSE) {
+
+                    // user founded and is valid, we have to hide session
+                    $user->setSession($this);
+
+                    // now we have to delete one time token
+                    $oneTimeToken->delete();
+                }
+            }
+        }
+
+
+
+
         // check for the user session, if user has any save cookie, check for the user
         if (!$this->session->has("userid") && $this->cookies->has("rm")) {
             // try to get user cookei
