@@ -2,7 +2,6 @@
 
 //define("DEBUG_MODE", TRUE);
 
-
 use Phalcon\Events\Manager;
 use Phalcon\Exception;
 use Phalcon\Flash\Direct;
