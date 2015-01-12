@@ -1,0 +1,50 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View CreditChange</h2>
+                                                <p class='panel-subtitle'Use this form to edit your CreditChange</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderInfo('userid'); ?> 
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderInfo('status'); ?> 
+
+                                <!--  ADD Value !-->
+                                <?php $form->renderInfo('value'); ?> 
+
+                                <!--  ADD Charge ID !-->
+                                <?php $form->renderInfo('chargeid'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+                                <!--  ADD Message !-->
+                                <?php $form->renderInfo('message'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

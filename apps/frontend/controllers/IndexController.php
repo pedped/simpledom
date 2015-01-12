@@ -2,6 +2,7 @@
 
 namespace Simpledom\Frontend\Controllers;
 
+use Elka;
 use PriceViewer;
 use RangeSlider;
 use Simpledom\Core\AtaForm;
@@ -9,6 +10,14 @@ use Simpledom\Frontend\BaseControllers\IndexControllerBase;
 use SMSCreditCost;
 
 class IndexController extends IndexControllerBase {
+
+    public function indexAction() {
+        parent::indexAction();
+
+        // try to connect to system
+        $elka = new Elka($this->errors);
+        die();
+    }
 
     public function testAction() {
 
