@@ -32,7 +32,7 @@ class ControllerBase extends Controller {
         if ($this->hasError()) {
             // error
             $result->statuscode = 0;
-            $result->statustext = $this->errors;
+            $result->statustext = implode("\r\n", $this->errors);
         } else {
             // success
             $result->statuscode = 1;
@@ -56,7 +56,7 @@ class ControllerBase extends Controller {
                             "token" => $token,
                 ))) == 0) {
                 // user token not found
-                die();
+                die("");
             }
 
             // valid user

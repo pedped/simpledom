@@ -4,8 +4,11 @@ use Simpledom\Core\AtaModel;
 
 class ChargeType extends AtaModel {
 
+    const CHARGETYPEID_IRANCELL = 1;
+    const CHARGETYPEID_TCI = 2;
+
     public function getSource() {
-        return 'chargetype';
+        return 'charge_type';
     }
 
     /**
@@ -107,6 +110,24 @@ class ChargeType extends AtaModel {
 
     public function getPublicResponse() {
         
+    }
+
+    /**
+     * Check for charge type
+     * @param int $targetPhone
+     * @return boolean|ChargeType if found , return type , otthwise return false
+     */
+    public static function findPhoneNumberType($targetPhone) {
+        if (substr($targetPhone, 0, 3) == "093") {
+            // irancel
+            return ChargeType::findFirst(ChargeType::CHARGETYPEID_IRANCELL);
+        }if (substr($targetPhone, 0, 3) == "091") {
+            // irancel
+            return ChargeType::findFirst(ChargeType::CHARGETYPEID_TCI);
+        }
+
+        // invalid
+        return false;
     }
 
 }

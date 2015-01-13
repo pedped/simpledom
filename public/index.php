@@ -1,6 +1,6 @@
 <?php
 
-//define("DEBUG_MODE", TRUE);
+define("DEBUG_MODE", TRUE);
 
 use Phalcon\Events\Manager;
 use Phalcon\Exception;

@@ -38,7 +38,11 @@ class ChargeTypeForm extends AtaForm {
 
 
         // Status
-        $status = new TextAreaElement('status');
+        $status = new SelectElement('status', array(
+            "1" => "فعال",
+            "-1" => "غیر فعال",
+            "-2" => "عدم پشتیبانی",
+        ));
         $status->setLabel('Status');
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
@@ -48,7 +52,7 @@ class ChargeTypeForm extends AtaForm {
 
 
         // Status Message
-        $statusmessage = new EnableDisableElement('statusmessage');
+        $statusmessage = new TextAreaElement('statusmessage');
         $statusmessage->setLabel('Status Message');
         //$statusmessage->setAttribute('placeholder', 'Enter your Status Message');
         $statusmessage->setAttribute('class', 'form-control');

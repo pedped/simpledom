@@ -2,7 +2,7 @@
 
 use Simpledom\Core\AtaModel;
 
-class Charge extends AtaModel {
+class Charge extends AtaModel implements Orderable {
 
     public function getSource() {
         return 'charge';
@@ -245,4 +245,98 @@ class Charge extends AtaModel {
         
     }
 
+    /**
+     * Charge Simcart
+     * @param type $errors
+     * @param User $user user of person who wants to charge
+     * @param type $targetPhone phone number that should be charged
+     * @param type $type
+     * @param type $amount
+     */
+    public static function ChargeSimCart(&$errors, $user, $targetPhone, $type, $amount) {
+
+        // check if the system is enabled, but we have to firts know the charge type
+        $chargeType = ChargeType::findPhoneNumberType($targetPhone);
+
+        // check if we have nderstood phone type
+        if (!$chargeType) {
+            $errors[] = "سیم کارت در حال حاضر پشتیبانی نمی شود";
+            return false;
+        }
+
+        // check if system enabled for devide
+        if (!self::SystemEnabled($chargeType)) {
+            $errors[] = "در حال حاضر امکان شارژ سیم کارت مورد نظر امکان پذیر نمی باشد، لطفا ساعاتی بعدر تلاش نمایید";
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @param ChargeType $chargeType
+     */
+    public static function SystemEnabled($chargeType) {
+
+        if (DEBUG_MODE) {
+            return true;
+        }
+
+        // check disable mode by admin
+        if (intval($chargeType->status) != 1) {
+            // charge system is disabled by admin
+            return false;
+        }
+
+        // check if we have any system that is able to charge
+        $elka = new Elka($error);
+        if ($elka->IsLoggedIn()) {
+
+            // check if elka system is enabled
+            if (!$elka->GetStatus(intval($chargeType->id) == ChargeType::CHARGETYPEID_IRANCELL)) {
+                // system is disabled
+                return false;
+            }
+
+            // able to charge
+            return true;
+        }
+
+        // we was not able to check elka, we have to switch mobinteck
+    }
+
+    ////////////////////////////////////////////////
+    // Start ORDER INFO
+    ////////////////////////////////////////////////
+
+
+
+    public static function CheckAvailableToOrder($id) {
+        return true;
+    }
+
+    public static function GetCost($id) {
+        
+    }
+
+    public static function GetOrderTitle($id) {
+        
+    }
+
+    public static function ValidateOrderCreateRequest(&$errors, $id) {
+        
+    }
+
+    public static function getOrderObjectInfo($id) {
+        
+    }
+
+    public static function onSuccessOrder(&$errors, $userid, $id, $orderid = null) {
+        
+    }
+
+    ////////////////////////////////////////////////
+    // END ORDER INFO
+    ////////////////////////////////////////////////
 }

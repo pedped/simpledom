@@ -18,6 +18,14 @@ class Elka {
         return $this->loginid;
     }
 
+    /**
+     * Check if user logged in
+     * @return boolean
+     */
+    public function IsLoggedIn() {
+        return inval($this->loginid) != 0;
+    }
+
     // login information
     private $username = "07116388820";
     private $password = "22800711";
@@ -26,13 +34,13 @@ class Elka {
     private function login(&$errors) {
 
         try {
-            $client = new SoapClient("http://www.elkapos.com:81/ghasedaknetws.asmx?wsdl");
+            $client = new SoapClient("http://elkapos.com:81/ghasedaknetws.asmx?wsdl");
 
             // now try to connect
             $loginparams = new stdClass();
             $loginparams->Username = $this->username;
             $loginparams->Pass = $this->password;
-            $loginparams->Pos_Id = $this->posid;
+            $loginparams->Pos_Id = doubleval($this->posid);
             $loginresult = $client->login($loginparams);
             var_dump($loginresult);
             $resultencoded = $loginresult->LoginResult;
@@ -69,7 +77,7 @@ class Elka {
     public function __construct(&$errors) {
 
         // disable cache
-        //$ini = ini_set("soap.wsdl_cache_enabled", "0");
+        $ini = ini_set("soap.wsdl_cache_enabled", "1");
         // check if client is null, try to login to sysrem first
         if (!isset($this->client)) {
             $loginResult = $this->Login($errors);
