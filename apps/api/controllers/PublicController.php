@@ -3,6 +3,7 @@
 namespace Simpledom\Api\Controllers;
 
 use Area;
+use BaseSystemLog;
 use BaseUser;
 use Bongah;
 use City;
@@ -32,6 +33,14 @@ class PublicController extends ControllerBase {
         return $this->getResponse($result);
     }
 
+    public function trackintroAction() {
+
+        $deviceid = $this->request->getPost("deviceid");
+
+        // we have to track user intro action
+        BaseSystemLog::CreateLogInfo("باز شدن برنامه اندروید", "صفحه اول برنامه اندروید باز شد" . ": $deviceid");
+    }
+
     public function newnotificationAction() {
 
         // get last visit
@@ -54,20 +63,30 @@ class PublicController extends ControllerBase {
         return $this->getResponse($notification->getPublicResponse());
     }
 
+    private function logError() {
+        // log error
+        BaseSystemLog::CreateLogWarning("خطا در ساخت بنگاه", implode(", ", $this->errors) . "\n\n\n" . json_encode($_POST));
+    }
+
     public function registerbongahAction() {
 
         $bongah = new Bongah();
         $this->user = new User();
-        $bongah->userid = $this->user->userid;
         $bongah->title = $this->request->getPost('title', 'string');
         $bongah->fname = $this->request->getPost('fname', 'string');
         $bongah->lname = $this->request->getPost('lname', 'string');
         $bongah->address = $this->request->getPost('address', 'string');
         $bongah->mobile = $this->request->getPost('phone', 'string');
         $bongah->phone = $this->request->getPost('shomaresabet', 'string');
+
         // check for valid inputs
-        if (strlen($bongah->title) == 0 || strlen($bongah->address) == 0 || $bongah->strlen($bongah->title) == 0) {
+        if (strlen($bongah->title) == 0 || strlen($bongah->address) == 0 || strlen($bongah->phone) == 0) {
             $this->errors[] = _("لطفا تمامی موارد خواسته شده شامل نام مشاور املاک، آدرس، و شماره ثابت را وارد نمایید");
+
+            // log error
+            $this->logError();
+
+            // send response
             return $this->getResponse(false);
         }
 
@@ -84,6 +103,7 @@ class PublicController extends ControllerBase {
         if (!$this->hasError() && $result == true) {
             // user successfully created 
         } else {
+
             // unable to create user
             return $this->getResponse(false);
         }
@@ -93,6 +113,7 @@ class PublicController extends ControllerBase {
             $cityID = City::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('city', 'string'))))->id;
 
             // form is valid
+            $bongah->userid = $this->user->userid;
             $bongah->cityid = $cityID;
             $bongah->latitude = $this->request->getPost('latitude');
             $bongah->longitude = $this->request->getPost('longitude');
@@ -107,6 +128,10 @@ class PublicController extends ControllerBase {
             if (!$bongah->create()) {
                 // unable to create bongah
                 $this->errors[] = $bongah->getMessagesAsLines();
+
+                // log error
+                $this->logError();
+
                 return $this->getResponse(false);
             } else {
 
@@ -139,6 +164,10 @@ class PublicController extends ControllerBase {
                 // success, we have to create new LoginResult
                 $token = MobileToken::GetToken($this->errors, $this->user->userid, $deviceid, $devicetype);
                 if (!$token) {
+
+                    // log error
+                    $this->logError();
+
                     return $this->getResponse(false);
                 }
 
@@ -150,6 +179,8 @@ class PublicController extends ControllerBase {
             }
         }
 
+        // log error
+        $this->logError();
 
         // unable to create new user or bongah
         $this->getResponse(false);
