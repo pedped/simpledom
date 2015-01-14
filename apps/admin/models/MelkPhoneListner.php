@@ -273,7 +273,7 @@ class MelkPhoneListner extends AtaModel {
     }
 
     public function getSimpleDate() {
-        return Jalali::date("Y:m:d", $this->date);
+        return Jalali::date("Y/m/d", $this->date);
     }
 
     public function getUserName() {
@@ -327,34 +327,45 @@ class MelkPhoneListner extends AtaModel {
         $item = new stdClass();
 
         $item->id = $this->id;
+        $item->unixdate = $this->date;
         $item->header = $this->getPurposeTitle() . " " . $this->getTypeTitle();
         $item->type = $this->getTypeTitle();
         $item->phone = $this->getPhoneNumber();
         $rateInfo = $this->getSuccessRateForBongah($bongah);
         $item->rate = $rateInfo->rate;
+        $item->rateinfo = $rateInfo->messages;
+        $item->review = $this->getReview();
 
         // get requested areas
         $item->area = $this->getAreasNames();
         $item->city = $this->getCityName();
-        $item->bedroom = $this->bedroom_start . "-" . $this->bedroom_end;
-
-
+        if (intval($this->bedroom_start) == intval($this->bedroom_end)) {
+            $item->bedroom = $this->bedroom_start;
+        } else {
+            $item->bedroom = $this->bedroom_start . "-" . $this->bedroom_end;
+        }
         // find melks can be sent
         $item->melkscanbesentcount = $rateInfo->melkscansend;
 
+        if (intval($rateInfo->melkscansend) > 0) {
+            $item->melkcountinfo = "<font color='#18b318'>" . "شما " . "<strong>" . $rateInfo->melkscansend . "</strong>" . " ملک مناسب این شخص دارید" . "</font>";
+            // $item->melkcountinfo = "ملکی مناسب این مشتری یافت نگردید";
+        } else {
+            $item->melkcountinfo = "ملکی مناسبی برای این مشتری یافت نگردید";
+        }
         $item->tobesend = true;
 
         // get price range
         if (intval($this->melkpurposeid) == 1) {
             // kharid
-            $item->pricerange = $this->getSalePriceStartHuman() . " تا" . $this->getSalePriceEndHuman();
+            $item->pricerange = $this->getSalePriceStartHuman() . " " . "تا" . " " . $this->getSalePriceEndHuman();
         } else if (intval($this->melkpurposeid) == 2) {
             // rahn va ejare
-            $item->pricerange = "رهن: " . $this->getRentPriceRahnStartHuman() . " تا" . $this->getRentPriceRahnEndHuman();
-            $item->pricerange .= "،" . "اجاره: " . $this->getRentPriceStartHuman() . " تا" . $this->getRentPriceEndHuman();
+            $item->pricerange = "رهن: " . $this->getRentPriceRahnStartHuman() . " " . "تا" . " " . $this->getRentPriceRahnEndHuman();
+            $item->pricerange .= "،" . "اجاره: " . $this->getRentPriceStartHuman() . " " . "تا" . " " . $this->getRentPriceEndHuman();
         }
 
-        $item->date = $this->getDate();
+        $item->date = $this->getSimpleDate();
 
         return $item;
     }
@@ -769,6 +780,25 @@ class MelkPhoneListner extends AtaModel {
      */
     public function getSimplePhoneNumber() {
         return substr($this->getPhoneNumber(), 0, 4) . "XXXXX" . substr($this->getPhoneNumber(), 9);
+    }
+
+    public function getReview() {
+        $result = "";
+        $result.= "نیازمند " . $this->getTypeTitle() . " جهت" . " " . $this->getPurposeTitle();
+
+        // check if user requested special place
+        $areaNames = $this->getAreasNames(false);
+        if (count($areaNames) > 0) {
+
+            // check if user want one place
+            if (count($areaNames) == 1) {
+                $result.= " در" . " " . $areaNames[0];
+            } else {
+                $result.= " واقع در مناطق" . " " . implode(", ", $areaNames);
+            }
+        }
+
+        return $result;
     }
 
 }

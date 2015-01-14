@@ -70,7 +70,7 @@ class Config {
     }
 
     public static function GetDefaultMelkImageID() {
-        return 48;
+        return 102;
     }
 
 }

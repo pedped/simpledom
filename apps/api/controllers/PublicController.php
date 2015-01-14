@@ -26,7 +26,7 @@ class PublicController extends ControllerBase {
 
         $result = new stdClass();
         $result->versioncode = 1;
-        $result->versionname = 2.25;
+        $result->versionname = 1;
         $result->md5 = "232656122152";
         $result->downloadlink = "http://www.google.com";
         return $this->getResponse($result);
@@ -56,8 +56,23 @@ class PublicController extends ControllerBase {
 
     public function registerbongahAction() {
 
-        // we need to create an account for the user
+        $bongah = new Bongah();
         $this->user = new User();
+        $bongah->userid = $this->user->userid;
+        $bongah->title = $this->request->getPost('title', 'string');
+        $bongah->fname = $this->request->getPost('fname', 'string');
+        $bongah->lname = $this->request->getPost('lname', 'string');
+        $bongah->address = $this->request->getPost('address', 'string');
+        $bongah->mobile = $this->request->getPost('phone', 'string');
+        $bongah->phone = $this->request->getPost('shomaresabet', 'string');
+        // check for valid inputs
+        if (strlen($bongah->title) == 0 || strlen($bongah->address) == 0 || $bongah->strlen($bongah->title) == 0) {
+            $this->errors[] = _("لطفا تمامی موارد خواسته شده شامل نام مشاور املاک، آدرس، و شماره ثابت را وارد نمایید");
+            return $this->getResponse(false);
+        }
+
+
+        // we need to create an account for the user
         $fname = $this->request->getPost("fname");
         $lname = $this->request->getPost("lname");
         $email = $this->request->getPost("email", "email");
@@ -78,22 +93,15 @@ class PublicController extends ControllerBase {
             $cityID = City::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('city', 'string'))))->id;
 
             // form is valid
-            $bongah = new Bongah();
-            $bongah->userid = $this->user->userid;
-            $bongah->title = $this->request->getPost('title', 'string');
-            $bongah->fname = $this->request->getPost('fname', 'string');
-            $bongah->lname = $this->request->getPost('lname', 'string');
-            $bongah->address = $this->request->getPost('address', 'string');
             $bongah->cityid = $cityID;
             $bongah->latitude = $this->request->getPost('latitude');
             $bongah->longitude = $this->request->getPost('longitude');
             $areaIDs = Area::GetMultiID($bongah->cityid, $this->request->getPost('city', 'string'));
             $bongah->locationscansupport = implode(',', $areaIDs);
-            $bongah->mobile = $this->request->getPost('phone', 'string');
-            $bongah->phone = $this->request->getPost('shomaresabet', 'string');
 
             // valid bongah for 30 days
             $bongah->planvaliddate = (3600 * 24 * Config::GetBongahFreeDate() + 3600) + time();
+
 
 
             if (!$bongah->create()) {
@@ -199,6 +207,7 @@ class PublicController extends ControllerBase {
         // check if user can have success login
         $user = BaseUser::Login($email, $password);
         if (!$user) {
+            $this->errors[] = _("ایمیل یا رمز عبور شما اشتباه می باشد");
             return $this->getResponse(false);
         }
 

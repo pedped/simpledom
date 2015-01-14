@@ -206,4 +206,15 @@ class Helper {
         return $html;
     }
 
+    public static function GetCorrectMelkSize($value) {
+        $value = trim($value);
+
+        // remove words
+        $value = str_replace("متر", "", $value);
+        $value = str_replace("مربع", "", $value);
+        $value = str_replace("م", "", $value);
+
+        return trim($value);
+    }
+
 }

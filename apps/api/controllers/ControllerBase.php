@@ -32,7 +32,7 @@ class ControllerBase extends Controller {
         if ($this->hasError()) {
             // error
             $result->statuscode = 0;
-            $result->statustext = $this->errors;
+            $result->statustext = implode("-\r\n", $this->errors);
         } else {
             // success
             $result->statuscode = 1;
@@ -44,7 +44,7 @@ class ControllerBase extends Controller {
     }
 
     public function initialize() {
-        
+
         // check if we need to get user info
         if ($this->dispatcher->getControllerName() != "public") {
             // we have to request user login info

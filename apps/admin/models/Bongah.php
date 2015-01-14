@@ -405,7 +405,8 @@ class Bongah extends AtaModel {
     }
 
     public function getRemainingPlanDays() {
-        return (int) (($this->planvaliddate - time()) / (3600 * 24));
+        $remainday = (int) (($this->planvaliddate - time()) / (3600 * 24));
+        return $remainday > 0 ? $remainday : 0;
     }
 
     /**
@@ -428,7 +429,7 @@ class Bongah extends AtaModel {
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkID)));
         $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $melkPhoneListnerID)));
 
-        
+
         if (!$melk || !$phonelistner || intval($melk->userid) != intval($this->userid)) {
             // one thing is not exist
             //$this->show404();
@@ -446,8 +447,8 @@ class Bongah extends AtaModel {
             // user 
             // 
             // TODO remove below comment
-            //$errors[] = ("شما قبلا ملک شماره " . $melkID . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
-            //return;
+            $errors[] = ("شما قبلا ملک شماره " . $melkID . " را به شماره " . $phonelistner->getPhoneNumber() . " ارسال نموده اید");
+            return;
         }
 
         // send melk info
@@ -473,15 +474,13 @@ class Bongah extends AtaModel {
         $message .= $this->phone;
 
         // we have to send sms
-        // TODO remove below comment
-        //SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, SmsNumber::findFirst()->id);
-        
+        SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, SmsNumber::findFirst()->id);
         // 
         // // TODO find sms id and use for decrease credit
         // decraese user sms credit
         $isPersian = false;
         $messageSize = Helper::GetMessageSize($message, $isPersian);
-        SMSCredit::decreaseCredit($errors, $this->userid, 12, $isPersian ? $messageSize * 2 : $messageSize );
+        SMSCredit::decreaseCredit($errors, $this->userid, 8, $isPersian ? $messageSize * 2 : $messageSize );
 
         // we have to create new sent message
         $bongahSentMessage = new BongahSentMelk();

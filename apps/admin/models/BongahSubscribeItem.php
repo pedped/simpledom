@@ -220,7 +220,17 @@ class BongahSubscribeItem extends AtaModel implements Orderable {
     }
 
     public function getPublicResponse() {
-        
+        $item = new stdClass();
+        $item->id = $this->id;
+        $item->day = $this->validdate;
+        $item->smscredit = $this->defaultsmscredit;
+        $item->price = $this->getHumanPrice();
+        $item->title = $this->name;
+        $item->description = $item->smscredit . " " . "پیامک هدیه";
+        if ($this->receiveportal) {
+            $item->description .= " + " . "دریافت وبسایت اختصاصی مشاوران املاک";
+        }
+        return $item;
     }
 
     public function getHumanPrice() {

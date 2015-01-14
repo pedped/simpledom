@@ -767,9 +767,11 @@ class Melk extends AtaModel {
         $item->type = $this->getTypeName();
         $item->purpose = $this->getPurposeType();
         $item->header = $this->getTypeName() . " - " . $this->getPurposeType();
-        $item->date = $this->getDate();
+        $item->date = $this->getSimpleDate();
+        $item->unixdate = $this->date;
         $item->price = $this->getPriceTitle();
         $item->area = $this->getInfo()->address;
+        $item->description = $this->getInfo()->description;
         $item->tobesend = "true";
         $item->privateaddress = $this->getInfo()->private_address;
 
@@ -791,6 +793,7 @@ class Melk extends AtaModel {
         $item->metraj = $this->lot_size;
         $item->phone = $this->getInfo()->private_phone;
         $item->mobile = $this->getInfo()->private_mobile;
+        $item->unixdate = $this->date;
 
         // load images
         $images = $this->getImages();

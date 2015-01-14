@@ -610,6 +610,36 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             return false;
         }
 
+        // check for first name
+        if (strlen($fname) == 0) {
+            $errors[] = _("لطفا نام خود را وارد نمایید");
+            return;
+        }
+
+
+        if (strlen($lname) == 0) {
+            $errors[] = _("لطفا نام خانوادگی خود را وارد نمایید");
+            return;
+        }
+
+
+        if (strlen($email) == 0) {
+            $errors[] = _("لطفا ایمیل خود را وارد نمایید");
+            return;
+        }
+
+
+        if (strlen($password) == 0) {
+            $errors[] = _("لطفا رمز عبوری به دلخواه برای خود انتخاب نمایید");
+            return;
+        }
+
+
+        if (strlen($password) < 6) {
+            $errors[] = _("رمز عبور باید حداقل  6 حرف باشد");
+            return;
+        }
+
         // validate phone numbet
         if (isset($phone)) {
             $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);

@@ -4,6 +4,7 @@ namespace Simpledom\Api\Controllers;
 
 use Area;
 use Bongah;
+use BongahSubscribeItem;
 use City;
 use Melk;
 use MelkArea;
@@ -12,8 +13,11 @@ use MelkInfo;
 use MelkPhoneListner;
 use MelkPurpose;
 use MelkType;
+use OneTimeToken;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
+use Simpledom\Core\Classes\Order;
 use SMSCreditCost;
 use State;
 use stdClass;
@@ -37,13 +41,63 @@ class BongahController extends ControllerBase {
         $this->bongah = $this->user->getFirstBongah();
     }
 
-    public function getsmsplansAction() {
+    public function purchasebongahplanAction() {
+        $id = $this->request->getPost("id");
 
-        $start = (int)$_POST["start"];
-        
+        // check sms credit id exist
+        if (BongahSubscribeItem::count(array("id = :id:", "bind" => array("id" => $id))) == 0) {
+            $this->errors[] = "کد وارد شده نامعتبر است";
+            return $this->getResponse(false);
+        }
+
+        // sms credit item exist, we have to create new order and request user to pay that
+        $onetimetoken = OneTimeToken::GenerateToken($this->user->userid);
+        $order = new Order($this->user->userid);
+        $orderID = $order->CreateOrder($this->errors, 5, $id);
+
+        // check if we have no error
+        if (intval($orderID) > 0 && !$this->hasError() && strlen($onetimetoken) > 0) {
+            // valid request, we have to create link for user to purchase
+            $link = Config::getPublicUrl() . "index/buywithmobile/" . $orderID . "?ottoken=" . $onetimetoken;
+            return $this->getResponse($link);
+        }
+
+        // there was a problem
+        return $this->getResponse(false);
+    }
+
+    public function purchasesmscreditAction() {
+        $id = $this->request->getPost("id");
+
+        // check sms credit id exist
+        if (SMSCreditCost::count(array("id = :id:", "bind" => array("id" => $id))) == 0) {
+            $this->errors[] = "کد وارد شده نامعتبر است";
+            return $this->getResponse(false);
+        }
+
+        // sms credit item exist, we have to create new order and request user to pay that
+        $onetimetoken = OneTimeToken::GenerateToken($this->user->userid);
+        $order = new Order($this->user->userid);
+        $orderID = $order->CreateOrder($this->errors, 3, $id);
+
+        // check if we have no error
+        if (intval($orderID) > 0 && !$this->hasError() && strlen($onetimetoken) > 0) {
+            // valid request, we have to create link for user to purchase
+            $link = Config::getPublicUrl() . "index/buywithmobile/" . $orderID . "?ottoken=" . $onetimetoken;
+            return $this->getResponse($link);
+        }
+
+        // there was a problem
+        return $this->getResponse(false);
+    }
+
+    public function getbongahplansAction() {
+
+        $start = (int) $_POST["start"];
+
         // get plans
-        $plans = SMSCreditCost::find(array(
-            "limit" => "$start , 100"
+        $plans = BongahSubscribeItem::find(array(
+                    "limit" => "$start , 100"
         ));
 
         // load plans in array
@@ -53,6 +107,83 @@ class BongahController extends ControllerBase {
         }
 
         return $this->getResponse($items);
+    }
+
+    public function getsmsplansAction() {
+
+        $start = (int) $_POST["start"];
+
+        // get plans
+        $plans = SMSCreditCost::find(array(
+                    "limit" => "$start , 100"
+        ));
+
+        // load plans in array
+        $items = array();
+        foreach ($plans as $plan) {
+            $items[] = $plan->getPublicResponse();
+        }
+
+        return $this->getResponse($items);
+    }
+
+    public function androidtutAction() {
+        return $this->getResponse("<h1><font color='#b9140c'>افزودن ملک</font></h1>
+
+اولین قدم در راستای جذب مشتری، افزودن ملک است. با استفاده از کلید '+' در گوشه سمت راست بالای برنامه، مشخصات املاک خود را وارد نمایید. دقت نمایید که در هنگام وارد نمودن اطلاعات ملک، وارد نمودن تمامی فیلد ها اجباریست.
+
+<h6>مشاهده مشتریان پیشنهادی بعد از اضافه کردن ملک</h6>
+بعد از افزودن ملک، سامانه املاک گستر به صورت خودکار به دنبال مشتریانی می گردد که نیازمند ملک  با مشخصات وارد شده باشند. در صورت پیدا نمودن مشتری، شما لیست مشتریان را مشاهده خواهید نمود. تنها با فشار دادن کلید ارسال، مشخصات ملک شما برای مشتریان انتخابی ارسال می گردد.
+
+<h1><font color='#b9140c'>لیست مشتریان</font></h1>
+ روزانه تعداد زیادی مشتری، مشخصات ملک مورد نیاز خود را در سامانه املاک گستر ثبت می نمایند، شما می توانید مشخصات املاک درخواست شده به همراه شماره تماس در صفحه اول برنامه و در لیست 'مشتریان' مشاهده نمایید.<br/>
+سامانه املاک گستر، به صوردت خودکار در لیست املاک شما جستجو نموده و  املاک متناسب با نیاز هر مشتری را پیدا می نمایید. شما میتوانید تعداد املاک پیدا شده را در کنار گزینه هر مشتری مشاهده نمایید.
+
+<h6>مشاهده و ارسال اطلاعات ملک به مشتری</h6>
+در صورتی که در لیست مشتریان برنامه، موردی را مشاهده نمودید که برای آن تعدادی ملک موجود بود، بر روی مشتری کلیک نمایید. سپس کلید 'ارسال املاک به مشتری' را فشار دهید و بعد از انتخاب املاک مورد نظر، کلید 'ارسال' را فشار دهید.
+
+<h1><font color='#b9140c'>جستجو</font></h1>
+جهت جستجو در املاک شما،  کافیست به بخش 'جستجو'ی برنامه بروید. <br/>
+وارد نمودن تعداد اتاق و قیمت در هنگام جستجو اختیاری است.
+
+<h6>ارسال نتایج جستحو به مشتری</h6>
+بعضا برای شما هم اتفاق می افتد که مشتری با شما تماس گرفته در حالی که خارج از محل کار و به دور از لیست املاک خود هستید. از آنجایی که املاک اضافه شده شما در سامانه املاک گستر همیشه به همراه شما در برنامه خواهد بود، به راحتی میتوانید ملک مورد نیاز مشتری را جستجو نموده و بعد از وارد نمودن شماره مشتری، نتایج پیدا شده را برای مشتری ارسال نمایید.
+
+
+<h1><font color='#0b4aaa'>سوالات متداول</font></h1>
+
+<h6>- مشتریان چگونه مشخصات ملک درخواستی خود را به املاک گستر اعلام مینمایند؟</h6>
+افرادی که نیازمند ملک هستند، با استفاده از وبسایت رسمی املاک گستر به نشانی www.amlakgostar.ir مشخصات ملک مورد نیاز خود را ارائه می نمایند.
+
+<h6>- آیا املاکی که به برنامه اضافه می کنم، به وبسایت هم ارسال می شود؟</h6>
+بله، مشخصات املاک شما به وبسایت هم ارسال می شود تا در اختیار بازدیدکنندگان قرار گیرد.
+
+<h6>- چگونه میتوانم املاک موجود در مشاور املاک را به برنامه اضافه نمایم؟</h6>
+برای اضافه نمودن ملک، کلید '+' در بالای برنامه را فشار دهید.
+
+<h6>- در صورتی که در هنگام اضافه کردن ملک، به اینترنت دسترسی نداشته باشم، چه اتفاقی خواهد افتاد</h6>
+مشخصات ملک به صورت آفلاین در برنامه ذخیره شده و در هنگام اتصال به اینترنت به صورت خودکار به سرور ارسال می گردد.
+
+<h6>- در هنگام افزودن ملک، از من شماره تماس صاحب ملک و آدرس ملک خواسته می شود. من دوست ندارم اینگونه مشخصات را در اختیار شما قرار دهم.</h6>
+شماره تماس مالک و آدرس ملک تنها برای استفاده در قسمت های دیگر برنامه قرار خواهد گرفت و به هیچ وجه در اختیار دیگر مشاوران املاک و یا بازدید کنندگان قرار نخواهد گرفت. در هنگام ارسال اطلاعات ملک، شماره و آدرس دفتر مشاور املاک شما به جای شماره تماس و آدرس مالک ارسال خواهد گردید. همچنین در وبسایت اطلاعات بنگاه شما به عنوان محل قابل رجوع جهت مشاهده ملک قرار خواهد گرفت. با این اوصاف در صورتی که هنوز تمایلی به ارائه آدرس ملک و شماره تماس مالک ندارید، می توانید این گزینه ها را با مشخصات مشاور املاک خود جایگزین نمایید. 
+
+<h6>- در هنگام ارسال مشخصات ملک، چه اطلاعاتی برای مشتری ارسال خواهد شد.</h6>
+نمونه ای از پیامک ارسالی را در زیر می توانید مشاهده نمایید : <br/><br/>
+
+<small ><font color:'#999'>
+مشتری گرامی، ملک جدید مطابق با نیاز شما به مشاور املاک راه سبز سپرده گردید. 
+
+<br/><br/>
+خانه، 2 خوابه،متراژ200.00 مترمربع، زیربنا140.00 مترمربع، جهت فروش به مبلغ 140.00 میلیون تومان ،واقع در فرهنگ شهر. کد ملک: 35
+
+<br/><br/>
+با تشکر، مشاور املاک راه سبز
+7131212121
+
+</font>
+</small>
+
+");
     }
 
     public function sendmelkinfomationAction() {
@@ -130,8 +261,8 @@ class BongahController extends ControllerBase {
             $melk->melktypeid = $typeid;
             $melk->melkpurposeid = $porposeid;
             $melk->melkconditionid = $this->request->getPost('melkconditionid', 'string');
-            $melk->home_size = $this->request->getPost('zirbana', 'string');
-            $melk->lot_size = $this->request->getPost('metraj', 'string');
+            $melk->home_size = Helper::GetCorrectMelkSize($this->request->getPost('zirbana', 'string'));
+            $melk->lot_size = Helper::GetCorrectMelkSize($this->request->getPost('metraj', 'string'));
             $melk->sale_price = $this->request->getPost('saleprice', 'string');
             $melk->rent_price = $this->request->getPost('ejare', 'string');
             $melk->rent_pricerahn = $this->request->getPost('rahn', 'string');
@@ -271,8 +402,7 @@ class BongahController extends ControllerBase {
         foreach ($melks as $melk) {
             $items[] = $melk->getBongahResponse();
         }
-        return $this->
-                        getResponse($items);
+        return $this->getResponse($items);
     }
 
     /**
@@ -289,6 +419,8 @@ class BongahController extends ControllerBase {
         $result->remaindays = $this->user->getFirstBongah()->getRemainingPlanDays();
         $result->smscredit = $this->user->getSMSCredit();
         $result->melks = $this->user->getFirstBongah()->getMelksCount();
+        $result->bongahname = $this->bongah->title;
+        $result->mobile = UserPhone::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->phone;
         return $this->getResponse($result);
     }
 
