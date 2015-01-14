@@ -73,4 +73,16 @@ class Config {
         return 102;
     }
 
+    public static function GetAndroidVersionCode() {
+        return "1";
+    }
+
+    public static function GetAndroidVersionName() {
+        return "1";
+    }
+
+    public static function GetAndroidDownloadLink() {
+        return "http://amlak.edspace.org/app/file/v1/AmlakGostarApp.apk";
+    }
+
 }

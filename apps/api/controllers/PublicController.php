@@ -25,10 +25,10 @@ class PublicController extends ControllerBase {
 //                . getString("downloadlink");
 
         $result = new stdClass();
-        $result->versioncode = 1;
-        $result->versionname = 1;
+        $result->versioncode = Config::GetAndroidVersionCode();
+        $result->versionname = Config::GetAndroidVersionName();
         $result->md5 = "232656122152";
-        $result->downloadlink = "http://www.google.com";
+        $result->downloadlink = Config::GetAndroidDownloadLink();
         return $this->getResponse($result);
     }
 

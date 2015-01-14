@@ -714,3 +714,6 @@ footer .btn {
     height:  auto !important;
 }
 
+.app-download-description-holder li a{
+    display: inherit;
+}

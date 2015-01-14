@@ -144,7 +144,7 @@ class PaymentHandlerPayline extends PaymentMethod {
             return $res;
         }
 
-        $url = 'http://payline.ir/payment-test/gateway-send';
+        $url = 'http://www.payline.ir/payment-test/gateway-send';
         $api = Config::GetPaylineAPI();
         $amount = filter_var($amount, FILTER_VALIDATE_INT);
         $redirect = urlencode(Config::getPublicUrl() . 'payment/finish/payline/' . $paymentID . "");
@@ -162,7 +162,7 @@ class PaymentHandlerPayline extends PaymentMethod {
                 return;
             }
 
-            $url = "http://payline.ir/payment-test/gateway-$paylineGetID";
+            $url = "http://www.payline.ir/payment-test/gateway-$paylineGetID";
             Helper::RedirectToURL($url);
             return;
         }
@@ -210,7 +210,7 @@ class PaymentHandlerPayline extends PaymentMethod {
             return $res;
         }
 
-        $url = 'http://payline.ir/payment-test/gateway-result-second';
+        $url = 'http://www.payline.ir/payment-test/gateway-result-second';
         $api = Config::GetPaylineAPI();
         $trans_id = $paylineTransactionID;
         $id_get = $paylineIDGet;
