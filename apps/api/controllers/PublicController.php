@@ -99,7 +99,7 @@ class PublicController extends ControllerBase {
         $mobile = $this->request->getPost("phone");
         $deviceid = $this->request->getPost("deviceid");
         $devicetype = $this->request->getPost("devicetype");
-        $result = $this->user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $mobile);
+        $result = $this->user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $mobile, false);
         if (!$this->hasError() && $result == true) {
             // user successfully created 
         } else {
@@ -156,7 +156,7 @@ class PublicController extends ControllerBase {
 
 
                 // send sms about add
-                SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
+                //SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
 
                 // send sms to myself
                 SMSManager::SendSMS("09399477290", "بنگاه جدیدی توسط برنامه موبایل به عضویت در سایت درآمد", SmsNumber::findFirst()->id);
