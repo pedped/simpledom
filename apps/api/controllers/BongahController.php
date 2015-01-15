@@ -67,6 +67,8 @@ class BongahController extends ControllerBase {
     }
 
     public function purchasesmscreditAction() {
+        
+        
         $id = $this->request->getPost("id");
 
         // check sms credit id exist

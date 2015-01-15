@@ -145,7 +145,7 @@ class BaseSMSCreditCost extends AtaModel implements Orderable {
      * @return stdClass
      */
     public static function GetCost($id) {
-        $item = SMSCreditCost::findFirst($id);
+        $item = SMSCreditCost::findFirst(array("id = :id:", "bind" => array("id" => $id)));
         $result = new stdClass();
         $result->Price = $item->price;
         $result->Currency = "IRR";
@@ -161,11 +161,14 @@ class BaseSMSCreditCost extends AtaModel implements Orderable {
     }
 
     public static function getOrderObjectInfo($id) {
+
+        $smscreditcost = SMSCreditCost::findFirst(array("id = :id:", "bind" => array("id" => $id)));
+
         $item = new stdClass();
-        $item->title = "hello";
+        $item->title = "خرید اعتبار پیامک";
         $item->description = "this is a good description";
         $item->Cost = new stdClass();
-        $item->Cost->Price = 10;
+        $item->Cost->Price = $smscreditcost->price;
         $item->Cost->Currency = "IRR";
         return $item;
     }
