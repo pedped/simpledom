@@ -2,14 +2,15 @@
 
 namespace Simpledom\Admin\Controllers;
 
+use AppDownload;
 use BaseUser;
 use Bongah;
 use BongahSentMelk;
 use BongahSubscriber;
-use LineChartElement;
 use Melk;
 use MelkPhoneListner;
 use ModelChart;
+use Sentsms;
 use Simpledom\Admin\BaseControllers\IndexControllerBase;
 use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\Helper;
@@ -40,7 +41,7 @@ class IndexController extends IndexControllerBase {
         $this->view->totalSentMelk = BongahSentMelk::count();
 
         // load revenue
-        $this->view->totalRevenue = Helper::GetPrice(UserOrder::sum(array("done = '1'", 'column' => "price")) / 1000000);
+        $this->view->totalRevenue = Helper::GetPrice(UserOrder::sum(array("done = '1'", 'column' => "price")) / 10000000);
 
         // load user phone
         $this->view->totalUserPhone = UserPhone::Count();
@@ -63,8 +64,29 @@ class IndexController extends IndexControllerBase {
         $chartlement->setXName("تاریخ");
         $chartlement->setYAxis("تعداد");
 
+        // Load Download Chart
+        // fetch data
+        $downloadChart = new ModelChart("appdownloadchart", new AppDownload());
+        $downloadappelement = $downloadChart->getChart();
+        $downloadappelement->setTitle("دانلود برنامه موبایل");
+        $downloadappelement->setSubtitle("تعداد دانلود برنامه در هر روز");
+        $downloadappelement->setXName("تاریخ");
+        $downloadappelement->setYAxis("تعداد");
+
+        // Load Download Chart
+        // fetch data
+        $sentSMSChart = new ModelChart("sentsmsdownload", new Sentsms());
+        $sendsmselement = $sentSMSChart->getChart();
+        $sendsmselement->setTitle("پیامک ارسالی در هر روز");
+        $sendsmselement->setSubtitle("تعداد ارسال پیامک ارسال پیامک در هر روز");
+        $sendsmselement->setXName("تاریخ");
+        $sendsmselement->setYAxis("تعداد");
+
+
         // add element to form
         $form->add($chartlement);
+        $form->add($downloadappelement);
+        $form->add($sendsmselement);
 
         // set view form
         $this->view->amlakgostarform = $form;

@@ -10,7 +10,18 @@
         <section class="panel">
             <div class="panel-body">
                 <?php //$form->renderDecorated('registerchart'); ?> 
-                <?php $amlakgostarform->renderDecorated('userphonechart'); ?> 
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <?php $amlakgostarform->renderDecorated('userphonechart'); ?> 
+                    </div>
+                    <div class='col-md-6'>
+                        <?php $amlakgostarform->renderDecorated('sentsmsdownload'); ?> 
+                    </div>
+                    <div class='col-md-6'>
+                        <?php $amlakgostarform->renderDecorated('appdownloadchart'); ?> 
+                    </div>
+                </div>
+
             </div>
         </section>
     </div>
