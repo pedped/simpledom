@@ -801,4 +801,21 @@ class MelkPhoneListner extends AtaModel {
         return $result;
     }
 
+    public function getAdminStatusButton() {
+
+        if (intval($this->status) == 1) {
+            // user is active, we have to create deacive button
+            $link = $this->getDI()->get("url")->getBaseUri() . "api/deactivephonelistner/" . $this->id;
+            return Helper::generateAjaxButton("btn_phonelistnerstate_" . $this->id, "فعال", $link, '', 'btn btn-sm btn-success');
+        } else if (intval($this->status) == -1) {
+            // user is not active, we have to create active button
+            $link = $this->getDI()->get("url")->getBaseUri() . "api/activephonelistner/" . $this->id;
+            return Helper::generateAjaxButton("btn_phonelistnerstate_" . $this->id, "غیر فعال", $link, '', 'btn btn-sm btn-danger');
+        } else if (intval($this->status) == 0) {
+            // user is pending, we have to create deacive button
+            $link = $this->getDI()->get("url")->getBaseUri() . "api/activephonelistner/" . $this->id;
+            return Helper::generateAjaxButton("btn_phonelistnerstate_" . $this->id, "در حال انتظار", $link, '', 'btn btn-sm btn-warning');
+        }
+    }
+
 }

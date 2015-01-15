@@ -90,7 +90,7 @@ class MelkPhoneListnerController extends ControllerBase {
                     'کد', 'نوع', 'منظور', 'موبایل', 'حداقل خواب', 'حداکثر خواب', ' حداقل اجاره', 'حداکثر اجاره', 'حداقل رهن', 'حداکثر رهن', 'حداقل قیمت', 'حداکثر قیمت', 'تارخ', 'شهر', 'مناطق', 'پیامک', 'وضعیت'
                 ))->
                 setFields(array(
-                    'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'getReceivedCount()', 'getStatusText()',
+                    'id', 'getTypeTitle()', 'getPurposeTitle()', 'getPhoneNumber()', 'bedroom_start', 'bedroom_end', 'getRentPriceStartHuman()', 'getRentPriceEndHuman()', 'getRentPriceRahnStartHuman()', 'getRentPriceRahnEndHuman()', 'getSalePriceStartHuman()', 'getSalePriceEndHuman()', 'getDate()', 'getCityName()', 'getAreasNames()', 'getReceivedCount()', 'getAdminStatusButton()',
                 ))->
                 setEditUrl(
                         'edit'

@@ -111,7 +111,8 @@ class MelkPhoneListnerForm extends AtaForm {
         $status->setLabel('وضعیت');
         $status->setOptions(array(
             "1" => "فعال",
-            "0" => "غیر فعال",
+            "0" => "در حال انتظار",
+            "-1" => "غیر فعال",
         ));
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
