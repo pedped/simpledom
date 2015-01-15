@@ -1,6 +1,7 @@
 {
     "require": {
-        "swiftmailer/swiftmailer": "5.2.*@dev"
+        "swiftmailer/swiftmailer": "5.2.*@dev",
+        "respect/validation": "dev-master"
     }
 
 }
