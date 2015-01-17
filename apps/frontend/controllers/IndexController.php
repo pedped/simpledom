@@ -13,6 +13,9 @@ use UserOrder;
 
 class IndexController extends IndexControllerBase {
 
+    /**
+     * 
+     */
     public function indexAction() {
         parent::indexAction();
         $cities = City::find(array("captial = 1", "order" => "name ASC"));

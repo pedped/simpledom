@@ -5,6 +5,7 @@ namespace Simpledom\Frontend\BaseControllers;
 use AtaController;
 use BaseTrack;
 use Page;
+use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
 use Settings;
@@ -94,6 +95,10 @@ abstract class ControllerBase extends AtaController {
 
     public function initialize() {
         parent::initialize();
+
+        // define public path
+        $publicFolderDirectory = dirname(dirname(dirname(__DIR__))) . "/public/";
+
         // CSS in the header
         $this->assets
                 ->collection('header')
@@ -102,6 +107,10 @@ abstract class ControllerBase extends AtaController {
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/website/site.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
+//                ->join(true)
+//                ->addFilter(new Jsmin())
+//                ->setTargetPath($publicFolderDirectory . 'production/cssfile.css')
+//                ->setTargetUri('production/cssfile.css');
 
 
         //Javascripts in the footer
@@ -110,6 +119,10 @@ abstract class ControllerBase extends AtaController {
                 ->setPrefix('http://amlak.edspace.org/')
                 ->addJs('js/jquery/jquery.min.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
+//                ->join(true)
+//                ->addFilter(new Jsmin())
+//                ->setTargetPath($publicFolderDirectory . 'production/jsfiles.js')
+//                ->setTargetUri('production/jsfiles.js');
 
 
         //Javascripts in the footer
