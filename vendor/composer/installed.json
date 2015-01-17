@@ -1,30 +1,30 @@
 [
     {
         "name": "swiftmailer/swiftmailer",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v5.2.2",
+        "version_normalized": "5.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "e29c7b692bae6610b137670d6749151fd6e41608"
+            "reference": "e02f71a35436af4bd58a1bd90116089e632e29e1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/e29c7b692bae6610b137670d6749151fd6e41608",
-            "reference": "e29c7b692bae6610b137670d6749151fd6e41608",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/e02f71a35436af4bd58a1bd90116089e632e29e1",
+            "reference": "e02f71a35436af4bd58a1bd90116089e632e29e1",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=5.2.4"
         },
         "require-dev": {
             "mockery/mockery": "~0.9.1"
         },
-        "time": "2014-12-05 14:17:46",
+        "time": "2014-09-20 07:17:36",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.3-dev"
+                "dev-master": "5.2-dev"
             }
         },
         "installation-source": "source",
@@ -60,12 +60,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Respect/Validation.git",
-            "reference": "26e8d76d8ce500e9c9b910adf8fc3eb9e0cb35d0"
+            "reference": "7c0d25f96eb56856c265ceb8f86ca3674da48c22"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Respect/Validation/zipball/26e8d76d8ce500e9c9b910adf8fc3eb9e0cb35d0",
-            "reference": "26e8d76d8ce500e9c9b910adf8fc3eb9e0cb35d0",
+            "url": "https://api.github.com/repos/Respect/Validation/zipball/7c0d25f96eb56856c265ceb8f86ca3674da48c22",
+            "reference": "7c0d25f96eb56856c265ceb8f86ca3674da48c22",
             "shasum": ""
         },
         "require": {
@@ -82,7 +82,7 @@
             "ext-mbstring": "Multibyte String Functions",
             "malkusch/bav": "German bank account validation"
         },
-        "time": "2015-01-14 22:02:11",
+        "time": "2015-01-16 19:36:30",
         "type": "library",
         "extra": {
             "branch-alias": {

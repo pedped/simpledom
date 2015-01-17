@@ -10,6 +10,8 @@ use Phalcon\Http\Response\Cookies;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Security;
+use Phalcon\Cache\Frontend\Output as OutputFrontend;
+use Phalcon\Cache\Backend\Memcache as MemcacheBackend;
 
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
@@ -124,6 +126,24 @@ try {
 
         return $security;
     }, true);
+
+
+    //Set the views cache service
+    $di->set('viewCache', function() {
+
+        //Cache data for one day by default
+        $frontCache = new OutputFrontend(array(
+            "lifetime" => 86400
+        ));
+
+        //Memcached connection settings
+        $cache = new MemcacheBackend($frontCache, array(
+            "host" => "localhost",
+            "port" => "112111"
+        ));
+
+        return $cache;
+    });
 
     /**
      * Include modules
