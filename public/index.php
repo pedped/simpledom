@@ -139,7 +139,7 @@ try {
         //Memcached connection settings
         $cache = new MemcacheBackend($frontCache, array(
             "host" => "localhost",
-            "port" => "112111"
+            "port" => "11211"
         ));
 
         return $cache;

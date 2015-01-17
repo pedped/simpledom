@@ -4,14 +4,14 @@ return new \Phalcon\Config(array(
     'database' => array(
         'adapter' => 'Mysql',
         'host' => 'localhost',
-        'username' => 'melkyab',
-        'password' => '8&4m0eIu8&4m0eIu',
-        'dbname' => 'melkyab',
+        'username' => 'omde',
+        'password' => 'IGBt87gy12R#&FUGyvhb',
+        'dbname' => 'omde',
     ),
     'application' => array(
         'controllersDir' => __DIR__ . '/../controllers/',
         'modelsDir' => __DIR__ . '/../models/',
         'viewsDir' => __DIR__ . '/../views/',
-        'baseUri' => 'http://melk.edspace.org/'
+        'baseUri' => 'http://omde.edspace.org/'
     )
         ));
