@@ -3,8 +3,10 @@
 /**
  * Services are globally registered in this file
  */
+
 use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Application;
+use Phalcon\Events\Manager;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
@@ -126,6 +128,7 @@ $di['session'] = function () {
 
     return $session;
 };
+
 
 
 
