@@ -503,6 +503,9 @@ class MelkController extends ControllerBaseFrontEnd {
 
 
 
+        // check if melk is avaialbe
+        $query .= " AND status IN ( 1 , 2 )";
+
         $this->handleFormScripts($form);
         $this->view->form = $form;
 
@@ -510,7 +513,7 @@ class MelkController extends ControllerBaseFrontEnd {
         if (isset($areaid)) {
             $cityID = Area::findFirst($areaid)->cityid;
             $m = new Melk();
-            $melks = $m->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id  = melkarea.melkid AND melkarea.areaid = ? ORDER BY id DESC", array($areaid));
+            $melks = $m->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id  = melkarea.melkid AND melkarea.areaid = ? AND status IN ( 1 , 2 ) AND approved = 1 ORDER BY id DESC", array($areaid));
         } else {
             // load the users
             $melks = Melk::find(

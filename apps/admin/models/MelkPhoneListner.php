@@ -654,7 +654,7 @@ class MelkPhoneListner extends AtaModel {
                 break;
         }
 
-        $query.= "AND approved = 1";
+        $query.= "AND approved = 1 AND status = 1";
         //var_dump($query);
         //die();
 

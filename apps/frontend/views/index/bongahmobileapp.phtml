@@ -3,6 +3,7 @@
         <?php echo $this->getContent() ?>
     </div> 
 </div>
+<meta http-equiv="refresh" content="5; url=<?php echo $this->url->get("index/downloadbongahapp"); ?>" />
 <div class='row'>
     <div class='col-md-12'>
         <div class="panel panel-default">
@@ -10,17 +11,18 @@
                 <h3 class="panel-title"><span class="fa fa-mobile-phone"></span>برنامه اختصاصی مشاوران املاک</h3>
             </div>
             <div class="panel-body">
-                <div class='row'>
+                <div class='row' style="font-family: naskh">
                     <div class='col-md-4 center'>
-                        <img src="<?php echo $this->url->get("img/Amlak-Shoma.jpg"); ?>" class="img img-responsive img-rounded" />
-                        <a class='btn btn-primary btn-block btn-lg hidden-lg hidden-md'  href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" style="margin-top: 16px;margin-bottom: 32px;">دانلود برنامه</a>
+                        <a href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" alt="برنامه اندروید مشاوران املاک"><img src="<?php echo $this->url->get("img/amlak_darkhasti.png"); ?>" class="img img-responsive img-rounded" /></a>
+                        <p style="margin-top: 32px;" class="hidden-lg hidden-md">جهت دانلود برنامه، بر روی کلید زیر کلیک نمایید</p>
+                        <a class='btn btn-primary btn-block btn-lg hidden-lg hidden-md'  href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" style="margin-bottom: 32px;">دانلود رایگان برنامه</a>
                     </div>
-                    <div class='col-md-8' style="font-family: naskh">
+                    <div class='col-md-8 hidden-sm hidden-xs' >
                         <h3>اولین برنامه تخصصی مشاوران املاک</h3>
                         <p>املاک گستر مفتخر است اولین برنامه اختصاصی اندروید، ویژه مشاوران املاک را ارائه دهد. از مزیت های این برنامه می توان به موارد زیر اشاره نمود.</p>
                         <ul class="app-download-description-holder">
                             <li>
-                                <h3>دریافت روازنه مشتری</h3>
+                                <h3>دریافت روزانه مشتری</h3>
                                 <p>با استفاده از سامانه املاک گستر، شما روزانه تعداد زیادی مشتری جدید دریافت خواهید نمود. سامانه با استفاده از الگوریتم های خود به هر مشتری امتیاز خواهد داد و شما قادر خواهید بود املاک مناسب خود برای هر مشتری را مشاهده نمایید<a href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" >دانلود برنامه</a></p>
                             </li>
                             <li>
@@ -40,7 +42,7 @@
                                 <p>روزانه تعداد زیادی مشتری با استفاده از وبسایت www.amlakgostar.ir به دنبال ملک مورد نظر خود میگردند. املاکی که شما از طریق برنامه اضافه می نمایید تا در دسترس مشتریان قرار گیرد، به طور خودکار به وبسایت ارسال می گردید، همچنین اطلاعات مشاور املاک شما به عنوان بنگاه قابل مراجعه در سایت نمایش داده خواهد شد<a href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" >دانلود برنامه</a></p>
                             </li>
                         </ul>
-                         <a class='btn btn-primary btn-lg btn-block' href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" style="margin-top: 16px;">دانلود برنامه</a>
+                        <a class='btn btn-primary btn-lg btn-block' href="<?php echo $this->url->get("index/downloadbongahapp"); ?>" style="margin-top: 16px;">دانلود برنامه</a>
                     </div>
                 </div>
 
@@ -49,5 +51,10 @@
 
     </div>
 </div>
-
+<script>
+    // hide the footer
+    $("document").ready(function() {
+        $("footer").remove();
+    });
+</script>
 

@@ -7,6 +7,13 @@ use Simpledom\Core\Classes\Helper;
 
 class Melk extends AtaModel {
 
+    
+    const  MELKSTATUS_AVAIBALE = 1;
+    const  MELKSTATUS_SOLDORRENT = 2;
+    const  MELKSTATUS_DELETEDBYSUBMITTER = -1;
+    const  MELKSTATUS_DELETEDBYADMIN = -2;
+
+
     public function getSource() {
         return 'melk';
     }
@@ -337,6 +344,10 @@ class Melk extends AtaModel {
         return $this;
     }
 
+    public $uuid;
+    public $offlineadd;
+    public $status;
+
     public function getDate() {
         return Jalali::date("Y/m/d-H:i:s", $this->date);
     }
@@ -361,11 +372,12 @@ class Melk extends AtaModel {
     public function beforeValidationOnCreate() {
         $this->date = time();
         // increase total one day
-        if (isset($this->validdate) || intval($this->validdate) == 0) {
+        if (!isset($this->validdate) || intval($this->validdate) == 0) {
             $this->validdate = time() + 3600 * 24 * 1;
         }
         $this->price_per_unit = 1;
         $this->melkconditionid = 1;
+        $this->status = 1;
     }
 
     public function beforeValidationOnSave() {
@@ -816,6 +828,11 @@ class Melk extends AtaModel {
 
 
         return $item;
+    }
+
+    public function getCreateByName() {
+        $melkCreateBy = MelkCreatedBy::findFirst($this->createby);
+        return $melkCreateBy->id == "1" ? $this->getBongah()->getTitle() : $melkCreateBy->name;
     }
 
     public function getPriceTitle() {

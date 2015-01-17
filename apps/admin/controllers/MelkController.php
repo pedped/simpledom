@@ -90,7 +90,7 @@ class MelkController extends ControllerBase {
                      'کد ملک', 'نوع', 'منظور', 'وضعیت', 'ارائه شده توسط', 'شهر', 'ویژه', 'تایید شده', 'تاریخ', 'شماره تماس'
                 ))->
                 setFields(array(
-                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getCreateByTilte()', 'getCityName()', 'featured', 'approved', 'getDate()' , 'getContactPhone()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getCreateByName()', 'getCityName()', 'featured', 'approved', 'getDate()' , 'getContactPhone()'
                 ))->
                 setEditUrl(
                         'edit'

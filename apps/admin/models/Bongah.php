@@ -418,7 +418,7 @@ class Bongah extends AtaModel {
     }
 
     public function getMelksCount() {
-        return Melk::count(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+        return Melk::count(array("userid = :userid: AND status IN ( 1 , 2 ) ", "bind" => array("userid" => $this->userid)));
     }
 
     public function sendMelkInfo(&$errors, $melkPhoneListnerID, $melkID, &$needToIncreaseSMSCredit = false, &$message = "") {
@@ -480,7 +480,7 @@ class Bongah extends AtaModel {
         // decraese user sms credit
         $isPersian = false;
         $messageSize = Helper::GetMessageSize($message, $isPersian);
-        SMSCredit::decreaseCredit($errors, $this->userid, 8, $isPersian ? $messageSize * 2 : $messageSize );
+        SMSCredit::decreaseCredit($errors, $this->userid, 8, !$isPersian ? $messageSize * 2 : $messageSize );
 
         // we have to create new sent message
         $bongahSentMessage = new BongahSentMelk();
@@ -493,6 +493,10 @@ class Bongah extends AtaModel {
         // show success messgae
         BaseUserLog::byUserID($this->userid)->setAction("ملک برای درخواست کننده ملک ارسال گردید")->create();
         return true;
+    }
+
+    public function getTitle() {
+        return $this->title;
     }
 
 }

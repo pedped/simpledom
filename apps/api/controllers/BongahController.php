@@ -3,6 +3,7 @@
 namespace Simpledom\Api\Controllers;
 
 use Area;
+use BaseSystemLog;
 use Bongah;
 use BongahSubscribeItem;
 use City;
@@ -41,6 +42,24 @@ class BongahController extends ControllerBase {
         $this->bongah = $this->user->getFirstBongah();
     }
 
+    public function removemelkAction() {
+        $id = $this->request->getPost("id");
+
+        // check for melk 
+        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $id)));
+        if (!$melk || intval($melk->userid) != intval($this->user->userid) || $melk->status == Melk::MELKSTATUS_DELETEDBYSUBMITTER || $melk->status == Melk::MELKSTATUS_DELETEDBYADMIN) {
+            $this->errors[] = "ملک یافت نگردید، یا هم اکنون حذف شده است";
+            return $this->getResponse(false);
+        }
+
+        // set statte
+        $melk->status = Melk::MELKSTATUS_DELETEDBYSUBMITTER;
+        $result = $melk->save();
+
+        // send response
+        return $this->getResponse($result);
+    }
+
     public function purchasebongahplanAction() {
         $id = $this->request->getPost("id");
 
@@ -67,8 +86,8 @@ class BongahController extends ControllerBase {
     }
 
     public function purchasesmscreditAction() {
-        
-        
+
+
         $id = $this->request->getPost("id");
 
         // check sms credit id exist
@@ -220,7 +239,7 @@ class BongahController extends ControllerBase {
 
     public function getphonesuggestionAction($melkid) {
         // check if the melk is belong to user
-        $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
+        $melk = Melk::findFirst(array("id = :id: AND status = 1", "bind" => array("id" => $melkid)));
         if (!$melk || intval($melk->approved) == -2) {
             $this->errors[] = "ملک مورد نظر یافت نگردید";
             return $this->getResponse(false);
@@ -246,15 +265,22 @@ class BongahController extends ControllerBase {
             $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
         }
 
+        // check if melk uuid is not exist in server
+        if (Melk::count(array("uuid = :uuid:", "bind" => array("uuid" => $this->request->getPost("uuid")))) > 0) {
+            $this->errors[] = "این ملک قبلا ارسال شده است";
+        }
+
         // check if we have any error
         if (!$this->hasError()) {
-
 
             // get melk type and purpose
             $typeid = MelkType::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('type', 'string'))))->id;
             $porposeid = MelkPurpose::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('manzoor', 'string'))))->id;
             $stateid = State::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('state', 'string'))))->id;
             $cityid = City::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('city', 'string'))))->id;
+
+
+
 
 
             // form is valid
@@ -270,6 +296,8 @@ class BongahController extends ControllerBase {
             $melk->rent_pricerahn = $this->request->getPost('rahn', 'string');
             $melk->bedroom = $this->request->getPost('bedroom', 'string');
             $melk->bath = $this->request->getPost('bath', 'string');
+            $melk->uuid = $this->request->getPost('uuid', 'string');
+            $melk->offlineadd = $this->request->getPost('offlineadd', 'string');
             $melk->stateid = $stateid;
             $melk->cityid = $cityid;
             $melk->createby = 1;
@@ -343,6 +371,7 @@ class BongahController extends ControllerBase {
                     $result = new stdClass();
                     $result->totallistner = $melk->findApprochMelkPhoneListners()->count();
                     $result->melkid = $melk->id;
+                    $result->melkinfo = $melk->getBongahResponse();
                     return $this->getResponse($result);
                 }
             }
@@ -382,6 +411,23 @@ class BongahController extends ControllerBase {
 
         // success, we have to send user last sms credit
         return $this->getResponse($this->user->getSMSCredit());
+    }
+
+    public function getphonelistnerstatusAction() {
+
+        // get id
+        $id = $this->request->getPost("id");
+
+        // log user request
+        BaseSystemLog::CreateLogInfo("مشاهده درخواست مشتری توسط مشاور املاک", "مشتری شماره " . $id . " توسط مشاور املاک" . " " . $this->bongah->title . " مشاهده گردید");
+
+        // check for phone listner
+        $phoneListner = \MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $id)));
+        if (!$phoneListner) {
+            return $this->getResponse(0);
+        } else {
+            return $this->getResponse(intval($phoneListner->status) == 1 ? 1 : 0);
+        }
     }
 
     public function fetchmelkcanbesentAction($melkphonelistnerid) {
@@ -513,7 +559,7 @@ class BongahController extends ControllerBase {
         // find all city
         $melks = Melk::find(
                         array(
-                            'userid = :userid:',
+                            'userid = :userid: AND status IN ( 1 , 2 )',
                             'order' => 'id DESC',
                             "limit" => $start . " , " . $limit,
                             "bind" => array(

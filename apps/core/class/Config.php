@@ -70,7 +70,7 @@ class Config {
     }
 
     public static function GetDefaultMelkImageID() {
-        return 102;
+        return 105;
     }
 
     public static function GetAndroidVersionCode() {
