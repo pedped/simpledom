@@ -29,9 +29,19 @@ class IndexControllerBase extends ControllerBase {
 
         // check if we have to fetch user credit on admin panel
         if (Config::CheckForSMSCreditOnAdminPanel()) {
-            $providerName = SMSProvider::findFirst();
-            $provider = SMSManager::getProvider($providerName->name)->init($providerName->infos);
-            $this->view->remainingSMSCredit = $provider->getRemain();
+
+            $credits = array();
+
+            // list providers
+            $providers = SMSProvider::find("enable = 1");
+
+            // load each credit on request
+            foreach ($providers as $providerName) {
+                $provider = SMSManager::getProvider($providerName->name)->init($providerName->infos);
+                $credits[$providerName->name] = $provider->getRemain(true);
+            }
+
+            $this->view->smsProvidersCredit = $credits;
         }
 
         $this->loadRegisterChart();

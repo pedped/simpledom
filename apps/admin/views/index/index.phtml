@@ -133,29 +133,36 @@
 
 
     <!-- Remaining SMS !-->
-    <?php if (isset($remainingSMSCredit)) : ?>
-        <div class="col-md-12 col-lg-6 col-xl-6">
-            <section class="panel panel-featured-left panel-featured-primary">
-                <div class="panel-body">
-                    <div class="widget-summary">
-                        <div class="widget-summary-col widget-summary-col-icon">
-                            <div class="summary-icon bg-info">
-                                <i class="fa fa-envelope"></i>
-                            </div>
-                        </div>
-                        <div class="widget-summary-col">
-                            <div class="summary">
-                                <h4 class="title">SMS Credit</h4>
-                                <div class="info">
-                                    <strong class="amount"><?php echo $remainingSMSCredit; ?></strong>
+    <?php if (isset($smsProvidersCredit)) : ?>
+        <div class='row'>
+            <div class='col-md-12'>
+                <hr/>
+            </div>
+        </div>
+        <?php foreach ($smsProvidersCredit as $name => $providerCredit) : ?>
+            <div class="col-md-12 col-lg-6 col-xl-6">
+                <section class="panel panel-featured-left panel-featured-primary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-info">
+                                    <i class="fa fa-envelope"></i>
                                 </div>
                             </div>
-                            <div class="summary-footer">
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">SMS Credit <small>(<?php echo $name ?>)</small></h4>
+                                    <div class="info">
+                                        <strong class="amount"><?php echo $providerCredit; ?></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        <?php endforeach; ?>
     <?php endif; ?>
 </div>

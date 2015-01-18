@@ -1,5 +1,7 @@
 <?php
 
+$_SERVER["REMOTE_ADDR"] = $_SERVER["HTTP_X_REAL_IP"];
+
 //define("DEBUG_MODE", TRUE);
 
 
@@ -139,7 +141,7 @@ try {
         //Memcached connection settings
         $cache = new MemcacheBackend($frontCache, array(
             "host" => "localhost",
-            "port" => "112111"
+            "port" => "11211"
         ));
 
         return $cache;
@@ -154,7 +156,7 @@ try {
 
     //Get the generated profiles from the profiler
     $profiles = $di->get('profiler')->getProfiles();
-    if (false && isset($profiles)) {
+    if (isset($profiles)) {
         foreach ($profiles as $profile) {
             echo "<pre>";
             echo("<b>" . $profile->getSQLStatement() . "</b>");

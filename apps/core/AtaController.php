@@ -189,11 +189,44 @@ abstract class AtaController extends Controller {
             //Check if there is an user defined cache key
             if ($annotation->hasNamedArgument('key')) {
                 $options['key'] = $annotation->getNamedParameter('key');
+            } else {
+                // we have to create cache key
+                $cacheKey = $this->createCacheKey($dispatcher);
+
+                // set key
+                $options['key'] = $cacheKey;
             }
 
             //Enable the cache for the current method
             $this->view->cache($options);
         }
+    }
+
+    /**
+     * create cache key
+     * @param Dispatcher $dispatcher
+     */
+    private function createCacheKey($dispatcher) {
+
+        $uniqueKey = array();
+        foreach ($dispatcher->getParams() as $key => $value) {
+            if (is_scalar($value)) {
+                $uniqueKey[] = $key . ':' . $value;
+            } else {
+                if (is_array($value)) {
+                    $uniqueKey[] = $key . ':[' . self::_createKey($value) . ']';
+                }
+            }
+        }
+
+        // join parameter string
+        $parameterString = join(',', $uniqueKey);
+
+        // create full string
+        $key = md5($dispatcher->getDI()->get("url")->getBaseUri()) . $dispatcher->getControllerName() . "_" . $dispatcher->getActionName() . $parameterString;
+
+        // return string
+        return $key;
     }
 
 }

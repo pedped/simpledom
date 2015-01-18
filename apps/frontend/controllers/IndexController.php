@@ -12,6 +12,9 @@ use UserOrder;
 
 class IndexController extends IndexControllerBase {
 
+    /**
+     * @Cache(lifetime=60)
+     */
     public function testAction() {
 
         $element = new RangeSlider("slider");
