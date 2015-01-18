@@ -137,4 +137,12 @@ class BaseSmsNumber extends AtaModel {
         
     }
 
+    /**
+     * Get Enabled SMS Provder ID
+     * @return type
+     */
+    public function getSenderID() {
+        return SmsNumber::findFirst("enable = 1")->id;
+    }
+
 }

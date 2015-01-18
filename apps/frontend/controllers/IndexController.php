@@ -21,6 +21,16 @@ class IndexController extends IndexControllerBase {
         parent::indexAction();
         $cities = City::find(array("captial = 1", "order" => "name ASC"));
         $this->view->cities = $cities;
+    }
+
+    public function testAction() {
+
+        $element = new RangeSlider("slider");
+        $element->min = 50;
+        $element->max = 500;
+        $element->currentMinValue = 65;
+        $element->currentMaxValue = 256;
+        $element->betweenRangeTitle = "تا";
 
 
         // load area for cities
