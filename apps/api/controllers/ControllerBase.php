@@ -46,7 +46,7 @@ class ControllerBase extends Controller {
     public function initialize() {
 
         // check if we need to get user info
-        if ($this->dispatcher->getControllerName() != "public") {
+        if ($this->dispatcher->getControllerName() != "public" && $this->dispatcher->getControllerName() != "smsreceiver") {
             // we have to request user login info
             $userid = $this->request->getPost("auth_userid");
             $token = $this->request->getPost("auth_token");

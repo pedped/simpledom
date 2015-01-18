@@ -19,7 +19,7 @@ abstract class BaseSmsreceiverController extends ControllerBase {
     private function validProvider($smsProviderID) {
         $provider = ValidProviderIP::findFirst(array("providerid = :providerid:", "bind" => array("providerid" => $smsProviderID)));
         if ($provider && $provider->ip != $_SERVER["REMOTE_ADDR"]) {
-            BaseSystemLog::init($item)->setTitle("invalid sms ip")->setMessage("new sms received from invalid provider ip")->setType(SystemLogType::Error)->setIP($_SERVER["REMOTE_ADDR"])->create();
+            BaseSystemLog::init($item)->setTitle("invalid sms ip")->setMessage("new sms received from invalid provider ip: " . $_SERVER["REMOTE_ADDR"])->setType(SystemLogType::Error)->setIP($_SERVER["REMOTE_ADDR"])->create();
             return false;
         }
 

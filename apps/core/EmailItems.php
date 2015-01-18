@@ -10,6 +10,7 @@ define("EMAILTEMPLATE_PAYMENTRECEIPT", "PAYMENT_RECEIPT");
 define("EMAILTEMPLATE_REPLY", "REPLY");
 define("EMAILTEMPLATE_VERIFY", "VERIFY");
 define("EMAILTEMPLATE_MELKCONTACTEMAIL", "MELKCONTACTEMAIL");
+define("EMAILTEMPLATE_ANDROIDAPPFORBONGAH", "BONGAHANDROIDAPP");
 
 class EmailItems extends EmailManager {
 
@@ -175,6 +176,22 @@ class EmailItems extends EmailManager {
 
         // set email template
         return $this->setSubject("پیام جدید در ارتباط با ملک شما")->setEmailTemplate($emailTemplate)->setReceivers($melkEmail)->sendEmail();
+    }
+
+    public function sendAndroidApp($email, $phone, $bongahName, $downloadUrl, $filePath) {
+
+        // load the email template from server
+        $emailTemplate = BaseEmailTemplate::findFirst("name = '" . EMAILTEMPLATE_ANDROIDAPPFORBONGAH . "'");
+        $emailTemplate->setParameters(array(
+            "email" => $email,
+            "phone" => $phone,
+            "bongahname" => $bongahName,
+            "downloadlink" => $downloadUrl,
+            "url" => Config::getPublicUrl(),
+        ));
+
+        // set email template
+        return $this->setSubject("دانلود برنامه مشاوران املاک")->setEmailTemplate($emailTemplate)->setReceivers($email)->setAttachment($filePath)->sendEmail();
     }
 
 }

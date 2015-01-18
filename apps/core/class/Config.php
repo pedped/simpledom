@@ -84,5 +84,12 @@ class Config {
     public static function GetAndroidDownloadLink() {
         return "http://amlak.edspace.org/app/file/v1/AmlakGostarApp.apk";
     }
+    public static function GetAndroidDownloadLinkWithCounter() {
+        return "http://amlak.edspace.org/index/downloadbongahapp";
+    }
+
+    public static function GetAndroidFilePath() {
+        return dirname(dirname(dirname(__DIR__))) . "/public/app/file/v1/AmlakGostarApp.apk";
+    }
 
 }

@@ -1,0 +1,45 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+
+                                                <h2 class='panel-title'>Add AppEmailRequest</h2>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD phone !-->
+                                <?php $form->renderDecorated('phone'); ?> 
+
+                                <!--  ADD email !-->
+                                <?php $form->renderDecorated('email'); ?> 
+
+                                <!--  ADD date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+                                <!--  ADD ip !-->
+                                <?php $form->renderDecorated('ip'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

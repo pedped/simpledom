@@ -9,6 +9,7 @@ class EmailManager {
     private $emailTemplate = null;
     private $receivers = null;
     public $subject;
+    private $attachmentPath;
 
     /**
      * Set recivers
@@ -92,6 +93,12 @@ class EmailManager {
                             ->setTo($this->receivers)
                             ->setBody($content)->setCharset("utf8")->setContentType("text/html");
 
+            // check for attachment
+            if ($this->attachmentPath != NULL && strlen($this->attachmentPath) > 0) {
+                // we have attach
+                $message->attach(Swift_Attachment::fromPath($this->attachmentPath));
+            }
+
             // Send the message
             $result = $mailer->send($message);
 
@@ -125,6 +132,16 @@ class EmailManager {
      */
     public function setEmailTemplate($emailTemplate) {
         $this->emailTemplate = $emailTemplate;
+        return $this;
+    }
+
+    /**
+     * Set email attachment file path
+     * @param type $filePath
+     * @return EmailManager
+     */
+    public function setAttachment($filePath) {
+        $this->attachmentPath = $filePath;
         return $this;
     }
 

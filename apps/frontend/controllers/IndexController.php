@@ -5,6 +5,7 @@ namespace Simpledom\Frontend\Controllers;
 use AppDownload;
 use Area;
 use City;
+use EmailItems;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\Classes\Order;
@@ -71,6 +72,16 @@ class IndexController extends IndexControllerBase {
         // we have to request pay order
         $orderObject = new Order($this->user->userid);
         $orderObject->PayOrder($this->errors, $order->id, 1);
+    }
+
+    public function sendemailAction() {
+
+        // echo email
+        //echo Config::GetAndroidFilePath();
+        //die();
+
+        $emailItems = new EmailItems();
+        $emailItems->sendAndroidApp("convertersoft@gmail.com", "09399477290", "مشاور املاک نسترن", Config::GetAndroidDownloadLink(), Config::GetAndroidFilePath());
     }
 
 }
