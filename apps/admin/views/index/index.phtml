@@ -216,6 +216,32 @@
                 </section>
             </div>
 
+            <!-- Total App Email Request !-->
+            <div class="col-md-12 col-lg-4 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-success">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-success">
+                                    <i class="fa fa-send"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">درخواست ایمیل برنامه</h4>
+                                    <div class="info">
+                                        <strong class="amount" style="font-size: 15px;"><?php echo $totalAppEmailRequest ?><small>(<?php echo $totalAppEmailRequestToday; ?>)</small></strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a href="<?php echo $this->url->get("appemailrequest/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
         </div>
     </div>
     <div class='row'>

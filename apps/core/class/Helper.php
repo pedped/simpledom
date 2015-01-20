@@ -188,7 +188,7 @@ class Helper {
     }
 
     public static function GetTodayStartTime() {
-        return strtotime("12:00:00");
+        return strtotime("00:00:00");
     }
 
     public static function generateAjaxButton($id, $name, $link, $buttonStyle = "", $buttonClass = "btn btn-default", $onData = "") {

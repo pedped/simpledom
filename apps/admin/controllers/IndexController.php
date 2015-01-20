@@ -3,6 +3,7 @@
 namespace Simpledom\Admin\Controllers;
 
 use AppDownload;
+use AppEmailRequest;
 use BaseUser;
 use Bongah;
 use BongahSentMelk;
@@ -45,6 +46,12 @@ class IndexController extends IndexControllerBase {
 
         // load user phone
         $this->view->totalUserPhone = UserPhone::Count();
+
+        // load total app email request
+        $this->view->totalAppEmailRequest = AppEmailRequest::Count();
+        
+        // load total app email request
+        $this->view->totalAppEmailRequestToday = AppEmailRequest::Count(array("date >= :date:", "bind" => array("date" => Helper::GetTodayStartTime())));
 
         // Today User Phone
         $this->view->todayUserPhone = UserPhone::Count(array("date >= :date:", "bind" => array("date" => Helper::GetTodayStartTime())));

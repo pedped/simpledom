@@ -21,6 +21,14 @@ class IndexController extends IndexControllerBase {
         parent::indexAction();
         $cities = City::find(array("captial = 1", "order" => "name ASC"));
         $this->view->cities = $cities;
+
+
+        // load area for cities
+        $areas = array();
+        foreach ($cities as $city) {
+            $areas[$city->id] = Area::getHighestArea($city->id);
+        }
+        $this->view->cityAreas = $areas;
     }
 
     public function testAction() {

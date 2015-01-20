@@ -52,7 +52,7 @@ class Config {
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return false;
+        return true;
     }
 
     public static function GetDefaultSMSCreditOnBongahSignUp() {

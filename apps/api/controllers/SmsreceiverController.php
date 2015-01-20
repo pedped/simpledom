@@ -34,7 +34,7 @@ class SmsreceiverController extends BaseSmsreceiverController {
 
 
             // send message about receive mode
-            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", SmsNumber::findFirst()->id);
+            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", 3);
         }
     }
 
