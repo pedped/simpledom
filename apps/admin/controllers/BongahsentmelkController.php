@@ -74,10 +74,10 @@ class BongahSentMelkController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Bongah ID', 'Melk Phone Listner', 'Melk ID', 'Message', 'Date'
+                    'کد', 'کد بنگاه', 'نام بنگاه', 'کد دریافت کننده', 'شماره موبایل', 'کد ملک', 'پیام', 'تاریخ'
                 ))->
                 setFields(array(
-                    'id', 'bongahid', 'melkphonelistnerid', 'melkid', 'message', 'getDate()'
+                    'id', 'bongahid', 'getBongahName()', 'melkphonelistnerid', 'getPhoneNumber()', 'melkid', 'message', 'getDate()'
                 ))->
                 setEditUrl(
                         'edit'

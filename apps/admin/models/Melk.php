@@ -7,12 +7,10 @@ use Simpledom\Core\Classes\Helper;
 
 class Melk extends AtaModel {
 
-    
-    const  MELKSTATUS_AVAIBALE = 1;
-    const  MELKSTATUS_SOLDORRENT = 2;
-    const  MELKSTATUS_DELETEDBYSUBMITTER = -1;
-    const  MELKSTATUS_DELETEDBYADMIN = -2;
-
+    const MELKSTATUS_AVAIBALE = 1;
+    const MELKSTATUS_SOLDORRENT = 2;
+    const MELKSTATUS_DELETEDBYSUBMITTER = -1;
+    const MELKSTATUS_DELETEDBYADMIN = -2;
 
     public function getSource() {
         return 'melk';
@@ -772,10 +770,15 @@ class Melk extends AtaModel {
         return $result;
     }
 
-    public function getBongahResponse() {
+    public function getBongahResponse($userID) {
+
+
+        // get melk user
+        $user = User::findWithUserID($this->userid);
         $item = new stdClass();
 
         $item->id = $this->id;
+        $item->userid = $this->userid;
         $item->type = $this->getTypeName();
         $item->purpose = $this->getPurposeType();
         $item->header = $this->getTypeName() . " - " . $this->getPurposeType();
@@ -785,7 +788,38 @@ class Melk extends AtaModel {
         $item->area = $this->getInfo()->address;
         $item->description = $this->getInfo()->description;
         $item->tobesend = "true";
-        $item->privateaddress = $this->getInfo()->private_address;
+
+        // check for private information
+        if (intval($userID) == intval($this->userid)) {
+            // equal user
+            $item->privateaddress = $this->getInfo()->private_address;
+            $item->phone = $this->getInfo()->private_phone;
+            $item->mobile = $this->getInfo()->private_mobile;
+            $item->frombongahdar = true;
+            $bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+            $item->sendername = "مشاور املاک" . " " . $bongah->title;
+        } else {
+
+            // check if from malek or bongah dar
+            if ($user->isBongahDar()) {
+                // get bongah information
+                $bongah = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->userid)));
+                $item->privateaddress = $bongah->address;
+                $item->phone = $bongah->phone;
+                $item->mobile = $bongah->mobile;
+                $item->bongahtitle = $bongah->title;
+                $item->frombongahdar = true;
+                $item->sendername = "مشاور املاک" . " " . $bongah->title;
+            } else {
+                // get malek information, send full melk information
+                $item->privateaddress = $this->getInfo()->private_address;
+                $item->phone = $this->getInfo()->private_phone;
+                $item->mobile = $this->getInfo()->private_mobile;
+                $item->frombongahdar = false;
+                $item->sendername = "مالک";
+            }
+        }
+
 
         $item->saleprice = $this->sale_price;
         $item->ejare = $this->rent_price;
@@ -803,8 +837,6 @@ class Melk extends AtaModel {
         $item->bath = $this->bath;
         $item->zirbana = $this->home_size;
         $item->metraj = $this->lot_size;
-        $item->phone = $this->getInfo()->private_phone;
-        $item->mobile = $this->getInfo()->private_mobile;
         $item->unixdate = $this->date;
 
         // load images

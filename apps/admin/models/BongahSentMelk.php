@@ -136,5 +136,9 @@ class BongahSentMelk extends AtaModel {
     public function getPhoneNumber() {
         return MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $this->melkphonelistnerid)))->getPhoneNumber();
     }
+    
+    public function getBongahName(){
+        return Bongah::findFirst(array("id = :id:", "bind" => array("id" => $this->bongahid)))->title;
+    }
 
 }

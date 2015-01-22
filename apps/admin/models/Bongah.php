@@ -471,7 +471,10 @@ class Bongah extends AtaModel {
         $message .= "با تشکر";
         $message .= $this->title;
         $message .="\n";
+        $message .="شماره تماس:\n";
         $message .= $this->phone;
+        $message .="\n";
+        $message .= $this->mobile;
 
         // we have to send sms
         SMSManager::SendSMS($phonelistner->getPhoneNumber(), $message, SmsNumber::findFirst()->id);

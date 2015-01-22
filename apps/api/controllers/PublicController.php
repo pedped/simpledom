@@ -34,11 +34,8 @@ class PublicController extends ControllerBase {
     }
 
     public function trackintroAction() {
-
-        $deviceid = $this->request->getPost("deviceid");
-
         // we have to track user intro action
-        BaseSystemLog::CreateLogInfo("باز شدن برنامه اندروید", "صفحه اول برنامه اندروید باز شد" . ": $deviceid");
+        BaseSystemLog::CreateLogInfo("باز شدن برنامه اندروید", json_encode($_POST));
     }
 
     public function newnotificationAction() {
@@ -66,6 +63,19 @@ class PublicController extends ControllerBase {
     private function logError() {
         // log error
         BaseSystemLog::CreateLogWarning("خطا در ساخت بنگاه", implode(", ", $this->errors) . "\n\n\n" . json_encode($_POST));
+    }
+
+    public function onphoneregsitersendAction() {
+
+        // get mobile
+        $mobile = $this->request->getPost("phone");
+
+        // user want to signup
+        BaseSystemLog::CreateLogInfo("وارد نمودن موبایل جهت ثبت نام", intval($mobile));
+        
+        
+        // return value
+        return $this->getResponse(true);
     }
 
     public function registerbongahAction() {
@@ -157,7 +167,6 @@ class PublicController extends ControllerBase {
 
                 // send sms about add
                 //SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات شما برای بررسی به مسئولان سایت ارسال گردید، همکاران ما به زودی با شما تماس خواهند گرفت", SmsNumber::findFirst()->id);
-
                 // send sms to myself
                 SMSManager::SendSMS("09399477290", "بنگاه جدیدی توسط برنامه موبایل به عضویت در سایت درآمد", SmsNumber::findFirst()->id);
 

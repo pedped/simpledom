@@ -7,7 +7,6 @@ use EmailItems;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
 use SMSManager;
-use SmsNumber;
 
 class SmsreceiverController extends BaseSmsreceiverController {
 
@@ -34,7 +33,7 @@ class SmsreceiverController extends BaseSmsreceiverController {
 
 
             // send message about receive mode
-            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", 3);
+            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", 2);
         }
     }
 

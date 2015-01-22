@@ -42,6 +42,29 @@ class BongahController extends ControllerBase {
         $this->bongah = $this->user->getFirstBongah();
     }
 
+    public function allmelksAction() {
+
+        $start = (int) $_POST["start"];
+        $limit = (int) $_POST["limit"];
+
+        // find all city
+        $melks = Melk::find(
+                        array(
+                            'cityid = :cityid: AND status = 1 AND approved  = 1',
+                            'order' => 'id DESC',
+                            "limit" => $start . " , " . $limit,
+                            "bind" => array(
+                                "cityid" => $this->bongah->cityid
+                            )
+        ));
+
+        $items = array();
+        foreach ($melks as $melk) {
+            $items[] = $melk->getBongahResponse($this->user->userid);
+        }
+        return $this->getResponse($items);
+    }
+
     public function removemelkAction() {
         $id = $this->request->getPost("id");
 
@@ -371,7 +394,7 @@ class BongahController extends ControllerBase {
                     $result = new stdClass();
                     $result->totallistner = $melk->findApprochMelkPhoneListners()->count();
                     $result->melkid = $melk->id;
-                    $result->melkinfo = $melk->getBongahResponse();
+                    $result->melkinfo = $melk->getBongahResponse($this->user->userid);
                     return $this->getResponse($result);
                 }
             }
@@ -398,11 +421,12 @@ class BongahController extends ControllerBase {
             $itemIDs[] = (int) $value;
         }
 
+        $sentMessage = "";
 
         // we have to send melk info
         $bongah = $this->user->getFirstBongah();
         foreach ($itemIDs as $melkID) {
-            $bongah->sendMelkInfo($this->errors, $phoneListnerID, $melkID);
+            $bongah->sendMelkInfo($this->errors, $phoneListnerID, $melkID, $needToIncrease, $sentMessage);
             if (count($this->errors) > 0) {
                 // return false
                 return $this->getResponse(false);
@@ -410,7 +434,10 @@ class BongahController extends ControllerBase {
         }
 
         // success, we have to send user last sms credit
-        return $this->getResponse($this->user->getSMSCredit());
+        $result = new stdClass();
+        $result->message = $sentMessage;
+        $result->smscredit = $this->user->getSMSCredit();
+        return $this->getResponse($result);
     }
 
     public function getphonelistnerstatusAction() {
@@ -432,10 +459,6 @@ class BongahController extends ControllerBase {
 
     public function fetchmelkcanbesentAction($melkphonelistnerid) {
 
-        if (!$this->user->isBongahDar()) {
-            // return $this->getResponse("You are not bongah dar");
-        }
-
         // find phone listner
         $phonelistner = MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $melkphonelistnerid)));
         if (!$phonelistner) {
@@ -448,7 +471,7 @@ class BongahController extends ControllerBase {
         $melks = $phonelistner->findApprochMelk($this->user->getFirstBongah()->id);
         $items = array();
         foreach ($melks as $melk) {
-            $items[] = $melk->getBongahResponse();
+            $items[] = $melk->getBongahResponse($this->user->userid);
         }
         return $this->getResponse($items);
     }
@@ -469,6 +492,8 @@ class BongahController extends ControllerBase {
         $result->melks = $this->user->getFirstBongah()->getMelksCount();
         $result->bongahname = $this->bongah->title;
         $result->mobile = UserPhone::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->phone;
+        $result->showcitymelk = Config::ShowFullCityMelkInAndroid();
+        $result->cityname = $this->bongah->getCityName();
         return $this->getResponse($result);
     }
 
@@ -478,16 +503,10 @@ class BongahController extends ControllerBase {
      */
     public function getnewrequestAction() {
 
+        // log request
+        // BaseSystemLog::CreateLogInfo("درخواست مشتریان جدید", "درخواست مشتریان جدید برای بنگاه " . $this->bongah->title);
+
         $lastSeenID = (int) $_POST["lastid"];
-
-        //var_dump($this->user->fname);
-        // check if the user is bonagh dar
-        if (!$this->user->isBongahDar()) {
-            // return $this->getResponse("You are not bongah dar");
-        }
-
-        // get bongah
-        $bongah = $this->user->getFirstBongah();
 
         // find all city
         $melkphonelistners = MelkPhoneListner::find(
@@ -496,7 +515,7 @@ class BongahController extends ControllerBase {
                             'order' => 'id DESC',
                             "bind" => array(
                                 "id" => $lastSeenID,
-                                "cityid" => $bongah->cityid
+                                "cityid" => $this->bongah->cityid
                             )
         ));
 
@@ -569,7 +588,7 @@ class BongahController extends ControllerBase {
 
         $items = array();
         foreach ($melks as $melk) {
-            $items[] = $melk->getBongahResponse();
+            $items[] = $melk->getBongahResponse($this->user->userid);
         }
         return $this->getResponse($items);
     }

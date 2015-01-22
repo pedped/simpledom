@@ -43,7 +43,7 @@ class MelliPayamakSMSProvider extends SmsProviderSystem implements SMSProviderIn
         //ini_set("soap.wsdl_cache_enabled", "0");
 
         try {
-            $client = new SoapClient("http://api.payamak-panel.com/post/send.asmx?wsdl");
+            $client = new SoapClient("http://87.107.121.54/post/send.asmx?wsdl");
             $parameters['username'] = $this->parameters["username"];
             $parameters['password'] = $this->parameters["password"];
             $parameters['from'] = $fromnumber;

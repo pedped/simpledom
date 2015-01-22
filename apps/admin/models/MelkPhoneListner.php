@@ -351,7 +351,7 @@ class MelkPhoneListner extends AtaModel {
             $item->melkcountinfo = "<font color='#18b318'>" . "شما " . "<strong>" . $rateInfo->melkscansend . "</strong>" . " ملک مناسب این شخص دارید" . "</font>";
             // $item->melkcountinfo = "ملکی مناسب این مشتری یافت نگردید";
         } else {
-            $item->melkcountinfo = "ملکی مناسبی برای این مشتری یافت نگردید";
+            $item->melkcountinfo = "ملک مناسبی برای این مشتری یافت نگردید";
         }
         $item->tobesend = true;
 
