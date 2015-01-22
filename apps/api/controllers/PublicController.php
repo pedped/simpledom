@@ -52,8 +52,12 @@ class PublicController extends ControllerBase {
         // get new notfications
         $notification = MobileNotification::findFirst(array("releasedate >= :releasedate: AND enable = 1", "order" => "id DESC", "bind" => array("releasedate" => $lastvisit)));
         if (!$notification) {
-            // there is no new notification
-            return $this->getResponse(false);
+            // there is no new notification, check may be user has custom message
+            return $this->dispatcher->forward(array(
+                        "controller" => "user",
+                        "action" => "getnotification",
+                        "params" => array()
+            ));
         }
 
         // send notification
