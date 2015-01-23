@@ -259,6 +259,7 @@ class Bongah extends AtaModel {
     public $bongahsubscribeitemid;
     public $planvaliddate;
     public $visitedtutorial;
+    public $lastalive;
 
     public function getBongahsubscribeitemid() {
         return $this->bongahsubscribeitemid;

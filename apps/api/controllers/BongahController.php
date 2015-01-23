@@ -141,6 +141,7 @@ class BongahController extends ControllerBase {
 
         // get plans
         $plans = BongahSubscribeItem::find(array(
+                    "enable = 1",
                     "limit" => "$start , 100"
         ));
 
@@ -481,11 +482,6 @@ class BongahController extends ControllerBase {
      */
     public function getusercreditAction() {
 
-
-        if (!$this->user->isBongahDar()) {
-            // return $this->getResponse("You are not bongah dar");
-        }
-
         $result = new stdClass();
         $result->remaindays = $this->user->getFirstBongah()->getRemainingPlanDays();
         $result->smscredit = $this->user->getSMSCredit();
@@ -494,6 +490,7 @@ class BongahController extends ControllerBase {
         $result->mobile = UserPhone::findFirst(array("userid = :userid:", "bind" => array("userid" => $this->user->userid)))->phone;
         $result->showcitymelk = Config::ShowFullCityMelkInAndroid();
         $result->cityname = $this->bongah->getCityName();
+        $result->showstatusbox = Config::ShowAndroidStatusBox();
         return $this->getResponse($result);
     }
 
@@ -503,8 +500,9 @@ class BongahController extends ControllerBase {
      */
     public function getnewrequestAction() {
 
-        // log request
-        // BaseSystemLog::CreateLogInfo("درخواست مشتریان جدید", "درخواست مشتریان جدید برای بنگاه " . $this->bongah->title);
+        // save last alive
+        $this->bongah->lastalive = time();
+        $this->bongah->save();
 
         $lastSeenID = (int) $_POST["lastid"];
 
@@ -535,11 +533,9 @@ class BongahController extends ControllerBase {
         $start = (int) $_POST["start"];
         $limit = (int) $_POST["limit"];
 
-        //var_dump($this->user->fname);
-        // check if the user is bonagh dar
-        if (!$this->user->isBongahDar()) {
-            // return $this->getResponse("You are not bongah dar");
-        }
+        // save last alive
+        $this->bongah->lastalive = time();
+        $this->bongah->save();
 
         // get bongah
         $bongah = $this->user->getFirstBongah();

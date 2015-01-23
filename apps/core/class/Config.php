@@ -94,6 +94,10 @@ class Config {
     }
 
     public static function ShowFullCityMelkInAndroid() {
+        return false;
+    }
+
+    public static function ShowAndroidStatusBox() {
         return true;
     }
 
