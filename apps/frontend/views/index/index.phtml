@@ -3,13 +3,13 @@
         <?php echo $this->getContent() ?>
         <!-- For Large Screens !-->
         <div class="btn-group btn-group-lg hidden-sm hidden-xs" style="width: 100%">
-            <a href="<?php echo $this->url->get("melk/start"); ?>" class='btn btn-default index-large-button'><span class="fa fa-home"></span>&nbsp;اضافه کردن ملک </a>
+            <a href="<?php echo $this->url->get("melk/start"); ?>" class='btn btn-default index-large-button'><span class="fa fa-home"></span>&nbsp;افزودن ملک </a>
             <a href="<?php echo $this->url->get("requestmelk/add"); ?>" class='btn btn-default index-large-button'><span class="fa fa-phone"></span>&nbsp; درخواست ملک </a>
             <a href="<?php echo $this->url->get("bongah"); ?>" class='btn btn-default index-large-button' ><span class="fa fa-user"></span>&nbsp;پنل مشاوران املاک</a>
         </div>
         <!-- For Small Screens !-->
         <div class="visible-sm visible-xs hidden-lg hidden-md hidden-xl">
-            <!--<a href="<?php echo $this->url->get("melk/start"); ?>" class='btn btn-default btn-lg btn-block'><span class="fa fa-home"></span>&nbsp;اضافه کردن ملک </a>-->
+            <!--<a href="<?php echo $this->url->get("melk/start"); ?>" class='btn btn-default btn-lg btn-block'><span class="fa fa-home"></span>&nbsp;افزودن ملک </a>-->
             <a href="<?php echo $this->url->get("user/login"); ?>" class='btn btn-default btn-lg btn-block' ><span class="fa fa-sign-in"></span>&nbsp;ورود به سایت</a>
             <a href="<?php echo $this->url->get("bongah"); ?>" class='btn btn-default btn-lg btn-block' ><span class="fa fa-user"></span>&nbsp;پنل مشاوران املاک</a>
             <a href="<?php echo $this->url->get("requestmelk/add"); ?>" class='btn btn-default btn-lg  btn-block'><span class="fa fa-phone"></span>&nbsp; درخواست ملک </a>
@@ -21,16 +21,18 @@
         <div class='row cities-holder'>
             <?php foreach ($cities as $city): ?>            
                 <div class="col-md-3 col-sm-4 col-xs-6">
-                    <a class="cityname" href="<?php echo $this->url->get("$city->id" . "/" . "املاک-$city->name") . "/1"; ?>">املاک <?php echo $city->name; ?></a>
-                    <?php
-                    $areas = array();
-                    foreach ($cityAreas[$city->id] as $area) {
-                        $url = $this->url->get("منطقه" . "/" . $area->cityid . "/" . $area->id . "/" . "املاک-$city->name" );
-                        $areas[] = "<a href='" . $url . "'>$area->name ($area->total)</a>";
-                    }
-                    $areas = implode("-", $areas);
-                    ?>
-                    <p class="cityareas"><?php echo $areas; ?></p>
+                    <div class="home-city-holder"> 
+                        <a class="cityname" href="<?php echo $this->url->get("$city->id" . "/" . "املاک-$city->name") . "/1"; ?>">املاک <?php echo $city->name; ?></a>
+                        <?php
+                        $areas = array();
+                        foreach ($cityAreas[$city->id] as $area) {
+                            $url = $this->url->get("منطقه" . "/" . $area->cityid . "/" . $area->id . "/" . "املاک-$city->name");
+                            $areas[] = "<a href='" . $url . "'>$area->name ($area->total)</a>";
+                        }
+                        $areas = implode("-", $areas);
+                        ?>
+                        <p class="cityareas"><?php echo $areas; ?></p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>

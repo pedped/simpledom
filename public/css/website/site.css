@@ -242,9 +242,12 @@ body{
 
 
 .cities-holder a{
-    color : #331098;
+    color: #3B3B3B;
     text-decoration: none;
+    font-family: naskh;
+    font-size: 21px;
 }
+
 .cities-holder a:hover{
     color: #561BFA;
 }
@@ -253,6 +256,7 @@ body{
 .cities-holder .cityareas a{
     font-size: 14px;
     color : #555;
+    font-family: yekan;
 }
 
 .melk-quick-info dt{
@@ -269,7 +273,7 @@ body{
 }
 
 .navbar-brand img{
-    background-color: #D50B95 !important;
+    background-color: #D50B0B !important;
     padding: 10px 10px 8px 10px;
     width: 100px;
 }
@@ -277,21 +281,21 @@ body{
 .index-large-button {
     width: 33.3333% !important;
     padding: 15px !important;
-    font-size: 28px !important;
-    font-family: yekan !important;
-    color: #880699;
+    font-size: 20px !important;
+    font-family: naskh !important;
+    color: #D50B0B;
 }
 
 .footer .head {
     font-size: 25px !important;
-    color: #D223A8 !important;
+    color: #D50B0B !important;
     font-weight: normal !important;
     text-transform: uppercase !important;
 }
 
 
 footer {
-    border-top: 2px solid #F000E4 !important;
+    border-top: 2px solid #D50B0B !important;
     background-color: #FFFFFF !important;
 }
 
@@ -310,9 +314,10 @@ footer .form-control {
 }
 
 footer .btn {
-    background-color: #DA19C1  !important;
+    background-color: #D50B0B !important;
     color: #fff !important;
-    border-color: #D7169A  !important;
+    border-color: #A70000 !important;
+
 }
 
 .panel-primary > .panel-heading {
@@ -334,7 +339,7 @@ footer .btn {
 
 .search-result-list th {
     color: #fff;
-    background-color: #B242CA !important;
+    background-color: #EF2C7D !important;
     font-weight: normal;
     text-align: center;
 }
@@ -348,6 +353,8 @@ footer .btn {
 #page-container-body {
     padding-bottom: 0px;
 }
+
+
 
 
 .bongah-info
@@ -670,7 +677,13 @@ footer .btn {
     font-size: 16px !important;
 }
 .navbar-default .navbar-nav > li > a {
-    color: #424242;
+    color: #fff;
+    font-family: naskh;
+}
+
+.navbar-inverse{
+    background-color: #3B3B3B;
+    border-bottom: 3px solid #D50B0B;
 }
 
 .bongah-title-holder{
