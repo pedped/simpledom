@@ -12,16 +12,7 @@ class UserController extends ControllerBase {
     }
 
     public function getnotificationAction() {
-
-        // get last visit
-        $lastvisit = $this->request->getPost("lastvisit");
-
-        // check for last visit
-        if (!isset($lastvisit) || strlen($lastvisit) == 0) {
-            // return $this->getResponse(false);
-            $lastvisit = 0;
-        }
-
+        
         // get new notfications
         $notification = UserNotification::findFirst(array("userid = :userid: AND enable = 1 AND visited = '0'", "order" => "id ASC", "bind" => array("userid" => $this->user->userid)));
         if (!$notification) {

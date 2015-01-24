@@ -42,6 +42,15 @@ class BongahController extends ControllerBase {
         $this->bongah = $this->user->getFirstBongah();
     }
 
+    public function melkviewAction() {
+
+        $melkid = (int) $_POST["melkid"];
+        $fromcitylist = (int) $_POST["fromcitylist"];
+
+        // create log
+        \BaseSystemLog::CreateLogInfo("مشاهده ملک", "ملک شماره $melkid  توسط بنگاه" . " " . $this->bongah->id . " دیده شد");
+    }
+
     public function allmelksAction() {
 
         $start = (int) $_POST["start"];

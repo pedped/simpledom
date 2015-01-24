@@ -257,6 +257,7 @@ class MelkPhoneListner extends AtaModel {
      * @var string
      */
     public $cityid;
+    public $stateid;
 
     /**
      * Set City ID
@@ -304,6 +305,9 @@ class MelkPhoneListner extends AtaModel {
             $this->sale_price_start = "-1";
             $this->sale_price_end = "-1";
         }
+
+        // find state id
+        $this->stateid = City::findFirst(array("id = :id:", "bind" => array("id" => $this->cityid)))->stateid;
     }
 
     public function beforeValidationOnSave() {

@@ -60,7 +60,7 @@ class Config {
     }
 
     public static function GetBongahFreeDate() {
-        return 7;
+        return 30;
     }
 
     public static function inStartCities($cityID) {
@@ -82,7 +82,7 @@ class Config {
     }
 
     public static function GetAndroidDownloadLink() {
-        return "http://amlak.edspace.org/app/file/v1_1/AmlakGostarApp.apk";
+        return "http://amlak.edspace.org/app/file/v1_2/AmlakGostarApp.apk";
     }
 
     public static function GetAndroidDownloadLinkWithCounter() {
@@ -98,7 +98,7 @@ class Config {
     }
 
     public static function ShowAndroidStatusBox() {
-        return true;
+        return false;
     }
 
 }

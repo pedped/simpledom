@@ -317,6 +317,7 @@ class Bongah extends AtaModel {
         $this->enable = "-1"; // wait for approve
         $this->bongahsubscribeitemid = "0";
         $this->visitedtutorial = "0";
+        $this->peygiri = "111";
     }
 
     public function getPublicResponse() {
