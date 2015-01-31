@@ -10,107 +10,193 @@
 
 </script>    
 <form method="post">
-    <div class="panel panel-default" style="box-shadow: 0px 0px 6px #D0BFBF;">
-        <div class="panel-heading">
-            <h1 class="panel-title"><span class="glyphicon glyphicon-search"></span>جستجو در املاک <?php echo $cityName; ?></h1>
-        </div>
-        <div class="panel-body">
-            <div class='col-md-12'>
-                <div  class='row hidden'>
-                    <div class='col-md-6'>
-                        <?php $form->renderDecorated('stateid'); ?> 
+
+
+    <div class='row'>
+        <!-- Right Panel !-->
+        <div class='col-md-3'>
+            <div>
+                <!-- Search Box !-->
+                <div class="panel panel-default melklist-search-box">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-search"></span>جستجو در املاک <?php echo $cityName; ?></h3>
                     </div>
-                    <div class='col-md-6'>
-                        <?php $form->renderDecorated('cityid'); ?> 
+                    <div class="panel-body">
+
+                        <!-- State City !-->
+                        <div class='row'>
+                            <div class='col-md-6 col-xs-6'>
+                                <?php $form->renderElement('stateid'); ?> 
+                            </div>
+                            <div class='col-md-6  col-xs-6'>
+                                <?php $form->renderElement('cityid'); ?>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='col-md-12  col-xs-6'>
+                                <div data-colname="melktypeid" >
+                                    <?php $form->renderElement('melktypeid'); ?> 
+                                </div>
+                            </div>
+                            <div class='col-md-12 col-xs-6'>
+                                <div data-colname="melkpurposeid" >
+                                    <?php $form->renderElement('melkpurposeid'); ?> 
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div data-colname="bedroom_range">
+                            <?php $form->renderDecorated('bedroom_range'); ?>
+                        </div>
+                        <div data-colname="sale_range">
+                            <?php $form->renderDecorated('sale_range'); ?> 
+                        </div>
+                        <div data-colname="rahn_range">
+                            <?php $form->renderDecorated('rahn_range'); ?> 
+                        </div>
+                        <div data-colname="ejare_range">
+                            <?php $form->renderDecorated('ejare_range'); ?> 
+                        </div>
+                        <?php $form->renderDecorated('submit'); ?> 
                     </div>
                 </div>
-                <hr class="hidden"/>
-                <div class='row'>
-                    <div class='row'>
-                        <div class='col-md-6 col-xs-12 col-sm-12'>
+
+                <!-- Advertise !-->
+                <?php if (count($cityBanner) > 0) : ?>
+                    <div class="panel panel-default hidden-xs hidden-sm">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">تبلیغات</h3>
+                        </div>
+                        <div class="panel-body city-banner-holder">
                             <div class='row'>
-
-                                <!-- Melk Type And Purpose -->
-                                <div class="col-md-12">
-                                    <div class='row'>
-                                        <div class='col-md-6'>
-                                            <div data-colname="melktypeid" >
-                                                <?php $form->renderDecorated('melktypeid'); ?> 
-                                            </div>
-                                        </div>
-                                        <div class='col-md-6'>
-                                            <div data-colname="melkpurposeid" >
-                                                <?php $form->renderDecorated('melkpurposeid'); ?> 
+                                <?php foreach ($cityBanner as $item) : ?>
+                                    <div class='col-md-12 center'>
+                                        <div class="thumbnail city-banner-item">
+                                            <div>
+                                                <p class="title">مشاور املاک <?php echo $item->getUser()->getFirstBongah()->title; ?></p>
+                                                <p class="description">مشاور املاک مناطق <?php echo $item->getUser()->getFirstBongah()->getSupporrtedLocationsNameAsString(); ?></p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Range Infos !-->
-                                <div data-colname="bedroom_range" class='col-md-12'>
-                                    <?php $form->renderDecorated('bedroom_range'); ?>
-                                </div>
-
-                                <div data-colname="sale_range" class='col-md-12'>
-                                    <?php $form->renderDecorated('sale_range'); ?> 
-                                </div>
-
-                                <div data-colname="rahn_range" class='col-md-12'>
-                                    <?php $form->renderDecorated('rahn_range'); ?> 
-                                </div>
-
-                                <div data-colname="ejare_range" class='col-md-12'>
-                                    <?php $form->renderDecorated('ejare_range'); ?> 
-                                </div>
-
-                                <div  class='col-md-12'>
-                                    <?php //$form->renderDecorated('address'); ?> 
-                                </div>
-
-
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                        <div class='col-md-3'>
-
+                        <div class="panel-footer">
+                            <p class="center" style="margin-bottom: 0px;">
+                                <a href="<?php echo $this->url->get("bongahbanneradvert/plans"); ?>">سفارش تبلیغ</a>
+                            </p>
                         </div>
                     </div>
+                <?php endif; ?>
 
+
+                <!-- Tag Cloud !-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">لینک های مفید</h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php echo $tagCloud; ?>
+                    </div>
                 </div>
             </div>
+
         </div>
-        <div class="panel-footer search-footer">
-            <div class='row'>
-                <div class='col-md-3'>
-                    <?php $form->renderDecorated('submit'); ?> 
-                </div>
-            </div>
-        </div>
-        <?php if (isset($showMobileForm)) : ?>
-            <div class='row'>
-                <div class='col-md-12'>
-                    <div class="melk-subscribe-phone">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <p style="margin-top: 6px;margin-bottom: 0;"><span class="fa fa-mobile"></span> شماره تماس خود را وارد نمایید تا املاک جدید مطابق با جستجوی شما به رایگان توسط پیامک برای شما ارسال گردد</p>
-                            </div>
-                            <div class="col-md-4 melk-view-subscribe-box">
-                                <div class="input-group">
-                                    <input type="text" name="subscribephone" class="form-control" placeholder="شماره موبایل">
-                                    <div class="input-group-btn">
-                                        <input type="submit" name="search" class="btn btn-primary" value="دریافت">
+        <!-- Box !-->
+        <div class='col-md-9'>
+
+            <!-- Request Phone Subscribe !-->
+            <?php if (isset($showMobileForm)) : ?>
+                <div class="panel panel-default fixme">
+                    <div class="panel-body melk-subscribe-phone">
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="row holder">
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <div class="media">
+                                            <span class="fa fa-mobile media-object pull-right" style="font-size: 60px;"></span>
+                                            <div class="media-body">
+                                                <p style="margin-top: 6px;margin-bottom: 0;"> شماره تماس خود را وارد نمایید تا املاک جدید مطابق با جستجوی شما به رایگان توسط پیامک برای شما ارسال گردد</p>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-md-4 col-sm-4  col-xs-12 melk-view-subscribe-box">
+                                        <div class="input-group">
+                                            <input type="text" name="subscribephone" class="form-control" placeholder="شماره موبایل">
+                                            <div class="input-group-btn">
+                                                <input type="submit" name="search" class="btn btn-primary" value="دریافت">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom: 0px;">
+                    <h3 class="panel-title"> 
+                        <span class="pull-right">املاک موجود</span>
+                        <!-- Check For Tyoe !-->
+                        <?php if ($viewType == "grid") : ?>
+                            <a><span class="fa fa-list pull-left disabled melk-view-icon" data-type="list"></span></a>
+                            <a><span class="fa fa-image pull-left melk-view-icon" data-type="grid"></span></a>
+                        <?php else : ?>
+                            <a><span class="fa fa-list pull-left  melk-view-icon" data-type="list"></span></a>
+                            <a><span class="fa fa-image pull-left disabled melk-view-icon" data-type="grid"></span></a>
+                        <?php endif; ?>
+                        <div class="clearfix"></div> 
+                    </h3>
+                </div>
+                <div class="panel-body" style="padding: 0px;">
+                    <div class='search-result-list'>
+
+                        <!-- Check For Tyoe !-->
+                        <?php if ($viewType == "grid") : ?>
+
+                            <!-- Grid Items !-->
+                            <div style="padding: 15px;">
+                                <div class='row'>
+                                    <?php foreach ($list->items as $melk) : ?>
+                                        <a style="color: inherit;" href="<?php echo $this->url->get("melk/view/$melk->id"); ?>">
+                                            <div class='col-md-4'>
+                                                <div class="thumbnail melk-item" data-toggle="popover"  data-trigger="hover"  title="اطلاعات ملک" data-content="<?php echo $melk->getQuickInfo(); ?>">
+                                                    <div class="media">
+                                                        <div class="media-object pull-left">
+                                                            <img class="image" src="<?php echo $melk->getImageLink(); ?>"><br/>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h4 class="title media-heading"><?php echo $melk->getPurposeType(); ?>&nbsp;<?php echo $melk->getTypeName(); ?></h4>
+                                                            <p class="blvd oneline"><?php echo $melk->getBlvd(); ?></p>
+                                                            <p class="time timeago" data-time="<?php echo $melk->date; ?>"><?php echo $melk->getSimpleDate(); ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-                        </div>  
+
+                            <!-- Paginator !-->
+                            <?php
+                            echo $list->footer;
+                            ?>
+                        <?php else : ?>
+                            <?php
+                            echo $list->table;
+                            echo $list->footer;
+                            ?>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
-        <div class='search-result-list'>
-            <?php
-            echo $list->table;
-            echo $list->footer;
-            ?>
         </div>
     </div>
 </form>
@@ -279,4 +365,87 @@
 
     $('#ui-slider-handle').draggable();
 
+    $(".melk-view-icon").click(function() {
+        var type = $(this).data("type");
+    });
+
+</script>
+
+
+<script>
+
+
+    $(function() {
+        function formatDate(dates) {
+            dates.each(function() {
+                //get date
+                formattedDate = $(this).data('time');
+
+                //format it
+                moment.locale('fa');
+                var d = new moment(new Date(formattedDate * 1000));
+                
+                //replace it
+                $(this).html(d.fromNow());
+            });
+        }
+        ;
+
+        formatDate($('.timeago'));
+    });
+
+
+    function insertParam(key, value)
+    {
+        key = encodeURI(key);
+        value = encodeURI(value);
+
+        var s = document.location.search;
+        var kvp = key + "=" + value;
+
+        var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
+
+        s = s.replace(r, "$1" + kvp);
+
+        if (!RegExp.$1) {
+            s += (s.length > 0 ? '&' : '?') + kvp;
+        }
+        ;
+
+        //again, do what you will here
+        document.location.search = s;
+    }
+
+    $(".melk-view-icon").click(function() {
+        var type = $(this).data("type");
+        insertParam("melkviewtype", type);
+    });
+
+
+    $('.melk-item').popover({
+        container: "body"
+    });
+
+
+
+
+//    $('.affixitem').affix({
+//        offset: {
+//            top: 100,
+//            bottom: function() {
+//                return (this.bottom = $('footer').outerHeight(true));
+//            }
+//        }
+//    });
+//
+//
+//    var fixmeTop = $('.fixme').offset().top;
+//    $(window).scroll(function() {
+//        var currentScroll = $(window).scrollTop();
+//        if (currentScroll >= fixmeTop) {
+//            $('.fixme').addClass('fixed-search-bar');
+//        } else {
+//            $('.fixme').removeClass('fixed-search-bar');
+//        }
+//    });
 </script>

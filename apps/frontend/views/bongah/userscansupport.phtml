@@ -27,7 +27,7 @@
         </tr>
         <?php foreach ($list->items as $item) : ?>
             <?php $melkscanbesent = $item->findApprochMelkCountByBongah(); ?>
-            <?php $receivedCount = $item->getReceivedCount(); ?>
+            <?php $receivedCount = $item->getReceivedCountByBongah(); ?>
             <tr style="cursor: pointer;" onclick="location.href = '<?php echo $this->url->get("bongah/approchmelks/$item->id"); ?>'" <?= $receivedCount > 0 ? "class='success'" : "" ?> >
                 <td>
                     <?php echo $item->id; ?>

@@ -1,0 +1,56 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View PurchasedBanner</h2>
+                                                <p class='panel-subtitle'Use this form to edit your PurchasedBanner</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderInfo('userid'); ?> 
+
+                                <!--  ADD Valid Until !-->
+                                <?php $form->renderInfo('validuntil'); ?> 
+
+                                <!--  ADD Order ID !-->
+                                <?php $form->renderInfo('orderid'); ?> 
+
+                                <!--  ADD Advert ID !-->
+                                <?php $form->renderInfo('advertid'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderInfo('cityid'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+                                <!--  ADD Image ID !-->
+                                <?php $form->renderInfo('imageid'); ?> 
+
+                                <!--  ADD Banner Type !-->
+                                <?php $form->renderInfo('banner_type'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

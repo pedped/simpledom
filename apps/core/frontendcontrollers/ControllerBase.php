@@ -5,10 +5,11 @@ namespace Simpledom\Frontend\BaseControllers;
 use AtaController;
 use BaseTrack;
 use Page;
-use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
 use Settings;
+use Simpledom\Core\Classes\Config;
+use stdClass;
 use User;
 
 abstract class ControllerBase extends AtaController {
@@ -84,6 +85,18 @@ abstract class ControllerBase extends AtaController {
     }
 
     /**
+     * Add New Breadcrump page
+     * @param type $title
+     * @param type $link
+     */
+    public function AddBreadcrumb($title, $link) {
+        $item = new stdClass();
+        $item->title = $title;
+        $item->link = $link;
+        $this->breadcrumb[] = $item; 
+    }
+
+    /**
      * show 404 not page for current view
      */
     public function show404() {
@@ -111,8 +124,6 @@ abstract class ControllerBase extends AtaController {
 //                ->addFilter(new Jsmin())
 //                ->setTargetPath($publicFolderDirectory . 'production/cssfile.css')
 //                ->setTargetUri('production/cssfile.css');
-
-
         //Javascripts in the footer
         $this->assets
                 ->collection('footer')
@@ -123,8 +134,6 @@ abstract class ControllerBase extends AtaController {
 //                ->addFilter(new Jsmin())
 //                ->setTargetPath($publicFolderDirectory . 'production/jsfiles.js')
 //                ->setTargetUri('production/jsfiles.js');
-
-
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
@@ -181,6 +190,9 @@ abstract class ControllerBase extends AtaController {
 
         // save the action
         $action->create();
+
+        // add default page
+        $this->AddBreadcrumb("خانه", Config::getPublicUrl());
     }
 
 }

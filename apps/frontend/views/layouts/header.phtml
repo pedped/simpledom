@@ -2,10 +2,10 @@
 
 use Phalcon\Text;
 ?>
-<nav class="navbar navbar-default navbar-inverse  navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-master" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header"> 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only"><?= _("Toggle navigation"); ?></span>
                 <span class="icon-bar"></span>
@@ -20,18 +20,18 @@ use Phalcon\Text;
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-
-                <!-- Bongah Menu !-->
-                <?php if (isset($user) && $user->isBongahDar()) : ?>
-                    <li class="menu-bongah-header hidden-xs hidden-sm"><a href="<?php echo $this->url->get("bongah/home"); ?>"><span class="fa fa-home"></span>پنل مشاوران املاک</a></li>
-                <?php endif; ?>
-
                 <!--<li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("opinion"); ?>"><span class="fa fa-comment"></span><?= _("OPINIONS"); ?></a></li>-->
-                <li><a href="<?php echo $this->url->get("melk/start"); ?>"><span class="fa fa-plus"></span>افزودن ملک</a></li>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
                 <?php endforeach; ?>
             </ul>
+
+
+            <div class="navbar-form navbar-right">
+                <a href="<?php echo $this->url->get("melk/start"); ?>" class="btn btn-success header-add-melk-button" class="btn btn-default">درج رایگان آگهی</a>
+            </div>
+
+
             <div class="navbar-form navbar-<?= !$websiteSettings->rtl ? "left" : "right" ?>" role="search" action="<?php echo $this->url->get("search/request/1/all/") ?>" method="get">
                 <div class="form-group">
                     <input name="query" id='gotomelk' type="text" class="form-control" placeholder="کد ملک">
@@ -57,18 +57,50 @@ use Phalcon\Text;
                     </li>
                     <li><a style="padding: 0px;" href="<?php echo $this->url->get("user/edit"); ?>"><img src="<?php echo $this->session->get("imagelink"); ?>"  class="img _header-profile-image" /></a></li>
                 <?php else: ?>
-                    <li class="header-login-button"><a  href="<?php echo $this->url->get("user/login") ?>"><?= _("Login"); ?></a></li>
-                    <li><a href="<?php echo $this->url->get("user/register") ?>"><?= _("Register"); ?></a></li>
-                <?php endif; ?>
+                    <li class="header-login-button hidden-lg hidden-xl hidden-md visible-sm visible-xs"><a  href="<?php echo $this->url->get("user/login") ?>"><?= _("Login"); ?></a></li>
+                    <li class="hidden-lg hidden-xl hidden-md visible-sm visible-xs"><a  href="<?php echo $this->url->get("user/register") ?>"><?= _("Register"); ?></a></li>
+                <?php endif; ?> 
             </ul>
             <!-- FAQ - CONTACT US !-->
             <ul class="nav navbar-nav navbar-<?= $websiteSettings->rtl ? "left" : "right" ?>">
-                <li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("contact"); ?>"><span class="fa fa-phone"></span><?= _("CONTACT US"); ?></a></li>
+                <li ><a href="<?php echo $this->url->get("contact"); ?>"><span class="fa fa-phone"></span><?= _("CONTACT US"); ?></a></li>
                 <!--<li class='hidden-sm hidden-md'><a href="<?php echo $this->url->get("faq"); ?>"><?= _("FAQ"); ?></a></li>-->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<nav class="navbar navbar-default navbar-secound hidden-sm hidden-xs " role="navigation">
+    <div class="container">
+
+        <!-- breadcrumb !-->
+        <ul class="nav navbar-nav navbar-righ">
+            <?php echo $MasterBreadcrumb; ?>
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-left">
+            <!-- Android APP !-->
+            <li><a href="<?php echo $this->url->get("index/bongahmobileapp") ?>"><span style="display: inline;padding-left: 4px;"  class="fa fa-android"></span> برنامه اندروید مشاوران املاک</a></li>
+
+            <!-- Login !-->
+            <?php if (!$this->session->has("userid")) : ?>
+                <li class="header-login-button"><a  href="<?php echo $this->url->get("user/login") ?>"><?= _("Login"); ?></a></li>
+            <?php endif; ?>
+
+            <!-- Register !-->
+            <?php if (isset($user) && $user->isBongahDar()) : ?>
+                <li><a href="<?php echo $this->url->get("bongah/home"); ?>"><span class="fa fa-home"></span>پنل مشاوران املاک</a></li>
+                <?php else : ?>
+                <li><a href="<?php echo $this->url->get("bongah") ?>">ثبت نام مشاوران املاک</a></li>
+            <?php endif; ?>
+
+        </ul>
+
+    </div>
+</nav>
+
+
+
 <script>
     $("#search_melk_btn").click(function() {
         var value = $("#gotomelk").val();

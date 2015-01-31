@@ -65,9 +65,8 @@ class IndexController extends IndexControllerBase {
         $appDownload->userid = isset($this->user) ? $this->user->userid : null;
         $appDownload->create();
 
-
         // now we have to redirect user to download page
-        Helper::RedirectToURL(Config::GetAndroidDownloadLink());
+        Helper::RedirectToURL(Config::GetGooglePlayLink());
         die();
     }
 

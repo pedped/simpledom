@@ -65,7 +65,6 @@ class Config {
 
     public static function inStartCities($cityID) {
         return in_array($cityID, array(
-            60
         ));
     }
 
@@ -99,6 +98,122 @@ class Config {
 
     public static function ShowAndroidStatusBox() {
         return false;
+    }
+
+    public static function TotalBannerCanSupportInCityList() {
+        return 4;
+    }
+
+    public static function GetGooglePlayLink() {
+        return "https://play.google.com/store/apps/details?id=com.ataalla.amlakgostar";
+    }
+
+    public static function GetAmlakBreadcrump($cityID, $cityName) {
+        return self::getPublicUrl() . "$cityID" . "/" . ("املاک-" . $cityName) . "/1";
+    }
+
+    public static function GetAmlakBreadcrumpWithType($cityID, $cityName, $MelkTypeName) {
+        return self::getPublicUrl() . "$cityID" . "/" . ("املاک-" . $cityName) . "/" . self::replaceMelkTypeToEnglish($MelkTypeName) . "/1";
+    }
+
+    public static function GetAmlakBreadcrumpWithPurpose($cityID, $cityName, $MelkTypeName, $MelkPurpose) {
+        return self::getPublicUrl() . "$cityID" . "/" . ("املاک-" . $cityName) . "/" . self::replaceMelkTypeToEnglish($MelkTypeName) . "/" . self::replaceMelkPurposeToEnglish($MelkPurpose) . "/1";
+    }
+
+    public static function replaceMelkPurposeToEnglish($MelkPurpose) {
+        // replace some text
+        $MelkPurpose = str_replace("فروش", "sale", $MelkPurpose);
+        $MelkPurpose = str_replace("رهن و اجاره", "rent", $MelkPurpose);
+        return $MelkPurpose;
+    }
+
+    public static function replaceMelkTypeToEnglish($MelkTypeName) {
+
+        $MelkTypeName = str_replace("آپارتمان", "apartment", $MelkTypeName);
+        $MelkTypeName = str_replace("خانه", "home", $MelkTypeName);
+        $MelkTypeName = str_replace("ویلا", "villa", $MelkTypeName);
+        $MelkTypeName = str_replace("زمین", "land", $MelkTypeName);
+        $MelkTypeName = str_replace("اتاق کار", "office-room", $MelkTypeName);
+        $MelkTypeName = str_replace("دفتر کار", "office", $MelkTypeName);
+        return $MelkTypeName;
+    }
+
+    public static function GetMelkTypeIDByEnglishName($requestedMelkType) {
+        switch ($requestedMelkType) {
+            case "apartment":
+                return 2;
+            case "home":
+                return 1;
+            case "villa":
+                return 4;
+            case "land":
+                return 5;
+            case "office-room":
+                return 6;
+            case "office":
+                return 3;
+        }
+    }
+
+    public static function GetMelkPurposeIDByEnglishName($requestedMelkPurpose) {
+        switch ($requestedMelkPurpose) {
+            case "sale":
+                return 1;
+            case "rent":
+                return 2;
+        }
+    }
+
+    public static function GetMelkTypeNameEnglishByID($typeIndex) {
+        switch ($typeIndex) {
+            case 2:
+                return "apartment";
+            case 1 :
+                return "home";
+            case 4 :
+                return "villa";
+            case 5 :
+                return "land";
+            case 6 :
+                return "office-room";
+            case 3 :
+                return "office";
+        }
+    }
+
+    public static function GetMelkPurposeNameEnglishByID($purposeIndex) {
+        switch ($purposeIndex) {
+            case 1 :
+                return "sale";
+            case 2:
+                return "rent";
+        }
+    }
+
+    public static function GetMelkTypeNameByID($typeIndex) {
+        switch ($typeIndex) {
+            case 2:
+                return "آپارتمان";
+            case 1 :
+                return "خانه";
+            case 4 :
+                return "ویلا";
+            case 5 :
+                return "زمین";
+            case 6 :
+                return "اتاق کار";
+            case 3 :
+                return "دفتر کار";
+        }
+    }
+
+    public static function GetMelkPurposeNameByID($purposeIndex) {
+        switch ($purposeIndex) {
+            case 1 :
+                return "فروش";
+            case 2:
+                return "رهن و اجاره";
+        }
     }
 
 }

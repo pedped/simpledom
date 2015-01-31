@@ -3,8 +3,13 @@
     <p class="bongah-melk-count-info pull-left btn btn-default disabled"><span style="font-weight: bold;color: red"><?php echo $totalMelks; ?></span> ملک</p>
 </blockquote>
 <hr/>
-<?php
-echo $list->header;
-echo $list->table;
-echo $list->footer;
-?>
+
+<?php if (count($list->items) > 0) : ?>
+    <?php
+    echo $list->header;
+    echo $list->table;
+    echo $list->footer;
+    ?>
+<?php else : ?>
+    <h3 class='center'>شما تاکنون ملکی به مشاور املاک خود اضافه نکرده اید</h3>
+<?php endif; ?>

@@ -684,9 +684,11 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             return false;
         } else {
 
-            // user created in database, we have to generate 
-            $email = new EmailItems();
-            $email->sendRegsiterNotification($this->userid, $this->getFullName(), $this->email, $this->verifycode);
+            if ($sendverifymessage == TRUE) {
+                // user created in database, we have to generate 
+                $email = new EmailItems();
+                $email->sendRegsiterNotification($this->userid, $this->getFullName(), $this->email, $this->verifycode);
+            }
 
             // check if user has entered an not exist phone, add the phone
             // to the user phones and send sms to user

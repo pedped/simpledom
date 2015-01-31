@@ -545,6 +545,16 @@ class MelkPhoneListner extends AtaModel {
         return BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid:", "bind" => array("melkphonelistnerid" => $this->id)));
     }
 
+    public function getReceivedCountByBongah($bongahid = null) {
+        if (!isset($bongahid)) {
+            $bongahid = Bongah::findFirst(array("userid = :userid:", "bind" => array("userid" => $_SESSION["userid"])))->id;
+        }
+        return BongahSentMelk::count(array("melkphonelistnerid = :melkphonelistnerid: AND bongahid = :bongahid:", "bind" => array(
+                        "melkphonelistnerid" => $this->id,
+                        "bongahid" => $bongahid,
+        )));
+    }
+
     public function findApprochMelkCount() {
         return $this->findApprochMelk()->count();
     }

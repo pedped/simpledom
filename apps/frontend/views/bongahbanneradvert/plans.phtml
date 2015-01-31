@@ -1,0 +1,78 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-12'>
+        <div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">شهر خود را انتخاب نمایید</h3>
+                </div>
+                <div class="panel-body">
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('stateid'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <?php $form->renderDecorated('cityid'); ?> 
+                        </div>
+                    </div>
+                    <div>
+                        <div class='row center'>
+                            <div class='col-md-12'>
+                                <div class="btn btn-primary" style="margin-top: 15px;">انتخاب</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result !-->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <?php if ($state == 1) : ?>
+                        <!-- Choose City First !-->
+                        <p style="font-family: naskh;margin-top: 10px;font-size: 120%;" class="center">ابتدا شهر خود را انتخاب نمایید</p>
+                    <?php elseif ($state == 2) : ?>
+                        <!-- We have available city package !-->
+
+                        <!-- Check For Current Purchased !-->
+                        <?php if (count($currentPurchasedPackages) > 0) : ?>
+                            <blockquote>
+                                <h3>
+                                    تبلیغات در حال نمایش در شهر انتخابی
+                                </h3>
+                                <ul>
+                                    <?php foreach ($currentPurchasedPackages as $item) : ?>
+                                        <li>
+                                            <h4>
+                                                <?php echo $item->getUser()->getFirstBongah()->title; ?>
+                                            </h4>
+                                            <p><?php echo $item->getUser()->getFullName(); ?> - <?php echo $item->getUser()->getFirstBongah()->address; ?></p> 
+                                            <p>تاریخ انقضای تبلیغ: <?php echo $item->getEndDay(); ?></p>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+
+                            </blockquote>
+                        <?php endif; ?>
+                        <!-- Plans !-->
+                        <?php echo $plans; ?>
+                        <hr/>
+                        <!-- Contacts !-->
+                        <div class="alert alert-info">
+                            در صورتی که در انتخاب پلان مورد دلخواه خود نیاز به توضیحات تکمیلی دارید، لطفا با شماره<?php echo $websiteSettings->contactphone; ?>  تماس حاصل فرمایید
+                        </div>
+                    <?php elseif ($state == 3) : ?>
+                        <p style="font-family: naskh;margin-top: 10px;font-size: 120%;color: red" class="center">متاسفانه تمامی تبلیغات اکنون رزرو شده است.</p>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

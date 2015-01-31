@@ -130,27 +130,6 @@ try {
     }, true);
 
 
-
-    //Define a route
-    $di['router']->add("/([0-9]+)/{cityname}/:params", array(
-        "controller" => "melk",
-        "action" => "list",
-        "cityid" => 1,
-        "params" => 3
-            )
-    );
-    $di['router']->add("/منطقه/([0-9]+)/([0-9]+)/{cityname}/:params", array(
-        "controller" => "melk",
-        "action" => "list",
-        "cityid" => 1,
-        "areaid" => 2,
-        "params" => 4
-            )
-    );
-
-
-
-
     $di['router']->add("/bongah/{bongahid:[0-9]+}/:action/:params", array(
         "controller" => "bongah",
         "bongahid" => 1,
@@ -183,6 +162,60 @@ try {
         "action" => "home",
             )
     );
+
+
+    //Define a route
+    $di['router']->add("/([0-9]+)/{cityname}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+        "params" => 3
+            )
+    );
+
+    // MELK TYPE
+    $di['router']->add("/([0-9]+)/{cityname}/{melktype:[a-z\-]+}/", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+//        "melktype" => 3,
+        "params" => "1"
+            )
+    );
+
+
+    $di['router']->add("/([0-9]+)/{cityname}/{melktype:[a-z\-]+}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+//        "melktype" => '6',
+        "params" => 4
+            )
+    );
+
+    // MELK PURPOSE
+    $di['router']->add("/([0-9]+)/{cityname}/{melktype:[a-z\-]+}/{melkpurpose:[a-z\-]+}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+//        "melktype" => 3,
+//        "melkpurpose" => 4,
+        "params" => 5
+            )
+    );
+
+
+    $di['router']->add("/منطقه/([0-9]+)/([0-9]+)/{cityname}/:params", array(
+        "controller" => "melk",
+        "action" => "list",
+        "cityid" => 1,
+        "areaid" => 2,
+        "params" => 4
+            )
+    );
+
+
+
 
 
     //Set the views cache service

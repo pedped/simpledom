@@ -300,7 +300,7 @@ class MelkSearch extends AtaForm {
         // Submit Button
         $submit = new Submit('submit');
         $submit->setAttribute("value", "جستجو");
-        $submit->setAttribute('class', 'btn btn-primary');
+        $submit->setAttribute('class', 'btn btn-block search-button btn-success');
         $this->add($submit);
     }
 

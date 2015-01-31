@@ -15,9 +15,12 @@ use MelkImage;
 use MelkInfo;
 use MelkInfoViewForm;
 use MelkPhoneListner;
+use MelkPurpose;
 use MelkSearch;
 use MelkSubscribeItem;
+use MelkType;
 use Phalcon\Validation\Validator\PresenceOf;
+use PurchasedBanner;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\FileManager;
 use Simpledom\Core\Classes\Helper;
@@ -60,6 +63,12 @@ class MelkController extends ControllerBaseFrontEnd {
         }
 
         $this->loadSmallPriceOption();
+
+
+        // add time ago javascript
+        $this->assets
+                ->collection('footer')
+                ->addJs('js/moment/moment-with-locales.js', true);
     }
 
     public function startAction() {
@@ -360,6 +369,9 @@ class MelkController extends ControllerBaseFrontEnd {
     public function listAction($page = 1) {
 
 
+        // indidcate we are going to show melk view
+        $this->view->showMelkInfo = true;
+
         $cityID = $this->dispatcher->getParam("cityid");
         $stateID = 1;
         if (!isset($cityID)) {
@@ -369,6 +381,46 @@ class MelkController extends ControllerBaseFrontEnd {
             $stateID = City::findFirst($cityID)->stateid;
         }
 
+        $areaid = $this->dispatcher->getParam("areaid");
+        if (isset($areaid)) {
+            $cityID = Area::findFirst($areaid)->cityid;
+        }
+
+        // add breadcrump / City
+        $cityName = City::findFirst(array("id = :cityid:", "bind" => array("cityid" => $cityID)))->name;
+        $this->AddBreadcrumb("املاک" . " " . $cityName, Config::GetAmlakBreadcrump($cityID, $cityName));
+
+        // add city to query
+        $query = "cityid = :cityid: AND approved = 1";
+        $bindparams["cityid"] = $cityID;
+
+
+        // check if we have melk type
+        $requestedMelkType = $this->dispatcher->getParam("melktype");
+        if (isset($requestedMelkType)) {
+            $melkTypeID = Config::GetMelkTypeIDByEnglishName($requestedMelkType);
+            $query .= " AND melktypeid = :melktypeid:";
+            $bindparams["melktypeid"] = $melkTypeID;
+
+            // add breadcrump / Type
+            $MelkTypeName = MelkType::findFirst(array("id = :id:", "bind" => array("id" => $melkTypeID)))->name;
+            $this->AddBreadcrumb($MelkTypeName, Config::GetAmlakBreadcrumpWithType($cityID, $cityName, $MelkTypeName));
+        }
+        $requestedMelkPurpose = $this->dispatcher->getParam("melkpurpose");
+        if (isset($requestedMelkPurpose)) {
+            $melkPurposeID = Config::GetMelkPurposeIDByEnglishName($requestedMelkPurpose);
+            $query .= " AND melkpurposeid = :melkpurposeid:";
+            $bindparams["melkpurposeid"] = $melkPurposeID;
+
+            // add breadcrump / Purpose
+            $MelkPurpose = MelkPurpose::findFirst(array("id = :id:", "bind" => array("id" => $melkPurposeID)))->name;
+            $this->AddBreadcrumb(str_replace("فروش", "خرید", $MelkPurpose), Config::GetAmlakBreadcrumpWithPurpose($cityID, $cityName, $MelkTypeName, $MelkPurpose));
+        }
+
+
+
+
+        // check if we have to show start cities
         if (Config::inStartCities($cityID)) {
             $this->dispatcher->forward(array(
                 "controller" => "bongah",
@@ -381,12 +433,12 @@ class MelkController extends ControllerBaseFrontEnd {
         // search form
         $form = new MelkSearch();
         // we have to create query for item
-        $query = "";
-        $bindparams = array();
-
-
         // check if user submiteted search query
         if ($this->request->isPost()) {
+
+            // clear old request
+            $query = "";
+            $bindparams = array();
 
             // allow user to show his phone
             $this->view->showMobileForm = 1;
@@ -439,6 +491,15 @@ class MelkController extends ControllerBaseFrontEnd {
                     $this->LogError("Invalid Melk Type", "Melk type has invalid value");
                     break;
             }
+
+            // add breadcrump / Type
+            $MelkTypeName = MelkType::findFirst(array("id = :id:", "bind" => array("id" => $this->request->getPost("melktypeid"))))->name;
+            $this->AddBreadcrumb($MelkTypeName, Config::GetAmlakBreadcrumpWithType($cityID, $cityName, $MelkTypeName));
+
+
+            // add breadcrump / Purpose
+            $MelkPurpose = MelkPurpose::findFirst(array("id = :id:", "bind" => array("id" => $this->request->getPost("melkpurposeid"))))->name;
+            $this->AddBreadcrumb(str_replace("فروش", "خرید", $MelkPurpose), Config::GetAmlakBreadcrumpWithPurpose($cityID, $cityName, $MelkTypeName, $MelkPurpose));
 
             // check if user posted mobile phone
             if ($this->request->hasPost("subscribephone") && strlen($this->request->getPost("subscribephone")) > 0) {
@@ -496,10 +557,8 @@ class MelkController extends ControllerBaseFrontEnd {
 
 //            var_dump($_POST, array_search($this->request->getPost("rahn_range_max"), $this->rahnRangeValues));
 //            die();
-        } else {
-            $query = "cityid = :cityid: AND approved = 1";
-            $bindparams["cityid"] = $cityID;
         }
+
 
 
 
@@ -509,9 +568,7 @@ class MelkController extends ControllerBaseFrontEnd {
         $this->handleFormScripts($form);
         $this->view->form = $form;
 
-        $areaid = $this->dispatcher->getParam("areaid");
         if (isset($areaid)) {
-            $cityID = Area::findFirst($areaid)->cityid;
             $m = new Melk();
             $melks = $m->rawQuery("SELECT melk.* FROM melk JOIN melkarea ON melk.id  = melkarea.melkid AND melkarea.areaid = ? AND status IN ( 1 , 2 ) AND approved = 1 ORDER BY id DESC", array($areaid));
         } else {
@@ -523,15 +580,12 @@ class MelkController extends ControllerBaseFrontEnd {
             ));
         }
 
-
-
-
         $numberPage = $page;
 
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $melks,
-            'limit' => 10,
+            'limit' => 50,
             'page' => $numberPage
         ));
 
@@ -544,14 +598,53 @@ class MelkController extends ControllerBaseFrontEnd {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد ملک', 'نوع', 'منظور', 'وضعیت', 'متراژ', 'زیربنا', 'قیمت فروش', 'اجاره', 'رهن', 'اتاق خواب', 'حمام', 'شهر', 'ارائه شده توسط', 'تاریخ', 'مشاهده'
+                    'ملک', 'نوع', 'منظور', 'بلوار', 'متراژ', 'زیربنا', 'فروش', 'رهن', 'اجاره', 'اتاق', 'حمام', 'تاریخ', 'مشاهده'
                 ))->
                 setFields(array(
-                    'id', 'getTypeName()', 'getPurposeType()', 'getCondiationType()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getEjarePrice()', 'getRahnPrice()', 'bedroom', 'bath', 'getCityName()', 'getCreateByTilte()', 'getDate()', 'getViewButton()'
+                    'id', 'getTypeName()', 'getPurposeType()', 'getBlvd()', 'getZirbana()', 'getMetraj()', 'getSalePrice()', 'getRahnPrice()', 'getEjarePrice()', 'bedroom', 'bath', 'getSimpleDate()', 'getViewButton()'
                 ))->setListPath(
                 $cityID . "/city");
 
         $this->view->list = $paginator->getPaginate();
+
+
+        // load city banners
+        $this->view->cityBanner = PurchasedBanner::find(array("cityid = :cityid: AND validuntil >= :date:", "bind" => array(
+                        "cityid" => $cityID,
+                        "date" => time(),
+        )));
+
+
+
+        if ($this->request->has("melkviewtype") && ($this->request->get("melkviewtype") == "list" || $this->request->get("melkviewtype") == "grid" )) {
+            $this->cookies->set('melkviewtype', $this->request->get("melkviewtype"), time() + 60 * 86400);
+        }
+
+        // check for melk cookie type
+        if ($this->cookies->has("melkviewtype")) {
+
+
+            // user has seted cookie melk view type
+            //Get the cookie
+            $cookieMelkType = $this->cookies->get('melkviewtype');
+
+            //Get the cookie's value
+            $value = $cookieMelkType->getValue();
+
+            // check if we are going to show list or grid
+            $this->view->viewType = $value;
+        } else {
+            // we have to set default visiable type
+            $this->cookies->set('melkviewtype', 'grid', time() + 60 * 86400);
+
+            $this->view->viewType = "grid";
+        }
+
+
+
+
+        // generate tag cloud
+        $this->generateTagCloud($cityID, $cityName);
     }
 
     public function deleteAction($id) {
@@ -627,7 +720,8 @@ class MelkController extends ControllerBaseFrontEnd {
         $form->get('map')->setZoom(13);
 
         // set page title
-        $this->setPageTitle($melk->getQuickInfo());
+        $this->setPageTitle($melk->getTypeName() . " " . $melk->getBlvd() . " " . $melk->getCityName());
+        $this->setMetaDescription($melk->getQuickInfo());
 
 
         // check if user can remove the melk
@@ -705,8 +799,22 @@ class MelkController extends ControllerBaseFrontEnd {
 
         $this->view->form = $form;
         $this->view->melk = $melk;
-
         $this->view->item = $melk;
+
+
+
+        // Create Breadcrump / City
+        $cityName = City::findFirst(array("id = :cityid:", "bind" => array("cityid" => $melk->cityid)))->name;
+        $this->AddBreadcrumb("املاک" . " " . $cityName, Config::GetAmlakBreadcrump($melk->cityid, $cityName));
+
+
+        // add breadcrump / Type
+        $MelkTypeName = MelkType::findFirst(array("id = :id:", "bind" => array("id" => $melk->melktypeid)))->name;
+        $this->AddBreadcrumb($MelkTypeName, Config::GetAmlakBreadcrumpWithType($melk->cityid, $cityName, $MelkTypeName));
+
+        // add breadcrump / Purpose
+        $MelkPurpose = MelkPurpose::findFirst(array("id = :id:", "bind" => array("id" => $melk->melkpurposeid)))->name;
+        $this->AddBreadcrumb(str_replace("فروش", "خرید", $MelkPurpose), Config::GetAmlakBreadcrumpWithPurpose($melk->cityid, $cityName, $MelkTypeName, $MelkPurpose));
     }
 
     protected function ValidateAccess($id) {
@@ -764,6 +872,27 @@ class MelkController extends ControllerBaseFrontEnd {
         $username = $this->user->getFullName();
         $name = $username . " عزیز";
         SMSManager::SendSMS($phone, $name . "،" . " " . "ملک شما با موفقیت اضافه گردید" . "\nکد ملک شما: " . $melkid, SmsNumber::findFirst()->id);
+    }
+
+    public function generateTagCloud($cityID, $cityName) {
+
+        $items = array();
+
+        // create items
+        // Kharide Khane Shiraz
+        for ($typeIndex = 1; $typeIndex < 7; $typeIndex++) {
+            for ($purposeIndex = 1; $purposeIndex < 3; $purposeIndex++) {
+                $items[] = "<a href='" . Config::GetAmlakBreadcrumpWithPurpose($cityID, $cityName, Config::GetMelkTypeNameEnglishByID($typeIndex), Config::GetMelkPurposeNameByID($purposeIndex)) . "'>" . Config::GetMelkPurposeNameByID($purposeIndex) . " " . Config::GetMelkTypeNameByID($typeIndex) . " " . $cityName . "</a>";
+            }
+        }
+
+        // Khane Shiraz
+        for ($typeIndex = 1; $typeIndex < 7; $typeIndex++) {
+            $items[] = "<a href='" . Config::GetAmlakBreadcrumpWithType($cityID, $cityName, Config::GetMelkTypeNameEnglishByID($typeIndex)) . "'>" . Config::GetMelkTypeNameByID($typeIndex) . " " . $cityName . "</a>";
+        }
+
+        shuffle($items);
+        $this->view->tagCloud = implode("، ", $items);
     }
 
 }

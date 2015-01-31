@@ -1,0 +1,54 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit BannerAdvertPackage</h2>
+                                                <p class='panel-subtitle'Use this form to edit your BannerAdvertPackage</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD Title !-->
+                                <?php $form->renderDecorated('title'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderDecorated('description'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+
+                                <!--  ADD Price !-->
+                                <?php $form->renderDecorated('price'); ?> 
+
+                                <!--  ADD Enable !-->
+                                <?php $form->renderDecorated('enable'); ?> 
+
+                                <!--  ADD Total Days !-->
+                                <?php $form->renderDecorated('totaldays'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

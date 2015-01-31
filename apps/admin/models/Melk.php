@@ -438,13 +438,17 @@ class Melk extends AtaModel {
         }
     }
 
+    public function getBlvd() {
+        return $this->getInfo()->address;
+    }
+
     public function getCreateByTilte() {
         return MelkCreatedBy::findFirst($this->createby)->name;
     }
 
     public function getViewButton() {
         $purl = Config::getPublicUrl();
-        $html = "<a href='$purl" . "melk/view/" . $this->id . "'>مشاهده ملک</a>";
+        $html = "<a href='$purl" . "melk/view/" . $this->id . "'>مشاهده</a>";
         return $html;
     }
 
@@ -567,38 +571,38 @@ class Melk extends AtaModel {
         $message = "";
 
         // add type
-        $message.= $this->getTypeName();
+        $message.= $this->getTypeName() . " ";
 
 
         switch (intval($this->melktypeid)) {
             case 1:
                 // home
-                $message.= $this->bedroom . " خوابه" . "،";
-                $message.= "متراژ" . $this->lot_size . " مترمربع" . "،";
-                $message.= "زیربنا" . $this->home_size . " مترمربع" . "،";
+                $message.= $this->bedroom . " خوابه" . "، ";
+                $message.= "متراژ" . $this->lot_size . " مترمربع" . "، ";
+                $message.= "زیربنا" . $this->home_size . " مترمربع" . "، ";
                 break;
             case 2:
                 // apartment
-                $message.= $this->bedroom . " خوابه" . "،";
-                $message.= "زیربنا" . $this->home_size . " مترمربع" . "،";
+                $message.= $this->bedroom . " خوابه" . "، ";
+                $message.= "زیربنا" . $this->home_size . " مترمربع" . "، ";
                 break;
             case 3:
                 // daftare kar
-                $message.="دفتر کار" . "،";
-                $message.= "متراژ" . $this->home_size . " مترمربع" . "،";
+                $message.="دفتر کار" . "، ";
+                $message.= "متراژ" . $this->home_size . " مترمربع" . "، ";
                 break;
             case 4:
                 // villa
-                $message.= $this->bedroom . " خوابه" . "،";
-                $message.= $this->lot_size . " متری" . "،";
+                $message.= $this->bedroom . " خوابه" . "، ";
+                $message.= $this->lot_size . " متری" . "، ";
                 break;
             case 5:
                 //zamin
-                $message.= $this->lot_size . " متری" . "،";
+                $message.= $this->lot_size . " متری" . "، ";
                 break;
             case 6:
                 // oraghe kar
-                $message .= $this->bedroom . " اتاقه" . "،";
+                $message .= $this->bedroom . " اتاقه" . "، ";
                 break;
             default:
                 $this->LogError("Invalid Melk Type", "getQuickInfo()");
@@ -609,16 +613,16 @@ class Melk extends AtaModel {
         switch ($this->melkpurposeid) {
             case 1 :
                 $message.= "جهت فروش" . " ";
-                $message .= "به مبلغ " . Helper::GetPrice($this->sale_price) . " ،";
+                $message .= "به مبلغ " . Helper::GetPrice($this->sale_price) . " ، ";
                 break;
             case 2 :
                 $message .= "جهت رهن و اجاره" . " ";
-                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ،";
+                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ، ";
                 break;
             case 3 :
                 $message.= "جهت اجاره و فروش" . " ";
                 $message .= "به مبلغ " . Helper::GetPrice($this->sale_price) . " ";
-                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ،";
+                $message .= "به رهن " . Helper::GetPrice($this->rent_pricerahn) . " و اجاره" . Helper::GetPrice($this->rent_price) . " ، ";
                 break;
             default:
                 break;
@@ -860,6 +864,17 @@ class Melk extends AtaModel {
 
 
         return $item;
+    }
+
+    public function getImageLink() {
+        // load images
+        $images = $this->getImages();
+        if ($images->count() > 0) {
+            // load images
+            return $this->getImages()->getFirst()->getImageLink();
+        } else {
+            return BaseImage::findFirst((int) Config::GetDefaultMelkImageID())->link;
+        }
     }
 
     public function getCreateByName() {

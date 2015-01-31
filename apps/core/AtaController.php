@@ -6,6 +6,8 @@ use Simpledom\Core\AtaForm;
 
 abstract class AtaController extends Controller {
 
+    protected $breadcrumb = array(); 
+ 
     public function initialize() {
 
 
@@ -161,6 +163,20 @@ abstract class AtaController extends Controller {
                 echo $exc->getTraceAsString();
             }
         }
+    }
+
+    /**
+     * this function will 
+     * @param Dispatcher $dispatcher
+     * @return boolean
+     */
+    public function afterExecuteRoute($dispatcher) {
+        // we have to create Breadcrumb object
+        $items = array();
+        foreach ($this->breadcrumb as $item) {
+            $items[] = " <li><a href='$item->link'>$item->title</a></li>";
+        }
+        $this->view->MasterBreadcrumb = "<ol class='breadcrumb'>" . implode("", $items) . "</ol>";
     }
 
     /**
