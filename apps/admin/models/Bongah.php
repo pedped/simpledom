@@ -6,6 +6,8 @@ use Simpledom\Core\Classes\Helper;
 
 class Bongah extends AtaModel {
 
+    public $lastappvisit;
+
     public function getSource() {
         return 'bongah';
     }
@@ -318,6 +320,7 @@ class Bongah extends AtaModel {
         $this->bongahsubscribeitemid = "0";
         $this->visitedtutorial = "0";
         $this->peygiri = "111";
+        $this->lastappvisit = "0";
     }
 
     public function getPublicResponse() {

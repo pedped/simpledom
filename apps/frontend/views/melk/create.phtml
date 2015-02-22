@@ -15,6 +15,11 @@
                         <div class='col-md-12'>
                             <div class='row'>
                                 <div class='col-md-12'>
+                                    <p style="font-size: 120%;">ملک شما به فروش نمی رسد ؟ و یا برای اجاره آن مشکل دارید ؟ <span style="color: #f22">ما برای شما مشتری پیدا می کنیم</span>. برای شروع، اطلاعات ملک خود را در فرم زیر وارد نمایید</p>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
                                     <h3 class="melk-section-header"><span class="fa fa-pencil"></span>اطلاعات ملک</h3>
                                     <div class='row'>
                                         <div class='col-md-6'>
@@ -69,33 +74,18 @@
                                     <h3 class="melk-section-header"><span class="fa fa-user"></span>اطلاعات کاربر</h3>
                                     <?php if (!$this->session->has("userid")) : ?>
                                         <div class='row'>
-                                            <div class='col-md-6'>
-                                                <!--  ADD First Name !-->
-                                                <?php $form->renderDecorated('fname'); ?> 
-                                            </div>
-                                            <div class='col-md-6'>
-                                                <!--  ADD Last name !-->
-                                                <?php $form->renderDecorated('lname'); ?> 
-
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class='col-md-6'>
+                                            <div class='col-md-12'>
                                                 <!--  ADD Email !-->
                                                 <?php $form->renderDecorated('email'); ?> 
                                             </div>
-                                            <div class='col-md-6'>
-                                                <!--  ADD Password !-->
-                                                <?php $form->renderDecorated('password'); ?>
-                                            </div>
                                         </div>
-
                                     <?php endif; ?>
+                                    <!--  ADD Private Mobile !-->
+                                    <?php $form->renderDecorated('private_mobile'); ?> 
+
                                     <!--  ADD Private Phone !-->
                                     <?php $form->renderDecorated('private_phone'); ?> 
 
-                                    <!--  ADD Private Mobile !-->
-                                    <?php $form->renderDecorated('private_mobile'); ?> 
 
                                     <h3 class="melk-section-header"><span class="fa fa-map-marker"></span>موقعیت ملک</h3>
                                     <div class='row'>
@@ -112,43 +102,47 @@
                                             <!--  ADD Private Address !-->
                                             <?php $form->renderDecorated('private_address'); ?>
 
-                                            <!--  Map !-->
-                                            <?php $form->renderDecorated('map'); ?> 
-                                        </div>
-                                    </div>
-                                    <h3 class="melk-section-header"><span class="fa fa-tree"></span>امکانات ملک</h3>
-                                    <?php
-                                    $facilites = MelkFacilities::find();
-                                    ?>
-                                    <div class='row'>
-                                        <?php foreach ($facilites as $facilty) : ?>
-                                            <div class='col-md-6 col-sm-6 col-xs-6'>
-                                                <label class="create-melk-facility-item" for='facilities[]'>
-                                                    <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
-                                                    <?php echo $facilty->name; ?>
-                                                </label>
+                                            <div class='hidden'>
+                                                <!--  Map !-->
+                                                <?php $form->renderDecorated('map'); ?> 
                                             </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                    <h3 class="melk-section-header"><span class="fa fa-picture-o"></span>تصاویر</h3>
-                                    <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
-                                    <!--  Image !-->
-                                    <div class='row'>
-                                        <div class='col-md-6'>
-                                            <?php $form->renderDecorated('img1'); ?> 
-                                            <?php $form->renderDecorated('img3'); ?> 
-                                            <?php $form->renderDecorated('img5'); ?> 
-                                            <?php $form->renderDecorated('img7'); ?> 
-                                            <?php $form->renderDecorated('img9'); ?> 
-                                            <?php $form->renderDecorated('img11'); ?> 
                                         </div>
-                                        <div class='col-md-6'>
-                                            <?php $form->renderDecorated('img2'); ?> 
-                                            <?php $form->renderDecorated('img4'); ?> 
-                                            <?php $form->renderDecorated('img6'); ?> 
-                                            <?php $form->renderDecorated('img8'); ?> 
-                                            <?php $form->renderDecorated('img10'); ?> 
-                                            <?php $form->renderDecorated('img12'); ?> 
+                                    </div>
+                                    <div class="hidden">
+                                        <h3 class="melk-section-header"><span class="fa fa-tree"></span>امکانات ملک</h3>
+                                        <?php
+                                        $facilites = MelkFacilities::find();
+                                        ?>
+                                        <div class='row'>
+                                            <?php foreach ($facilites as $facilty) : ?>
+                                                <div class='col-md-6 col-sm-6 col-xs-6'>
+                                                    <label class="create-melk-facility-item" for='facilities[]'>
+                                                        <input type='checkbox' name='facilities[]' value="<?php echo $facilty->id; ?>" />
+                                                        <?php echo $facilty->name; ?>
+                                                    </label>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <h3 class="melk-section-header"><span class="fa fa-picture-o"></span>تصاویر</h3>
+                                        <p>برای افزایش بازدهی، شما میتوانید در صورت تمایل تعدادی تصویر را برای ملک خود ارائه نمایید</p>
+                                        <!--  Image !-->
+                                        <div class='row'>
+                                            <div class='col-md-6'>
+                                                <?php $form->renderDecorated('img1'); ?> 
+                                                <?php $form->renderDecorated('img3'); ?> 
+                                                <?php $form->renderDecorated('img5'); ?> 
+                                                <?php $form->renderDecorated('img7'); ?> 
+                                                <?php $form->renderDecorated('img9'); ?> 
+                                                <?php $form->renderDecorated('img11'); ?> 
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <?php $form->renderDecorated('img2'); ?> 
+                                                <?php $form->renderDecorated('img4'); ?> 
+                                                <?php $form->renderDecorated('img6'); ?> 
+                                                <?php $form->renderDecorated('img8'); ?> 
+                                                <?php $form->renderDecorated('img10'); ?> 
+                                                <?php $form->renderDecorated('img12'); ?> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -168,6 +162,9 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $("footer").hide();
+    });
 
     function onTypeChange() {
         // get melk type

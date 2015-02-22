@@ -4,8 +4,10 @@ namespace Simpledom\Admin\Controllers;
 
 use AppDownload;
 use AppEmailRequest;
+use AtaPaginator;
 use BaseUser;
 use Bongah;
+use BongahAction;
 use BongahSentMelk;
 use BongahSubscriber;
 use Melk;
@@ -49,12 +51,15 @@ class IndexController extends IndexControllerBase {
 
         // load total app email request
         $this->view->totalAppEmailRequest = AppEmailRequest::Count();
-        
+
         // load total app email request
         $this->view->totalAppEmailRequestToday = AppEmailRequest::Count(array("date >= :date:", "bind" => array("date" => Helper::GetTodayStartTime())));
 
         // Today User Phone
         $this->view->todayUserPhone = UserPhone::Count(array("date >= :date:", "bind" => array("date" => Helper::GetTodayStartTime())));
+
+        // load bongah action list
+        $this->loadBongahActionList();
     }
 
     public function loadAmlakGostarCharts() {
@@ -98,6 +103,39 @@ class IndexController extends IndexControllerBase {
         // set view form
         $this->view->amlakgostarform = $form;
         $this->handleFormScripts($form);
+    }
+
+    public function loadBongahActionList() {
+        // load the users
+        $bongahactions = BongahAction::find(
+                        array(
+                            "limit" => "100",
+                            'order' => 'id DESC'
+        ));
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $bongahactions,
+            'limit' => 100,
+            'page' => 1
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'شناسه', 'کد بنگاه', 'کد عمل', 'نام بنگاه', 'شهر', 'عمل', 'اطلاعات', 'تاریح'
+                ))->
+                setFields(array(
+                    'id', 'bongahid', 'actioncode', 'getBongahName()', 'getCityName()', 'getActionName()', 'data', 'getDate()'
+                ))->
+                setEditUrl(
+                        'edit'
+                )->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
+
+        $this->view->bongahActionList = $paginator->getPaginate();
     }
 
 }

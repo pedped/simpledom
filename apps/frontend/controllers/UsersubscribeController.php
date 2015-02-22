@@ -26,20 +26,24 @@ class UsersubscribeController extends ControllerBaseFrontEnd {
             $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $melkid)));
 
             // get bonngahs list
-            if ((!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
-                // find apprch bongahs
-                $toSendBongahs = BongahAmlakKeshvar::find(
-                                array(
-                                    "cityid = :cityid: AND address LIKE CONCAT('%' , :query: , '%') ",
-                                    "bind" => array(
-                                        "cityid" => $melk->cityid,
-                                        "query" => $melk->getInfo()->address
-                                    )
-                                )
-                );
+            if ((!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->user->userid))) {
 
-                $this->view->toSendBongahs = $toSendBongahs;
+//                // find approch bongahs
+//                $toSendBongahs = BongahAmlakKeshvar::find(
+//                                array(
+//                                    "cityid = :cityid: AND address LIKE CONCAT('%' , :query: , '%') ",
+//                                    "bind" => array(
+//                                        "cityid" => $melk->cityid,
+//                                        "query" => $melk->getInfo()->address
+//                                    )
+//                                )
+//                );
+//
+//                $this->view->toSendBongahs = $toSendBongahs;
                 $this->view->melk = $melk;
+
+
+                $this->flash->success("ملک شما به مدت یک روز قابل نمایش است، جهت نمایش ملک به مدت زمان بیشتر، یکی از پلان های زیر را خریداری نمایید.");
             }
         }
 
@@ -56,7 +60,7 @@ class UsersubscribeController extends ControllerBaseFrontEnd {
             "getHumanPrice()",
         ));
         $viewr->setInfos(array(
-            "ارسال اطلاعات ملک به مشاوران املاک",
+//            "ارسال اطلاعات ملک به مشاوران املاک",
             "مدت زمان نمایش ملک در سامانه املاک گستر",
             "املاک قابل افزودن",
             "قیمت",

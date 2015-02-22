@@ -118,7 +118,7 @@ class Area extends AtaModel {
     public static function getHighestArea($cityid) {
 
         $area = new Area();
-        return $area->rawQuery("SELECT area.id , area.cityid , area.name , count(*) as total FROM `melkarea` JOIN area ON area.id = melkarea.areaid WHERE melkarea.cityid = ? AND area.enable = 1 GROUP BY area.id ORDER BY total DESC", array(
+        return $area->rawQuery("SELECT area.id , area.cityid , area.name , count(*) as total FROM `melkarea` JOIN area ON area.id = melkarea.areaid WHERE melkarea.cityid = ? AND area.enable = 1 GROUP BY area.id ORDER BY total DESC LIMIT 5", array(
                     $cityid
         ));
     }

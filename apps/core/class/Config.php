@@ -52,7 +52,7 @@ class Config {
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return true;
+        return false;
     }
 
     public static function GetDefaultSMSCreditOnBongahSignUp() {
@@ -60,7 +60,7 @@ class Config {
     }
 
     public static function GetBongahFreeDate() {
-        return 30;
+        return 14;
     }
 
     public static function inStartCities($cityID) {
@@ -81,7 +81,9 @@ class Config {
     }
 
     public static function GetAndroidDownloadLink() {
-        return "http://amlak.edspace.org/app/file/v1_2/AmlakGostarApp.apk";
+        //return "https://play.google.com/store/apps/details?id=com.ataalla.amlakgostar";
+        return "http://cafebazaar.ir/app/com.ataalla.amlakgostar/";
+        //return "http://amlak.edspace.org/app/file/v1_3/AmlakGostarApp.apk";
     }
 
     public static function GetAndroidDownloadLinkWithCounter() {
@@ -89,11 +91,11 @@ class Config {
     }
 
     public static function GetAndroidFilePath() {
-        return dirname(dirname(dirname(__DIR__))) . "/public/app/file/v1/AmlakGostarApp.apk";
+        return dirname(dirname(dirname(__DIR__))) . "/public/app/file/v1_3/AmlakGostarApp.apk";
     }
 
     public static function ShowFullCityMelkInAndroid() {
-        return false;
+        return true;
     }
 
     public static function ShowAndroidStatusBox() {

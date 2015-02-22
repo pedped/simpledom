@@ -347,40 +347,42 @@
                 </div>
             </div>
         <?php else : ?>
-            <div class='row'>
-                <div class='col-md-12'>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3  class="panel-title">آژانسان املاک قابل مراجعه</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class='row'>
-                                <?php foreach ($bongahs as $bongah) : ?>
-                                    <div class='col-md-4'>
-                                        <div class="thumbnail">
-                                            <h4><?php echo $bongah->title; ?> (<small>فاصله تا مشاور املاک : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
-                                            <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
-                                            <p>شماره تماس: <?php echo $bongah->phone; ?></p>
-                                            <div>
-                                                <?php
-                                                $mapElement = new MapElement("bongah_" . $bongah->id);
-                                                $mapElement->setLathitude($bongah->latitude);
-                                                $mapElement->setLongtude($bongah->longitude);
-                                                $mapElement->setName("melk");
-                                                $mapElement->setZoom(14);
-                                                $mapElement->setMarkTitle("مشاور املاک " . $bongah->title);
-                                                $mapElement->setMarkDescription("مشاور املاک " . $bongah->title);
-                                                echo $mapElement;
-                                                ?>
+            <?php if (isset($bongahs)): ?>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3  class="panel-title">آژانسان املاک قابل مراجعه</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class='row'>
+                                    <?php foreach ($bongahs as $bongah) : ?>
+                                        <div class='col-md-4'>
+                                            <div class="thumbnail">
+                                                <h4><?php echo $bongah->title; ?> (<small>فاصله تا مشاور املاک : <?php echo sprintf("%.2f", $bongah->distance) . " کیلومتر"; ?></small>)</h4>
+                                                <p style="margin-bottom: 0px;">آدرس: <?php echo $bongah->address; ?></p>
+                                                <p>شماره تماس: <?php echo $bongah->phone; ?></p>
+                                                <div>
+                                                    <?php
+                                                    $mapElement = new MapElement("bongah_" . $bongah->id);
+                                                    $mapElement->setLathitude($bongah->latitude);
+                                                    $mapElement->setLongtude($bongah->longitude);
+                                                    $mapElement->setName("melk");
+                                                    $mapElement->setZoom(14);
+                                                    $mapElement->setMarkTitle("مشاور املاک " . $bongah->title);
+                                                    $mapElement->setMarkDescription("مشاور املاک " . $bongah->title);
+                                                    echo $mapElement;
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php endif; ?> 
     </div>
 </div>

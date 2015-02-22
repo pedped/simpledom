@@ -3,6 +3,7 @@
 namespace Simpledom\Api\Controllers;
 
 use AppEmailRequest;
+use Bongah;
 use EmailItems;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Helper;
@@ -33,7 +34,19 @@ class SmsreceiverController extends BaseSmsreceiverController {
 
 
             // send message about receive mode
-            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", 2);
+            SMSManager::SendSMS($fromnumber, "با تشکر، فایل برنامه به ایمیل شما ارسال گردید", 1);
+        } else {
+            // user may be entred the address, we have to check for address phone
+            // check if the number belong to bongah
+            $mobileNumber = Helper::getCorrectIraninanMobilePhoneNumber($fromnumber);
+            $bongah = Bongah::findFirst(array("mobile = :mobile:", "bind" => array("mobile" => $mobileNumber)));
+            if ($bongah != FALSE) {
+                $bongah->address = trim($message);
+                $bongah->save();
+
+                // send message to user about success save
+                SMSManager::SendSMS($fromnumber, "با تشکر، اطلاعات ارسالی شما دریافت گردید.", 1);
+            }
         }
     }
 

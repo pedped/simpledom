@@ -55,8 +55,6 @@ class UserNotificationForm extends AtaForm {
         $link->setLabel('Link');
         //$link->setAttribute('placeholder', 'Enter your Link');
         $link->setAttribute('class', 'form-control');
-        $link->addValidator(new PresenceOf(array(
-        )));
         $this->add($link);
 
 
@@ -65,8 +63,6 @@ class UserNotificationForm extends AtaForm {
         $linktext->setLabel('Link Text');
         //$linktext->setAttribute('placeholder', 'Enter your Link Text');
         $linktext->setAttribute('class', 'form-control');
-        $linktext->addValidator(new PresenceOf(array(
-        )));
         $this->add($linktext);
 
 

@@ -3,8 +3,8 @@
 namespace Simpledom\Api\Controllers;
 
 use Area;
-use BaseSystemLog;
 use Bongah;
+use BongahAction;
 use BongahSubscribeItem;
 use City;
 use Melk;
@@ -47,14 +47,20 @@ class BongahController extends ControllerBase {
         $melkid = (int) $_POST["melkid"];
         $fromcitylist = (int) $_POST["fromcitylist"];
 
-        // create log
-        \BaseSystemLog::CreateLogInfo("مشاهده ملک", "ملک شماره $melkid  توسط بنگاه" . " " . $this->bongah->id . " دیده شد");
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_VIEWMELK, "melkid: " . $melkid . "| From City List: " . $fromcitylist);
     }
 
     public function allmelksAction() {
 
+
         $start = (int) $_POST["start"];
         $limit = (int) $_POST["limit"];
+
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, BongahAction::ACTION_LOADALLMELKS, "start: " . $start . "| end: " . $limit);
+
 
         // find all city
         $melks = Melk::find(
@@ -75,7 +81,14 @@ class BongahController extends ControllerBase {
     }
 
     public function removemelkAction() {
+
+        // load id
         $id = $this->request->getPost("id");
+
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_REMOVEMELK, "id: " . $id);
+
 
         // check for melk 
         $melk = Melk::findFirst(array("id = :id:", "bind" => array("id" => $id)));
@@ -93,6 +106,12 @@ class BongahController extends ControllerBase {
     }
 
     public function purchasebongahplanAction() {
+
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, BongahAction::ACTION_PURCHASEBONGAHPLAN, null);
+
+
         $id = $this->request->getPost("id");
 
         // check sms credit id exist
@@ -118,6 +137,10 @@ class BongahController extends ControllerBase {
     }
 
     public function purchasesmscreditAction() {
+
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_PURCHASESMSCREDIT, "id: " . $id);
 
 
         $id = $this->request->getPost("id");
@@ -146,6 +169,10 @@ class BongahController extends ControllerBase {
 
     public function getbongahplansAction() {
 
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_GETBONGAHPLAN, null);
+
+
         $start = (int) $_POST["start"];
 
         // get plans
@@ -165,6 +192,9 @@ class BongahController extends ControllerBase {
 
     public function getsmsplansAction() {
 
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_GETSMSPLAN, null);
+
         $start = (int) $_POST["start"];
 
         // get plans
@@ -182,12 +212,16 @@ class BongahController extends ControllerBase {
     }
 
     public function androidtutAction() {
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_VIEWTUTORIAL, null);
+
         return $this->getResponse("<h1><font color='#b9140c'>افزودن ملک</font></h1>
 
-اولین قدم در راستای جذب مشتری، افزودن ملک است. با استفاده از کلید '+' در گوشه سمت راست بالای برنامه، مشخصات املاک خود را وارد نمایید. دقت نمایید که در هنگام وارد نمودن اطلاعات ملک، وارد نمودن تمامی فیلد ها اجباریست.
+اولین قدم در راستای جذب مشتری، افزودن ملک است. با استفاده از کلید '+' در گوشه سمت راست بالای برنامه، مشخصات املاک خود را وارد نمایید.
 
-<h6>مشاهده مشتریان پیشنهادی بعد از اضافه کردن ملک</h6>
-بعد از افزودن ملک، سامانه املاک گستر به صورت خودکار به دنبال مشتریانی می گردد که نیازمند ملک  با مشخصات وارد شده باشند. در صورت پیدا نمودن مشتری، شما لیست مشتریان را مشاهده خواهید نمود. تنها با فشار دادن کلید ارسال، مشخصات ملک شما برای مشتریان انتخابی ارسال می گردد.
+<h6>مشاهده مشتریان پیشنهادی بعد از افزودن ملک</h6>
+بعد از افزودن ملک، سامانه املاک گستر به صورت خودکار به دنبال مشتریانی می گردد که نیازمند ملکی با مشخصات وارد شده باشند. در صورت وجود، شما لیستی از مشتریان را مشاهده خواهید نمود. تنها با فشار دادن کلید ارسال، مشخصات ملک شما برای مشتریان انتخابی ارسال می گردد.
 
 <h1><font color='#b9140c'>لیست مشتریان</font></h1>
  روزانه تعداد زیادی مشتری، مشخصات ملک مورد نیاز خود را در سامانه املاک گستر ثبت می نمایند، شما می توانید مشخصات املاک درخواست شده به همراه شماره تماس در صفحه اول برنامه و در لیست 'مشتریان' مشاهده نمایید.<br/>
@@ -215,13 +249,13 @@ class BongahController extends ControllerBase {
 <h6>- چگونه میتوانم املاک موجود در مشاور املاک را به برنامه اضافه نمایم؟</h6>
 برای اضافه نمودن ملک، کلید '+' در بالای برنامه را فشار دهید.
 
-<h6>- در صورتی که در هنگام اضافه کردن ملک، به اینترنت دسترسی نداشته باشم، چه اتفاقی خواهد افتاد</h6>
+<h6>- در صورتی که در هنگام اضافه کردن ملک، به اینترنت دسترسی نداشته باشم، چه اتفاقی خواهد افتاد؟</h6>
 مشخصات ملک به صورت آفلاین در برنامه ذخیره شده و در هنگام اتصال به اینترنت به صورت خودکار به سرور ارسال می گردد.
 
 <h6>- در هنگام افزودن ملک، از من شماره تماس صاحب ملک و آدرس ملک خواسته می شود. من دوست ندارم اینگونه مشخصات را در اختیار شما قرار دهم.</h6>
 شماره تماس مالک و آدرس ملک تنها برای استفاده در قسمت های دیگر برنامه قرار خواهد گرفت و به هیچ وجه در اختیار دیگر مشاوران املاک و یا بازدید کنندگان قرار نخواهد گرفت. در هنگام ارسال اطلاعات ملک، شماره و آدرس دفتر مشاور املاک شما به جای شماره تماس و آدرس مالک ارسال خواهد گردید. همچنین در وبسایت اطلاعات بنگاه شما به عنوان محل قابل رجوع جهت مشاهده ملک قرار خواهد گرفت. با این اوصاف در صورتی که هنوز تمایلی به ارائه آدرس ملک و شماره تماس مالک ندارید، می توانید این گزینه ها را با مشخصات مشاور املاک خود جایگزین نمایید. 
 
-<h6>- در هنگام ارسال مشخصات ملک، چه اطلاعاتی برای مشتری ارسال خواهد شد.</h6>
+<h6>- در هنگام ارسال مشخصات ملک، چه اطلاعاتی برای مشتری ارسال خواهد شد؟</h6>
 نمونه ای از پیامک ارسالی را در زیر می توانید مشاهده نمایید : <br/><br/>
 
 <small ><font color:'#999'>
@@ -237,7 +271,7 @@ class BongahController extends ControllerBase {
 </font>
 </small>
 
-");
+ ");
     }
 
     public function sendmelkinfomationAction() {
@@ -245,6 +279,8 @@ class BongahController extends ControllerBase {
         $ids = $_POST["ids"];
         $melkid = (int) $_POST["melkid"];
 
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_SENDMELKINFO, "melkid: " . $melkid);
 
         // parse ids
         $ids = explode(",", $ids);
@@ -271,6 +307,10 @@ class BongahController extends ControllerBase {
     }
 
     public function getphonesuggestionAction($melkid) {
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_GETPHONESUGGESTION, "melkid : " . $melkid);
+
         // check if the melk is belong to user
         $melk = Melk::findFirst(array("id = :id: AND status = 1", "bind" => array("id" => $melkid)));
         if (!$melk || intval($melk->approved) == -2) {
@@ -291,6 +331,9 @@ class BongahController extends ControllerBase {
      * @mobile
      */
     public function addmelkAction() {
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_ADDMELK, null);
 
         // get correcrt phone number
         $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('mobile', "string"));
@@ -339,7 +382,7 @@ class BongahController extends ControllerBase {
             $melk->validdate = time() + 3600 * 24 * 180;
 
             if (!$melk->create()) {
-                $melk->showErrorMessages($this);
+                $this->errors[] = $melk->getMessagesAsLines();
             } else {
 
 
@@ -354,10 +397,10 @@ class BongahController extends ControllerBase {
                 $melkinfo->private_address = $this->request->getPost('address', "string");
                 $melkinfo->private_mobile = $phone;
                 $melkinfo->bongahid = $this->bongah->id;
-                $melkinfo->private_phone = $this->request->getPost('phone', "string");
+                //$melkinfo->private_phone = $this->request->getPost('phone', "string");
                 $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
                 if (!$melkinfo->create()) {
-                    //$melkinfo->showErrorMessages($this);
+                    $this->errors[] = $melkinfo->getMessagesAsLines();
                 } else {
 
                     // save images
@@ -387,17 +430,17 @@ class BongahController extends ControllerBase {
                     $melkArea->create();
 
                     // check if we have user phone
-                    $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
-                    if (!$userPhone) {
-                        // user phone is not exist
-                        $userPhone = new UserPhone();
-                        $userPhone->phone = $melkinfo->private_mobile;
-                        $userPhone->userid = $this->user->userid;
-                        if ($userPhone->create()) {
-                            //$userPhone->sendVerificationNumber();
-                            //$this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
-                        }
-                    }
+//                    $userPhone = UserPhone::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
+//                    if (!$userPhone) {
+//                        // user phone is not exist
+//                        $userPhone = new UserPhone();
+//                        $userPhone->phone = $melkinfo->private_mobile;
+//                        $userPhone->userid = $this->user->userid;
+//                        if ($userPhone->create()) {
+//                            //$userPhone->sendVerificationNumber();
+//                            //$this->redirectToPhoneVerifyPage($melk->id, $userPhone->phone);
+//                        }
+//                    } 
 
 
                     // success
@@ -409,6 +452,9 @@ class BongahController extends ControllerBase {
                 }
             }
         }
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_PROBLEMINADDMELK, implode(",", $this->errors));
 
         // unsuccess
         return $this->getResponse(false);
@@ -430,6 +476,10 @@ class BongahController extends ControllerBase {
         foreach ($ids as $value) {
             $itemIDs[] = (int) $value;
         }
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_SENDMELKINFOFORLISTNER, "phonelistnerid : " . $phoneListnerID . "|" . "melkids: " . implode(",", $itemIDs));
+
 
         $sentMessage = "";
 
@@ -455,8 +505,8 @@ class BongahController extends ControllerBase {
         // get id
         $id = $this->request->getPost("id");
 
-        // log user request
-        BaseSystemLog::CreateLogInfo("مشاهده درخواست مشتری توسط مشاور املاک", "مشتری شماره " . $id . " توسط مشاور املاک" . " " . $this->bongah->title . " مشاهده گردید");
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_VIEWPHONELISTNER, "phonelistnerid : " . $id);
 
         // check for phone listner
         $phoneListner = \MelkPhoneListner::findFirst(array("id = :id:", "bind" => array("id" => $id)));
@@ -475,6 +525,9 @@ class BongahController extends ControllerBase {
             $this->show404();
             return;
         }
+
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_FETCHMELKCANBESEND, "phonelistnerid : " . $melkphonelistnerid);
 
 
         // find melks
@@ -528,7 +581,7 @@ class BongahController extends ControllerBase {
 
         $items = array();
         foreach ($melkphonelistners as $value) {
-            $items[] = $value->getMobileResponse($bongah);
+            $items[] = $value->getMobileResponse($this->bongah);
         }
         return $this->getResponse($items);
     }
@@ -539,15 +592,16 @@ class BongahController extends ControllerBase {
      */
     public function getmelkrequestAction() {
 
+
         $start = (int) $_POST["start"];
         $limit = (int) $_POST["limit"];
 
-        // save last alive
-        $this->bongah->lastalive = time();
-        $this->bongah->save();
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, \BongahAction::ACTION_FETCHPHONELISTNERLIST, "start : " . $start);
 
-        // get bongah
-        $bongah = $this->user->getFirstBongah();
+        // save last alive
+        $this->bongah->lastappvisit = time();
+        $this->bongah->save();
 
         // find all city
         $melkphonelistners = MelkPhoneListner::find(
@@ -556,29 +610,24 @@ class BongahController extends ControllerBase {
                             'order' => 'id DESC',
                             "limit" => $start . " , " . $limit,
                             "bind" => array(
-                                "cityid" => $bongah->cityid
+                                "cityid" => $this->bongah->cityid
                             )
         ));
 
         $items = array();
         foreach ($melkphonelistners as $value) {
-            $items[] = $value->getMobileResponse($bongah);
+            $items[] = $value->getMobileResponse($this->bongah);
         }
         return $this->getResponse($items);
     }
 
     public function getmelksAction() {
+
         $start = (int) $_POST["start"];
         $limit = (int) $_POST["limit"];
 
-        //var_dump($this->user->fname);
-        // check if the user is bonagh dar
-        if (!$this->user->isBongahDar()) {
-            //return $this->getResponse("You are not bongah dar");
-        }
-
-        // get bongah
-        $bongah = $this->user->getFirstBongah();
+        // create new bongahaction
+        BongahAction::CreateAction($this->bongah->id, BongahAction::ACTION_LOADMELKS, "start : " . $start);
 
         // find all city
         $melks = Melk::find(

@@ -11,6 +11,7 @@ use EmailItems;
 use LoginDetailsForm;
 use ProfileImageForm;
 use Recaptcha;
+use ResetPasswordForm;
 use ResetVerficationCode;
 use Session;
 use Settings;
@@ -26,6 +27,55 @@ use UserOrder;
 use UserPhone;
 
 class UserControllerBase extends ControllerBase {
+
+    public function setnewpasswordAction($email, $resetcode) {
+
+        // show title
+        $this->setPageTitle("تنظیم مجدد رمز عبور");
+
+        // check if email exist
+        $correct = BaseUser::count(array("email = :email: AND resetcode = :resetcode:", "bind" => array(
+                        "email" => $email,
+                        "resetcode" => $resetcode,
+        )));
+
+        // check if exist
+        if ($correct != FALSE && $correct > 0) {
+
+            // show form
+            $this->view->showResetForm = true;
+
+            // create reset form
+            $this->view->form = new ResetPasswordForm();
+
+            // exist, we have to show success form
+            if ($this->request->isPost()) {
+                $newpassword = $this->request->getPost("newpassword");
+                $passwordconfirm = $this->request->getPost("newpasswordconfirm");
+                if (strval($newpassword) != strval($passwordconfirm)) {
+                    // password do not matchs
+                    $this->flash->error("رمز عبور جدید و تکرار رمز عبور جدید یکسان نیست");
+                } else {
+
+                    if (strlen($newpassword) < 8) {
+                        $this->flash->error("رمز عبور جدید باید حداقل 8 کاراکتر باشد");
+                    } else {
+                        // password match, we have to reset password
+                        $hashedPass = $this->security->hash($newpassword);
+                        $this->user->password = $hashedPass;
+                        if ($this->user->save()) {
+                            $this->flash->success("رمز عبور جدید با موفقیت ثبت گردید");
+                        } else {
+                            $this->flash->error("خطا در ذخیره رمز عبور جدید");
+                        }
+                    }
+                }
+            }
+        } else {
+            // do not exist, we have to show not exist message
+            $this->flash->error("کد امنیتی و یا ایمیل وارد شده صحیح نمی باشد.");
+        }
+    }
 
     public function resetverifyAction() {
 

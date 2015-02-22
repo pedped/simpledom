@@ -170,11 +170,12 @@ class PublicController extends ControllerBase {
 
 
                 // send sms about add
-                SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات ورود شما به سامانه املاک گستر به صورت زیر است:" . "\n\nایمیل: " . $email . "\nرمز عبور: " . $mobile . "\n\nبا تشکر", SmsNumber::findFirst()->id);
+                $smsid = SmsNumber::findFirst()->id;
+                SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، مشخصات ورود شما به سامانه املاک گستر به صورت زیر است:" . "\n\nایمیل: " . $email . "\nرمز عبور: " . $mobile . "\n\nبا تشکر", $smsid);
+                SMSManager::SendSMS($bongah->mobile, "مشاور املاک گرامی، ضمن تشکر از عضویت شما در سامانه املاک گستر، جهت تایید مشاور املاک خود، آدرس بنگاه را به همین شماره ارسال نمایید", $smsid);
 
                 // send sms to myself
-                SMSManager::SendSMS("09399477290", "بنگاه جدیدی توسط برنامه موبایل به عضویت در سایت درآمد", SmsNumber::findFirst()->id);
-
+                //SMSManager::SendSMS("09399477290", "بنگاه جدیدی توسط برنامه موبایل به عضویت در سایت درآمد", SmsNumber::findFirst()->id);
                 // success, we have to create new LoginResult
                 $token = MobileToken::GetToken($this->errors, $this->user->userid, $deviceid, $devicetype);
                 if (!$token) {

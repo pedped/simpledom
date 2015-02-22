@@ -12,27 +12,27 @@ class CreateMelkForm extends AtaForm {
 
 
         // First Name
-        $firstname = new TextElement("fname");
-        $firstname->setLabel(_("First Name"));
-        $firstname->setAttribute("class", "form-control");
-        $firstname->addValidator(new StringLength(array(
-            'min' => 2,
-        )));
-        $this->add($firstname);
+//        $firstname = new TextElement("fname");
+//        $firstname->setLabel(_("First Name"));
+//        $firstname->setAttribute("class", "form-control");
+//        $firstname->addValidator(new StringLength(array(
+//            'min' => 2,
+//        )));
+//        $this->add($firstname);
 
 
         // Last Name
-        $lastname = new TextElement("lname");
-        $lastname->setLabel(_("Last Name"));
-        $lastname->setAttribute("class", "form-control");
-        $lastname->addValidator(new StringLength(array(
-            'min' => 2,
-        )));
-        $this->add($lastname);
+//        $lastname = new TextElement("lname");
+//        $lastname->setLabel(_("Last Name"));
+//        $lastname->setAttribute("class", "form-control");
+//        $lastname->addValidator(new StringLength(array(
+//            'min' => 2,
+//        )));
+//        $this->add($lastname);
 
         // ٍEmail
         $email = new TextElement("email");
-        $email->setFooter("تماس های کاربران برای شما ارسال خواهد گردید");
+        //$email->setFooter("تماس های کاربران برای شما ارسال خواهد گردید");
         $email->setLabel(_("Email"));
         $email->setAttribute("class", "form-control");
         $email->addValidator(new Email(array(
@@ -41,12 +41,12 @@ class CreateMelkForm extends AtaForm {
 
 
         // Password
-        $password = new PasswordElement("password");
-        $password->setLabel(_("Password"));
-//        $password->setInfo("یک رمز را به دلخواه انتخاب نمایید");
-        $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
-        $password->setAttribute("class", "form-control");
-        $this->add($password);
+//        $password = new PasswordElement("password");
+//        $password->setLabel(_("Password"));
+////        $password->setInfo("یک رمز را به دلخواه انتخاب نمایید");
+//        $password->setFooter("رمز عبور برای ورود به سایت و تغییر اطلاعات ملک و تماس مورد استفاده قرار خواهد گرفت، پس در وارد نمودن آن ذقت نمایید");
+//        $password->setAttribute("class", "form-control");
+//        $this->add($password);
 
 
 
@@ -216,12 +216,10 @@ class CreateMelkForm extends AtaForm {
 
         // Private Phone
         $private_phone = new TextElement('private_phone');
-        $private_phone->setLabel('تلفن تماس');
-        $private_phone->setInfo("شماره تماس خود را به همراه پیش شماره شهر خود وارد نمایید");
+        $private_phone->setLabel('تلفن ثابت ( اختیاری)');
+        $private_phone->setInfo("شماره تلفن ثابت حهت تماس مشتریان");
         //$private_phone->setAttribute('placeholder', 'Enter your Private Phone');
         $private_phone->setAttribute('class', 'form-control');
-        $private_phone->addValidator(new PresenceOf(array(
-        )));
         $this->add($private_phone);
 
         // Private Mobile
@@ -236,12 +234,10 @@ class CreateMelkForm extends AtaForm {
 
         // Private Address
         $private_address = new TextAreaElement('private_address');
-        $private_address->setLabel('آدرس دقیق ملک');
+        $private_address->setLabel('آدرس دقیق ملک (اختیاری)');
         $private_address->setFooter("آدرس ملک شما در هیچ قسمت از سایت نمایش داده نخواهد شد");
         //$private_address->setAttribute('placeholder', 'Enter your Private Address');
         $private_address->setAttribute('class', 'form-control');
-        $private_address->addValidator(new PresenceOf(array(
-        )));
         $this->add($private_address);
 
 

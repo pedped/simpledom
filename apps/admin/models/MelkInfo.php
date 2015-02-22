@@ -248,6 +248,15 @@ class MelkInfo extends AtaModel {
         $this->search_meta = "";
         $this->canreferbongah = "0";
         $this->bongahid = isset($this->bongahid) && intval($this->bongahid) > 0 ? $this->bongahid : "0";
+
+        // check for private phone
+        if (!isset($this->private_phone) || strlen($this->private_phone) == 0) {
+            $this->private_phone = "0000000";
+        }
+
+        if (!isset($this->private_address) || strlen($this->private_address) == 0) {
+            $this->private_address = "وارد نشده است";
+        }
     }
 
     public function beforeValidationOnSave() {

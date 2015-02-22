@@ -244,8 +244,21 @@ class MelkSubscribeItem extends AtaModel implements Orderable {
             $melkSubscriber->orderid = $orderid;
             $melkSubscriber->create();
 
+            // find day limit
+            $melkSubscribeItem = MelkSubscribeItem::findFirst(array("id = :id:", "bind" => array("id" => $id)));
+
+            // we have to extends each melk to days
+            $melks = Melk::find(array("userid = :userid:", "bind" => array("userid" => $userid)));
+            foreach ($melks as $melk) {
+                $melk->validdate +=($melkSubscribeItem->validdate + 1) * 3600 * 24;
+                $melk->save();
+            }
+
+            // get last id
+            $lastid = $melks->getLast()->id;
+
             // saved successfully
-            Helper::RedirectToURL(Config::getPublicUrl() . "melk/start");
+            Helper::RedirectToURL(Config::getPublicUrl() . "melk/view/" . $lastid);
         }
         return true;
     }

@@ -4,7 +4,7 @@ namespace Simpledom\Frontend\Controllers;
 
 use Area;
 use AtaPaginator;
-use BongahAmlakKeshvar;
+use BaseSystemLog;
 use City;
 use CreateMelkForm;
 use EmailItems;
@@ -172,30 +172,31 @@ class MelkController extends ControllerBaseFrontEnd {
         if (!isset($this->user)) {
             $fr->get("email")->addValidator(new PresenceOf(array(
             )));
-            $fr->get("password")->addValidator(new PresenceOf(array(
-            )));
         } else {
             $fr->remove("email");
-            $fr->remove("password");
-            $fr->remove("fname");
-            $fr->remove("lname");
         }
         if ($this->request->isPost()) {
 
             //var_dump($_POST);
             if ($fr->isValid($_POST)) {
 
+                // get correcrt phone number
+                $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
+                if (!$phone) {
+                    $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
+                }
+
 
                 // we have to check if the user is logged in
-                if (!isset($this->user)) {
+                if (!$this->hasError() && !isset($this->user)) {
                     // we need to create an account for the user
+                    $generatedPassword = Helper::GenerateRandomString(6);
                     $user = new User();
-                    $fname = $this->request->getPost("fname");
-                    $lname = $this->request->getPost("lname");
+                    $fname = "SELLER_NAME";
+                    $lname = "SELLER_LASTNAME";
                     $email = $this->request->getPost("email", "email");
-                    $password = $this->request->getPost("password");
-                    $phone = $this->request->getPost("phone");
-                    $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone);
+                    $password = $generatedPassword;
+                    $result = $user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $phone, false);
                     if (!$this->hasError() && $result == true) {
                         // user successfully created 
                         $this->user = $user;
@@ -204,11 +205,7 @@ class MelkController extends ControllerBaseFrontEnd {
                 }
 
 
-                // get correcrt phone number
-                $phone = Helper::getCorrectIraninanMobilePhoneNumber($this->request->getPost('private_mobile', "string"));
-                if (!$phone) {
-                    $this->errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
-                }
+
 
                 // check if we have any error
                 if (!$this->hasError()) {
@@ -234,10 +231,10 @@ class MelkController extends ControllerBaseFrontEnd {
 
 
                     // calc teh valid date
-                    if (isset($this->melkSubscription)) {
+                    if (isset($this->melkSubscription) && $this->melkSubscription != FALSE) {
                         $this->validdate = time() + 3600 * 24 * $this->melkSubscription->validdate;
                     } else {
-                        $this->validdate = time() + 3600 * 24 * 1;
+                        $this->validdate = time() + 3600 * 24 * 2;
                     }
 
 
@@ -252,9 +249,12 @@ class MelkController extends ControllerBaseFrontEnd {
                         $melkinfo->latitude = $this->request->getPost('map_latitude');
                         $melkinfo->longitude = $this->request->getPost('map_longitude');
                         $melkinfo->melkid = $melk->id;
-                        $melkinfo->private_address = $this->request->getPost('private_address', "string");
+
                         $melkinfo->private_mobile = $phone;
-                        $melkinfo->private_phone = $this->request->getPost('private_phone', "string");
+
+                        $melkinfo->private_address = $this->request->has('private_address') ? $this->request->getPost('private_address', "string") : "وارد نشده است";
+                        $melkinfo->private_phone = $this->request->has("private_phone") ? $this->request->getPost('private_phone', "string") : "000000000";
+
                         $melkinfo->facilities = isset($_POST["facilities"]) && is_array($_POST["facilities"]) && count($_POST["facilities"]) > 0 ? implode(",", $_POST["facilities"]) : "";
                         if (!$melkinfo->create()) {
                             $melkinfo->showErrorMessages($this);
@@ -323,12 +323,22 @@ class MelkController extends ControllerBaseFrontEnd {
                     }
                 }
             } else {
+
+                $itemid = Helper::GenerateRandomString(16);
+                foreach ($fr->getMessages() as $message) {
+                    BaseSystemLog::CreateLogError("خطای ساخت ملک" . " : " . $itemid, "'" . $message . "'");
+                }
+
                 // invalid
                 $fr->flashErrors($this);
             }
         }
 
         $this->view->form = $fr;
+
+        if ($this->hasError()) {
+            BaseSystemLog::CreateLogError("خطای ساخت ملک", implode(", ", $this->errors));
+        }
     }
 
     public function verifyphoneAction($melkid, $phone) {
@@ -690,7 +700,7 @@ class MelkController extends ControllerBaseFrontEnd {
     public function viewAction($id) {
 
         $melk = Melk::findFirst($id);
-        if (!$melk || intval($melk->approved) == -2) {
+        if (!$melk || intval($melk->approved) == -2 || intval($melk->status) != 1) {
             $this->show404();
             return;
         }
@@ -780,22 +790,21 @@ class MelkController extends ControllerBaseFrontEnd {
         }
 
         // get nearser bongahs
-        $this->view->bongahs = $melk->getNearsetBongahs();
-
-        if (isset($this->user) && (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->userid))) {
-            // find apprch bongahs
-            $toSendBongahs = BongahAmlakKeshvar::find(
-                            array(
-                                "cityid = :cityid: AND address LIKE CONCAT('%' , :query: , '%') ",
-                                "bind" => array(
-                                    "cityid" => $melk->cityid,
-                                    "query" => $melk->getInfo()->address
-                                )
-                            )
-            );
-
-            $this->view->toSendBongahs = $toSendBongahs;
-        }
+        //$this->view->bongahs = $melk->getNearsetBongahs();
+//        if (isset($this->user) && (!$this->user->isBongahDar() && !$this->user->isSuperAdmin() && intval($melk->userid) == ($this->user->userid))) {
+//            // find apprch bongahs
+//            $toSendBongahs = BongahAmlakKeshvar::find(
+//                            array(
+//                                "cityid = :cityid: AND address LIKE CONCAT('%' , :query: , '%') ",
+//                                "bind" => array(
+//                                    "cityid" => $melk->cityid,
+//                                    "query" => $melk->getInfo()->address
+//                                )
+//                            )
+//            );
+//
+//            $this->view->toSendBongahs = $toSendBongahs;
+//        }
 
         $this->view->form = $form;
         $this->view->melk = $melk;
@@ -855,14 +864,17 @@ class MelkController extends ControllerBaseFrontEnd {
             ));
         } else {
             // user is normal user
-            if (isset($this->melkSubscription)) {
-                // user has subscription and we have to show the message about melk add
-                $this->flash->success("ملک شما با موفقیت اضافه گردید، منتظر تایید از طرف مدیر سایت بمانید");
-
+            if ($this->melkSubscription == FALSE) {
                 // forward user to the melkview page
                 $this->dispatcher->forward(array(
                     "controller" => "usersubscribe",
                     "action" => "plans",
+                    "params" => array($melkid)
+                ));
+            } else {
+                $this->dispatcher->forward(array(
+                    "controller" => "melk",
+                    "action" => "view",
                     "params" => array($melkid)
                 ));
             }

@@ -14,6 +14,14 @@ use UserOrder;
 
 class IndexController extends IndexControllerBase {
 
+    public function resetbongahpasswordAction() {
+        return $this->dispatcher->forward(array(
+                    "controller" => "user",
+                    "action" => "forgetpassword",
+                    "params" => array()
+        ));
+    }
+
     /**
      * 
      */
@@ -66,7 +74,7 @@ class IndexController extends IndexControllerBase {
         $appDownload->create();
 
         // now we have to redirect user to download page
-        Helper::RedirectToURL(Config::GetGooglePlayLink());
+        Helper::RedirectToURL(Config::GetAndroidDownloadLink());
         die();
     }
 

@@ -362,7 +362,13 @@ class MelkPhoneListner extends AtaModel {
         // get price range
         if (intval($this->melkpurposeid) == 1) {
             // kharid
-            $item->pricerange = $this->getSalePriceStartHuman() . " " . "تا" . " " . $this->getSalePriceEndHuman();
+            if (intval($this->sale_price_start) == 0 && intval($this->sale_price_end) == 20000) {
+                $item->pricerange = "هر قیمتی";
+            } else if (intval($this->sale_price_start) == 0 && intval($this->sale_price_end) != 20000) {
+                $item->pricerange = "حداکثر" . " " . $this->getSalePriceEndHuman();
+            } else {
+                $item->pricerange = $this->getSalePriceStartHuman() . " " . "تا" . " " . $this->getSalePriceEndHuman();
+            }
         } else if (intval($this->melkpurposeid) == 2) {
             // rahn va ejare
             $item->pricerange = "رهن: " . $this->getRentPriceRahnStartHuman() . " " . "تا" . " " . $this->getRentPriceRahnEndHuman();
