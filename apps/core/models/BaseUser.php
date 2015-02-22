@@ -8,6 +8,7 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Controller;
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 use Simpledom\Core\Classes\SearchResult;
 
 class BaseUser extends AtaModel implements Searchable {
@@ -598,11 +599,62 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         return intval($this->verified) == 1 ? "<div class='btn btn-sm btn-default disabled'>Verified</div>" : "<div class='btn btn-sm btn-warning disabled'>Not Verified</div>";
     }
 
-    public function registerAccount($controller, &$errors, $fname, $lname, $gender, $email, $password, $level, $phone = null) {
+    public function registerAccount($controller, &$errors, $fname, $lname, $gender, $email, $password, $level, $phone = null, $sendverifymessage = true) {
+
 
         // check if the login is enabled
         if (Settings::Get()->enabledisablesignup === false) {
             $errors[] = (_("Sorry!<br/>But the register system is disabled by Super Adminstator at this time."));
+            return false;
+        }
+
+
+        // check for first name
+        if (strlen($fname) == 0) {
+            $errors[] = _("لطفا نام خود را وارد نمایید");
+            return;
+        }
+
+
+        if (strlen($lname) == 0) {
+            $errors[] = _("لطفا نام خانوادگی خود را وارد نمایید");
+            return;
+        }
+
+
+        if (strlen($email) == 0) {
+            $errors[] = _("لطفا ایمیل خود را وارد نمایید");
+            return;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = _("ایمیل شما صحیح نمی باشد");
+            return;
+        }
+
+        if (strlen($password) == 0) {
+            $errors[] = _("لطفا رمز عبوری به دلخواه برای خود انتخاب نمایید");
+            return;
+        }
+
+
+        if (strlen($password) < 6) {
+            $errors[] = _("رمز عبور باید حداقل  6 حرف باشد");
+            return;
+        }
+
+        // validate phone numbet
+        if (isset($phone)) {
+            $phone = Helper::getCorrectIraninanMobilePhoneNumber($phone);
+            if (!$phone) {
+                $errors[] = "شماره موبایل وارد شده نامعتبر می باشد";
+                return false;
+            }
+        }
+
+        // check if we have not that email in our database before
+        if ($this->count(array("email = :email:", "bind" => array("email" => $email))) > 0) {
+            $errors[] = "ایمیل شما در حال حاضر در سایت ثبت شده است، در صورتی که این ایمیل متعلق به شماست، با استفاده از اطلاعات کاربری خود وارد سایت گردید";
             return false;
         }
 
@@ -656,12 +708,15 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                     // user phone created, we have to send the verify code to user
                     $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
                     //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
-                    SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+                    if ($sendverifymessage == TRUE) {
+                        SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+                    }
                 }
             } else {
                 // phone exist in database before
                 $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
             }
+
 
             return true;
         }

@@ -1,0 +1,87 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+
+                                                <h2 class='panel-title'>Add Product</h2>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderDecorated('userid'); ?> 
+
+                                <!--  ADD Category ID !-->
+                                <?php $form->renderDecorated('categoryid'); ?> 
+
+                                <!--  ADD Title !-->
+                                <?php $form->renderDecorated('title'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderDecorated('description'); ?> 
+
+                                <!--  ADD Made By !-->
+                                <?php $form->renderDecorated('country_who_made'); ?> 
+
+                                <!--  ADD Send Point !-->
+                                <?php $form->renderDecorated('send_point'); ?> 
+
+                                <!--  ADD Price !-->
+                                <?php $form->renderDecorated('price'); ?> 
+
+                                <!--  ADD Sale Price !-->
+                                <?php $form->renderDecorated('sale_price'); ?> 
+
+                                <!--  ADD Price Currency !-->
+                                <?php $form->renderDecorated('currency'); ?> 
+
+                                <!--  ADD Minimum Request Count !-->
+                                <?php $form->renderDecorated('min_request_count'); ?> 
+
+                                <!--  ADD Barcode Number !-->
+                                <?php $form->renderDecorated('barcodenumber'); ?> 
+
+                                <!--  ADD Color !-->
+                                <?php $form->renderDecorated('color'); ?> 
+
+                                <!--  ADD UUID !-->
+                                <?php $form->renderDecorated('uuid'); ?> 
+
+                                <!--  ADD Offline Add !-->
+                                <?php $form->renderDecorated('offlineadd'); ?> 
+
+                                <!--  ADD Token !-->
+                                <?php $form->renderDecorated('token'); ?> 
+
+                                <!--  ADD Featured !-->
+                                <?php $form->renderDecorated('featured'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+                                <!--  ADD Order Request Instruction !-->
+                                <?php $form->renderDecorated('order_request_instruction'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

@@ -2,10 +2,16 @@
 
 namespace Simpledom\Api\Controllers;
 
+use BaseSystemLog;
 use BaseUser;
+use Category;
+use City;
 use MobileNotification;
 use MobileToken;
+use Product;
+use Seller;
 use stdClass;
+use User;
 
 class PublicController extends ControllerBase {
 
@@ -22,6 +28,53 @@ class PublicController extends ControllerBase {
         $result->md5 = "232656122152";
         $result->downloadlink = "http://www.google.com";
         return $this->getResponse($result);
+    }
+
+    public function getcategoryproductsAction($categoryid) {
+
+        // find user products
+        $start = (int) $_POST["start"];
+        $limit = (int) $_POST["limit"];
+        $categoryid = intval($categoryid);
+
+
+        // we have to find category and subcategory items too
+        $categoryList = Category::findFirst(array("id = :id:", "bind" => array("id" => $categoryid)))->LoadSubCategoryIDs();
+
+
+        // implode items as array
+        $categoryIDs = implode(", ", $categoryList);
+
+        $products = Product::find(
+                        array(
+                            "categoryid IN ( $categoryid , $categoryIDs) AND status = 1",
+                            "order" => "id DESC",
+                            "limit" => "$start , $limit",
+                            "bind" =>
+                            array(
+                                "categoryid" => $categoryid
+                            )
+                        )
+        );
+
+        // send products
+        $results = array();
+        foreach ($products as $product) {
+            $results[] = $product->getPublicResponse();
+        }
+        return $this->getResponse($results);
+    }
+
+    public function getcategoriesAction() {
+        // we have to list of cateories
+        $topCategories = Category::find("parent_id = 0 AND status = '1'");
+
+        // find results
+        $categories = array();
+        foreach ($topCategories as $topCategoriy) {
+            $categories[] = $topCategoriy->getPublicResponse();
+        }
+        return $this->getResponse($categories);
     }
 
     public function newnotificationAction() {
@@ -44,6 +97,99 @@ class PublicController extends ControllerBase {
 
         // send notification
         return $this->getResponse($notification->getPublicResponse());
+    }
+
+    private function logError() {
+        // log error
+        BaseSystemLog::CreateLogWarning("خطا در ساخت فروشنده", implode(", ", $this->errors) . "\n\n\n" . json_encode($_POST));
+    }
+
+    public function registersellerAction() {
+
+        $seller = new Seller();
+        $this->user = new User();
+
+        $seller->type = $this->request->getPost('type', 'string');
+        $seller->title = $this->request->getPost('title', 'string');
+        $seller->address = $this->request->getPost('address', 'string');
+        $seller->phone = $this->request->getPost('shomaresabet', 'string');
+
+        // check for valid inputs
+        if (strlen($seller->title) == 0 || strlen($seller->address) == 0 || strlen($seller->phone) == 0) {
+            $this->errors[] = _("شما می بایست شماره تلفن، آدرس و نام صنف خود را وارد نمایید");
+
+            // log error
+            $this->logError();
+
+            // send response
+            return $this->getResponse(false);
+        }
+
+
+        // we need to create an account for the user
+        $fname = $this->request->getPost("fname");
+        $lname = $this->request->getPost("lname");
+        $email = $this->request->getPost("email", "email");
+        $password = $this->request->getPost("password");
+        $mobile = $this->request->getPost("phone");
+        $deviceid = $this->request->getPost("deviceid");
+        $devicetype = $this->request->getPost("devicetype");
+        $result = $this->user->registerAccount($this, $this->errors, $fname, $lname, 1, $email, $password, USERLEVEL_USER, $mobile, false);
+        if (!$this->hasError() && $result == true) {
+            // user successfully created 
+        } else {
+
+            // unable to create user
+            return $this->getResponse(false);
+        }
+
+        if (!$this->hasError()) {
+
+            $cityID = City::findFirst(array("name = :name:", "bind" => array("name" => $this->request->getPost('city', 'string'))))->id;
+
+            // form is valid
+            $seller->userid = $this->user->userid;
+            $seller->cityid = $cityID;
+            $seller->latitude = $this->request->getPost('latitude');
+            $seller->longitude = $this->request->getPost('longitude');
+
+            if (!$seller->create()) {
+                // unable to create seller
+                $this->errors[] = $seller->getMessagesAsLines();
+
+                // log error
+                $this->logError();
+
+                return $this->getResponse(false);
+            } else {
+
+                $this->user->level = USERLEVEL_SELLER;
+                $this->user->save();
+
+                // success, we have to create new LoginResult
+                $token = MobileToken::GetToken($this->errors, $this->user->userid, $deviceid, $devicetype);
+                if (!$token) {
+
+                    // log error
+                    $this->logError();
+
+                    return $this->getResponse(false);
+                }
+
+                // token created successfully
+                $result = new stdClass();
+                $result->User = $this->user->getPublicResponse();
+                $result->Token = $token;
+                $result->Type = USERLEVEL_SELLER;
+                return $this->getResponse($result);
+            }
+        }
+
+        // log error
+        $this->logError();
+
+        // unable to create new user or bongah
+        $this->getResponse(false);
     }
 
     /**
@@ -98,6 +244,7 @@ class PublicController extends ControllerBase {
         // check if user can have success login
         $user = BaseUser::Login($email, $password);
         if (!$user) {
+            $this->errors[] = "کاربری با چنین ایمیل و رمز عبوری یافت نگردید";
             return $this->getResponse(false);
         }
 
@@ -112,6 +259,7 @@ class PublicController extends ControllerBase {
         $result = new stdClass();
         $result->User = $user->getPublicResponse();
         $result->Token = $token;
+        $result->Type = $user->level;
         return $this->getResponse($result);
     }
 

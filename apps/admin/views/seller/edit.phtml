@@ -1,0 +1,84 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>Edit Seller</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Seller</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderDecorated('userid'); ?> 
+
+                                <!--  ADD Parent Seller !-->
+                                <?php $form->renderDecorated('parent_seller'); ?> 
+
+                                <!--  ADD Type !-->
+                                <?php $form->renderDecorated('type'); ?> 
+
+                                <!--  ADD Title !-->
+                                <?php $form->renderDecorated('title'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderDecorated('description'); ?> 
+
+                                <!--  ADD City ID !-->
+                                <?php $form->renderDecorated('cityid'); ?> 
+
+                                <!--  ADD Latitude !-->
+                                <?php $form->renderDecorated('latitude'); ?> 
+
+                                <!--  ADD Longitude !-->
+                                <?php $form->renderDecorated('longitude'); ?> 
+
+                                <!--  ADD Address !-->
+                                <?php $form->renderDecorated('address'); ?> 
+
+                                <!--  ADD Phone !-->
+                                <?php $form->renderDecorated('phone'); ?> 
+
+                                <!--  ADD Postal Code !-->
+                                <?php $form->renderDecorated('postal_code'); ?> 
+
+                                <!--  ADD Business Code !-->
+                                <?php $form->renderDecorated('business_code'); ?> 
+
+                                <!--  ADD Fax !-->
+                                <?php $form->renderDecorated('fax'); ?> 
+
+                                <!--  ADD Image ID !-->
+                                <?php $form->renderDecorated('imageid'); ?> 
+
+                                <!--  ADD Location Can Send !-->
+                                <?php $form->renderDecorated('location_can_send'); ?> 
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderDecorated('status'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderDecorated('date'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

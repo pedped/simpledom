@@ -1,0 +1,86 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View Product</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Product</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD User ID !-->
+                                <?php $form->renderInfo('userid'); ?> 
+
+                                <!--  ADD Category ID !-->
+                                <?php $form->renderInfo('categoryid'); ?> 
+
+                                <!--  ADD Title !-->
+                                <?php $form->renderInfo('title'); ?> 
+
+                                <!--  ADD Description !-->
+                                <?php $form->renderInfo('description'); ?> 
+
+                                <!--  ADD Made By !-->
+                                <?php $form->renderInfo('country_who_made'); ?> 
+
+                                <!--  ADD Send Point !-->
+                                <?php $form->renderInfo('send_point'); ?> 
+
+                                <!--  ADD Price !-->
+                                <?php $form->renderInfo('price'); ?> 
+
+                                <!--  ADD Sale Price !-->
+                                <?php $form->renderInfo('sale_price'); ?> 
+
+                                <!--  ADD Price Currency !-->
+                                <?php $form->renderInfo('currency'); ?> 
+
+                                <!--  ADD Minimum Request Count !-->
+                                <?php $form->renderInfo('min_request_count'); ?> 
+
+                                <!--  ADD Barcode Number !-->
+                                <?php $form->renderInfo('barcodenumber'); ?> 
+
+                                <!--  ADD Color !-->
+                                <?php $form->renderInfo('color'); ?> 
+
+                                <!--  ADD UUID !-->
+                                <?php $form->renderInfo('uuid'); ?> 
+
+                                <!--  ADD Offline Add !-->
+                                <?php $form->renderInfo('offlineadd'); ?> 
+
+                                <!--  ADD Token !-->
+                                <?php $form->renderInfo('token'); ?> 
+
+                                <!--  ADD Featured !-->
+                                <?php $form->renderInfo('featured'); ?> 
+
+                                <!--  ADD Date !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+                                <!--  ADD Order Request Instruction !-->
+                                <?php $form->renderInfo('order_request_instruction'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

@@ -19,6 +19,104 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>دسته ها</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('category/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('category/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>فروشنده</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('seller/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('seller/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>محصولات</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('product/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('product/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>تصاویر محصولات</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('productimage/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('productimage/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>تصاویر فروشنده's</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('sellerimage/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('sellerimage/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <hr class="separator" />
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-archive" aria-hidden="true"></i>

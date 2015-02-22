@@ -2,9 +2,46 @@
 
 namespace Simpledom\Core\Classes;
 
-use Phalcon\Http\Response;
+use Simpledom\Core\Classes\Config;
 
 class Helper {
+
+    /**
+     * this function will get correct iranaian phone numberS
+     * @param type $mobileNumber
+     * @return mixed false if the phone number is not valid, fixed mobile number
+     * on valid phone number
+     */
+    public static function getCorrectIraninanMobilePhoneNumber($mobileNumber) {
+
+        // check if the mobile number is correct
+        if (strlen($mobileNumber) > 11 || strlen($mobileNumber) < 10) {
+            return false;
+        }
+
+        // check for the correct mobile number
+        if (strlen($mobileNumber) == 10) {
+            if (intval($mobileNumber[0]) != 9) {
+                // invalid phone number
+                return false;
+            } else {
+                // valid phone number
+                return "0" . $mobileNumber;
+            }
+        } else {
+            if (intval($mobileNumber[0]) != 0 || intval($mobileNumber[1]) != 9) {
+                // invalid phone number
+                return false;
+            } else {
+                // valid phone number
+                return $mobileNumber;
+            }
+        }
+    }
+
+    public static function GetTodayStartTime() {
+        return strtotime("00:00:00");
+    }
 
     /**
      * Retrun the human readble file size
