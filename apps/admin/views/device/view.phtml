@@ -1,0 +1,77 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View Device</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Device</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD ID !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD Company !-->
+                                <?php $form->renderInfo('company'); ?> 
+
+                                <!--  ADD Category ID !-->
+                                <?php $form->renderInfo('categoryid'); ?> 
+
+                                <!--  ADD Name !-->
+                                <?php $form->renderInfo('name'); ?> 
+
+                                <!--  ADD Dimensions !-->
+                                <?php $form->renderInfo('dimensions'); ?> 
+
+                                <!--  ADD Weight !-->
+                                <?php $form->renderInfo('weight'); ?> 
+
+                                <!--  ADD Simcount !-->
+                                <?php $form->renderInfo('simcount'); ?> 
+
+                                <!--  ADD Display !-->
+                                <?php $form->renderInfo('display'); ?> 
+
+                                <!--  ADD Resolution !-->
+                                <?php $form->renderInfo('resolution'); ?> 
+
+                                <!--  ADD SD Cart Support !-->
+                                <?php $form->renderInfo('sdsupport'); ?> 
+
+                                <!--  ADD OS !-->
+                                <?php $form->renderInfo('os'); ?> 
+
+                                <!--  ADD CPU !-->
+                                <?php $form->renderInfo('cpu'); ?> 
+
+                                <!--  ADD GPU !-->
+                                <?php $form->renderInfo('gpu'); ?> 
+
+                                <!--  ADD Internal_memory !-->
+                                <?php $form->renderInfo('internal_memory'); ?> 
+
+                                <!--  ADD Camera !-->
+                                <?php $form->renderInfo('camera'); ?> 
+
+                                <!--  ADD More Info !-->
+                                <?php $form->renderInfo('moreinfo'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

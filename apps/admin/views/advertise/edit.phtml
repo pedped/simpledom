@@ -1,0 +1,64 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row' style="font-family: tahoma;direction: rtl;">
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                    </div>
+                    <h2 class='panel-title'>مشاهده تبلیغ</h2>
+                    <p class='panel-subtitle'Use this form to edit your Advertise</p>
+                </header>
+                <div class='panel-body'>
+
+                    <div class="media">
+                        <img style="max-width: 300px;max-height: 300px;" src="<?php echo $advertise->imagelink; ?>" class="media-object pull-right">
+                        <div class="media-body">
+                            <h1 style="margin-top: 30px;" class="media-heading"><?php echo $advertise->title; ?> - <?php echo $advertise->companyname; ?>  </h1>
+                            <h2><?php echo str_replace("-", "/", $advertise->humandate); ?> - <?php echo $advertise->cityname; ?></h2>
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <div class='row'>
+                        <div class='col-md-3'>
+                            <!--  ADD Current View !-->
+                            <?php $form->renderDecorated('currentview'); ?> 
+                        </div>
+                        <div class='col-md-3'>
+                            <!--  ADD Repaired !-->
+                            <?php $form->renderDecorated('repaired'); ?> 
+                        </div>
+                        <div class='col-md-3'>
+                            <!--  ADD Price !-->
+                            <?php $form->renderDecorated('price'); ?> 
+                        </div>
+                        <div class='col-md-3'>
+                            <?php $form->renderDecorated('status'); ?> 
+                        </div>
+                    </div>
+
+                    <?php $form->renderDecorated('description'); ?> 
+
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <div class='row'>
+                        <div class='col-md-4 col-md-push-4'>
+                            <?php $form->renderDecorated('submit'); ?>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

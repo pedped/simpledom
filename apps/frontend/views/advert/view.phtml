@@ -1,0 +1,26 @@
+<div class='row' style="direction: rtl;">
+    <div class='col-md-12' style="text-align: right;margin-top: 30px;padding: 0px 20px;">
+        <div style="text-align: center;">
+            <img class="img img-responsive" src="<?php echo $advert->imagelink; ?>" style="max-width: 100%;max-height: 200px;"/>
+        </div>
+        <h1 style="text-align: center;width: 100%;margin-bottom: 0px;"><?php echo $advert->title; ?></h1>
+        <p style="margin-top: 0px;text-align: center;width: 100%;margin-bottom: 30px;"><?php echo $advert->companyname; ?></p>
+        <p>قیمت فروشنده: <?php echo $advert->price; ?></p>
+        <p>شهر: <?php echo $advert->cityname; ?></p>
+        <p>تاریخ: <?php echo str_replace("-", "/", $advert->humandate); ?></p>
+        <p>لوازم اضافه: <?php echo $advert->moreacc; ?></p>
+        <p>توضیحات: <?php echo (isset($advert->description) && strlen($advert->description) > 0) ? $advert->description : "فاقد توضیح"; ?></p>
+        <h3 style="margin-top: 30px;">اطلاعات فروشنده</h3>
+        <div>
+            <div style="float: right;"><img style="width: 72px;height: 72px;" src='<?php echo $advert->userprofileimage; ?>' /></div>
+            <div style="float: right;margin-right: 20px">
+                <h2 style=";margin-top: 20px;"><?php echo $advert->username; ?></h2>
+            </div>
+            <div style="clear: both;"></div>
+            <p>نام و نام خانوادگی: <?php echo $advert->userrealname; ?></p>
+            <?php if (!isset($hidenumber)): ?>
+                <p>شماره تماس: <?php echo $advert->userphone; ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div> 

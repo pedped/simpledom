@@ -123,6 +123,7 @@ class BaseUser extends AtaModel implements Searchable {
      * @var string
      */
     public $disablemessage;
+    public $userphone;
 
     public function getUserid() {
         return $this->userid;
@@ -530,7 +531,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
      * @return boolean
      */
     public function changePassword(&$errors, $newpass) {
-        $newpasshash = $this->getDI->getSecurity()->hash($newpass);
+        $newpasshash = $this->getDI()->getSecurity()->hash($newpass);
         $this->password = $newpasshash;
         return $this->save();
     }
@@ -598,7 +599,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         return intval($this->verified) == 1 ? "<div class='btn btn-sm btn-default disabled'>Verified</div>" : "<div class='btn btn-sm btn-warning disabled'>Not Verified</div>";
     }
 
-    public function registerAccount($controller, &$errors, $fname, $lname, $gender, $email, $password, $level, $phone = null) {
+    public function registerAccount($controller, &$errors, $fname, $lname, $gender, $email, $password, $level, $phone = null, $username = null) {
 
         // check if the login is enabled
         if (Settings::Get()->enabledisablesignup === false) {
@@ -606,14 +607,14 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             return false;
         }
 
-
-
         $this->fname = $fname;
         $this->lname = $lname;
         $this->email = $email;
         $this->gender = $gender;
         $this->password = $password;
         $this->level = $level;
+        $this->username = $username;
+        $this->userphone = $phone;
 
         // check if email is not registered
         if (BaseUser::hasEmail($this->email)) {
@@ -634,34 +635,34 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             $email = new EmailItems();
             $email->sendRegsiterNotification($this->userid, $this->getFullName(), $this->email, $this->verifycode);
 
-            // check if user has entered an not exist phone, add the phone
-            // to the user phones and send sms to user
-            $count = UserPhone::count(array(
-                        "phone = :phone:",
-                        "bind" => array(
-                            "phone" => $phone
-                        )
-            ));
-            if ($count == 0) {
-                // we have no user based on that phone, it is valid to add
-                // the phone to the UserPhone table and notify of the phone
-                // with verify code
-                $userPhone = new UserPhone();
-                $userPhone->phone = $phone;
-                $userPhone->userid = $this->userid;
-                if (!$userPhone->create()) {
-                    // usre phone not created
-                    BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
-                } else {
-                    // user phone created, we have to send the verify code to user
-                    $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
-                    //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
-                    SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
-                }
-            } else {
-                // phone exist in database before
-                $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
-            }
+//            // check if user has entered an not exist phone, add the phone
+//            // to the user phones and send sms to user
+//            $count = UserPhone::count(array(
+//                        "phone = :phone:",
+//                        "bind" => array(
+//                            "phone" => $phone
+//                        )
+//            ));
+//            if ($count == 0) {
+//                // we have no user based on that phone, it is valid to add
+//                // the phone to the UserPhone table and notify of the phone
+//                // with verify code
+//                $userPhone = new UserPhone();
+//                $userPhone->phone = $phone;
+//                $userPhone->userid = $this->userid;
+//                if (!$userPhone->create()) {
+//                    // usre phone not created
+//                    BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
+//                } else {
+//                    // user phone created, we have to send the verify code to user
+//                    $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
+//                    //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
+//                    SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+//                }
+//            } else {
+//                // phone exist in database before
+//                $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
+//            }
 
             return true;
         }

@@ -156,7 +156,7 @@ try {
 
     //Get the generated profiles from the profiler
     $profiles = $di->get('profiler')->getProfiles();
-    if (isset($profiles)) {
+    if (false && isset($profiles)) {
         foreach ($profiles as $profile) {
             echo "<pre>";
             echo("<b>" . $profile->getSQLStatement() . "</b>");

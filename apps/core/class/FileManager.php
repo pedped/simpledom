@@ -19,9 +19,9 @@ class FileManager {
     public static function HandleImageUpload(&$errors, $file, &$outputFileName, &$realtiveloaction) {
         //var_dump($file, Config::GetImagePath());
         // check if the file is image file
-        if ($file->getType() != "image/jpeg" && $file->getType() != "image/jpg" && $file->getType() != "image/bmp" && $file->getType() != "image/png" && $file->getType() != "image/gif") {
+        if ($file->getType() != "application/octet-stream" && $file->getType() != "image/jpeg" && $file->getType() != "image/jpg" && $file->getType() != "image/bmp" && $file->getType() != "image/png" && $file->getType() != "image/gif") {
             // the file type s not valid
-            $errors[] = "file type is invalid";
+            $errors[] = "This file type is invalid : " . $file->getType();
             return;
         }
 

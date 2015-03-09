@@ -8,6 +8,8 @@ use Page;
 use Phalcon\Mvc\Url;
 use Phalcon\Tag;
 use Settings;
+use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 use User;
 
 abstract class ControllerBase extends AtaController {
@@ -97,7 +99,7 @@ abstract class ControllerBase extends AtaController {
         // CSS in the header
         $this->assets
                 ->collection('header')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://www.bargsoft.ir/')
                 ->addCss('css/bt3/bootstrap.css', true)
                 ->addCss('css/app/main.css', true)
                 ->addCss('css/app/font-awesome/css/font-awesome.css', true);
@@ -106,7 +108,7 @@ abstract class ControllerBase extends AtaController {
         //Javascripts in the footer
         $this->assets
                 ->collection('footer')
-                ->setPrefix('http://melk.edspace.org/')
+                ->setPrefix('http://www.bargsoft.ir/')
                 ->addJs('js/jquery/jquery.min.js', true)
                 ->addJs('bootstrap/bootstrap.js', true);
 
@@ -114,10 +116,10 @@ abstract class ControllerBase extends AtaController {
         //Javascripts in the footer
         $this->assets
                 ->collection('elementscripts')
-                ->setPrefix('http://melk.edspace.org/');
+                ->setPrefix('http://www.bargsoft.ir/');
         $this->assets
                 ->collection('elementscss')
-                ->setPrefix('http://melk.edspace.org/');
+                ->setPrefix('http://www.bargsoft.ir/');
         $this->assets
                 ->collection('externalscripts');
 
@@ -167,6 +169,35 @@ abstract class ControllerBase extends AtaController {
 
         // save the action
         $action->create();
+
+        // check if user can see login page
+        if (!$this->session->has("userid")) {
+
+            // user logged in
+            if ($this->dispatcher->getControllerName() != "user" && $this->dispatcher->getControllerName() != "advert") {
+                $this->dispatcher->forward(array(
+                    "controller" => "user",
+                    "action" => "login",
+                    "params" => array()
+                ));
+            } else {
+                
+            }
+        } else {
+            if (!$this->user->isSuperAdmin()) {
+                $this->dispatcher->forward(array(
+                    "controller" => "user",
+                    "action" => "logout",
+                    "params" => array()
+                ));
+            } else {
+                if ($this->dispatcher->getControllerName() == "user" && $this->dispatcher->getActionName() == "logout") {
+                    
+                } else {
+                    Helper::RedirectToURL(Config::getPublicUrl() . "admin/");
+                }
+            }
+        }
     }
 
 }

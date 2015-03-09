@@ -1,10 +1,9 @@
 <?php
 
-use Phalcon\Forms\Element\Submit;
-use Phalcon\Logger\Adapter\File;
-use Simpledom\Core\AtaForm;
-
 namespace Simpledom\Core;
+
+use Phalcon\Forms\Element\File;
+use Phalcon\Forms\Element\Submit;
 
 class UploadImageForm extends AtaForm {
 

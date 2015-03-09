@@ -17,7 +17,7 @@ use Phalcon\Text;
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+<!--            <ul class="nav navbar-nav">
                 <li><a href="<?php echo $this->url->get("opinion"); ?>"><?= _("OPINIONS"); ?></a></li>
                 <?php foreach ($headerPages as $page) : ?>
                     <li><a href="<?php echo $this->url->get("page/view/" . $page->id); ?>"><?php echo Text::upper($page->title); ?></a></li>
@@ -28,7 +28,7 @@ use Phalcon\Text;
                     <input name="query" type="text" class="form-control" placeholder="<?= _("Search"); ?>">
                 </div>
                 <button type="submit" class="btn btn-default"><?= _("Submit"); ?></button>
-            </form>
+            </form>-->
 
 
             <!-- Profile Link !-->
@@ -50,14 +50,14 @@ use Phalcon\Text;
                     <li><a style="padding: 0px;" href="<?php echo $this->url->get("user/edit"); ?>"><img src="<?php echo $this->session->get("imagelink"); ?>"  class="img _header-profile-image" /></a></li>
                 <?php else: ?>
                     <li><a href="<?php echo $this->url->get("user/login") ?>"><?= _("Login"); ?></a></li>
-                    <li><a href="<?php echo $this->url->get("user/register") ?>"><?= _("Register"); ?></a></li>
+                    <!--<li><a href="<?php echo $this->url->get("user/register") ?>"><?= _("Register"); ?></a></li>-->
                 <?php endif; ?>
             </ul>
             <!-- FAQ - CONTACT US !-->
-            <ul class="nav navbar-nav navbar-<?= $websiteSettings->rtl ? "left" : "right" ?>">
+<!--            <ul class="nav navbar-nav navbar-<?= $websiteSettings->rtl ? "left" : "right" ?>">
                 <li><a href="<?php echo $this->url->get("contact"); ?>"><?= _("CONTACT US"); ?></a></li>
                 <li><a href="<?php echo $this->url->get("faq"); ?>"><?= _("FAQ"); ?></a></li>
-            </ul>
+            </ul>-->
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

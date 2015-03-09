@@ -1,0 +1,102 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post' enctype="multipart/form-data">
+    <div class='row'>
+        <div class='col-lg-12' style="font-family: tahoma;direction: rtl">
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <h2 class='panel-title'>افزودن دستگاه</h2>
+                </header>
+                <div class='panel-body'>
+
+                    <div class='row'>
+                        <div class='col-md-4'>
+                            <!--  ADD Name !-->
+                            <?php $form->renderDecorated('image'); ?> 
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD Name !-->
+                            <?php $form->renderDecorated('name'); ?> 
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD Category ID !-->
+                            <?php $form->renderDecorated('categoryid'); ?> 
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!--  ADD Display !-->
+                            <?php $form->renderDecorated('display'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <!--  ADD Resolution !-->
+                            <?php $form->renderDecorated('resolution'); ?> 
+                        </div>
+                    </div>
+
+
+                    <!--  ADD Camera !-->
+                    <?php $form->renderDecorated('camera'); ?> 
+
+                    <div class='row'>
+                        <div class='col-md-4'>
+                            <!--  ADD OS !-->
+                            <?php $form->renderDecorated('os'); ?> 
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD CPU !-->
+                            <?php $form->renderDecorated('cpu'); ?> 
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD GPU !-->
+                            <?php $form->renderDecorated('gpu'); ?> 
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='col-md-6'>
+                            <!--  ADD Dimensions !-->
+                            <?php $form->renderDecorated('dimensions'); ?> 
+                        </div>
+                        <div class='col-md-6'>
+                            <!--  ADD Weight !-->
+                            <?php $form->renderDecorated('weight'); ?> 
+                        </div>
+                    </div>
+
+
+                    <div class='row'>
+                        <div class='col-md-4'>
+                            <!--  ADD Simcount !-->
+                            <?php $form->renderDecorated('simcount'); ?> 
+
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD SD Cart Support !-->
+                            <?php $form->renderDecorated('sdsupport'); ?> 
+                        </div>
+                        <div class='col-md-4'>
+                            <!--  ADD Internal_memory !-->
+                            <?php $form->renderDecorated('internal_memory'); ?> 
+                        </div>
+                    </div>
+
+                    <!--  ADD More Info !-->
+                    <?php $form->renderDecorated('moreinfo'); ?> 
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+
