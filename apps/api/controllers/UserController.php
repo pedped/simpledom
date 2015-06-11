@@ -23,7 +23,7 @@ class UserController extends ControllerBase {
         }
 
         // get new notfications
-        $notification = UserNotification::findFirst(array("releasedate >= :releasedate: AND enable = 1 AND visited  = '0'", "order" => "id DESC", "bind" => array("releasedate" => $lastvisit)));
+        $notification = UserNotification::findFirst(array("userid = :userid: AND enable = 1 AND visited = '0'", "order" => "id ASC", "bind" => array("userid" => $this->user->userid)));
         if (!$notification) {
             // there is no new notification
             return $this->getResponse(false);
