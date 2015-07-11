@@ -40,7 +40,7 @@ class MelliPayamakSMSProvider extends SmsProviderSystem implements SMSProviderIn
     public function Send($phones, $message, $fromnumber) {
 
         // turn off the WSDL cache
-        //ini_set("soap.wsdl_cache_enabled", "0");
+        ini_set("soap.wsdl_cache_enabled", "0");
 
         try {
             $client = new SoapClient("http://api.payamak-panel.com/post/send.asmx?wsdl");

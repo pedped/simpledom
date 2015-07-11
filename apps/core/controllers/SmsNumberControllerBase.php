@@ -6,7 +6,6 @@ use AtaPaginator;
 use Simpledom\Core\SmsNumberForm;
 use SmsNumber;
 
-
 class SmsNumberControllerBase extends ControllerBase {
 
     public function initialize() {
@@ -75,10 +74,10 @@ class SmsNumberControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Number', 'Enable', 'Sent Count', 'Date', 'Description', 'Provider Name'
+                    'کد', 'شماره', 'وضعیت', 'تاریخ', 'توضیحات', 'نام تامین کننده'
                 ))->
                 setFields(array(
-                    'id', 'number', 'enable', 'sentcount', 'date', 'description', 'providerid'
+                    'id', 'number', 'enable', 'getDate()', 'description', 'getProviderName()'
                 ))->
                 setEditUrl(
                         'edit'

@@ -75,7 +75,8 @@ class AtaPaginator extends Paginator {
         $baseUrl = $di->getUrl()->getBaseUri();
 
         // parse url
-        $baseUrl = strlen(isset(parse_url($baseUrl)["scheme"]) ? parse_url($baseUrl)["scheme"] : "") > 0 ? $baseUrl : Config::getPublicUrl() . substr($baseUrl, 1);
+        $parsedUrl = parse_url($baseUrl);
+        $baseUrl = strlen(isset($parsedUrl["scheme"]) ? $parsedUrl["scheme"] : "") > 0 ? $baseUrl : Config::getPublicUrl() . substr($baseUrl, 1);
 
         // load default path
         $list = $this->listPath;

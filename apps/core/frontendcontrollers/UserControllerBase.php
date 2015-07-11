@@ -424,7 +424,8 @@ class UserControllerBase extends ControllerBase {
             } else {
                 // valid post, we have to create new user based on the request
                 if ($this->request->hasFiles()) {
-                    $image = FileManager::HandleImageUpload($this->errors, $this->request->getUploadedFiles()[0], $outputFileName, $realtiveloaction);
+                    $uploadedFiles = $this->request->getUploadedFiles();
+                    $image = FileManager::HandleImageUpload($this->errors, $uploadedFiles[0], $outputFileName, $realtiveloaction);
                     if (!$image) {
                         $this->flash->error(_("unable to handle file upload"));
                     } else {

@@ -67,24 +67,18 @@ class UserPhoneControllerBase extends ControllerBase {
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $userphones,
-            'limit' => 10,
+            'limit' => 100,
             'page' => $numberPage
         ));
 
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Name', 'Phone', 'Verify Code', 'Verified', 'Verify', 'Last SMS Sent Date', 'Date'
+                    'کد', 'کد کاربری', 'شماره موبایل', 'تاریخ'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'getUserName()', 'phone', 'verifycode', 'getVerifiedText()', 'getAdminVerifyButton()', 'lastsmsdate', 'getDate()'
-                ))->
-                setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
+                    'id', 'userid', 'phone', 'getDate()'
+                ))->setListPath(
                 'userphone/list');
 
         $this->view->list = $paginator->getPaginate();

@@ -1,0 +1,29 @@
+<div>
+    <!-- message !-->
+    <div class='row'>
+        <div class='col-md-6 col-md-push-3'>
+            <?php echo $this->getContent(); ?>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-md-6 col-md-push-3 center'>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <span class="fa fa-money" style="font-size: 200px;  color: #1C7DFF;"></span>
+                    <h3>خرید بسته اینترنتی</h3>
+                    <p>جهت خرید بسته های اینترنتی شماره تماس خود را وارد نموده و یکی از بسته های زیر را انتخاب نمایید</p>
+                    <p>دقت نمایید بعد از خرید بسته مشخصات کارت به شماره تماس شما ارسال خواهد گردید، پس در وارد نمودن شما شماره تماس دقت نمایید</p>
+                    <div>
+                        <form method="post">
+                            <?php $form->renderDecorated('phone'); ?> 
+                            <?php $form->renderDecorated('type'); ?>
+                            <?php $form->renderDecorated('submit'); ?> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

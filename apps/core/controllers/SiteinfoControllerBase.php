@@ -52,6 +52,11 @@ class SiteinfoControllerBase extends ControllerBase {
                 $settings->shownewsandroid = $this->request->getPost("shownews");
                 $settings->shownewsandroid = $this->request->getPost("shownewsandroid");
                 $settings->globalmessage = $this->request->getPost("globalmessage");
+                
+                
+                $settings->accuntmessage = $this->request->getPost("accuntmessage");
+                $settings->freemessage = $this->request->getPost("freemessage");
+                $settings->passwordlength = $this->request->getPost("passwordlength");
 
                 if (!$settings->save()) {
                     $settings->showErrorMessages($this);
@@ -89,6 +94,10 @@ class SiteinfoControllerBase extends ControllerBase {
         $fr->get("shownews")->setDefault($settings->shownews);
         $fr->get("shownewsandroid")->setDefault($settings->shownewsandroid);
         $fr->get("globalmessage")->setDefault($settings->globalmessage);
+        
+        $fr->get("passwordlength")->setDefault($settings->passwordlength);
+        $fr->get("freemessage")->setDefault($settings->freemessage);
+        $fr->get("accuntmessage")->setDefault($settings->accuntmessage);
 
         $this->handleFormScripts($fr);
         $this->view->siteInfoForm = $fr;

@@ -18,6 +18,7 @@ class IrPayamakSMSProvider extends SmsProviderSystem implements SMSProviderInter
 
     public function getRemain($includeCurrency = true) {
 
+        ini_set("soap.wsdl_cache_enabled", "0");
         $soapClient = new SoapClient("http://login.irpayamak.com/API/Send.asmx?wsdl");
         $result = $soapClient->Credit(array(
             "username" => $this->parameters["username"],
@@ -37,6 +38,7 @@ class IrPayamakSMSProvider extends SmsProviderSystem implements SMSProviderInter
 
     public function Send($phones, $message, $fromnumber) {
 
+        ini_set("soap.wsdl_cache_enabled", "0");
         $soapClient = new SoapClient("http://login.irpayamak.com/API/Send.asmx?wsdl");
         return $soapClient->SendSms(array(
                     "username" => $this->parameters["username"],

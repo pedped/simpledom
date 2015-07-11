@@ -13,11 +13,24 @@
                         <a href="#" class="fa fa-times"></a>
                     </div>
 
-                    <h2 class="panel-title">Website Info</h2>
+                    <h2 class="panel-title">اطلاعات سایت</h2>
                 </header>
                 <div class="panel-body">
 
-                    <p>You can change website info here</p>
+                    <div class="hidden">
+                        <!-- Enable\Disable Search !-->
+                        <?php $siteInfoForm->renderDecorated("enablesearch"); ?>
+
+                        <!-- Enable\Disable RTL Support !-->
+                        <?php $siteInfoForm->renderDecorated("rtl"); ?>
+
+                        <!-- Recaptcha Public Key !-->
+                        <?php $siteInfoForm->renderDecorated("recaptchapublic"); ?>
+
+                        <!-- Recaptcha Private Key !-->
+                        <?php $siteInfoForm->renderDecorated("recaptchaprivate"); ?>
+
+                    </div>
 
                     <!-- Website Name !-->
                     <?php $siteInfoForm->renderDecorated("websitename"); ?>
@@ -28,17 +41,13 @@
                     <!-- Enable\Disable Signin Mode!-->
                     <?php $siteInfoForm->renderDecorated("enabledisablesignin"); ?>
 
-                    <!-- Enable\Disable Search !-->
-                    <?php $siteInfoForm->renderDecorated("enablesearch"); ?>
 
-                    <!-- Enable\Disable RTL Support !-->
-                    <?php $siteInfoForm->renderDecorated("rtl"); ?>
+                    <?php $siteInfoForm->renderDecorated("passwordlength"); ?>
+                    
+                    <?php $siteInfoForm->renderDecorated("freemessage"); ?>
+                    
+                    <?php $siteInfoForm->renderDecorated("accuntmessage"); ?>
 
-                    <!-- Recaptcha Public Key !-->
-                    <?php $siteInfoForm->renderDecorated("recaptchapublic"); ?>
-
-                    <!-- Recaptcha Private Key !-->
-                    <?php $siteInfoForm->renderDecorated("recaptchaprivate"); ?>
 
 
                     <!-- Submit Button !-->
@@ -49,7 +58,7 @@
         </div>
     </div>
     <!-- SEO !-->
-    <div class="row">
+    <div class="row hidden">
         <div class="col-lg-12">
             <section class="panel panel-info">
                 <header class="panel-heading">
@@ -87,10 +96,10 @@
                         <a href="#" class="fa fa-times"></a>
                     </div>
 
-                    <h2 class="panel-title">Location</h2>
+                    <h2 class="panel-title">اطلاعات تماس</h2>
                 </header>
                 <div class="panel-body">
-                    <p>You can define your location right there</p>
+                    <p>شما میتوانید اطلاعات تماس و موقعیت را در این قسمت تنظیم نمایید</p>
 
                     <!-- address !-->
                     <?php $siteInfoForm->renderDecorated("address"); ?>
@@ -116,7 +125,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row hidden">
         <div class="col-lg-12">
             <section class="panel panel-dark">
                 <header class="panel-heading">
@@ -146,7 +155,7 @@
     </div>
 
     <!-- Payment Recipet !-->
-    <div class="row">
+    <div class="row hidden">
         <div class="col-lg-12">
             <section class="panel panel-dark">
                 <header class="panel-heading">
@@ -173,7 +182,7 @@
     </div>
 
     <!-- Phone Settings !-->
-    <div class="row">
+    <div class="row hidden">
         <div class="col-lg-12">
             <section class="panel panel-dark">
                 <header class="panel-heading">
@@ -200,7 +209,7 @@
 
 
     <!-- News Settings !-->
-    <div class="row">
+    <div class="row hidden">
         <div class="col-lg-12">
             <section class="panel panel-dark">
                 <header class="panel-heading">

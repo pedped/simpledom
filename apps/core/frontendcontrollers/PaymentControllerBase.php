@@ -38,7 +38,9 @@ class PaymentControllerBase extends ControllerBase {
             if ($this->paymentHandler->OnFinishPayment($this->errors, $parameters)) {
                 $this->flash->success("<h3 style='margin-top:0px;'>" . _("Success") . "</h3>" . _("Your payment was successfully") . "");
             } else {
-                $this->flash->error("<h3 style='margin-top:0px;'>" . _("Ooops") . "</h3>", implode("<br/>", $this->errors));
+                var_dump($this->errors);
+                die();
+                $this->flash->error("<h3 style='margin-top:0px;'>" . _("Ooops") . "</h3>" . implode($this->errors, "<br/>"));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

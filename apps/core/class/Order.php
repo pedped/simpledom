@@ -125,6 +125,7 @@ class Order {
         $order->type = $productTypeID;
         $order->itemid = $itemID;
 
+
         // create order
         if (!$order->create()) {
             $errors = array_merge($errors, $order->getMessages());

@@ -4,7 +4,7 @@ namespace Simpledom\Admin\BaseControllers;
 
 use BaseContact;
 use BaseUser;
-use LineChartElement;
+use ModelChart;
 use Opinion;
 use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\Config;
@@ -79,19 +79,27 @@ class IndexControllerBase extends ControllerBase {
 
         // create new form
         $form = new AtaForm();
-        $user = new BaseUser();
 
-        // load chart box
-        // fetch data
-        $chartlement = new LineChartElement("registerchart");
-        $chartlement->setTitle("Register Chart");
-        $chartlement->setSubtitle("total register count per day");
-        $chartlement->setXName("Date");
-        $chartlement->setYAxis("Count");
-        $chartlement->setValues($user->getLastMonthRegistarChart());
+        // USER REGISTER
+        $userRegisterModel = new ModelChart("registerchart", new BaseUser());
+        $userregister = $userRegisterModel->getChart();
+        $userregister->setTitle("ثبت نام");
+        $userregister->setSubtitle("ثبت نام در هر روز");
+        $userregister->setXName("تاریخ");
+        $userregister->setYAxis("تعداد");
+        $form->add($userregister);
 
-        // add element to form
-        $form->add($chartlement);
+
+
+        // PAYMENT
+        $orderModel = new ModelChart("orderchart", new UserOrder());
+        $orderchart = $orderModel->getChart();
+        $orderchart->setTitle("سفارشات");
+        $orderchart->setSubtitle("سقارش در هر روز");
+        $orderchart->setXName("تاریخ");
+        $orderchart->setYAxis("تعداد");
+        $form->add($orderchart); 
+   
 
         // set view form
         $this->view->form = $form;

@@ -14,15 +14,30 @@
                     <a href="#" class="fa fa-times"></a>
                 </div>
 
-                <h2 class="panel-title">User Register Chart</h2>
-                <p class="panel-subtitle">Here you can see join count at each day to the site</p>
+                <h2 class="panel-title">نمودار ثبت نام</h2>
+                <p class="panel-subtitle">تعداد افرادی که در سامانه ثبت نام کرده اند</p>
             </header>
             <div class="panel-body">
                 <?php $form->renderDecorated('registerchart'); ?> 
             </div>
         </section>
     </div>
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                    <a href="#" class="fa fa-times"></a>
+                </div>
 
+                <h2 class="panel-title">نمودار سفارشات</h2>
+                <p class="panel-subtitle">تعداد سفارشات ثبت شده در امانه بر اساس روز</p>
+            </header>
+            <div class="panel-body">
+                <?php $form->renderDecorated('orderchart'); ?> 
+            </div>
+        </section>
+    </div>
 </div>
 
 <div class="row">
@@ -38,7 +53,7 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Total Users</h4>
+                            <h4 class="title">کاربران</h4>
                             <div class="info">
                                 <strong class="amount"><?php echo $totalUsers ?></strong>
                             </div>
@@ -52,58 +67,6 @@
         </section>
     </div>
 
-    <!-- Total Contacts !-->
-    <div class="col-md-12 col-lg-6 col-xl-6">
-        <section class="panel panel-featured-left panel-featured-primary">
-            <div class="panel-body">
-                <div class="widget-summary">
-                    <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-primary">
-                            <i class="fa fa-life-ring"></i>
-                        </div>
-                    </div>
-                    <div class="widget-summary-col">
-                        <div class="summary">
-                            <h4 class="title">Support Questions</h4>
-                            <div class="info">
-                                <strong class="amount"><?php echo $totalContacts; ?></strong>
-                                <span class="text-primary">(<?php echo $totalContactsUnanswered; ?> unanswered)</span>
-                            </div>
-                        </div>
-                        <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Total Opinions !-->
-    <div class="col-md-12 col-lg-6 col-xl-6">
-        <section class="panel panel-featured-left panel-featured-primary">
-            <div class="panel-body">
-                <div class="widget-summary">
-                    <div class="widget-summary-col widget-summary-col-icon">
-                        <div class="summary-icon bg-success">
-                            <i class="fa fa-comment"></i>
-                        </div>
-                    </div>
-                    <div class="widget-summary-col">
-                        <div class="summary">
-                            <h4 class="title">Opinions</h4>
-                            <div class="info">
-                                <strong class="amount"><?php echo $totalOpinions; ?></strong>
-                            </div>
-                        </div>
-                        <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <!-- Total Sales !-->
     <div class="col-md-12 col-lg-6 col-xl-6">
@@ -117,19 +80,20 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Total Orders</h4>
+                            <h4 class="title">کل سفارشات</h4>
                             <div class="info">
-                                <strong class="amount"><?php echo $totalProdcutSale; ?> Orders</strong>
+                                <strong class="amount"><?php echo $totalProdcutSale; ?> سفارش</strong>
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
+                            <a href='<?php echo $this->url->get("order/list"); ?>' class="text-muted text-uppercase">مشاهده همه</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
 
 
     <!-- Remaining SMS !-->

@@ -73,23 +73,17 @@ class SentsmsControllerBase extends ControllerBase {
         ));
 
         $paginator->setSearchItemArrays(array(
-            "phone" => "Phone",
-            "message" => "Message",
+            "phone" => "شماره تماس",
+            "message" => "پیام",
         ));
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Phone', 'Message', 'From Number', 'IP', 'Provider', 'Date', 'Result', 'Reference Code'
+                    'کد', 'شماره', 'پیام', 'از خط', 'آی پی', 'تامین کننده', 'تاریخ',
                 ))->
                 setFields(array(
-                    'id', 'phone', 'message', 'fromnumber', 'ip', 'getProviderName()', 'getDate()', 'result', 'refcode'
-                ))->
-                setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
+                    'id', 'phone', 'message', 'fromnumber', 'ip', 'getProviderName()', 'getDate()',
+                ))->setListPath(
                 'sentsms/list');
 
         $this->view->list = $paginator->getPaginate();

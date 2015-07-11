@@ -9,6 +9,7 @@ abstract class SMSManager {
     public static $PROVIDERS = array(
         "IR Payamak" => "IrPayamakSMSProvider",
         "Melli Payamak" => "MelliPayamakSMSProvider",
+        "Afe" => "AfeSMSProvider",
     );
 
     /**

@@ -76,17 +76,11 @@ class UserOrderControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Name', 'Type', 'Title', 'Item ID', 'Payment Handler', 'Payment ID', 'Price', 'Price Currency', 'date', 'done'
+                    'ID', 'کد کاربر', 'شماره تماس', 'نوع', 'اطلاعات خرید', 'کد محصول', 'پرداخت شده توسط', 'کد پرداخت کننده', 'قیمت', 'واحد', 'تاریخ', 'انجام شده'
                 ))->
                 setFields(array(
-                    'id', 'userid', 'getUserName()', 'getTypeName()', 'getItemTitle()', 'itemid', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
-                ))->
-                setEditUrl(
-                        'view'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
+                    'id', 'userid', 'getPhone()', 'getTypeName()', 'getItemTitle()', 'itemid', 'getPaymentTypeName()', 'paymentitemid', 'price', 'pricecurrency', 'getDate()', 'getDoneTag()'
+                ))->setListPath(
                 'userorder/list');
 
         $this->view->list = $paginator->getPaginate();

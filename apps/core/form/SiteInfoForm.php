@@ -39,6 +39,39 @@ class SiteInfoForm extends AtaForm {
         )));
         $this->add($recaptchapublic);
 
+        // Recapctha
+        $freemessage = new TextAreaElement("freemessage");
+        $freemessage->setLabel("متن پیام هنگام عضویت");
+        //$name->setAttribute("placeholder", "Enter your Full Name");
+        $freemessage->setAttribute("class", "form-control");
+        $freemessage->setAttribute("style", "  direction: rtl;");
+        $freemessage->addValidator(new StringLength(array(
+            'min' => 6,
+        )));
+        $this->add($freemessage);
+
+
+
+        // Recapctha
+        $accountmessage = new TextAreaElement("accuntmessage");
+        $accountmessage->setLabel("متن پیام هنگام دریافت حساب");
+        //$name->setAttribute("placeholder", "Enter your Full Name");
+        $accountmessage->setAttribute("class", "form-control");
+        $accountmessage->setAttribute("style", "  direction: rtl;");
+        $accountmessage->addValidator(new StringLength(array(
+            'min' => 6,
+        )));
+        $this->add($accountmessage);
+
+
+
+        // Recapctha
+        $passwordlength = new TextElement("passwordlength");
+        $passwordlength->setLabel("سایز رمز عبور");
+        //$name->setAttribute("placeholder", "Enter your Full Name");
+        $passwordlength->setAttribute("class", "form-control");
+        $this->add($passwordlength);
+
 
         $recaptchaprivate = new TextElement("recaptchaprivate");
         $recaptchaprivate->setLabel(_("Private Recaptcha Key"));

@@ -1,29 +1,33 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h1 class="panel-title"><?= _("Login Details"); ?></h1>
-    </div>
-    <div class="panel-body">
-        <p><?= _("Please enter your information to login to site"); ?></p>
-        <?php echo $this->getContent(); ?>
-        <form method="post">
+<div class='row'>
+    <div class='col-md-6 col-md-push-3'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title"><?= _("Login Details"); ?></h1>
+            </div>
+            <div class="panel-body">
+                <p><?= _("Please enter your information to login to site"); ?></p>
+                <?php echo $this->getContent(); ?>
+                <form method="post">
 
-            <!-- First Name !-->
-            <?php echo $loginform->renderDecorated('email'); ?>
+                    <!-- First Name !-->
+                    <?php echo $loginform->renderDecorated('email'); ?>
 
-            <!-- Last Name!-->
-            <?php echo $loginform->renderDecorated('password'); ?>
+                    <!-- Last Name!-->
+                    <?php echo $loginform->renderDecorated('password'); ?>
 
-            <!-- Remember !-->
-            <?php echo $loginform->renderDecorated('remember'); ?>
+                    <!-- Remember !-->
+                    <?php echo $loginform->renderDecorated('remember'); ?>
 
-            <br/>
-            <p>
-                <a href="<?php echo $this->url->get("user/forgetpassword") ?>"><?= _("Forget Password"); ?></a>
-            </p>
+                    <br/>
+                    <p>
+                        <a href="<?php echo $this->url->get("user/forgetpassword") ?>"><?= _("Forget Password"); ?></a>
+                    </p>
 
-            <!-- Submit !-->
-            <?php echo $loginform->renderDecorated('submit'); ?>
+                    <!-- Submit !-->
+                    <?php echo $loginform->renderDecorated('submit'); ?>
 
-        </form
+                </form
+            </div>
+        </div>
     </div>
 </div>

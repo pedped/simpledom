@@ -18,6 +18,7 @@ use Phalcon\Cache\Backend\Memcache as MemcacheBackend;
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
+require_once 'ibsng/functions.php';
 
 
 putenv("LC_ALL=fa_IR");
@@ -156,7 +157,7 @@ try {
 
     //Get the generated profiles from the profiler
     $profiles = $di->get('profiler')->getProfiles();
-    if (isset($profiles)) {
+    if (false && isset($profiles)) {
         foreach ($profiles as $profile) {
             echo "<pre>";
             echo("<b>" . $profile->getSQLStatement() . "</b>");

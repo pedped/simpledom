@@ -1,2 +1,27 @@
-<h1>Index Page</h1>
-<a href='<?php echo $this->url->get("order/start/1"); ?>'><?= _("Start Payment"); ?></a>
+<div>
+    <!-- message !-->
+    <div class='row'>
+        <div class='col-md-6 col-md-push-3'>
+            <?php echo $this->getContent(); ?>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-md-6 col-md-push-3 center'>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <span class="fa fa-globe" style="font-size: 200px;  color: #1C7DFF;"></span>
+                    <h3>دریافت اینترنت رایگان</h3>
+                    <p>برای دریافت شارژ رایگان اینترنت شماره تماس خود را وارد نمایید 
+                        بعد از وارد نمودن شماره تماس و زدن دکمه دریافت، نام کاربری و رمز عبور به شماره شما ارسال خواهد گردید</p>
+                    <div>
+                        <form method="post">
+                            <?php $form->renderDecorated('phone'); ?> 
+                            <?php $form->renderDecorated('submit'); ?> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

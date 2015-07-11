@@ -368,6 +368,7 @@ class BaseUser extends AtaModel implements Searchable {
         $this->fullname = $this->fname . " " . $this->lname;
         $this->regtime = date(time());
         $this->logintimes = "0";
+        $this->date = time();
     }
 
     public function beforeValidationOnSave() {
@@ -656,7 +657,7 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
                     // user phone created, we have to send the verify code to user
                     $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
                     //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
-                    SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
+                    //SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
                 }
             } else {
                 // phone exist in database before

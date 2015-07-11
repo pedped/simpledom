@@ -73,10 +73,10 @@ class SMSProviderControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'Name', 'Description', 'Infos', 'Date', 'Website URL', 'Enable'
+                    'کد', 'نام', 'توضیحات', 'اطلاعات', 'تاریخ', 'آدرس وبسایت', 'فعال'
                 ))->
                 setFields(array(
-                    'id', 'name', 'description', 'infos', 'date', 'websitename', 'enable'
+                    'id', 'name', 'description', 'infos', 'getDate()', 'websitename', 'enable'
                 ))->
                 setEditUrl(
                         'edit'
