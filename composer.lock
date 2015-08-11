@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "db1c3cd6012123e2b240a424c5b1da95",
@@ -12,32 +12,38 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Respect/Validation.git",
-                "reference": "7c0d25f96eb56856c265ceb8f86ca3674da48c22"
+                "reference": "4329252709b276b0d16140dda95e7c42b67e3843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Respect/Validation/zipball/7c0d25f96eb56856c265ceb8f86ca3674da48c22",
-                "reference": "7c0d25f96eb56856c265ceb8f86ca3674da48c22",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/4329252709b276b0d16140dda95e7c42b67e3843",
+                "reference": "4329252709b276b0d16140dda95e7c42b67e3843",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.6"
             },
             "require-dev": {
+                "egulias/email-validator": "~1.2",
                 "malkusch/bav": "~1.0",
+                "mikey179/vfsstream": "^1.5",
                 "phpunit/phpunit": "~4.0",
-                "symfony/validator": "~2.6",
+                "symfony/validator": "~2.6.9",
                 "zendframework/zend-validator": "~2.3"
             },
             "suggest": {
+                "egulias/email-validator": "Strict (RFC compliant) email validation",
                 "ext-bcmath": "Arbitrary Precision Mathematics",
                 "ext-mbstring": "Multibyte String Functions",
-                "malkusch/bav": "German bank account validation"
+                "fabpot/php-cs-fixer": "Fix PSR2 and other coding style issues",
+                "malkusch/bav": "German bank account validation",
+                "symfony/validator": "Use Symfony validator through Respect\\Validation",
+                "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.8-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -62,7 +68,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2015-01-16 19:36:30"
+            "time": "2015-08-10 18:22:04"
         },
         {
             "name": "swiftmailer/swiftmailer",

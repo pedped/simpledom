@@ -4,19 +4,20 @@ namespace Simpledom\Frontend;
 
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Db\Profiler;
+use Phalcon\DiInterface;
 use Phalcon\Events\Manager;
 use Phalcon\Loader;
+use Phalcon\Mvc\Dispatcher as PhDispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
-use \Phalcon\Mvc\Dispatcher as PhDispatcher;
 
 class Module implements ModuleDefinitionInterface {
 
     /**
      * Register a specific autoloader for the module
      */
-    public function registerAutoloaders() {
+    public function registerAutoloaders(DiInterface $di = NULL) {
 
         $loader = new Loader();
 
@@ -37,7 +38,7 @@ class Module implements ModuleDefinitionInterface {
     /**
      * Register specific services for the module
      */
-    public function registerServices($di) {
+    public function registerServices(DiInterface $di) {
 
 
         $config = require_once 'config/config.php';
