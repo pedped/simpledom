@@ -1,9 +1,7 @@
 {
     "require": {
         "swiftmailer/swiftmailer": "5.2.*@dev",
-        "elasticsearch/elasticsearch": "v1.3.4",
-        "respect/validation": "1.1.2",
-        "thobbs/phpcassa": "dev-master"
+        "respect/validation": "1.1.2"
     }
 
 }
