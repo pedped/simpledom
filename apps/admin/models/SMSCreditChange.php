@@ -1,9 +1,5 @@
 <?php
 
-                        class SMSCreditChange extends BaseSMSCreditChange {
-
-
-                        }
-
-
-                            
+class SMSCreditChange extends BaseSMSCreditChange {
+    
+}

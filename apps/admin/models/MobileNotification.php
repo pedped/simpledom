@@ -1,9 +1,5 @@
 <?php
 
-                        class MobileNotification extends BaseMobileNotification {
-
-
-                        }
-
-
-                            
+class MobileNotification extends BaseMobileNotification {
+    
+}

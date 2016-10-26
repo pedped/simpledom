@@ -12,7 +12,7 @@ class SearchHistoryControllerBase extends ControllerBase {
 
     public function initialize() {
         parent::initialize();
-        $this->setTitle('SearchHistory');
+        $this->setTitle('جستجو');
     }
 
     /**
@@ -138,17 +138,11 @@ class SearchHistoryControllerBase extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'ID', 'User ID', 'Query', 'Date'
+                    'کد', 'کد کاربر', 'متن جستجو', 'تاریخ'
                 ))->
                 setFields(array(
                     'id', 'userid', 'query', 'getDate()'
-                ))->
-                setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
-                )->setListPath(
+                ))->setListPath(
                 'searchhistory/list');
 
         $this->view->list = $paginator->getPaginate();

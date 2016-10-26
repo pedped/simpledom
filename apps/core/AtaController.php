@@ -170,36 +170,36 @@ abstract class AtaController extends Controller {
      */
     public function beforeExecuteRoute($dispatcher) {
 
-        //Parse the annotations in the method currently executed
-        $annotations = $this->annotations->getMethod(
-                $dispatcher->getActiveController(), $dispatcher->getActiveMethod()
-        );
-
-        //Check if the method has an annotation 'Cache'
-        if (!$this->session->has("userid") && $annotations->has('Cache')) {
-
-            //The method has the annotation 'Cache'
-            $annotation = $annotations->get('Cache');
-
-            //Get the lifetime
-            $lifetime = $annotation->getNamedArgument('lifetime');
-
-            $options = array('lifetime' => $lifetime);
-
-            //Check if there is an user defined cache key
-            if ($annotation->hasNamedArgument('key')) {
-                $options['key'] = $annotation->getNamedParameter('key');
-            } else {
-                // we have to create cache key
-                $cacheKey = $this->createCacheKey($dispatcher);
-
-                // set key
-                $options['key'] = $cacheKey;
-            }
-
-            //Enable the cache for the current method
-            $this->view->cache($options);
-        }
+//        //Parse the annotations in the method currently executed
+//        $annotations = $this->annotations->getMethod(
+//                $dispatcher->getActiveController(), $dispatcher->getActiveMethod()
+//        );
+//
+//        //Check if the method has an annotation 'Cache'
+//        if (!$this->session->has("userid") && $annotations->has('Cache')) {
+//
+//            //The method has the annotation 'Cache'
+//            $annotation = $annotations->get('Cache');
+//
+//            //Get the lifetime
+//            $lifetime = $annotation->getNamedArgument('lifetime');
+//
+//            $options = array('lifetime' => $lifetime);
+//
+//            //Check if there is an user defined cache key
+//            if ($annotation->hasNamedArgument('key')) {
+//                $options['key'] = $annotation->getNamedParameter('key');
+//            } else {
+//                // we have to create cache key
+//                $cacheKey = $this->createCacheKey($dispatcher);
+//
+//                // set key
+//                $options['key'] = $cacheKey;
+//            }
+//
+//            //Enable the cache for the current method
+//            $this->view->cache($options);
+//        }
     }
 
     /**

@@ -4,6 +4,30 @@
     font-weight: bold;
 }
 
+body{
+    direction: rtl;
+    font-family: b yekan;
+}
+
+.control-label{
+    float: right;
+}
+
+
+th {
+    text-align: right;
+}
+
+.sidebar-right ul{
+    -webkit-padding-start: 0px;
+}
+
+.sidebar-right {
+    margin-right: 0px;
+    right: 0;
+    top: 60px;
+}
+
 .element-error-messages{
     color : #f00;
     font-size: 12px;

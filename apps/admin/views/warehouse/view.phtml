@@ -1,0 +1,50 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>مشاهده انبار</h2>
+                    <p class='panel-subtitle'Use this form to edit your Warehouse</p>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?> 
+
+                    <!--  ADD Longitude !-->
+                    <?php $form->renderInfo('longitude'); ?> 
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderInfo('date'); ?> 
+
+                    <!--  ADD Latitude !-->
+                    <?php $form->renderInfo('latitude'); ?> 
+
+                    <!--  ADD Address !-->
+                    <?php $form->renderInfo('address'); ?> 
+
+                    <!--  ADD City ID !-->
+                    <?php $form->renderInfo('cityid'); ?> 
+
+                    <!--  ADD Status !-->
+                    <?php $form->renderInfo('status'); ?> 
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

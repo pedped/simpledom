@@ -21,7 +21,7 @@ class MapElement extends BaseElement {
         ));
 
         $this->setExternalScriptNames(array(
-            "http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"
+            "http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7&language=en&key=AIzaSyAIQFNx9nUMWn7Z6k0Cn-mhbzu-EFuv4wI"
         ));
     }
 

@@ -4,6 +4,8 @@ namespace Simpledom\Api\Controllers;
 
 use MobileToken;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Model\Resultset\Simple;
+use Phalcon\Paginator\Adapter\Model;
 use stdClass;
 use User;
 
@@ -25,22 +27,41 @@ class ControllerBase extends Controller {
         return count($this->errors) > 0;
     }
 
-    protected function getResponse($results) {
+    protected function getResponse($results, array $items = null) {
 
-        //check if we have any error
+        
+        
         $result = new stdClass();
         if ($this->hasError()) {
             // error
             $result->statuscode = 0;
-            $result->statustext = $this->errors;
+            $result->statustext = implode("\n", $this->errors);
         } else {
             // success
             $result->statuscode = 1;
-            $result->result = $results;
+
+            // now , we have to get result
+            if ($results instanceof Simple) {
+                // it is simple result set
+                $k = array();
+                foreach ($results as $item) {
+                    $f = $item->getPublicResponse();
+                    if (isset($f)) {
+                        $k[] = $f;
+                    }
+                }
+                $result->result = $k;
+            } else if ($results instanceof Model) {
+                // it is basic model
+                $result->result = $results->getPublicResponse();
+            } else {
+                // it is usual item
+                $result->result = $results;
+            }
             $result->statustext = "";
         }
 
-        echo json_encode($result);
+        echo str_replace("www.avoocado.com", "192.168.43.95", json_encode($result));
     }
 
     public function initialize() {

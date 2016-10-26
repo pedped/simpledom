@@ -2,12 +2,207 @@
 
 namespace Simpledom\Api\Controllers;
 
+use BaseSearchHistory;
 use BaseUser;
+use Category;
+use DBServer;
+use Familycode;
+use Feedback;
+use LoginRequest;
 use MobileNotification;
 use MobileToken;
+use PriceCalculator;
+use Product;
+use Settings;
+use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
+use SMSManager;
+use SmsNumber;
 use stdClass;
 
 class PublicController extends ControllerBase {
+
+    /**
+     * when a user requested contact
+     */
+    public function requestcontactAction() {
+
+
+        // Check if the user requested feedback during last hour
+        $errors = array();
+//        if (!Limitation::OnUserEvent($errors, LIMIT_REQUESTFEEDBACK, $this->user->userid)) {
+//            // user has reached the limitation
+//            $result = new stdClass();
+//            $result->title = "Dear " . $this->user->getFullName();
+//            $result->message = "We have received your request during last hour, we will contact you very soon";
+//            return $this->getResponse($result);
+//        }
+        // create new feedback
+        $feedback = new Feedback();
+        if (isset($this->user))
+            $feedback->userid = $this->user->userid;
+        $feedback->devcieinfo = "Android";
+        $feedback->phone = $_POST["phone"];
+        if ($feedback->save()) {
+            $result = new stdClass();
+            $result->title = "بسیار ممنونیم!";
+            $result->message = "درخواست شما با موفقیت به دست ما رسید، به زودی با شما تماس خواهیم گرفت";
+            return $this->getResponse($result);
+        } else {
+            $result = new stdClass();
+            $result->title = "Ooops!";
+            $result->message = "Feedback center is closed at this time";
+            return $this->getResponse($result);
+        }
+    }
+
+    public function loadnewproductsAction() {
+
+        $products = Product::find(array(
+                    "order" => "id DESC",
+                    "limit" => "100"
+        ));
+
+        return $this->getResponse($products);
+    }
+
+    public function loadtopsalesAction() {
+        // we have to find the products top sales in last 3 days
+        $topSalesDay = Config::TopSalesDayLimit();
+
+        // find the product list in the factor items 
+        $productIDs = DBServer::LoadTopSaleProducts($topSalesDay);
+
+        if (count($productIDs) > 0) {
+            // convert them to string
+            $pdis = implode(", ", $productIDs);
+            $products = Product::find(array("id IN (" . $pdis . ")", "order" => "id DESC"));
+        } else {
+            $products = array();
+        }
+//        var_dump($pdis);
+//        die();
+        // load the product list
+        // send back the products
+        return $this->getResponse($products);
+    }
+
+    public function onsearchAction() {
+        $query = $_POST["query"];
+
+        // log search history
+        $searchhistory = new BaseSearchHistory();
+        $searchhistory->query = $query;
+
+        // add userid if user is logged in
+        if (isset($this->user)) {
+            $searchhistory->user = $this->user->userid;
+        }
+
+        $searchhistory->save();
+    }
+
+    public function signupwithmobileAction() {
+
+        // check phone number
+        $phone = $_POST["phone"];
+        $androidversioncode = $_POST["androidversioncode"];
+        $androidversionname = $_POST["androidversionname"];
+        $deviceid = $_POST["deviceid"];
+        $devicemodel = $_POST["devicemodel"];
+        $ip = $_SERVER["REMOTE_PORT"];
+
+
+
+        if (!Helper::ValidateIranianPhoneNumber($this->errors, $phone)) {
+            // invalid phone number
+            return $this->getResponse(false);
+        }
+
+
+        // generate phone number token
+        $token = LoginRequest::GenerateToken($this->errors, $phone, $androidversioncode, $androidversionname, $deviceid, $devicemodel, $ip);
+
+        // check if token is valid
+        if ($token != FALSE) {
+            // we have to send phone number this token
+            //SMSManager::SendSMS($phone, _("Your confirm code is : ") . $token, SmsNumber::findFirst("enable = 1")->id);
+            SMSManager::SendVerificatinSMS($phone, $token, SmsNumber::findFirst("providerid = 3")->id, "verify");
+        } else {
+            // there is a problem in activatating
+            $this->errors[] = _("There was a problem in activating your phone");
+            return $this->getResponse(false);
+        }
+
+        // send success status
+        return $this->getResponse(1);
+    }
+
+    public function validateconfirmcodeAction() {
+
+        $phone = $_POST["phone"];
+        $token = $_POST["token"];
+        $deviceid = $_POST["deviceid"];
+        $devicetype = $_POST["devicetype"];
+
+        // validate phone token
+        if (!LoginRequest::ValidateToken($this->errors, $phone, $token)) {
+            $this->errors[] = _("Invalid Token! please enter confirm code we just sent to your phone");
+            return $this->getResponse(false);
+        } else {
+            // valid token
+            // check if the user exist with such phone
+            $user = \User::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
+            if ($user != FALSE) {
+                // user already exist with this phone, we have to geneate login info for the user
+                // success login, we have to create response for the user
+                $token = MobileToken::GetToken($this->errors, $user->userid, $deviceid, $devicetype);
+                if (!$token) {
+                    return $this->getResponse(false);
+                }
+
+                // token created successfully
+                $result = new stdClass();
+                //$result->AccountSetting = $user->getAccountSetting();
+                $result->User = $user->getPublicResponse();
+                $result->Token = $token;
+                return $this->getResponse($result);
+            } else {
+                // user is not exist, we have to create default user for this phone
+                $user = new \User();
+                $result = $user->registerAccount($this, $this->errors, EMPTYCOLUMN, EMPTYCOLUMN, 1, Helper::GenerateRandomString(32) . "@gmail.com", Helper::GenerateRandomString(24), USERLEVEL_USER, $phone);
+                if ($result == TRUE) {
+
+                    // Create token
+                    $token = MobileToken::GetToken($this->errors, $user->userid, $deviceid, $devicetype);
+                    if ($token == FALSE) {
+                        return $this->getResponse(false);
+                    }
+
+                    // successfully created
+                    $result = new stdClass();
+                    // $result->AccountSetting = $user->getAccountSetting();
+                    $result->User = $user->getPublicResponse();
+                    $result->Token = $token;
+                    return $this->getResponse($result);
+                } else {
+                    // unable to create new account
+                    $this->errors[] = _("Unable to create new account");
+                    return $this->getResponse(false);
+                }
+            }
+        }
+    }
+
+    public function calcordercostAction() {
+        $products = json_decode($_POST["products"]);
+        $deliverTime = $_POST["delivertime"];
+
+        // request price calculator calc the price
+        $finalPrice = PriceCalculator::CalcCost($products , $deliverTime);
+
+        return $this->getResponse($finalPrice);
+    }
 
     public function mobileversionAction() {
 //        int version = json . getInt("versioncode");
@@ -21,6 +216,21 @@ class PublicController extends ControllerBase {
         $result->versionname = 2.25;
         $result->md5 = "232656122152";
         $result->downloadlink = "http://www.google.com";
+        return $this->getResponse($result);
+    }
+
+    public function loadappdataAction() {
+        // load categories 
+        $categories = Category::GetList();
+        $products = Product::GetList();
+
+
+        $result = new \stdClass();
+        $result->categories = $categories;
+        $result->products = $products;
+
+
+        // show list
         return $this->getResponse($result);
     }
 
@@ -48,6 +258,20 @@ class PublicController extends ControllerBase {
 
         // send notification
         return $this->getResponse($notification->getPublicResponse());
+    }
+
+    public function needtoenterfamilycodeAction() {
+        return $this->getResponse(Settings::Get()->needfamilycode == true ? "1" : "0");
+    }
+
+    public function validatefamilycodeAction() {
+        $code = $_POST["code"];
+        $count = Familycode::count(array("code = :code:", "bind" => array("code" => $code)));
+        if ($count > 0) {
+            return $this->getResponse("1");
+        } else {
+            return $this->getResponse("0");
+        }
     }
 
     /**

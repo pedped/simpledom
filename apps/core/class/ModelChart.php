@@ -84,6 +84,7 @@ class ModelChart {
                     "startdate" => $dateRange["startunix"],
                     "enddate" => $dateRange["endunix"],
             )));
+
             $chartValues[$key] = $this->dateRange[$key]["value"];
         }
 

@@ -3,6 +3,26 @@
 $_SERVER["REMOTE_ADDR"] = $_SERVER["HTTP_X_REAL_IP"];
 
 //define("DEBUG_MODE", TRUE);
+define("EMPTYCOLUMN", "<UNDEFINED>");
+
+
+define("CITY_SHIRAZ", 1);
+
+
+define("INVOICESTATUS_REQUESTED", 1);
+define("INVOICESTATUS_PROCCESSINGINWAREHOUSE", 2);
+define("INVOICESTATUS_PACAKING", 3);
+define("INVOICESTATUS_SENDING", 4);
+define("INVOICESTATUS_RECEIVED", 5);
+define("INVOICESTATUS_CANCELLEDBYUSER", 6);
+define("INVOICESTATUS_CANCELEDBYCENTER", 7);
+
+
+define("DELIVERYTIMEMODE_UNDERONEHOUR", 1);
+define("DELIVERYTIMEMODE_UNDERFOURHOURS", 2);
+
+
+define("INVOICEUSERSTATUS_REQUESTED", 1);
 
 
 use Phalcon\Events\Manager;
@@ -81,6 +101,21 @@ try {
                 dirname(__DIR__) . "/apps/frontend/forms/",
             )
     );
+    
+    
+    
+    
+      //Database Information
+    $db_host = "localhost"; //Host address (most likely localhost)
+    $db_name = "avoocado"; //Name of Database
+    $db_user = "avoocado"; //Name of database user
+    $db_pass = "iHjFVuYzltnLlhVC"; //Password for database user
+
+    /* Create a new mysqli object with database connection parameters */
+    $mysqliu = new mysqli($db_host, $db_user, $db_pass, $db_name);
+    $mysqliu->set_charset('utf8mb4');
+
+    GLOBAL $mysqliu;
 
     $eventsManager = new Manager();
 
@@ -156,7 +191,7 @@ try {
 
     //Get the generated profiles from the profiler
     $profiles = $di->get('profiler')->getProfiles();
-    if (isset($profiles)) {
+    if (false && isset($profiles)) {
         foreach ($profiles as $profile) {
             echo "<pre>";
             echo("<b>" . $profile->getSQLStatement() . "</b>");

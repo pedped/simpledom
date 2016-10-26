@@ -2,6 +2,7 @@
 
 define("USERLEVEL_SUPERADMIN", 9);
 define("USERLEVEL_ADMIN", 8);
+define("USERLEVEL_WORKER", 2);
 define("USERLEVEL_USER", 1);
 
 use Phalcon\DI\FactoryDefault;
@@ -334,6 +335,8 @@ class BaseUser extends AtaModel implements Searchable {
         $this->resetcode = $resetcode;
         return $this;
     }
+    
+    public $cach;
 
     /**
      * 
@@ -368,6 +371,7 @@ class BaseUser extends AtaModel implements Searchable {
         $this->fullname = $this->fname . " " . $this->lname;
         $this->regtime = date(time());
         $this->logintimes = "0";
+        $this->cach = 0;
     }
 
     public function beforeValidationOnSave() {
@@ -500,8 +504,8 @@ class BaseUser extends AtaModel implements Searchable {
      */
     public function getLastMonthRegistarChart() {
 
-        $items = $this->rawQuery("SELECT  YEAR(user.regtime) as year , MONTH(user.regtime) as month , day(user.regtime) as day , count(user.userid) as total FROM `user` WHERE YEAR(user.regtime) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
-AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(user.regtime)");
+        $items = $this->rawQuery("SELECT  YEAR(user.registerdate) as year , MONTH(user.registerdate) as month , day(user.registerdate) as day , count(user.userid) as total FROM `user` WHERE YEAR(user.registerdate) >= YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+AND MONTH(user.registerdate) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(user.registerdate)");
 
         $results = array();
         foreach ($items as $value) {
@@ -607,13 +611,22 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
         }
 
 
-
         $this->fname = $fname;
+        $this->firstname = $fname;
+        $this->realname = $fname . " " . $lname;
         $this->lname = $lname;
+        $this->lastname = $lname;
+        $this->emailverified = 0;
+        $this->mobileverifed = 0;
+        $this->lastactivationrequest = 0;
+        $this->registerdate = time();
         $this->email = $email;
         $this->gender = $gender;
         $this->password = $password;
         $this->level = $level;
+        if (isset($phone)) {
+            $this->phone = $phone;
+        }
 
         // check if email is not registered
         if (BaseUser::hasEmail($this->email)) {
@@ -629,42 +642,96 @@ AND MONTH(user.regtime) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY day(u
             $errors[] = $this->getMessagesAsLines();
             return false;
         } else {
-
-            // user created in database, we have to generate 
-            $email = new EmailItems();
-            $email->sendRegsiterNotification($this->userid, $this->getFullName(), $this->email, $this->verifycode);
-
-            // check if user has entered an not exist phone, add the phone
-            // to the user phones and send sms to user
-            $count = UserPhone::count(array(
-                        "phone = :phone:",
-                        "bind" => array(
-                            "phone" => $phone
-                        )
-            ));
-            if ($count == 0) {
-                // we have no user based on that phone, it is valid to add
-                // the phone to the UserPhone table and notify of the phone
-                // with verify code
-                $userPhone = new UserPhone();
-                $userPhone->phone = $phone;
-                $userPhone->userid = $this->userid;
-                if (!$userPhone->create()) {
-                    // usre phone not created
-                    BaseSystemLog::init($item)->setTitle("Unable to create User Phone Item")->setMessage("When we are going to create a new UserPhone item for new registered user, we were unable to insert new item")->setIP($_SERVER["REMOTE_ADDR"])->create();
-                } else {
-                    // user phone created, we have to send the verify code to user
-                    $smsMessage = sprintf(_('"Hi %s \nThank you for interseting in %s.\n Please use this code to verify your phone number address :\n %s'), $this->getFullName(), Settings::Get()->websitename, $userPhone->verifycode);
-                    //$smsMessage = "Hi " . $this->getFullName() . "\nThank you for interseting in " . Settings::Get()->websitename . ".\n Please use this code to verify your phone number address :\n" . $thisphone->verifycode;
-                    SMSManager::SendSMS($userPhone->phone, $smsMessage, SmsNumber::findFirst("enable = '1'")->id);
-                }
-            } else {
-                // phone exist in database before
-                $errors[] = (_("Your Entered Phone was exist in database, please add another phone"));
-            }
-
             return true;
         }
+    }
+
+    public function columnMap() {
+        // Keys are the real names in the table and
+        // the values their names in the application
+        return array(
+            'user_id' => 'userid',
+            'user_imagelink' => 'imagelink',
+            'user_cityid' => 'cityid',
+            'user_name' => 'name',
+            'user_email' => 'email',
+            'user_level' => 'level',
+            'user_pass' => 'password',
+            'user_realname' => 'realname',
+            'user_fname' => 'firstname',
+            'user_lname' => 'lastname',
+            'user_gender' => 'gender',
+            'user_lang' => 'language',
+            'user_reg_date' => 'registerdate',
+            'user_emailverified' => 'emailverified',
+            'user_mobileverifed' => 'mobileverifed',
+            'user_country' => 'country',
+            'user_activiationtoken' => 'activiationtoken',
+            'user_last_activation_request' => 'lastactivationrequest',
+            'user_active' => 'active',
+            'user_birthday_day' => 'birthday',
+            'user_birthday_month' => 'birthmonth',
+            'user_birthday_year' => 'birthyear',
+            'user_profile_imageid' => 'imageid',
+            'user_profile_coverid' => 'profilecoverid',
+            'user_profile_blurcoverid' => 'profileblurcoverid',
+            'user_university' => 'university',
+            'user_teachuniversity' => 'teachuniversity',
+            'user_city' => 'city',
+            'user_lastqsee' => 'lastquestionsee',
+            'user_lastasee' => 'lastanswersee',
+            'user_lastmsee' => 'lastmessagesee',
+            'user_lastrsee' => 'lastrequestsee',
+            'user_isstudent' => 'isstudent',
+            'user_newquestioncount' => 'newquestioncount',
+            'user_newanswercount' => 'newanswercount',
+            'user_newnotificationcount' => 'newnotificationcount',
+            'user_lastnsee' => 'lastnotificationsee',
+            'user_lastsignindate' => 'lastsignindate',
+            'user_passwordresetstring' => 'passwordresetstring',
+            'user_lastpasswordrequest' => 'lastpasswordrequest',
+            'user_newitem' => 'newitem',
+            'user_sitestate' => 'sitestate',
+            'user_mobiletokan' => 'mobiletokan',
+            'user_mobiletokanexpiredate' => 'mobiletokanexpiredate',
+            'user_updatetime' => 'updatetime',
+            'user_fbuid' => 'facebookuserid',
+            'user_playedvoicecount' => 'playedvoicecount',
+            'user_cvvaliddate' => 'cvvaliddate',
+            'user_cansetpassword' => 'cansetpassword',
+            'user_emailverifycode' => 'emailverifycode',
+            'user_emailverifycodesenddate' => 'emailverifycodesenddate',
+            'user_about' => 'about',
+            'user_work' => 'work',
+            'user_sec_email' => 'sec_email',
+            'user_phone' => 'phone',
+            'user_worktown' => 'worktown',
+            'user_isteacher' => 'isteacher',
+            'user_xmpppass' => 'xmpppass',
+            'user_presentpass' => 'presentpass',
+            'user_homepagetour' => 'homepagetour',
+            'user_createclasstour' => 'createclasstour',
+            'user_pagetour' => 'pagetour',
+            'user_abilityadded' => 'abilityadded',
+            'user_registerbyuserid' => 'registerbyuserid',
+            'user_hasprofileimage' => 'hasprofileimage',
+            'user_checkedsolutions' => 'checkedsolutions',
+            'user_syncflagpage' => 'syncflagpage',
+            'user_syncflagclassroom' => 'syncflagclassroom',
+            'user_syncflagclasstime' => 'syncflagclasstime',
+            'user_syncflagfreind' => 'syncflagfriend',
+            'user_fbtokan' => 'facebooktoken',
+            'user_fbjoinimage' => 'facebookjoinimage',
+            'user_shebanumber' => 'shebanumber',
+            'user_statusmessage' => 'statusmessage',
+            'user_statusmessagedate' => 'statusmessagedate',
+            'user_privacyaccessfriend' => 'privacyaccessfriend',
+            'user_privacyaccessclassroom' => 'privacyaccessclass',
+            'user_privacyaccessnote' => 'privacyaccessnote',
+            'user_privacyaccessvoice' => 'privacyaccessvoice',
+            'user_grade' => 'grade',
+            'user_cach' => 'cach',
+        );
     }
 
     /**

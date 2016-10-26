@@ -7,6 +7,7 @@ abstract class SMSManager {
      * @var type 
      */
     public static $PROVIDERS = array(
+        "Kavehnegar" => "KavehnegarSMSProvider",
         "IR Payamak" => "IrPayamakSMSProvider",
         "Melli Payamak" => "MelliPayamakSMSProvider",
     );
@@ -64,6 +65,26 @@ abstract class SMSManager {
             }
         }
 
+        return true;
+    }
+
+    /**
+     * Send verification to requested phones
+     * @param string $phone
+     * @param type $code
+     * @param type $smsNumberID
+     * @return boolean
+     */
+    public static function SendVerificatinSMS($phone, $code, $smsNumberID, $templateName) {
+
+        // Get SMS Number
+        $smsNumber = SmsNumber::findFirst($smsNumberID);
+        $provider = SMSProvider::findFirst($smsNumber->providerid);
+        $smsProvder = self::getProvider($provider->name);
+
+        // now, we have to init from prover infos
+        // // TODO correct this part
+        $infos = $smsProvder->init($provider->infos)->SendVerificatin($phone, $code, $templateName);
         return true;
     }
 

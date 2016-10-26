@@ -4,8 +4,6 @@ namespace Simpledom\Admin\Controllers;
 
 use Simpledom\Admin\BaseControllers\SearchHistoryControllerBase;
 
-
-class SearchhistoryController  extends SearchHistoryControllerBase {
+class SearchhistoryController extends SearchHistoryControllerBase {
     
 }
-

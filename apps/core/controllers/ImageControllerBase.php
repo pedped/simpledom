@@ -83,7 +83,7 @@ class ImageControllerBase extends ControllerBase {
 
 
         // load the users
-        $images = BaseImage::find(
+        $images = \Image::find(
                         array(
                             'order' => 'id DESC'
         ));

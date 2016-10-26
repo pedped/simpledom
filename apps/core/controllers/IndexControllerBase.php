@@ -83,15 +83,15 @@ class IndexControllerBase extends ControllerBase {
 
         // load chart box
         // fetch data
-        $chartlement = new LineChartElement("registerchart");
-        $chartlement->setTitle("Register Chart");
-        $chartlement->setSubtitle("total register count per day");
-        $chartlement->setXName("Date");
-        $chartlement->setYAxis("Count");
-        $chartlement->setValues($user->getLastMonthRegistarChart());
+//        $chartlement = new LineChartElement("registerchart");
+//        $chartlement->setTitle("Register Chart");
+//        $chartlement->setSubtitle("total register count per day");
+//        $chartlement->setXName("Date");
+//        $chartlement->setYAxis("Count");
+//        $chartlement->setValues($user->getLastMonthRegistarChart());
 
         // add element to form
-        $form->add($chartlement);
+        //$form->add($chartlement);
 
         // set view form
         $this->view->form = $form;

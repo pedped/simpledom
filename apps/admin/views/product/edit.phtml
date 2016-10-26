@@ -1,0 +1,241 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post' enctype="multipart/form-data">
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>مشاهده و ویرایش محصول</h2>
+                    <p class='panel-subtitle'Use this form to edit your Product</p>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <div class="tabs tabs-dark">
+                        <ul class="nav nav-tabs">
+                            <li class="<?php echo $tab == "statistics" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/statistics"); ?>" ><span>آمار</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "info" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/info"); ?>" ><span>اطلاعات محصول</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "images" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/images"); ?>" ><span>تصاویر</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "voice" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/voice"); ?>" ><span>فایل صوتی</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "stock" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/stock"); ?>" ><span>تغییرات تعداد</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <?php if ($tab == "statistics") : ?>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php echo $form->renderDecorated("orderchart"); ?>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <section class="panel panel-featured-right panel-featured-danger">
+                                            <div class="panel-body">
+                                                <div class="widget-summary">
+                                                    <div class="widget-summary-col widget-summary-col-icon">
+                                                        <div class="summary-icon bg-danger">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-summary-col">
+                                                        <div class="summary">
+                                                            <h4 class="title">تعداد معیوبی</h4>
+                                                            <div class="info">
+                                                                <strong class="amount"><?php echo $problemsCount ?></strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <section class="panel panel-featured-right panel-featured-warning">
+                                            <div class="panel-body">
+                                                <div class="widget-summary">
+                                                    <div class="widget-summary-col widget-summary-col-icon">
+                                                        <div class="summary-icon bg-warning">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-summary-col">
+                                                        <div class="summary">
+                                                            <h4 class="title">تعداد سفارشات</h4>
+                                                            <div class="info">
+                                                                <strong class="amount"><?php echo $ordersCount ?></strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <section class="panel panel-featured-right panel-featured-success">
+                                            <div class="panel-body">
+                                                <div class="widget-summary">
+                                                    <div class="widget-summary-col widget-summary-col-icon">
+                                                        <div class="summary-icon bg-success">
+                                                            <i class="fa fa-stack"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-summary-col">
+                                                        <div class="summary">
+                                                            <h4 class="title">موجودی</h4>
+                                                            <div class="info">
+                                                                <strong class="amount"><?php echo $totalCount ?></strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+
+                            <?php elseif ($tab == "info") : ?>
+                                <h3>نام و دسته بندی محصول</h3>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!--  ADD Title !-->
+                                        <?php $form->renderDecorated('title'); ?> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--  ADD Category ID !-->
+                                        <?php $form->renderDecorated('categoryid'); ?> 
+                                    </div>
+                                </div>
+
+                                <hr/>
+                                <h3>اطلاعات بارکد</h3>
+                                <p>بارکد یک کد 16 رقمی از محصول میباشد که شما میتوانید با دستگاه بارکد خان این کد را پیدا نمایید</p>
+                                <!--  ADD Barcode !-->
+                                <?php $form->renderDecorated('barcode'); ?> 
+
+                                <hr/>
+
+                                <h3>توضیحات تکمیلی</h3>
+                                <p>در صورتی که قصد توضیحات اضافه محصول را دارید این قسمت را وارد نمایید</p>
+                                <!--  ADD Description !-->
+                                <?php $form->renderDecorated('description'); ?> 
+
+                                <hr/>
+
+                                <h3>سایز محصول</h3>
+                                <p>وارد کردن اطلاعات سایز محصول در جمع آوری و ارسال کمک می نماید</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <!--  ADD Height !-->
+                                        <?php $form->renderDecorated('height'); ?> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--  ADD Weight !-->
+                                        <?php $form->renderDecorated('weight'); ?> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--  ADD Depth !-->
+                                        <?php $form->renderDecorated('depth'); ?> 
+                                    </div>
+                                </div>
+
+
+                                <hr/>
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderDecorated('status'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+                            <?php elseif ($tab == "images") : ?>
+
+                                <p>جهت افزودن تصویر به این محصول، بر روی گزینه انتخاب فایل کلیک کنید و بعد از انتخاب تصویر محصول، بر روی گزینه ارسال کلیک نمایید</p>
+                                <!--  ADD File !-->
+                                <?php $form->renderDecorated('file'); ?>
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+                                <hr/>
+                                <h3>تصاویر محصول</h3>
+                                <?php if (count($images) > 0) : ?>
+                                    <div class='row'>
+                                        <?php foreach ($images as $image) : ?>
+                                            <div class='col-md-4'>
+                                                <div class='thumbnail center'>
+                                                    <a target="_blank" href="<?php echo $image->getImageLink(); ?>"><img src="<?php echo $image->getImageLink(); ?>" /></a>
+                                                    <br/>
+                                                    <a class="btn btn-danger btn-sm" href="<?php echo $this->url->get("product/edit/$product->id/removeimage/" . $image->id); ?>" ><span>حذف تصویر</span></a>
+                                                    <br/>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                        </ul>
+                                    <?php else: ?>
+                                        <p>تاکنون تصویری به این محصول اضافه نگردیده است</p>
+                                    <?php endif; ?>
+
+                                <?php elseif ($tab == "voice") : ?>
+
+                                    <!--  ADD File !-->
+                                    <?php $form->renderDecorated('file'); ?>
+                                    <!-- Submit Button !-->
+                                    <br/>
+                                    <?php $form->renderDecorated('submit'); ?>
+
+                                    <hr/>
+
+                                    <?php if (isset($product) && $product->voicepath != NULL && strlen($product->voicepath) > 0) : ?>
+                                        <audio controls>
+                                            <source src="<?php echo $product->voicepath; ?>" type="audio/mpeg">
+                                            مرورگر شما این مورد را پشتیبانی نمی کند
+                                        </audio>
+                                        <br/>
+                                        <a class="btn btn-danger btn-sm" href="<?php echo $this->url->get("product/edit/$product->id/removevoice"); ?>" ><span>حذف صدا</span></a>
+                                    <?php endif; ?>
+
+                                <?php elseif ($tab == "stock") : ?>
+
+                                    <?php
+                                    echo $list->header;
+                                    echo $list->table;
+                                    echo $list->footer;
+                                    ?>
+
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                    </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

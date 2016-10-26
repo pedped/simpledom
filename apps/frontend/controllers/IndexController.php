@@ -2,52 +2,37 @@
 
 namespace Simpledom\Frontend\Controllers;
 
-use PriceViewer;
-use RangeSlider;
-use Simpledom\Core\AtaForm;
+use DBServer;
+use Product;
+use Simpledom\Core\Classes\Config;
 use Simpledom\Core\Classes\Order;
 use Simpledom\Frontend\BaseControllers\IndexControllerBase;
-use SMSCreditCost;
 use UserOrder;
 
 class IndexController extends IndexControllerBase {
 
-    /**
-     * @Cache(lifetime=60)
-     */
     public function testAction() {
 
-        $element = new RangeSlider("slider");
-        $element->min = 50;
-        $element->max = 500;
-        $element->currentMinValue = 65;
-        $element->currentMaxValue = 256;
-        $element->betweenRangeTitle = "تا";
+        // we have to find the products top sales in last 3 days
+        $topSalesDay = Config::TopSalesDayLimit();
 
+        // find the product list in the factor items 
+        $productIDs = DBServer::LoadTopSaleProducts($topSalesDay);
 
-        $fr = new AtaForm();
-        $fr->add($element);
-        $this->view->form = $fr;
-        $this->handleFormScripts($fr);
-
-
-        $viewr = new PriceViewer();
-        $viewr->setPlans(SMSCreditCost::find());
-        $viewr->setHeaderFieldName("title");
-        $viewr->setFields(array(
-            "id",
-            "title",
-        ));
-        $viewr->setInfos(array(
-            "کد",
-            "تیتر",
-        ));
-
-
-        $this->view->plansss = $viewr->Create();
+        if (count($productIDs) > 0) {
+            // convert them to string
+            $pdis = implode(", ", $productIDs);
+            $products = Product::find("id IN (" . $pdis . ")");
+            var_dump($products->toArray());
+            die();
+        } else {
+            $products = array();
+            var_dump($products);
+        }
+        die();
     }
-    
-     public function buywithmobileAction($orderid) {
+
+    public function buywithmobileAction($orderid) {
 
 
         // check if user is not logged in, show 404

@@ -1,0 +1,55 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>View LoginRequest</h2>
+                    <p class='panel-subtitle' Use this form to edit your LoginRequest</p>
+                </header>
+                <div class='panel-body'>
+
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?>
+
+                    <!--  ADD Device Model !-->
+                    <?php $form->renderInfo('devicemodel'); ?>
+
+                    <!--  ADD Device ID !-->
+                    <?php $form->renderInfo('deviceid'); ?>
+
+                    <!--  ADD Android Version Code !-->
+                    <?php $form->renderInfo('androidversioncode'); ?>
+
+                    <!--  ADD Phone Number !-->
+                    <?php $form->renderInfo('phonenumber'); ?>
+
+                    <!--  ADD Android Version Name !-->
+                    <?php $form->renderInfo('androidversionname'); ?>
+
+                    <!--  ADD IP !-->
+                    <?php $form->renderInfo('ip'); ?>
+
+                    <!--  ADD Token !-->
+                    <?php $form->renderInfo('token'); ?>
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderInfo('date'); ?>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

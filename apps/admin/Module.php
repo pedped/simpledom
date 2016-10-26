@@ -2,19 +2,21 @@
 
 namespace Simpledom\Admin;
 
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Db\Profiler;
+use Phalcon\DiInterface;
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 class Module implements ModuleDefinitionInterface {
 
     /**
      * Register a specific autoloader for the module
      */
-    public function registerAutoloaders() {
+    public function registerAutoloaders(DiInterface $dependencyInjector = NULL) {
 
         $loader = new Loader();
 
@@ -36,7 +38,7 @@ class Module implements ModuleDefinitionInterface {
     /**
      * Register specific services for the module
      */
-    public function registerServices($di) {
+    public function registerServices(DiInterface $di) {
 
         $config = require_once 'config/config.php';
 
@@ -82,7 +84,7 @@ class Module implements ModuleDefinitionInterface {
 
 
         $di->set('profiler', function() {
-            return new \Phalcon\Db\Profiler();
+            return new Profiler();
         }, true);
 
 
@@ -96,7 +98,7 @@ class Module implements ModuleDefinitionInterface {
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname' => $config->database->dbname,
-                'charset' => 'utf8'
+                'charset' => 'utf8mb4'
             ));
         });
 
@@ -105,7 +107,7 @@ class Module implements ModuleDefinitionInterface {
         $di->set('url', function() {
             $url = new Url();
             $url->setBaseUri('/admin/');
-            $url->publicurl = "http://melk.edspace.org/";
+            $url->publicurl = "http://www.avoocado.com/";
             return $url;
         });
 

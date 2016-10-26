@@ -1,13 +1,5 @@
-<aside id="sidebar-left" class="sidebar-left">
+<aside id="sidebar-left" class="sidebar-right">
 
-    <div class="sidebar-header">
-        <div class="sidebar-title">
-            Navigation
-        </div>
-        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-        </div>
-    </div>
 
     <div class="nano">
         <div class="nano-content">
@@ -16,611 +8,890 @@
                     <li>
                         <a href="<?php echo $this->url->get(""); ?>">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Dashboard</span>
+                            <span>داشبورد</span>
                         </a>
                     </li>
-                    <li class="nav-parent">
+
+
+
+
+                    <hr class="separator"/>
+
+                    <li class='nav-parent'>
                         <a>
-                            <i class="fa fa-archive" aria-hidden="true"></i>
-                            <span>Logs</span>
+                            <i class='fa fa-dollar' aria-hidden='true'></i>
+                            <span>سفارشات</span>
                         </a>
-                        <ul class="nav nav-children">
+                        <ul class='nav nav-children'>
                             <li>
-                                <a href="<?php echo $this->url->get("userlogs/list"); ?>">
-                                    User Logs
+                                <a href='<?php echo $this->url->get('invoice/list'); ?>'>
+                                    لیست سفارشات
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <hr class="separator"/>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>رمز خانوار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('familycode/add'); ?>'>
+                                    افزودن
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo $this->url->get("systemlog/list"); ?>">
-                                    System Logs
+                                <a href='<?php echo $this->url->get('familycode/list'); ?>'>
+                                    لیست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-list' aria-hidden='true'></i>
+                            <span>دسته بندی ها</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('category/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('category/list'); ?>'>
+                                    لیست دسته ها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-coffee' aria-hidden='true'></i>
+                            <span>محصولات</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('product/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('product/list'); ?>'>
+                                    لیست محصولات
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='nav-parent hidden'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>Product Gallery's</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('productgallery/add'); ?>'>
+                                    Add
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('productgallery/list'); ?>'>
+                                    List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-arrow-down' aria-hidden='true'></i>
+                            <span>تغییرات انبار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('stockchange/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('stockchange/list'); ?>'>
+                                    لیست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-user' aria-hidden='true'></i>
+                            <span>کارمندان</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('worker/add'); ?>'>
+                                    افزودن کارمند جدید
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('worker/list'); ?>'>
+                                    لیست کارمندان
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('workersection/add'); ?>'>
+                                    افزودن بخش جدید
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('workersection/list'); ?>'>
+                                    لیست بخش های مختلف
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-car' aria-hidden='true'></i>
+                            <span>پیک</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('deliveryman/add'); ?>'>
+                                    افزودن پیک
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('deliveryman/list'); ?>'>
+                                    لیست افراد پیک
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <hr class="separator"/>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-hospital-o' aria-hidden='true'></i>
+                            <span>واردات انبار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('stock/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('stock/list'); ?>'>
+                                    لیست واردات
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>User Notification's</span>
+                            <i class='fa fa-hospital-o' aria-hidden='true'></i>
+                            <span>انبار</span>
                         </a>
                         <ul class='nav nav-children'>
                             <li>
-                                <a href='<?php echo $this->url->get('usernotification/add'); ?>'>
-                                    Add
+                                <a href='<?php echo $this->url->get('warehouse/add'); ?>'>
+                                    افزودن انبار
                                 </a>
                             </li>
                             <li>
-                                <a href='<?php echo $this->url->get('usernotification/list'); ?>'>
-                                    List
+                                <a href='<?php echo $this->url->get('warehouse/list'); ?>'>
+                                    لیست انبار
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-hospital-o' aria-hidden='true'></i>
+                            <span>قسمت های انبار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('warehousepart/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('warehousepart/list'); ?>'>
+                                    لیست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-hospital-o' aria-hidden='true'></i>
+                            <span>برش های انبار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('warehousesection/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('warehousesection/list'); ?>'>
+                                    لیست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+                    <hr class="separator"/>
                     <li class="nav-parent">
                         <a>
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <span>Contact</span>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span>جستجو</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                                <a href="<?php echo $this->url->get("contact/list"); ?>">
-                                    <span class="pull-right label label-primary"><?php echo $totalContactsUnanswered; ?></span>
-                                    All
+                                <a href="<?php echo $this->url->get("searchhistory/list"); ?>">
+                                    آمار جستجو
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("contact/unseen"); ?>">
-                                    New Messages
+<!--                            <li>
+                                <a href="<?php // echo $this->url->get("searchhistory/most"); ?>">
+                                    Statistics
                                 </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("contact/unanswered"); ?>">
-                                    Unanswered
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("contact/sent"); ?>">
-                                    Sent
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("contact/sendbulk"); ?>">
-                                    Send Bulk Email
-                                </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
-                    <li class="nav-parent">
+                    
+                     <li class='nav-parent'>
                         <a>
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <span>Track</span>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>درخواست تماس</span>
                         </a>
-                        <ul class="nav nav-children">
+                        <ul class='nav nav-children'>
                             <li>
-                                <a href="<?php echo $this->url->get("track/visits"); ?>">
-                                    Visits
+                                <a href='<?php echo $this->url->get('feedback/add'); ?>'>
+                                    افزودن
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo $this->url->get("track/login"); ?>">
-                                    Logins
+                                <a href='<?php echo $this->url->get('feedback/list'); ?>'>
+                                    لیست درخواست ها
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-envelope-square" aria-hidden="true"></i>
-                            <span>Email Template</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="<?php echo $this->url->get("emailtemplate/list"); ?>">
-                                    List
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("emailtemplate/add"); ?>">
-                                    Add
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-image" aria-hidden="true"></i>
-                            <span>Images</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="<?php echo $this->url->get("image/list"); ?>">
-                                    List
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("image/add"); ?>">
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("image/upload"); ?>">
-                                    Upload
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
+
+
+                    <hr class="separator"/>
+
+
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-adjust" aria-hidden="true"></i>
-                            <span>Site Info</span>
+                            <span>تنظیمات</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
                                 <a href="<?php echo $this->url->get("siteinfo/info"); ?>">
-                                    <span>Website Information</span>
+                                    <span>تنظیمات وبسایت</span>
                                 </a>
                             </li>
                             <li>
                             <li>
                                 <a href="<?php echo $this->url->get("siteinfo/footer"); ?>">
-                                    <span>Footer</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            <span>Users</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="<?php echo $this->url->get("user/list"); ?>">
-                                    List Users
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("user/most"); ?>">
-                                    Most Active
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>User Phone's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('userphone/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('userphone/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Session's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('session/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('session/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                            <span>Search</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="<?php echo $this->url->get("searchhistory/list"); ?>">
-                                    Search History
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("searchhistory/most"); ?>">
-                                    Statistics
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-question" aria-hidden="true"></i>
-                            <span>FAQ'S</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                                <a href="<?php echo $this->url->get("faq/add"); ?>">
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $this->url->get("faq/list"); ?>">
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <hr class="separator" />
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-money' aria-hidden='true'></i>
-                            <span>Payment's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('paymentpayline/list'); ?>'>
-                                    Payline
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-dollar' aria-hidden='true'></i>
-                            <span>Orders</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('userorder/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-list' aria-hidden='true'></i>
-                            <span>Transactions</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('usertransaction/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-bars' aria-hidden='true'></i>
-                            <span>User Cach Change's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('usercachchange/add'); ?>'>
-                                    Increase Decrease User Cach
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('usercachchange/list'); ?>'>
-                                    View List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-gear' aria-hidden='true'></i>
-                            <span>Payment Settings</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('paymenttype/add'); ?>'>
-                                    Add Payment Type
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('paymenttype/list'); ?>'>
-                                    View Payment Types
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('producttype/add'); ?>'>
-                                    Add Product Type
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('producttype/list'); ?>'>
-                                    View Product Types
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('transactiontype/add'); ?>'>
-                                    Add Transaction Type
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('transactiontype/list'); ?>'>
-                                    View Transaction Types
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('cachchangereason/add'); ?>'>
-                                    Add Cach Change Reason
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('cachchangereason/list'); ?>'>
-                                    View User Cach Change 
+                                    <span>فوتر</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <hr class="separator" />
+
                     <li class="nav-parent">
                         <a>
-                            <i class="fa fa-comment" aria-hidden="true"></i>
-                            <span>Opinion's</span>
+                            <i class="fa fa-archive" aria-hidden="true"></i>
+                            <span>لاگ</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                                <a href="<?php echo $this->url->get("opinion/add"); ?>">
-                                    Add
+                                <a href="<?php echo $this->url->get("userlogs/list"); ?>">
+                                    لاگ کاربران
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo $this->url->get("opinion/list"); ?>">
-                                    List
+                                <a href="<?php echo $this->url->get("systemlog/list"); ?>">
+                                    لاگ سیستم
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-mobile' aria-hidden='true'></i>
-                            <span>SMS Manager</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('index/sendsms'); ?>'>
-                                    Send SMS
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('sentsms/list'); ?>'>
-                                    View Sent History
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smsnumber/add'); ?>'>
-                                    Add SMS Number
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smsprovider/add'); ?>'>
-                                    Add SMS Provider
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smsnumber/list'); ?>'>
-                                    View SMS Numbers
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smsprovider/list'); ?>'>
-                                    View SMS Providers
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('receivedsms/list'); ?>'>
-                                    Received SMSs
-                                </a>
-                            </li>
-                        </ul>
+                    <!--                    <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>User Notification's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('usernotification/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('usernotification/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                <span>Contact</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("contact/list"); ?>">
+                                                        <span class="pull-right label label-primary"><?php echo $totalContactsUnanswered; ?></span>
+                                                        All
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("contact/unseen"); ?>">
+                                                        New Messages
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("contact/unanswered"); ?>">
+                                                        Unanswered
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("contact/sent"); ?>">
+                                                        Sent
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("contact/sendbulk"); ?>">
+                                                        Send Bulk Email
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                <span>Track</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("track/visits"); ?>">
+                                                        Visits
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("track/login"); ?>">
+                                                        Logins
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                                                <span>Email Template</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("emailtemplate/list"); ?>">
+                                                        List
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("emailtemplate/add"); ?>">
+                                                        Add
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-image" aria-hidden="true"></i>
+                                                <span>Images</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("image/list"); ?>">
+                                                        List
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("image/add"); ?>">
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("image/upload"); ?>">
+                                                        Upload
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                    
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <span>Users</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("user/list"); ?>">
+                                                        List Users
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("user/most"); ?>">
+                                                        Most Active
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>User Phone's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('userphone/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('userphone/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>Session's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('session/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('session/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-question" aria-hidden="true"></i>
+                                                <span>FAQ'S</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("faq/add"); ?>">
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("faq/list"); ?>">
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <hr class="separator" />
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-money' aria-hidden='true'></i>
+                                                <span>Payment's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('paymentpayline/list'); ?>'>
+                                                        Payline
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-dollar' aria-hidden='true'></i>
+                                                <span>Orders</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('userorder/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-list' aria-hidden='true'></i>
+                                                <span>Transactions</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('usertransaction/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-bars' aria-hidden='true'></i>
+                                                <span>User Cach Change's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('usercachchange/add'); ?>'>
+                                                        Increase Decrease User Cach
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('usercachchange/list'); ?>'>
+                                                        View List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-gear' aria-hidden='true'></i>
+                                                <span>Payment Settings</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('paymenttype/add'); ?>'>
+                                                        Add Payment Type
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('paymenttype/list'); ?>'>
+                                                        View Payment Types
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('producttype/add'); ?>'>
+                                                        Add Product Type
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('producttype/list'); ?>'>
+                                                        View Product Types
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('transactiontype/add'); ?>'>
+                                                        Add Transaction Type
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('transactiontype/list'); ?>'>
+                                                        View Transaction Types
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('cachchangereason/add'); ?>'>
+                                                        Add Cach Change Reason
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('cachchangereason/list'); ?>'>
+                                                        View User Cach Change 
+                                                    </a>
+                                                </li>
+                                            </ul>-->
                     </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>ValidProviderIP's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('validproviderip/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('validproviderip/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>SMSCredit's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscredit/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscredit/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>SMSCreditChange's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscreditchange/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscreditchange/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>SMSCreditCost's</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscreditcost/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('smscreditcost/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Mobile Token</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('mobiletoken/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('mobiletoken/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-parent">
-                        <a>
-                            <i class="fa fa-dropbox" aria-hidden="true"></i>
-                            <span>Backup</span>
-                        </a>
-                        <ul class="nav nav-children">
-                            <li>
-                            <li>
-                                <a href="<?php echo $this->url->get("backup/list"); ?>">
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Mobile Notification</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('mobilenotification/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('mobilenotification/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-pencil-square' aria-hidden='true'></i>
-                            <span><?= _("Agreements"); ?></span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('agreement/add'); ?>'>
-                                    <?= _("Add"); ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('agreement/list'); ?>'>
-                                    <?= _("List"); ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-paperclip' aria-hidden='true'></i>
-                            <span><?= _("Pages"); ?></span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('page/add'); ?>'>
-                                    <?= _("Add"); ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('page/list'); ?>'>
-                                    <?= _("List"); ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>On Time Tokens</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('ontimetoken/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('ontimetoken/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>Articles</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('article/add'); ?>'>
-                                    Add
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('article/list'); ?>'>
-                                    List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
+                    <hr class="separator" />
+                    <!--                    <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                                <span>Opinion's</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("opinion/add"); ?>">
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("opinion/list"); ?>">
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                    
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-mobile' aria-hidden='true'></i>
+                                                <span>SMS Manager</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('index/sendsms'); ?>'>
+                                                        Send SMS
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('sentsms/list'); ?>'>
+                                                        View Sent History
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smsnumber/add'); ?>'>
+                                                        Add SMS Number
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smsprovider/add'); ?>'>
+                                                        Add SMS Provider
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smsnumber/list'); ?>'>
+                                                        View SMS Numbers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smsprovider/list'); ?>'>
+                                                        View SMS Providers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('receivedsms/list'); ?>'>
+                                                        Received SMSs
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>ValidProviderIP's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('validproviderip/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('validproviderip/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>SMSCredit's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscredit/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscredit/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>SMSCreditChange's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscreditchange/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscreditchange/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>SMSCreditCost's</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscreditcost/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('smscreditcost/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>Mobile Token</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('mobiletoken/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('mobiletoken/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                <i class="fa fa-dropbox" aria-hidden="true"></i>
+                                                <span>Backup</span>
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                <li>
+                                                    <a href="<?php echo $this->url->get("backup/list"); ?>">
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>Mobile Notification</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('mobilenotification/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('mobilenotification/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-pencil-square' aria-hidden='true'></i>
+                                                <span><?= _("Agreements"); ?></span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('agreement/add'); ?>'>
+                    <?= _("Add"); ?>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('agreement/list'); ?>'>
+                    <?= _("List"); ?>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-paperclip' aria-hidden='true'></i>
+                                                <span><?= _("Pages"); ?></span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('page/add'); ?>'>
+                    <?= _("Add"); ?>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('page/list'); ?>'>
+                    <?= _("List"); ?>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>On Time Tokens</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('ontimetoken/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('ontimetoken/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>Articles</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('article/add'); ?>'>
+                                                        Add
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('article/list'); ?>'>
+                                                        List
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>-->
                 </ul>
 
             </nav>

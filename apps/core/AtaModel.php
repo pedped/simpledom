@@ -6,8 +6,8 @@ use BaseSystemLog;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\DiInterface;
 use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\Query;
 use Phalcon\Mvc\Model\Resultset\Simple;
-use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Simpledom\Frontend\BaseControllers\ControllerBase;
 
 abstract class AtaModel extends Model {
@@ -36,8 +36,12 @@ abstract class AtaModel extends Model {
      * @param type $params
      * @return Simple
      */
-    public function rawQuery($sql, $params = null) {
-        return new Resultset(null, $this, $this->getReadConnection()->query($sql, $params));
+    public function rawQuery($sql, $params = null, &$query = null) {
+
+        $query = new Query($sql, $this->getDI());
+        $query->setBindParams(isset($params) ? $params : array());
+        // Execute the query returning a result if any
+        return $query->execute();
     }
 
     public function generateRandomString($length = 10) {

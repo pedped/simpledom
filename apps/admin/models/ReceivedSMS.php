@@ -1,9 +1,5 @@
 <?php
 
-                        class ReceivedSMS extends BaseReceivedSMS {
-
-
-                        }
-
-
-                            
+class ReceivedSMS extends BaseReceivedSMS {
+    
+}

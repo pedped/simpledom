@@ -21,6 +21,14 @@ class Config {
 
         return $_SERVER["DOCUMENT_ROOT"] . "/public/userupload/image";
     }
+    /**
+     * return the path we have to use for upload
+     * @return string
+     */
+    public static function GetProductVoicePath() {
+
+        return $_SERVER["DOCUMENT_ROOT"] . "/public/userupload/productvoice";
+    }
 
     /**
      * return the maximum file size
@@ -29,13 +37,22 @@ class Config {
     public static function getMaxUserImageFileSizeUploadLimit() {
         return 1024 * 1024 * 8;
     }
+    
+    
+    /**
+     * return the maximum file size
+     * @return type
+     */
+    public static function getMaxProductVoiceUploadLimit() {
+        return 1024 * 1024 * 2;
+    }
 
     public static function GetDefaultProfileLink($gender) {
-        return "http://melk.edspace.org/userupload/image/4MqyybZ94UNDsXsJ2M3FGmb8I9XmZ8X4.jpg";
+        return "http://www.avoocado.com/userupload/image/4MqyybZ94UNDsXsJ2M3FGmb8I9XmZ8X4.jpg";
     }
 
     public static function getPublicUrl() {
-        return "http://melk.edspace.org/";
+        return "http://www.avoocado.com/";
     }
 
     public static function GetPaylineAPI() {
@@ -51,7 +68,15 @@ class Config {
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return true; 
+        return false; 
+    }
+
+    public static function TopSalesDayLimit() {
+        return 1000;
+    }
+
+    public static function TopUserUsualPurchaseLimit() {
+        return 50;
     }
 
 }

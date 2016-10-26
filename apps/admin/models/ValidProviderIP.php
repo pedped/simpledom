@@ -1,9 +1,5 @@
 <?php
 
-                        class ValidProviderIP extends BaseValidProviderIP {
-
-
-                        }
-
-
-                            
+class ValidProviderIP extends BaseValidProviderIP {
+    
+}

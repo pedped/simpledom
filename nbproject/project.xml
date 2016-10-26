@@ -3,12 +3,14 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
-            <name>simpledom</name>
+            <name>Avoocado</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>Captcha</word>
             <word>php</word>
+            <word>rw</word>
             <word>Seperator</word>
+            <word>گردد</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

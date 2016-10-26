@@ -1,0 +1,126 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post' enctype="multipart/form-data">
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>مشاهده فاکتور کاربر</h2>
+                    <p class='panel-subtitle'Use this form to edit your Product</p>
+                </header>
+                <div class='panel-body'>
+                    <div class="tabs tabs-dark">
+                        <ul class="nav nav-tabs">
+                            <li class="<?php echo $tab == "info" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("invoice/edit/$invoice->id/info"); ?>" ><span>اطلاعات سفارش</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "products" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("invoice/edit/$invoice->id/products"); ?>" ><span>محصولات سفارش شده</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <?php if ($tab == "info") : ?>
+
+
+                                <div class="row">
+                                    <div class="col-md-5"> 
+                                        <h3>وضعیت سفارش</h3>
+                                        <p>آخرین وضعیت سفارش در زیر قابل مشاهده است، برای تغییر وضعیت سفارش، به تب وضعیت مراجعه نمایید</p>
+
+                                        <!--  ADD Status !-->
+                                        <span style="font-size: 150%;">وضعیت سفارش: <b><?php echo $invoice->getStatusLabel(); ?></b></span>
+                                        
+
+                                        <!--  ADD User Status !-->
+                                        <?php $form->renderDecorated('user_status'); ?> 
+
+                                        <!--  ADD Deliver Date !-->
+                                        <?php $form->renderInfo('deliverdate'); ?> 
+                                    </div>
+                                    <div class="col-md-7">
+                                        <h3>اطلاعات کاربر</h3>
+                                        <p>در زیر می توانید اطلاعات کاربر را مشاهده نمایید</p>
+
+                                        <?php $form->renderInfo('userid'); ?> 
+
+                                        <!--  ADD Phone !-->
+                                        <?php $form->renderInfo('phone'); ?> 
+
+                                        <!--  ADD Mobile !-->
+                                        <?php $form->renderInfo('mobile'); ?> 
+
+                                        <!--  ADD Price !-->
+                                        <?php $form->renderInfo('price'); ?>
+
+                                        <h3>توضیحات اضافی درخواستی</h3>
+                                        <p>در صورتی که کاربر در هنگام ارسال سفارش، درخواست دیگری هم داشته است، در زیر قابل مشاهده می باشد</p>
+
+                                        <!--  ADD User Comment !-->
+                                        <?php if (isset($invoice->usercomment) && strlen($invoice->usercomment) > 0) : ?>
+                                            <div class="alert alert-info">
+                                                <?php echo $invoice->usercomment; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <h3>آدرس دریافت سفارش</h3>
+                                        <p>آدرس دریافت کالا در زیر توسط کاربر درخواست شده است</p>
+
+                                        <!--  ADD Address !-->
+                                        <?php $form->renderDecorated('address'); ?> 
+
+                                        <!-- Submit Button !-->
+                                        <br/>
+                                        <?php $form->renderDecorated('submit'); ?>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <h3>موقعیت جغرافیایی</h3>
+                                        <p>اطلاعات جغرافیایی سفارش دهنده بر اساس موقعیت ارسالی توسط گوشی</p>
+
+                                        <!--  ADD Address Longitude !-->
+                                        <?php $form->renderDecorated('map'); ?> 
+
+                                        <!--  ADD Address GPS Approx !-->
+                                        <?php $form->renderInfo('address_gpsapprox'); ?> 
+                                    </div>
+                                </div>
+
+                                <!--  ADD City ID !-->
+                                <?php // $form->renderDecorated('cityid'); ?> 
+
+
+
+                            <?php endif; ?>
+                            <?php if ($tab == "products") : ?>
+                                <?php
+                                echo $list->header;
+                                echo $list->table;
+                                echo $list->footer;
+                                ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

@@ -84,8 +84,8 @@ class AtaForm extends Form {
         $element = $this->get($name);
 
         echo '<div class="form-group">
-                <label for="' . $element->getName() . '" class="col-sm-2 control-label">' . $element->getLabel() . '</label>
-                <div class="col-sm-10">
+                <label for="' . $element->getName() . '" class="col-sm-3 control-label">' . $element->getLabel() . '</label>
+                <div class="col-sm-9">
                   ' . $element->getDefault() . '
                 </div>
               </div>';

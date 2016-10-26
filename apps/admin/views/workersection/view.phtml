@@ -1,0 +1,32 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>مشاهده سمت</h2>
+                    <p class='panel-subtitle'Use this form to edit your WorkerSection</p>
+                </header>
+                <div class='panel-body'>
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?> 
+
+                    <!--  ADD Title !-->
+                    <?php $form->renderInfo('title'); ?> 
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

@@ -1,54 +1,54 @@
 <div class='row'>
-                                <div class='col-md-12'>
-                                    <?php echo $this->getContent() ?>
-                                </div>
-                            </div>
-                            <form method='post'>
-                                <div class='row'>
-                                    <div class='col-lg-12'>
-                                        <section class='panel'>
-                                            <header class='panel-heading'>
-                                                <div class='panel-actions'>
-                                                    <a href='#' class='fa fa-caret-down'></a>
-                                                    <a href='#' class='fa fa-times'></a>
-                                                </div>
-
-                                                <h2 class='panel-title'>Add Page</h2>
-                                            </header>
-                                            <div class='panel-body'>
-
-                             
-
-                                <!--  ADD Key !-->
-                                <?php $form->renderDecorated('key'); ?> 
-
-                                <!--  ADD Title !-->
-                                <?php $form->renderDecorated('title'); ?> 
-
-                                <!--  ADD Text !-->
-                                <?php $form->renderDecorated('text'); ?> 
-
-                                <!--  ADD Metadata Tags !-->
-                                <?php $form->renderDecorated('metakey'); ?> 
-
-                                <!--  ADD Metadata Description !-->
-                                <?php $form->renderDecorated('metadata'); ?> 
-
-                                <!--  ADD Show In Header !-->
-                                <?php $form->renderDecorated('showinhead'); ?> 
-
-                                <!--  ADD Footer Text !-->
-                                <?php $form->renderDecorated('footer'); ?> 
-
-                                <!--  ADD Date !-->
-                                <?php $form->renderDecorated('date'); ?> 
-
-
-                                <!-- Submit Button !-->
-                                <br/>
-                                <?php $form->renderDecorated('submit'); ?>
-
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
 </div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+
+                    <h2 class='panel-title'>Add Page</h2>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <!--  ADD Key !-->
+                    <?php $form->renderDecorated('key'); ?> 
+
+                    <!--  ADD Title !-->
+                    <?php $form->renderDecorated('title'); ?> 
+
+                    <!--  ADD Text !-->
+                    <?php $form->renderDecorated('text'); ?> 
+
+                    <!--  ADD Metadata Tags !-->
+                    <?php $form->renderDecorated('metakey'); ?> 
+
+                    <!--  ADD Metadata Description !-->
+                    <?php $form->renderDecorated('metadata'); ?> 
+
+                    <!--  ADD Show In Header !-->
+                    <?php $form->renderDecorated('showinhead'); ?> 
+
+                    <!--  ADD Footer Text !-->
+                    <?php $form->renderDecorated('footer'); ?> 
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderDecorated('date'); ?> 
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?>
+
+                </div>
             </section>
         </div>
     </div>

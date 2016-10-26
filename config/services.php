@@ -114,7 +114,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('http://melk.edspace.org/');
+    $url->setBaseUri('http://www.avoocado.com/');
 
     return $url;
 };

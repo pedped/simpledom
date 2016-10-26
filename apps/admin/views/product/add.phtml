@@ -1,0 +1,83 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+
+                    <h2 class='panel-title'>افزودن محصول</h2>
+                </header>
+                <div class='panel-body'>
+
+
+                    <h3>نام و دسته بندی محصول</h3>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--  ADD Title !-->
+                            <?php $form->renderDecorated('title'); ?> 
+                        </div>
+                        <div class="col-md-6">
+                            <!--  ADD Category ID !-->
+                            <?php $form->renderDecorated('categoryid'); ?> 
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <h3>اطلاعات بارکد</h3>
+                    <p>بارکد یک کد 16 رقمی از محصول میباشد که شما میتوانید با دستگاه بارکد خان این کد را پیدا نمایید</p>
+                    <!--  ADD Barcode !-->
+                    <?php $form->renderDecorated('barcode'); ?> 
+
+                    <hr/>
+
+                    <h3>توضیحات تکمیلی</h3>
+                    <p>در صورتی که قصد توضیحات اضافه محصول را دارید این قسمت را وارد نمایید</p>
+                    <!--  ADD Description !-->
+                    <?php $form->renderDecorated('description'); ?> 
+
+                    <hr/>
+
+                    <h3>سایز محصول</h3>
+                    <p>وارد کردن اطلاعات سایز محصول در جمع آوری و ارسال کمک می نماید</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!--  ADD Height !-->
+                            <?php $form->renderDecorated('height'); ?> 
+                        </div>
+                        <div class="col-md-4">
+                            <!--  ADD Weight !-->
+                            <?php $form->renderDecorated('weight'); ?> 
+                        </div>
+                        <div class="col-md-4">
+                            <!--  ADD Depth !-->
+                            <?php $form->renderDecorated('depth'); ?> 
+                        </div>
+                    </div>
+
+
+                    <hr/>
+
+                    <!--  ADD Status !-->
+                    <?php $form->renderDecorated('status'); ?> 
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

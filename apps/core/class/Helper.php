@@ -25,6 +25,27 @@ class Helper {
         return $bytes;
     }
 
+    public static function GenerateRandomNumber($length = 64) {
+
+        $characters = '123456789';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
+
+    public static function ValidateIranianPhoneNumber(&$errors, $phone) {
+        $p = substr($phone, strlen($phone) - 10, 11);
+        if (strlen($p) == 10 && intval(substr($p, 0, 1)) == 9) {
+            // it is valid phone
+            return true;
+        } else {
+            $errors[] = _("Invalid Phone Number");
+            return false;
+        }
+    }
+
     public static function RedirectToURL($url) {
         // add the website link
         $urlinof = parse_url($url);

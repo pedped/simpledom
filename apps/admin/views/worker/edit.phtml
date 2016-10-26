@@ -1,0 +1,97 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'  enctype="multipart/form-data">
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+
+                    <h2 class='panel-title'>ویرایش کارمند</h2>
+                </header>
+                <div class='panel-body'>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+
+                            <h3>تصویر پروفایل</h3>
+                            <p>برای تغییر تصویر کاربر، یک فایل انتخاب نمایید</p>
+                            <img style="max-height: 96px;" src="<?php echo $worker->getUser()->getProfileImageLink() ?>" />
+                            <?php $form->renderDecorated('profileimage'); ?> 
+                            <hr/>
+
+                            <h3>بخش فعالیت</h3>
+
+                            <!--  ADD Worker Section ID !-->
+                            <?php $form->renderDecorated('workersectionid'); ?>
+
+                            <!--  ADD Status !-->
+                            <?php $form->renderDecorated('status'); ?> 
+
+
+                        </div>
+                        <div class="col-md-6">
+
+
+                            <h3>اطلاعات شخصی</h3>
+
+                            <!--  ADD First Name !-->
+                            <?php $form->renderDecorated('firstname'); ?> 
+
+                            <!--  ADD Last Name !-->
+                            <?php $form->renderDecorated('lastname'); ?> 
+
+                            <!--  ADD Gender !-->
+                            <?php $form->renderDecorated('gender'); ?> 
+
+                            <!--  ADD Father Name !-->
+                            <?php $form->renderDecorated('fathername'); ?> 
+
+                            <!--  ADD Identity Number !-->
+                            <?php $form->renderDecorated('identitynumber'); ?> 
+
+                            <!--  ADD Birthday !-->
+                            <?php $form->renderDecorated('birthday'); ?> 
+
+
+                            <h3>اطلاعات تماس</h3>
+
+                            <!--  ADD Address !-->
+                            <?php $form->renderDecorated('address'); ?> 
+
+                            <!--  ADD Phone !-->
+                            <?php $form->renderDecorated('phone'); ?> 
+
+                            <!--  ADD Mobile !-->
+                            <?php $form->renderDecorated('mobile'); ?> 
+
+                        </div>
+                    </div>
+
+
+                    <hr/>
+                    <h3>رمز عبور</h3>
+                    <p>برای تغییر رمز عبور، رمز عبور جدید را در این قسمت وارد نمایید</p>
+
+                    <?php $form->renderDecorated('password'); ?> 
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

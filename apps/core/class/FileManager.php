@@ -9,6 +9,54 @@ use Phalcon\Http\Request\File;
 class FileManager {
 
     /**
+     * upload product voice
+     * @param type $errors
+     * @param File $file
+     * @param type $outputFileName
+     * @param string $realtiveloaction
+     * @return boolean
+     */
+    public static function HandleProductVoiceUpload(&$errors, $file, &$outputFileName, &$realtiveloaction) {
+        //var_dump($file, Config::GetImagePath());
+        // check if the file is image file
+        if ($file->getType() != "audio/mp3") {
+            // the file type s not valid
+            $errors[] = "file type is invalid  : " . $file->getType();
+            return;
+        }
+
+
+        // check if the file size for max file upload limit is not reached
+        if ($file->getSize() > Config::getMaxProductVoiceUploadLimit()) {
+            $errors[] = "The file size is very huge, please use lower file size";
+            return;
+        }
+
+        $ext = explode(".", $file->getName());
+        $ext = $ext[count($ext) - 1];
+        if ($ext != "mp3") {
+            $errors[] = "invalid file format : " . $ext;
+            return;
+        }
+
+        // File size is valid, we have to move the file to safe place
+        $filename = Config::generateRandomString(32) . "." . $ext;
+
+        // add file name to output file name
+        $outputFileName = $filename;
+        $realtiveloaction = "userupload/productvoice/" . $outputFileName;
+
+        // now we have to move the file to the right place
+        $path = Config::GetProductVoicePath() . "/" . $filename;
+        if ($file->moveTo($path)) {
+            return TRUE;
+        } else {
+            BaseSystemLog::init($item)->setIP($_SERVER["SERVER_ADDR"])->setTitle("Upload Error")->setMessage("Unable to move uploaded file to $path")->create();
+            return FALSE;
+        }
+    }
+
+    /**
      * 
      * @param type $errors
      * @param File $file
@@ -49,7 +97,7 @@ class FileManager {
         // now we have to move the file to the right place
         $path = Config::GetImagePath() . "/" . $filename;
         if ($file->moveTo($path)) {
-            $image = new BaseImage();
+            $image = new \Image();
             $image->filesize = filesize($path);
             $image->mimetype = $file->getType();
             $image->path = $path;

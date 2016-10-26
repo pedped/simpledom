@@ -1,0 +1,53 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>مشاهده واردات</h2>
+                    <p class='panel-subtitle'Use this form to edit your Stock</p>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?> 
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderInfo('date'); ?> 
+
+                    <!--  ADD Buy Price !-->
+                    <?php $form->renderInfo('buyprice'); ?> 
+
+                    <!--  ADD Sell Price !-->
+                    <?php $form->renderInfo('sellprice'); ?> 
+
+                    <!--  ADD Product ID !-->
+                    <?php $form->renderInfo('productid'); ?> 
+
+                    <!--  ADD Total !-->
+                    <?php $form->renderInfo('total'); ?> 
+
+                    <!--  ADD Expire Date !-->
+                    <?php $form->renderInfo('expiredate'); ?> 
+
+                    <!--  ADD Warehouse Part ID !-->
+                    <?php $form->renderInfo('warehousepartid'); ?> 
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+
