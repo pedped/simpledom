@@ -268,6 +268,7 @@ class Product extends AtaModel {
 
         // get the last price
         $result->FinalPrice = $this->GetFinalPrice();
+        $result->InitialPrice = $this->GetInitialPrice();
 
         // Load Images
         $images = ProductGallery::find(array("product_id = :productid:", "bind" => array("productid" => $this->id)));
@@ -347,12 +348,43 @@ class Product extends AtaModel {
         return $result;
     }
 
-    public function GetFinalPrice() {
+    public function GetInitialPrice() {
         $stock = Stock::findFirst(array("productid = :productid: AND remain > 0", "bind" => array("productid" => $this->id), "order" => "id DESC"));
         if ($stock != FALSE) {
-            return $stock->sellprice;
+            $saleprice = $stock->sellprice;
+            return doubleval($saleprice);
         } else {
-            // we have not this item
+            return 0;
+        }
+    }
+
+    public function GetFinalPrice() {
+
+
+        $stock = Stock::findFirst(array("productid = :productid: AND remain > 0", "bind" => array("productid" => $this->id), "order" => "id DESC"));
+        if ($stock != FALSE) {
+            $saleprice = $stock->sellprice;
+
+            // we have to check for the price list in sql server
+            $promotion = DBServer::Product_GetPromotionOnProduct($this->id);
+//            var_dump(isset($promotion->Percent) && doubleval($promotion->Percent) > 0);
+//            die();
+            if (isset($promotion)) {
+                // we have to calc price with last promotion
+                $finalprice = $saleprice;
+                if (isset($promotion->Percent) && doubleval($promotion->Percent) > 0) {
+                    $finalprice = $saleprice - ($saleprice * ($promotion->Percent / 100 ));
+                }
+
+                if (isset($promotion->Fee) && doubleval($promotion->Fee) > 0) {
+                    $finalprice = $finalprice - $promotion->Fee;
+                }
+                return $finalprice;
+            } else {
+                // we have not this item
+                return doubleval($saleprice);
+            }
+        } else {
             return 0;
         }
     }

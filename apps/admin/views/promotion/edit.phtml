@@ -1,0 +1,164 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>ویرایش اطلاعات تخفیف : <?php echo $promotion->title ?></h2>
+                    <p class='panel-subtitle'Use this form to edit your Promotion</p>
+                </header>
+                <div class='panel-body'>
+
+
+                    <div class="tabs tabs-dark">
+                        <ul class="nav nav-tabs">
+<!--                            <li class="<?php echo $tab == "statistics" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("promotion/edit/$promotion->id/statistics"); ?>" ><span>آمار</span></a>
+                            </li>-->
+                            <li class="<?php echo $tab == "info" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("promotion/edit/$promotion->id/info"); ?>" ><span>اطلاعات</span></a>
+                            </li>
+                            <li class="<?php echo $tab == "products" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("promotion/edit/$promotion->id/products"); ?>" ><span>محصولات اعمال شده</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <?php if ($tab == "info") : ?>
+
+                                <h3>موضوع تخفیف</h3>
+                                <p>در زیر شما می توانید موضوع تخفیف خود را مشخص نمایید، موضوع تخفیف به شما کمک می کنید که در میان تخفیفات در حال اجرا سریعتر جستجو نمایید</p>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-6">
+                                        <!--  ADD Title !-->
+                                        <?php $form->renderDecorated('title'); ?> 
+                                    </div>
+                                </div>
+
+                                <h3>محدودیت سفارش</h3>
+                                <p>در صورتی که قصد دارید محصولات این تخفیف دارای محدودیت زمانی خاصی باشند، فیلد مدت زمان را مشخص نمایید. در صورتی که قصد دارید تعداد خاصی از محصولات بفروش رسد، فیلد تعداد را پر نمایید.</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!--  ADD End Date !-->
+                                        <?php $form->renderDecorated('end_date'); ?> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--  ADD Total !-->
+                                        <?php $form->renderDecorated('total'); ?> 
+                                    </div>
+                                </div>
+
+                                <h3>تخفیفات پیش فرض</h3>
+                                <p>در کادر های زیر یکی از فیلد های درصد یا میزان تخفیف را پر نمایید.</p>
+                                <blockquote>توجه داشته باشید که مقدار زیر تنها در هنگام افزودن محصول جدید در لیست تخفیفات اعمال خواهد شد و هیچ تاییزی برقیمت نهایی محصولات ندارند</blockquote>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <!--  ADD Default Percent !-->
+                                        <?php $form->renderDecorated('default_percent'); ?> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--  ADD Default Fee !-->
+                                        <?php $form->renderDecorated('default_fee'); ?> 
+                                    </div>
+                                </div>
+
+                                <h3>وضعیت تخفیف را در زیر مشخص نمایید</h3>
+
+                                <!--  ADD Status !-->
+                                <?php $form->renderDecorated('status'); ?> 
+
+
+                                <!-- Submit Button !-->
+                                <br/>
+                                <?php $form->renderDecorated('submit'); ?>
+
+                            <?php elseif ($tab == "products") : ?>
+
+                                <div class='panel-body'>
+
+
+                                    <h3>لیست محصولات داری تخفیف</h3>
+                                    <?php
+                                    echo $list->header;
+                                    echo $list->table;
+                                    echo $list->footer;
+                                    ?>
+
+
+                                    <hr/>
+
+
+                                    <h3>افزودن محصول جدید به لیست</h3>
+                                    <p>در زیر شما می توانید محصولی جدید به لیست تخفیف ها اضافه نمایید</p>
+
+
+
+                                    <h4>اطلاعات محصول</h4>
+                                    <!--  ADD Product ID !-->
+                                    <?php $form->renderDecorated('productid'); ?> 
+
+                                    <h4>محدودیت فروش</h4>    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--  ADD Total Order Per User !-->
+                                            <?php $form->renderDecorated('totalorderperuser'); ?> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--  ADD Total Order !-->
+                                            <?php $form->renderDecorated('totalorder'); ?> 
+                                        </div>
+                                    </div>
+
+                                    <h4>میزان تخفیف</h4>  
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--  ADD Percent !-->
+                                            <?php $form->renderDecorated('percent'); ?> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--  ADD Fee !-->
+                                            <?php $form->renderDecorated('fee'); ?> 
+                                        </div>
+                                    </div>
+
+
+                                    <!--  ADD Title !-->
+                                    <h4>تیتر تخفیف</h4>  
+                                    <?php $form->renderDecorated('title'); ?> 
+
+                                    <!--  ADD Status !-->
+                                    <h4>وضعیت تخفیف</h4> 
+                                    <?php $form->renderDecorated('status'); ?> 
+
+                                    <br/>
+                                    <?php $form->renderDecorated('submit'); ?>
+
+                                </div>
+
+                            <?php elseif ($tab == "statistics") : ?>
+
+                            <?php endif; ?>
+                        </div>
+
+
+
+
+
+                    </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

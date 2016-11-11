@@ -152,6 +152,7 @@ class TagEditElement extends BaseElement {
         $html = "<input type='text' name='$name' id='$name' class='form-control' value='$defaults' />"
                 . "\n<script>"
                 . "$('#$name').tagit({
+                    fieldName: 'id',
                         allowSpaces : $allowSpaces,
                         taglimit : " . $this->getTagLimit() . ",
                         singlefield : " . $this->getSingleField() . ",
@@ -163,7 +164,7 @@ class TagEditElement extends BaseElement {
         if (isset($autoCompleteSource) && strlen($autoCompleteSource) > 0) {
             $html .= "autocomplete : {"
                     . "delay: 0, minLength: 2,"
-                    . "source : $autoCompleteSource"
+                    . "source : '$autoCompleteSource'"
                     . "}";
         }
 

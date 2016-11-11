@@ -253,7 +253,6 @@ class LoginRequest extends AtaModel {
 //            // user has reached the limitation
 //            return false;
 //        }
-
         // we have to disable other requests
         $lr = new LoginRequest();
         $lr->rawQuery("UPDATE LoginRequest SET disabled = 1 WHERE phonenumber = :phone:", array(
@@ -302,7 +301,6 @@ class LoginRequest extends AtaModel {
 //            $errors[] = _("Try to login again");
 //            return false;
 //        //}
-
         // validate inputs
         if (!Validating::ValidatePhoneConfirmCode($errors, $token)) {
             // invalid inputs

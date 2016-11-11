@@ -1,0 +1,62 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>View PromotionProduct</h2>
+                    <p class='panel-subtitle'Use this form to edit your PromotionProduct</p>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?> 
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderInfo('date'); ?> 
+
+                    <!--  ADD By User ID !-->
+                    <?php $form->renderInfo('byuserid'); ?> 
+
+                    <!--  ADD Product ID !-->
+                    <?php $form->renderInfo('productid'); ?> 
+
+                    <!--  ADD Promotion ID !-->
+                    <?php $form->renderInfo('promotionid'); ?> 
+
+                    <!--  ADD Total Order Per User !-->
+                    <?php $form->renderInfo('totalorderperuser'); ?> 
+
+                    <!--  ADD Total Order !-->
+                    <?php $form->renderInfo('totalorder'); ?> 
+
+                    <!--  ADD Title !-->
+                    <?php $form->renderInfo('title'); ?> 
+
+                    <!--  ADD Percent !-->
+                    <?php $form->renderInfo('percent'); ?> 
+
+                    <!--  ADD Fee !-->
+                    <?php $form->renderInfo('fee'); ?> 
+
+                    <!--  ADD Status !-->
+                    <?php $form->renderInfo('status'); ?> 
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

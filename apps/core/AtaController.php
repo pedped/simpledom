@@ -149,7 +149,10 @@ abstract class AtaController extends Controller {
 
                     // Load CSS
                     $CSSes = $element->getCssnames();
+
+
                     foreach ($CSSes as $cssname) {
+
                         if (!isset($loadedScripts[$cssname])) {
                             $loadedScripts[$cssname] = $cssname;
                             $this->assets

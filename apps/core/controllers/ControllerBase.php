@@ -58,6 +58,11 @@ abstract class ControllerBase extends AtaController {
         $this->assets
                 ->collection('elementscripts')
                 ->setPrefix('http://www.avoocado.com/');
+        
+          $this->assets
+                ->collection('elementscss')
+                ->setPrefix('http://www.avoocado.com/');
+        
         $this->assets
                 ->collection('externalscripts');
 

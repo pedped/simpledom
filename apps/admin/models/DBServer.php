@@ -62,11 +62,11 @@ class DBServer {
         return array();
     }
 
-    public static function LoadUserUsualProducts($userid , $limit) {
-        
+    public static function LoadUserUsualProducts($userid, $limit) {
+
         $sql = DBServer::_getConnection();
         $stm = $sql->prepare("SELECT invoice_products.productid  FROM invoice_products JOIN invoice ON invoice.userid = ? GROUP BY invoice_products.productid  LIMIT ?");
-        $stm->bind_param("ii", $userid , $limit);
+        $stm->bind_param("ii", $userid, $limit);
 
         if ($stm->execute()) {
             $stm->bind_result($productid);
@@ -77,6 +77,25 @@ class DBServer {
             return $items;
         }
         return array();
+    }
+
+    public static function Product_GetPromotionOnProduct($productid) {
+        $sql = DBServer::_getConnection();
+        $stm = $sql->prepare("call sp_CheckPromotion(?)");
+        $stm->bind_param("i", $productid);
+
+        if ($stm->execute()) {
+            $stm->bind_result($id, $promotionid, $percent, $fee);
+            if ($stm->fetch()) {
+                $result = new stdClass();
+                $result->ID = $id;
+                $result->PromotionID = $promotionid;
+                $result->Percent = $percent;
+                $result->Fee = $fee;
+                return $result;
+            }
+        }
+        return null;
     }
 
 }

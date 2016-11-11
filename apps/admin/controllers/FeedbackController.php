@@ -165,7 +165,7 @@ class FeedbackController extends ControllerBase {
             $fr->get('result_response')->setDefault($feedbackItem->result_response);
             $fr->get('result_comment')->setDefault($feedbackItem->result_comment);
         }
-        
+
         $this->view->item = $feedbackItem;
 
         $this->view->form = $fr;

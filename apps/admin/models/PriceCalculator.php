@@ -4,7 +4,7 @@ class PriceCalculator {
 
     public static function CalcCost($products, $delivertimemode) {
 
-       
+
         // first, calc the products costs
         $cost = self::calcProdcutsCost($products);
 

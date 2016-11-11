@@ -271,15 +271,15 @@
                                     آمار جستجو
                                 </a>
                             </li>
-<!--                            <li>
-                                <a href="<?php // echo $this->url->get("searchhistory/most"); ?>">
-                                    Statistics
-                                </a>
-                            </li>-->
+                            <!--                            <li>
+                                                            <a href="<?php // echo $this->url->get("searchhistory/most");   ?>">
+                                                                Statistics
+                                                            </a>
+                                                        </li>-->
                         </ul>
                     </li>
-                    
-                     <li class='nav-parent'>
+
+                    <li class='nav-parent'>
                         <a>
                             <i class='fa fa-question' aria-hidden='true'></i>
                             <span>درخواست تماس</span>
@@ -318,6 +318,26 @@
                             <li>
                                 <a href="<?php echo $this->url->get("siteinfo/footer"); ?>">
                                     <span>فوتر</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-question' aria-hidden='true'></i>
+                            <span>تخفیف ها</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('promotion/add'); ?>'>
+                                    افزودن تخفیف جدید
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('promotion/list'); ?>'>
+                                    لیست تخفیف ها
                                 </a>
                             </li>
                         </ul>

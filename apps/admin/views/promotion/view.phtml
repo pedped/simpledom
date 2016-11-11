@@ -1,0 +1,56 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel panel-primary'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+                    <h2 class='panel-title'>View Promotion</h2>
+                    <p class='panel-subtitle'Use this form to edit your Promotion</p>
+                </header>
+                <div class='panel-body'>
+
+
+
+                    <!--  ADD ID !-->
+                    <?php $form->renderInfo('id'); ?> 
+
+                    <!--  ADD Title !-->
+                    <?php $form->renderInfo('title'); ?> 
+
+                    <!--  ADD Date !-->
+                    <?php $form->renderInfo('date'); ?> 
+
+                    <!--  ADD By User ID !-->
+                    <?php $form->renderInfo('byuserid'); ?> 
+
+                    <!--  ADD End Date !-->
+                    <?php $form->renderInfo('end_date'); ?> 
+
+                    <!--  ADD Total !-->
+                    <?php $form->renderInfo('total'); ?> 
+
+                    <!--  ADD Default Percent !-->
+                    <?php $form->renderInfo('default_percent'); ?> 
+
+                    <!--  ADD Default Fee !-->
+                    <?php $form->renderInfo('default_fee'); ?> 
+
+                    <!--  ADD Status !-->
+                    <?php $form->renderInfo('status'); ?> 
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

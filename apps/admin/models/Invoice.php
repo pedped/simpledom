@@ -4,8 +4,6 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 use Simpledom\Core\AtaModel;
 
-
-
 class Invoice extends AtaModel {
 
     public function initialize() {
@@ -344,12 +342,11 @@ class Invoice extends AtaModel {
 
 //        var_dump(( (time() - $this->date) > 3600 ? 3600 : (time() - $this->date) ));
 //        die();
-
         // check remaining time
         switch ($this->deliverytimemode) {
             case DELIVERYTIMEMODE_UNDERONEHOUR:
                 // we have to make the request under one hour
-                $result->RemainingTime = 3600 - ( (time() - $this->date) > 3600 ? 3600 : (time() - $this->date) ) - (3600 * 3 + 1800) ;
+                $result->RemainingTime = 3600 - ( (time() - $this->date) > 3600 ? 3600 : (time() - $this->date) ) - (3600 * 3 + 1800);
                 break;
             case DELIVERYTIMEMODE_UNDERFOURHOURS:
                 // we have to make the request under one hour

@@ -22,6 +22,10 @@ use stdClass;
 
 class PublicController extends ControllerBase {
 
+    
+    public function testAction(){
+        var_dump(\User::findFirst()->getPublicResponse());
+    }
     /**
      * when a user requested contact
      */

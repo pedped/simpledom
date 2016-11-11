@@ -131,8 +131,8 @@ class InvoiceForm extends AtaForm {
         //$deliverdate->setAttribute('placeholder', 'Enter your Deliver Date');
         $deliverdate->setAttribute('class', 'form-control');
         $this->add($deliverdate);
-        
-        
+
+
         // Deliver Date
         $map = new MapElement('map');
         $map->setMarkTitle("موقعیت سفارش دهنده");

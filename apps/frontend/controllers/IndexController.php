@@ -12,24 +12,28 @@ use UserOrder;
 class IndexController extends IndexControllerBase {
 
     public function testAction() {
-
-        // we have to find the products top sales in last 3 days
-        $topSalesDay = Config::TopSalesDayLimit();
-
-        // find the product list in the factor items 
-        $productIDs = DBServer::LoadTopSaleProducts($topSalesDay);
-
-        if (count($productIDs) > 0) {
-            // convert them to string
-            $pdis = implode(", ", $productIDs);
-            $products = Product::find("id IN (" . $pdis . ")");
-            var_dump($products->toArray());
-            die();
-        } else {
-            $products = array();
-            var_dump($products);
-        }
+        
+        
+        var_dump(Product::findFirst(4)->getPublicResponse());
         die();
+
+//        // we have to find the products top sales in last 3 days
+//        $topSalesDay = Config::TopSalesDayLimit();
+//
+//        // find the product list in the factor items 
+//        $productIDs = DBServer::LoadTopSaleProducts($topSalesDay);
+//
+//        if (count($productIDs) > 0) {
+//            // convert them to string
+//            $pdis = implode(", ", $productIDs);
+//            $products = Product::find("id IN (" . $pdis . ")");
+//            var_dump($products->toArray());
+//            die();
+//        } else {
+//            $products = array();
+//            var_dump($products);
+//        }
+//        die();
     }
 
     public function buywithmobileAction($orderid) {
