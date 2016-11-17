@@ -78,5 +78,9 @@ class Config {
     public static function TopUserUsualPurchaseLimit() {
         return 50;
     }
+    
+    public static function getAppImageLink(){
+        return "http://traveljapanblog.com/wordpress/wp-content/uploads/2014/11/136_9400-RAW-lotus-flower-rain-hiroshima-peace-park.jpg";
+    }
 
 }

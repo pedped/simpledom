@@ -339,6 +339,12 @@ class Invoice extends AtaModel {
         $result->Mobile = $this->mobile;
         $result->DeliverDate = isset($this->deliverdate) ? $this->deliverdate : 0;
         $result->DeliveryTimeMode = $this->deliverytimemode;
+        $result->Products = array();
+
+        $k = $this->getProductList();
+        foreach ($k as $item) {
+            $result->Products[] = $item->getPublicResponse();
+        }
 
 //        var_dump(( (time() - $this->date) > 3600 ? 3600 : (time() - $this->date) ));
 //        die();
@@ -430,6 +436,10 @@ class Invoice extends AtaModel {
             default :
                 return "<هشدار : این وضعیت تعریف نشده>";
         }
+    }
+
+    public function getProductList() {
+        return InvoiceProducts::find(array("invoiceid = :id:", "bind" => array("id" => $this->id)));
     }
 
 }

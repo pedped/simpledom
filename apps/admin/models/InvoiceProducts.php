@@ -156,6 +156,8 @@ class InvoiceProducts extends AtaModel {
         $result->Date = $this->date;
         $result->Count = $this->count;
         $result->Message = $this->message;
+        $result->Product = Product::findFirst(array("id = :id:", "bind" => array("id" => $this->productid)))->getPublicResponse();
+
 
 
         return $result;

@@ -22,10 +22,10 @@ use stdClass;
 
 class PublicController extends ControllerBase {
 
-    
-    public function testAction(){
+    public function testAction() {
         var_dump(\User::findFirst()->getPublicResponse());
     }
+
     /**
      * when a user requested contact
      */
@@ -203,7 +203,7 @@ class PublicController extends ControllerBase {
         $deliverTime = $_POST["delivertime"];
 
         // request price calculator calc the price
-        $finalPrice = PriceCalculator::CalcCost($products , $deliverTime);
+        $finalPrice = PriceCalculator::CalcCost($products, $deliverTime);
 
         return $this->getResponse($finalPrice);
     }
@@ -236,6 +236,10 @@ class PublicController extends ControllerBase {
 
         // show list
         return $this->getResponse($result);
+    }
+
+    public function gethomeimageAction() {
+        return $this->getResponse(Config::getAppImageLink());
     }
 
     public function newnotificationAction() {
