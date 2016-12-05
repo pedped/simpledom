@@ -24,8 +24,16 @@ class ProductForm extends AtaForm {
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
-        )));
+        ))); 
         $this->add($title);
+
+
+        // Subtitle
+        $subtitle = new TextElement('subtitle');
+        $subtitle->setLabel('زیرنویس محصول');
+        //$subtitle->setAttribute('placeholder', 'Enter your Title');
+        $subtitle->setAttribute('class', 'form-control'); 
+        $this->add($subtitle);
 
 
         // Category ID

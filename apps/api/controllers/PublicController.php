@@ -70,6 +70,17 @@ class PublicController extends ControllerBase {
         return $this->getResponse($products);
     }
 
+    public function loadspecialproductsAction() {
+
+        $products = Product::find(array(
+                    "flag_special = '1'",
+                    "order" => "id DESC",
+                    "limit" => "100"
+        ));
+
+        return $this->getResponse($products);
+    }
+
     public function loadtopsalesAction() {
         // we have to find the products top sales in last 3 days
         $topSalesDay = Config::TopSalesDayLimit();

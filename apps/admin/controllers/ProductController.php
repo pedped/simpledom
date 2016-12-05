@@ -239,6 +239,10 @@ class ProductController extends ControllerBase {
                 $product->weight = $this->request->getPost('weight', 'string');
 
                 $product->depth = $this->request->getPost('depth', 'string');
+
+                $product->subtitle = $this->request->getPost('subtitle', 'string');
+
+
                 if (!$product->save()) {
                     $product->showErrorMessages($this);
                 } else {
@@ -260,6 +264,7 @@ class ProductController extends ControllerBase {
             $fr->get('height')->setDefault($productItem->height);
             $fr->get('weight')->setDefault($productItem->weight);
             $fr->get('depth')->setDefault($productItem->depth);
+            $fr->get('subtitle')->setDefault($productItem->subtitle);
         }
 
 

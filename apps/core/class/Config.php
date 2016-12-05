@@ -80,7 +80,7 @@ class Config {
     }
     
     public static function getAppImageLink(){
-        return "http://traveljapanblog.com/wordpress/wp-content/uploads/2014/11/136_9400-RAW-lotus-flower-rain-hiroshima-peace-park.jpg";
+        return "http://www.mascaratbeach.com/wp-content/uploads/2015/05/shopping.jpg";
     }
 
 }

@@ -13,9 +13,8 @@ use stdClass;
 use UserNotification;
 
 class UserController extends ControllerBase {
-    
-    
-    public function hasorderinprogressAction(){
+
+    public function hasorderinprogressAction() {
         return $this->getResponse($this->user->hasOrderInProgress() ? 1 : 0);
     }
 
@@ -83,6 +82,14 @@ class UserController extends ControllerBase {
             $this->errors[] = "خطای داخلی رخ داده است : " . $invoice->getMessagesAsLines();
             return $this->getResponse(false);
         }
+    }
+
+    public function getrecentinvocesAction() {
+        return $this->getResponse( \Invoice::find(array(
+                    "userid = :userid:",
+                    "bind" => array("userid" => $this->user->userid),
+                    "order" => "id DESC"
+        )));
     }
 
     public function loadmyusualordersAction() {

@@ -27,11 +27,9 @@ class PromotionProductForm extends AtaForm {
 
 
         // Product ID
-        $productid = new TagEditElement('productid');
-        $productid->setAutocompleteSource(Config::getPublicUrl() . "/admin/api/listproducts");
+        $productid = new ProductSelectElement('productid');
         $productid->setLabel('کد محصول');
         //$productid->setAttribute('placeholder', 'Enter your Product ID');
-        $productid->setAttribute('class', 'form-control');
         $productid->addValidator(new PresenceOf(array(
         )));
         $this->add($productid);

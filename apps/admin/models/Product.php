@@ -236,6 +236,8 @@ class Product extends AtaModel {
 
     public function beforeValidationOnCreate() {
         $this->date = time();
+        $this->flag_homepage = 0;
+        $this->flag_special = 0;
     }
 
     public function beforeValidationOnSave() {
@@ -264,6 +266,10 @@ class Product extends AtaModel {
         $result->TotalOrders = 0;
         $result->IsFavorite = 0;
         $result->Timestamp = 0;
+        $result->Subtitle = $this->subtitle;
+        $result->FlagHomepage = isset($this->flag_homepage) ? $this->flag_homepage : 0;
+        $result->FlagSpecial = isset($this->flag_special) ? $this->flag_special : 0;
+        $result->Specifications = $this->LoadSpecfifications();
 
 
         // get the last price
@@ -295,6 +301,9 @@ class Product extends AtaModel {
 
 
 
+    public $subtitle;
+    public $flag_special;
+    public $flag_homepage;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -311,6 +320,9 @@ class Product extends AtaModel {
             'height' => 'height',
             'weight' => 'weight',
             'depth' => 'depth',
+            'subtitle' => 'subtitle',
+            'flag_special' => 'flag_special',
+            'flag_homepage' => 'flag_homepage',
         );
     }
 
@@ -387,6 +399,21 @@ class Product extends AtaModel {
         } else {
             return 0;
         }
+    }
+
+    public function LoadSpecfifications() {
+        $items = array();
+        $specifications = ProductSpecification::find(array("productid = :productid:", "bind" => array("productid" => $this->id)));
+
+        foreach ($specifications as $item) {
+            $k = new stdClass();
+            $k->Title = $item->title;
+            $k->Value = $item->value;
+            $k->OrderID = $item->orderid;
+            $items[] = $k;
+        }
+
+        return $items;
     }
 
 }
