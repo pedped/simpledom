@@ -372,7 +372,12 @@ class Invoice extends AtaModel {
 
 
 
-
+    public $totalpurchase;
+    public $delivercost;
+    public $offcost;
+    public $gift;
+    public $giftcalced;
+    
     public function columnMap() {
         // Keys are the real names in the table and
         // the values their names in the application
@@ -393,6 +398,11 @@ class Invoice extends AtaModel {
             'mobile' => 'mobile',
             'deliverdate' => 'deliverdate',
             'deliverytimemode' => 'deliverytimemode',
+            'totalpurchase' => 'totalpurchase',
+            'delivercost' => 'delivercost',
+            'offcost' => 'offcost',
+            'gift' => 'gift',
+            'giftcalced' => 'giftcalced',
         );
     }
 

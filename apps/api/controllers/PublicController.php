@@ -70,6 +70,17 @@ class PublicController extends ControllerBase {
         return $this->getResponse($products);
     }
 
+    public function loadnewpromotionsAction() {
+
+        $products = Product::find(array(
+                    "flag_offpage = '1'",
+                    "order" => "id DESC",
+                    "limit" => "100"
+        ));
+
+        return $this->getResponse($products);
+    }
+
     public function loadspecialproductsAction() {
 
         $products = Product::find(array(
@@ -212,6 +223,7 @@ class PublicController extends ControllerBase {
     public function calcordercostAction() {
         $products = json_decode($_POST["products"]);
         $deliverTime = $_POST["delivertime"];
+    
 
         // request price calculator calc the price
         $finalPrice = PriceCalculator::CalcCost($products, $deliverTime);

@@ -304,6 +304,7 @@ class Product extends AtaModel {
     public $subtitle;
     public $flag_special;
     public $flag_homepage;
+    public $flag_offpage;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -323,6 +324,7 @@ class Product extends AtaModel {
             'subtitle' => 'subtitle',
             'flag_special' => 'flag_special',
             'flag_homepage' => 'flag_homepage',
+            'flag_offpage' => 'flag_offpage',
         );
     }
 
@@ -401,6 +403,11 @@ class Product extends AtaModel {
         }
     }
 
+    
+    public function hasOff(){
+        return $this->GetInitialPrice() != $this->GetFinalPrice();
+    }
+    
     public function LoadSpecfifications() {
         $items = array();
         $specifications = ProductSpecification::find(array("productid = :productid:", "bind" => array("productid" => $this->id)));
