@@ -36,6 +36,9 @@
                             <li class="<?php echo $tab == "stock" ? "active" : "" ?>">
                                 <a href="<?php echo $this->url->get("product/edit/$product->id/stock"); ?>" ><span>تغییرات تعداد</span></a>
                             </li>
+                            <li class="<?php echo $tab == "specification" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("product/edit/$product->id/specification"); ?>" ><span>مشخصه های محصول</span></a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <?php if ($tab == "statistics") : ?>
@@ -147,6 +150,12 @@
 
                                 <hr/>
 
+                                <h3>قیمت </h3>
+                                <p>در صورت تمایل قیمت محصول خود را مشخص نمایید</p>
+                                <?php $form->renderDecorated('price_purchase'); ?> 
+                                <?php $form->renderDecorated('price_sale'); ?> 
+                                <hr/>
+
                                 <h3>سایز محصول</h3>
                                 <p>وارد کردن اطلاعات سایز محصول در جمع آوری و ارسال کمک می نماید</p>
                                 <div class="row">
@@ -228,6 +237,35 @@
                                     echo $list->table;
                                     echo $list->footer;
                                     ?>
+
+                                <?php endif; ?>
+                                <?php if ($tab == "specification") : ?>
+
+                                    <?php
+                                    echo $list->header;
+                                    echo $list->table;
+//                                    echo $list->footer;
+                                    ?>
+                                    <br/>
+
+                                    <h4>افزودن مشخصه جدید</h4>
+                                    <p>جهت افزودن مشخصه جدید، نام و مقدار مشخصه را وارد نمایید</p>
+
+                                    <!--  ADD Title !-->
+                                    <?php $form->renderDecorated('title'); ?> 
+
+                                    <!--  ADD Value !-->
+                                    <?php $form->renderDecorated('value'); ?> 
+
+                                    <!--  ADD Order ID !-->
+                                    <div class="hidden">
+                                        <?php $form->renderDecorated('orderid'); ?> 
+                                    </div>
+
+
+                                    <!-- Submit Button !-->
+                                    <br/>
+                                    <?php $form->renderDecorated('submit'); ?>
 
                                 <?php endif; ?>
                             </div>

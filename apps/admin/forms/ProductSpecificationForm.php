@@ -22,8 +22,8 @@ class ProductSpecificationForm extends AtaForm {
         $productid->setLabel('نام محصول( محصولات)');
         //$productid->setAttribute('placeholder', 'Enter your Product ID');
         $productid->setAttribute('class', 'form-control');
-        $productid->addValidator(new PresenceOf(array(
-        )));
+//        $productid->addValidator(new PresenceOf(array(
+//        )));
         $this->add($productid);
 
 

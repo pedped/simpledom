@@ -2,6 +2,7 @@
 
 use Simpledom\Core\AtaModel;
 use Simpledom\Core\Classes\Config;
+use Simpledom\Core\Classes\Helper;
 
 class Product extends AtaModel {
 
@@ -305,6 +306,8 @@ class Product extends AtaModel {
     public $flag_special;
     public $flag_homepage;
     public $flag_offpage;
+    public $price_purchase;
+    public $price_sale;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -325,6 +328,8 @@ class Product extends AtaModel {
             'flag_special' => 'flag_special',
             'flag_homepage' => 'flag_homepage',
             'flag_offpage' => 'flag_offpage',
+            'price_purchase' => 'price_purchase',
+            'price_sale' => 'price_sale',
         );
     }
 
@@ -403,11 +408,44 @@ class Product extends AtaModel {
         }
     }
 
-    
-    public function hasOff(){
+    public function hasOff() {
         return $this->GetInitialPrice() != $this->GetFinalPrice();
     }
-    
+
+    public function getSaleHumanPrice() {
+        return Helper::GetHumanPrice($this->price_sale);
+    }
+
+    public function getStatusLabel() {
+        switch ($this->status) {
+            case PRODUCT_STATUS_ACTIVE:
+                return "<span class='label label-success'>فعال</span>";
+            case PRODUCT_STATUS_DIACTIVE:
+                return "<span class='label label-danger'>غیر فعال</span>";
+            case PRODUCT_STATUS_OUTOFSTOCK:
+                return "<span class='label label-danger'>خارج از موجودی</span>";
+            default :
+                return "<هشدار : این وضعیت تعریف نشده>";
+        }
+    }
+
+    public function getImageElement($width = "64px", $height = 'auto') {
+        // Load Images
+        $imagelink = "";
+        $images = ProductGallery::find(array("product_id = :productid:", "bind" => array("productid" => $this->id)));
+        $imagesArray = array();
+        foreach ($images as $image) {
+            $imagesArray[] = $image->getImageLink();
+        }
+        if (count($imagesArray) > 0) {
+            $imagelink = $imagesArray[0];
+        } else {
+            $imagelink = Config::getPublicUrl() . "\img\default_product_icon.png";
+        }
+
+        return "<img src='$imagelink' style='width: $width;height : $height' class='img' />";
+    }
+
     public function LoadSpecfifications() {
         $items = array();
         $specifications = ProductSpecification::find(array("productid = :productid:", "bind" => array("productid" => $this->id)));

@@ -30,7 +30,7 @@ class ApiController extends ApiControllerBase {
             $k->name = $value->id;
             $result[] = $k;
         }
-        
+
         echo json_encode($result);
     }
 

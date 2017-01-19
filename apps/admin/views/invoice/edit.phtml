@@ -24,11 +24,12 @@
                             <li class="<?php echo $tab == "products" ? "active" : "" ?>">
                                 <a href="<?php echo $this->url->get("invoice/edit/$invoice->id/products"); ?>" ><span>محصولات سفارش شده</span></a>
                             </li>
+                            <li class="<?php echo $tab == "status" ? "active" : "" ?>">
+                                <a href="<?php echo $this->url->get("invoice/edit/$invoice->id/status"); ?>" ><span>وضعیت سفارش</span></a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <?php if ($tab == "info") : ?>
-
-
                                 <div class="row">
                                     <div class="col-md-5"> 
                                         <h3>وضعیت سفارش</h3>
@@ -36,10 +37,6 @@
 
                                         <!--  ADD Status !-->
                                         <span style="font-size: 150%;">وضعیت سفارش: <b><?php echo $invoice->getStatusLabel(); ?></b></span>
-
-
-                                        <!--  ADD User Status !-->
-                                        <?php $form->renderDecorated('user_status'); ?> 
 
                                         <!--  ADD Deliver Date !-->
                                         <?php $form->renderInfo('deliverdate'); ?> 
@@ -114,6 +111,13 @@
                                 echo $list->table;
                                 echo $list->footer;
                                 ?>
+                            <?php endif; ?>
+                            <?php if ($tab == "status") : ?>
+                                <form method="post">
+                                    <?php $form->renderDecorated('status'); ?> 
+                                    <br/>
+                                    <?php $form->renderDecorated('submit'); ?> 
+                                </form>
                             <?php endif; ?>
                         </div>
                     </div>

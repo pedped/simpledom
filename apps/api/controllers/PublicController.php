@@ -6,6 +6,7 @@ use BaseSearchHistory;
 use BaseUser;
 use Category;
 use DBServer;
+use DeliveryMode;
 use Familycode;
 use Feedback;
 use LoginRequest;
@@ -128,6 +129,7 @@ class PublicController extends ControllerBase {
         $searchhistory->save();
     }
 
+
     public function signupwithmobileAction() {
 
         // check phone number
@@ -223,7 +225,7 @@ class PublicController extends ControllerBase {
     public function calcordercostAction() {
         $products = json_decode($_POST["products"]);
         $deliverTime = $_POST["delivertime"];
-    
+
 
         // request price calculator calc the price
         $finalPrice = PriceCalculator::CalcCost($products, $deliverTime);
@@ -250,11 +252,13 @@ class PublicController extends ControllerBase {
         // load categories 
         $categories = Category::GetList();
         $products = Product::GetList();
+        $deliveryOptions = DeliveryMode::GetList();
 
 
         $result = new \stdClass();
         $result->categories = $categories;
         $result->products = $products;
+        $result->deliverymodes = $deliveryOptions;
 
 
         // show list
@@ -349,27 +353,25 @@ class PublicController extends ControllerBase {
      */
     public function loginmobileAction() {
         // fetch user email and password
-        $email = $this->request->getPost("email", "email");
+        $phone = $this->request->getPost("phone");
         $password = $this->request->getPost("password");
-        $deviceid = $this->request->getPost("deviceid");
-        $devicetype = $this->request->getPost("devicetype");
 
         // check if user can have success login
-        $user = BaseUser::Login($email, $password);
+        $user = BaseUser::Login($phone, $password);
         if (!$user) {
             return $this->getResponse(false);
         }
 
         // success login, we have to create response for the user
-        $token = MobileToken::GetToken($this->errors, $user->userid, $deviceid, $devicetype);
+        $token = MobileToken::GetToken($this->errors, $user->userid, "1", "1");
         if (!$token) {
             return $this->getResponse(false);
         }
 
-
         // token created successfully
         $result = new stdClass();
-        $result->User = $user->getPublicResponse();
+        $result->UserID = $user->userid;
+        $result->Phone = $phone;
         $result->Token = $token;
         return $this->getResponse($result);
     }

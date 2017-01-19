@@ -24,7 +24,7 @@ class ProductForm extends AtaForm {
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
         $title->addValidator(new PresenceOf(array(
-        ))); 
+        )));
         $this->add($title);
 
 
@@ -32,7 +32,7 @@ class ProductForm extends AtaForm {
         $subtitle = new TextElement('subtitle');
         $subtitle->setLabel('زیرنویس محصول');
         //$subtitle->setAttribute('placeholder', 'Enter your Title');
-        $subtitle->setAttribute('class', 'form-control'); 
+        $subtitle->setAttribute('class', 'form-control');
         $this->add($subtitle);
 
 
@@ -110,10 +110,30 @@ class ProductForm extends AtaForm {
 //        )));
         $this->add($depth);
 
+        $purchaseprice = new TextElement('price_purchase');
+        $purchaseprice->setLabel('قیمت خرید');
+        //$depth->setAttribute('placeholder', 'Enter your Depth');
+        $purchaseprice->setAttribute('class', 'form-control');
+//        $depth->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($purchaseprice);
+
+        $price_sale = new TextElement('price_sale');
+        $price_sale->setLabel('قیمت فروش');
+        //$depth->setAttribute('placeholder', 'Enter your Depth');
+        $price_sale->setAttribute('class', 'form-control');
+//        $depth->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($price_sale);
+
 
 
         // Status
-        $status = new EnableDisableElement('status');
+        $status = new SelectElement('status', array(
+            PRODUCT_STATUS_ACTIVE => "فعال",
+            PRODUCT_STATUS_DIACTIVE => "غیر فعال",
+            PRODUCT_STATUS_OUTOFSTOCK => "اتمام موجودی",
+        ));
         $status->setLabel('وضعیت');
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');

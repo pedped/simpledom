@@ -4,8 +4,6 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 use Simpledom\Core\AtaModel;
 
-
-
 class PromotionProduct extends AtaModel {
 
     public function initialize() {
@@ -250,9 +248,8 @@ class PromotionProduct extends AtaModel {
 
         return $result;
     }
-    
-    
-    public function getProductName(){
+
+    public function getProductName() {
         return Product::findFirst(array("id = :id:", "bind" => array("id" => $this->productid)))->title;
     }
 
@@ -262,20 +259,20 @@ class PromotionProduct extends AtaModel {
     //}
 
 
-    public function getStatusWithLabelBox(){
+    public function getStatusWithLabelBox() {
         switch ($this->status) {
             case PROMOTION_PRODUCT_STATUS_ACTIVE:
-                return "<span class='label label-primary'>" .  "فعال" . "</span>";
+                return "<span class='label label-primary'>" . "فعال" . "</span>";
             case PROMOTION_PRODUCT_STATUS_SUSSPEND:
-                return "<span class='label label-warning'>" .  "معلق" . "</span>";
+                return "<span class='label label-warning'>" . "معلق" . "</span>";
             case PROMOTION_PRODUCT_STATUS_FINISHED:
-                return "<span class='label label-success'>" .  "پایان یافته" . "</span>";
+                return "<span class='label label-success'>" . "پایان یافته" . "</span>";
             default:
                 break;
         }
     }
 
-    public function getStatus(){
+    public function getStatus() {
         switch ($this->status) {
             case PROMOTION_PRODUCT_STATUS_ACTIVE:
                 return "فعال";

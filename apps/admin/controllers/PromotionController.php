@@ -90,12 +90,12 @@ class PromotionController extends ControllerBase {
                     'id', 'title', 'getDate()', 'byuserid', 'getEndDate()', 'total', 'status'
                 ))->
                 setEditUrl(
-                        'edit'
+                        'promotion/edit'
                 )->
                 setDeleteUrl(
                         'delete'
                 )->setListPath(
-                'list');
+                'promotion/list');
 
         $this->view->list = $paginator->getPaginate();
     }
@@ -150,7 +150,7 @@ class PromotionController extends ControllerBase {
                 $this->viewTabProducts($id, $page);
                 break;
             default :
-                var_dump("invalid tab");
+                $this->viewTabProductInfo($id);
                 die();
         }
 
@@ -218,7 +218,7 @@ class PromotionController extends ControllerBase {
 
     public function viewTabProducts($id, $page = 1) {
 
-        
+
 
 
         $promotion = Promotion::findFirst($id);
@@ -278,18 +278,18 @@ class PromotionController extends ControllerBase {
             $fr->get("fee")->setDefault($promotion->default_fee);
         }
         $this->view->form = $fr;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
         // load the users
         $promotionproducts = PromotionProduct::find(
                         array(

@@ -68,7 +68,7 @@ class PromotionProductForm extends AtaForm {
         $title->setLabel('تیتر( اختیاری)');
         //$title->setAttribute('placeholder', 'Enter your Title');
         $title->setAttribute('class', 'form-control');
-   
+
         $this->add($title);
 
 

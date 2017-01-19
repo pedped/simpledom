@@ -77,7 +77,7 @@ class ControllerBase extends Controller {
                             "token" => $token,
                 ))) == 0) {
                 // user token not found
-                die();
+                die("bad token");
             }
 
             // valid user

@@ -80,7 +80,7 @@ class FeedbackController extends ControllerBase {
                     'id', 'phone', 'getDate()', 'getStatusAdmin()', 'result_response', 'result_comment'
                 ))->
                 setEditUrl(
-                        'edit'
+                        'feedback/edit'
                 )->
                 setDeleteUrl(
                         'delete'

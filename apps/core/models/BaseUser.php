@@ -335,7 +335,7 @@ class BaseUser extends AtaModel implements Searchable {
         $this->resetcode = $resetcode;
         return $this;
     }
-    
+
     public $cach;
 
     /**
@@ -396,14 +396,14 @@ class BaseUser extends AtaModel implements Searchable {
 
     /**
      * Try to login to the system, retrun user on succcessfully
-     * @param type $email
+     * @param type $phone
      * @param type $password
      * @return boolean|User
      */
-    public static function Login($email, $password) {
+    public static function Login($phone, $password) {
 
         // TODO validate email
-        $user = User::findFirst(array("email = :email:", "bind" => array("email" => $email)));
+        $user = User::findFirst(array("phone = :phone:", "bind" => array("phone" => $phone)));
 
         if (isset($user->userid)) {
             // user found, we have to check for password
@@ -646,6 +646,14 @@ AND MONTH(user.registerdate) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY 
         }
     }
 
+    public $gift;
+    public $totalcach;
+    public $homephone;
+    public $birthday;
+    public $birthmonth;
+    public $birthyear;
+    public $address;
+
     public function columnMap() {
         // Keys are the real names in the table and
         // the values their names in the application
@@ -731,6 +739,13 @@ AND MONTH(user.registerdate) >= MONTH(CURRENT_DATE - INTERVAL 1 MONTH) GROUP BY 
             'user_privacyaccessvoice' => 'privacyaccessvoice',
             'user_grade' => 'grade',
             'user_cach' => 'cach',
+            'user_gift' => 'gift',
+            'user_totalcach' => 'totalcach',
+            'user_homephone' => 'homephone',
+            'user_birthday' => 'birthday',
+            'user_birthmonth' => 'birthmonth',
+            'user_birthyear' => 'birthyear',
+            'user_address' => 'address',
         );
     }
 

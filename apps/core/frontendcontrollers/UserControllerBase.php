@@ -221,7 +221,7 @@ class UserControllerBase extends ControllerBase {
                 // invalid post
             } else {
                 // check if the website signin is enabled
-                $email = $this->request->getPost("email", "email");
+                $email = $this->request->getPost("email");
                 $password = $this->request->getPost("password");
                 $user = BaseUser::Login($email, $password);
                 if ($user) {

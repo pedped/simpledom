@@ -112,10 +112,10 @@ class CategoryController extends ControllerBase {
                     'کد', 'تصویر', 'تیتر', 'نام دسته پدر', 'تاریخ', 'وضعیت'
                 ))->
                 setFields(array(
-                    'id', 'getImageElement()', 'title', 'getParentTitle()', 'getDate()', 'active'
+                    'id', 'getImageElement()', 'title', 'getParentTitle()', 'getDate()', 'getStatus()'
                 ))->
                 setEditUrl(
-                        'edit'
+                        'category/edit'
                 )->
                 setDeleteUrl(
                         'delete'
@@ -123,38 +123,6 @@ class CategoryController extends ControllerBase {
                 'category/list');
 
         $this->view->list = $paginator->getPaginate();
-    }
-
-    public function deleteAction($id) {
-
-        if (!$this->ValidateAccess($id)) {
-            // user do not have permission to remove this object
-            return $this->response->setStatusCode('403', 'You do not have permission to access this page');
-        }
-
-        // check if item exist
-        $item = Category::findFirst($id);
-        if (!$item) {
-            // item is not exist any more
-            return $this->dispatcher->forward(array(
-                        'controller' => 'category',
-                        'action' => 'list'
-            ));
-        }
-
-        // check if user want to remove it
-        if ($this->request->isPost()) {
-            $result = Category::findFirst($id)->delete();
-            if (!$result) {
-                $this->flash->error('unable to remove this Category item');
-            } else {
-                $this->flash->success('Category item deleted successfully');
-                return $this->dispatcher->forward(array(
-                            'controller' => 'category',
-                            'action' => 'list'
-                ));
-            }
-        }
     }
 
     public function editAction($id) {
@@ -165,9 +133,6 @@ class CategoryController extends ControllerBase {
             return $this->response->setStatusCode('403', 'You do not have permission to access this page');
         }
 
-        // set title
-        $this->setTitle('Edit Category');
-
         $categoryItem = Category::findFirst($id);
 
         // create form
@@ -176,43 +141,72 @@ class CategoryController extends ControllerBase {
         // check for post request
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
+
                 // form is valid
-                $category = Category::findFirst($id);
-                $category->parentcategory = $this->request->getPost('parentcategory', 'string');
+                $category = $categoryItem;
+                if (strval($this->request->getPost('parentcategory', 'string')) == "0" || strlen($this->request->getPost('parentcategory', 'string')) == 0) {
+                    // empty category
+                    $category->parentcategory = null;
+                } else {
+                    $category->parentcategory = $this->request->getPost('parentcategory', 'string');
+                }
+
+
+                if ($this->request->hasFiles() && $this->request->getUploadedFiles()[0]->getName() != "") {
+                    // valid request, load the files
+                    $file = $this->request->getUploadedFiles()[0];
+                    $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                    if ($image) {
+                        // unable to upload file
+                        $image->link = $this->url->publicurl . "" . $realtiveloaction;
+                        $image->save();
+                        $category->imageid = $image->id;
+                    } else {
+                        $this->flash->error("خطا در هنگام ارسال فایل");
+                    }
+                }
 
                 $category->title = $this->request->getPost('title', 'string');
-
-                $category->imageid = $this->request->getPost('imageid', 'string');
-
                 $category->description = $this->request->getPost('description', 'string');
-
-                $category->date = $this->request->getPost('date', 'string');
-
                 $category->active = $this->request->getPost('active', 'string');
-
-                $category->delete = $this->request->getPost('delete', 'string');
                 if (!$category->save()) {
                     $category->showErrorMessages($this);
                 } else {
-                    $category->showSuccessMessages($this, 'Category Saved Successfully');
+                    $category->showSuccessMessages($this, 'اطلاعات با موفقیت تغییر یافت');
                 }
             } else {
                 // invalid
                 $fr->flashErrors($this);
             }
-        } else {
-
-            // set default values
-
-            $fr->get('parentcategory')->setDefault($categoryItem->parentcategory);
-            $fr->get('title')->setDefault($categoryItem->title);
-            $fr->get('imageid')->setDefault($categoryItem->imageid);
-            $fr->get('description')->setDefault($categoryItem->description);
-            $fr->get('date')->setDefault($categoryItem->date);
-            $fr->get('active')->setDefault($categoryItem->active);
-            $fr->get('delete')->setDefault($categoryItem->delete);
         }
 
+
+        // set default values
+        // load category lists
+        $items = array();
+        $items[""] = "-----";
+        // load category lists
+        $categories = Category::find(array("parentcategory IS NULL"));
+        foreach ($categories as $category) {
+            // add item to list
+            $items[$category->id] = $category->title;
+            self::LoadCategoris($category, $items, $category->title . " ----> ");
+        }
+
+        $fr->get("parentcategory")->setOptions($items);
+        if (isset($categoryItem->parentcategory) && intval($categoryItem->parentcategory) > 0)
+            $fr->get("parentcategory")->setDefault($categoryItem->parentcategory);
+
+//            $fr->get('parentcategory')->setDefault($categoryItem->parentcategory);
+        $fr->get('title')->setDefault($categoryItem->title);
+        $fr->get('imageid')->setDefault($categoryItem->imageid);
+        $fr->get('description')->setDefault($categoryItem->description);
+//            $fr->get('date')->setDefault($categoryItem->date);
+        $fr->get('active')->setDefault($categoryItem->active);
+//            $fr->get('delete')->setDefault($categoryItem->delete);
+
+
+        $this->view->category = $categoryItem;
         $this->view->form = $fr;
     }
 

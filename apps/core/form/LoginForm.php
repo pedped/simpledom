@@ -19,8 +19,6 @@ class LoginForm extends AtaForm {
         $email->setAttribute("class", "form-control");
         $email->addValidator(new PresenceOf(array(
         )));
-        $email->addValidator(new Email(array(
-        )));
         $this->add($email);
 
 

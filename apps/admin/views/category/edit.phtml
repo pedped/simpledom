@@ -3,7 +3,7 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
-<form method='post'>
+<form method='post' enctype="multipart/form-data">
     <div class='row'>
         <div class='col-lg-12'>
             <section class='panel'>
@@ -12,38 +12,50 @@
                         <a href='#' class='fa fa-caret-down'></a>
                         <a href='#' class='fa fa-times'></a>
                     </div>
-                    <h2 class='panel-title'>Edit Category</h2>
-                    <p class='panel-subtitle'Use this form to edit your Category</p>
+
+                    <h2 class='panel-title'>ویرایش</h2>
                 </header>
                 <div class='panel-body'>
 
 
+                    <div class="row">
+                        <div class="col-md-9">
+                            <!--  ADD Parent Category !-->
+                            <?php $form->renderDecorated('parentcategory'); ?> 
 
-                    <!--  ADD Parent Category !-->
-                    <?php $form->renderDecorated('parentcategory'); ?> 
+                            <hr/>
 
-                    <!--  ADD Title !-->
-                    <?php $form->renderDecorated('title'); ?> 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--  ADD Title !-->
+                                    <?php $form->renderDecorated('title'); ?> 
+                                </div>
+                                <div class="col-md-6">
+                                    <!--  ADD Image ID !-->
+                                    <?php $form->renderDecorated('imageid'); ?> 
+                                </div>
+                            </div>
 
-                    <!--  ADD Image ID !-->
-                    <?php $form->renderDecorated('imageid'); ?> 
+                            <!--  ADD Active !-->
+                            <?php $form->renderDecorated('active'); ?> 
 
-                    <!--  ADD Description !-->
-                    <?php $form->renderDecorated('description'); ?> 
-
-                    <!--  ADD Date !-->
-                    <?php $form->renderDecorated('date'); ?> 
-
-                    <!--  ADD Active !-->
-                    <?php $form->renderDecorated('active'); ?> 
-
-                    <!--  ADD Delete !-->
-                    <?php $form->renderDecorated('delete'); ?> 
+                            <!--  ADD Description !-->
+                            <?php $form->renderDecorated('description'); ?> 
 
 
-                    <!-- Submit Button !-->
-                    <br/>
-                    <?php $form->renderDecorated('submit'); ?>
+                            <!-- Submit Button !-->
+                            <br/>
+                            <?php $form->renderDecorated('submit'); ?>
+                        </div>
+                        <div class="col-md-3">
+                            <?php if ($category->imageid > 0): ?>
+                                <img style="width: 256px;height: 256px;" class="img img-responsive img-polaroid" src="<?php echo $category->getImageLink(); ?>" />
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+
+
 
                 </div>
             </section>

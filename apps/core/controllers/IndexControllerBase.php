@@ -2,16 +2,16 @@
 
 namespace Simpledom\Admin\BaseControllers;
 
-use BaseContact;
 use BaseUser;
-use LineChartElement;
-use Opinion;
+use Feedback;
+use Invoice;
+use ModelChart;
+use Product;
 use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\Config;
 use Simpledom\Core\SendSMSForm;
 use SMSManager;
 use SMSProvider;
-use UserOrder;
 
 class IndexControllerBase extends ControllerBase {
 
@@ -23,9 +23,9 @@ class IndexControllerBase extends ControllerBase {
 
         // load total contacts
         $this->view->totalUsers = BaseUser::count();
-        $this->view->totalOpinions = Opinion::count();
-        $this->view->totalContacts = BaseContact::count();
-        $this->view->totalProdcutSale = UserOrder::count("done = '1'");
+        $this->view->totalOpinions = Product::count();
+        $this->view->totalContacts = Feedback::count();
+        $this->view->totalProdcutSale = Invoice::count();
 
         // check if we have to fetch user credit on admin panel
         if (Config::CheckForSMSCreditOnAdminPanel()) {
@@ -83,15 +83,27 @@ class IndexControllerBase extends ControllerBase {
 
         // load chart box
         // fetch data
-//        $chartlement = new LineChartElement("registerchart");
-//        $chartlement->setTitle("Register Chart");
-//        $chartlement->setSubtitle("total register count per day");
-//        $chartlement->setXName("Date");
-//        $chartlement->setYAxis("Count");
-//        $chartlement->setValues($user->getLastMonthRegistarChart());
-
+        $invoiceCountChart = new ModelChart("invoicecount", new Invoice(), "date");
+        $invoicechart = $invoiceCountChart->getChart();
+        $invoicechart->setTitle("آمار سفارش");
+        $invoicechart->setSubtitle("تعداد سفارشات جدید در هر روز");
+        $invoicechart->setXName("تاریخ");
+        $invoicechart->setYAxis("تعداد");
         // add element to form
-        //$form->add($chartlement);
+        $form->add($invoicechart);
+
+
+        // load chart box
+        // fetch data
+        $registerchartBox = new ModelChart("registerchart", new BaseUser(), "registerdate");
+        $registerchart = $registerchartBox->getChart();
+        $registerchart->setTitle("آمار عضویت");
+        $registerchart->setSubtitle("تعداد اعضای جدید در هر روز");
+        $registerchart->setXName("تاریخ");
+        $registerchart->setYAxis("تعداد");
+        // add element to form
+        $form->add($registerchart);
+
 
         // set view form
         $this->view->form = $form;

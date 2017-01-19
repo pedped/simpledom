@@ -19,7 +19,7 @@ class DeliverymanForm extends AtaForm {
 
         // Worker ID
         $workerid = new TextElement('workerid');
-        $workerid->setLabel('Worker ID');
+        $workerid->setLabel('کد کاگر');
         //$workerid->setAttribute('placeholder', 'Enter your Worker ID');
         $workerid->setAttribute('class', 'form-control');
         $workerid->addValidator(new PresenceOf(array(
@@ -28,8 +28,12 @@ class DeliverymanForm extends AtaForm {
 
 
         // Warehouse ID
-        $warehouseid = new TextElement('warehouseid');
-        $warehouseid->setLabel('Warehouse ID');
+        $warehouseid = new SelectElement('warehouseid', Warehouse::find(), array(
+            "using" => array(
+                "id", "title"
+            )
+        ));
+        $warehouseid->setLabel('انبار');
         //$warehouseid->setAttribute('placeholder', 'Enter your Warehouse ID');
         $warehouseid->setAttribute('class', 'form-control');
         $warehouseid->addValidator(new PresenceOf(array(
@@ -38,8 +42,8 @@ class DeliverymanForm extends AtaForm {
 
 
         // Status
-        $status = new TextElement('status');
-        $status->setLabel('Status');
+        $status = new EnableDisableElement('status');
+        $status->setLabel('وضعیت');
         //$status->setAttribute('placeholder', 'Enter your Status');
         $status->setAttribute('class', 'form-control');
         $status->addValidator(new PresenceOf(array(

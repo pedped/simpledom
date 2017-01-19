@@ -13,25 +13,28 @@
                         <a href='#' class='fa fa-times'></a>
                     </div>
 
-                    <h2 class='panel-title'>Add UserCachChange</h2>
+                    <h2 class='panel-title'>افزودن تغییرات اعتبار</h2>
                 </header>
                 <div class='panel-body'>
 
+                    <h3>اطلاعات کاربر و دلیل تغییر</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--  ADD دلیل تغییر !-->
+                            <?php $form->renderDecorated('reasonid'); ?> 
+                        </div>
+                        <div class="col-md-6">
+                            <!--  ADD کاربر !-->
+                            <?php $form->renderDecorated('userid'); ?> 
+                        </div>
+                    </div>
 
-
-                    <!--  ADD User ID !-->
-                    <?php $form->renderDecorated('userid'); ?> 
-
-                    <!--  ADD Amount !-->
+                    <!--  ADD مقدار !-->
                     <?php $form->renderDecorated('amount'); ?> 
 
-                    <!--  ADD Date !-->
-                    <?php $form->renderDecorated('date'); ?> 
-
-                    <!--  ADD Reason !-->
-                    <?php $form->renderDecorated('reasonid'); ?> 
-
-                    <!--  ADD More Info !-->
+                    <hr/>
+                    <p>در صورتی که قصد دارید توضیحات بیشتری در مورد این تغییرات اعتبار بیان کنید، این قسمت را مشخص کنید</p>
+                    <!--  ADD اطلاعات بیشتر !-->
                     <?php $form->renderDecorated('more'); ?> 
 
 

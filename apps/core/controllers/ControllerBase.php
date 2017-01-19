@@ -4,8 +4,10 @@ namespace Simpledom\Admin\BaseControllers;
 
 use AtaController;
 use BaseContact;
+use Feedback;
 use Phalcon\Mvc\Dispatcher;
 use Settings;
+use Simpledom\Core\Classes\Config;
 use User;
 
 abstract class ControllerBase extends AtaController {
@@ -38,6 +40,7 @@ abstract class ControllerBase extends AtaController {
             die("You are not authrized to see this page");
         }
 
+        Config::$baseUrl = Config::getPublicUrl() . "admin/";
 
         // CSS in the header
         $this->assets
@@ -58,11 +61,11 @@ abstract class ControllerBase extends AtaController {
         $this->assets
                 ->collection('elementscripts')
                 ->setPrefix('http://www.avoocado.com/');
-        
-          $this->assets
+
+        $this->assets
                 ->collection('elementscss')
                 ->setPrefix('http://www.avoocado.com/');
-        
+
         $this->assets
                 ->collection('externalscripts');
 
@@ -70,7 +73,7 @@ abstract class ControllerBase extends AtaController {
         $this->view->pfurl = "http://www.avoocado.com/";
 
         // set default page title
-        $this->setTitle("Dashboard");
+        $this->setTitle("خانه");
 
 
         // load messages
@@ -83,7 +86,7 @@ abstract class ControllerBase extends AtaController {
                     'seen = 0'
         ));
 
-        $this->view->totalContactsUnanswered = BaseContact::count("reply IS NULL");
+        $this->view->totalContactsUnanswered = Feedback::count("result_type = '" . CONTACTSTATUS_WAITINGFORCALL . "'");
 
         if ($this->session->has("userid")) {
             $this->user = User::findFirst($this->session->get("userid"));

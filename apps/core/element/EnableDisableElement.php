@@ -13,8 +13,8 @@ class EnableDisableElement extends Select {
     public function __construct($name, $options = null, $attributes = null) {
         parent::__construct($name, $options, $attributes);
         $this->setOptions(array(
-            "1" => "Yes",
-            "0" => "No"
+            "1" => "بله",
+            "0" => "خیر"
         ));
     }
 

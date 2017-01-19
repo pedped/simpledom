@@ -22,17 +22,17 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param type $viewUrl
      * @return AtaPaginator
      */
     public function setEditUrl($viewUrl) {
-        $this->editUrl = $viewUrl;
+        $this->editUrl = Config::$baseUrl . $viewUrl;
         return $this;
     }
 
     /**
-     * 
+     *
      * @param type $deleteUrl
      * @return AtaPaginator
      */
@@ -50,7 +50,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param type $tableHeaders
      * @return AtaPaginator
      */
@@ -60,7 +60,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param type $fields
      * @return AtaPaginator
      */
@@ -98,7 +98,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param type $listPath
      * @return AtaPaginator
      */
@@ -108,7 +108,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @return Array
      */
     public function getSearchItemArrays() {
@@ -116,7 +116,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @return Array
      */
     public function getOrderItemArrays() {
@@ -124,7 +124,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param Array $searchItemArrays
      */
     public function setSearchItemArrays($searchItemArrays) {
@@ -132,7 +132,7 @@ class AtaPaginator extends Paginator {
     }
 
     /**
-     * 
+     *
      * @param Array $orderItemArrays
      */
     public function setOrderItemArrays($orderItemArrays) {
@@ -171,12 +171,12 @@ class AtaPaginator extends Paginator {
         // we have to check if we have any search array, add that
         if (is_array($this->searchItemArrays) && count($this->searchItemArrays) > 0) {
             // there are some option to add
-            $result.= "";
-            $result.= "<div class='row'><div class='col-md-4' style='padding-top: 5px;padding-left: 25px;'>Search In &nbsp&nbsp</div><div class='col-md-2'></div><div class='col-md-6' style='text-align: right;'><select class='form-control' name='target'>";
+            $result .= "";
+            $result .= "<div class='row'><div class='col-md-4' style='padding-top: 5px;padding-left: 25px;'>Search In &nbsp&nbsp</div><div class='col-md-2'></div><div class='col-md-6' style='text-align: right;'><select class='form-control' name='target'>";
             foreach ($this->getSearchItemArrays() as $key => $value) {
-                $result.="<option value='$key'>$value</option>";
+                $result .= "<option value='$key'>$value</option>";
             }
-            $result.="</select>";
+            $result .= "</select>";
             $result .= "
                 <div class='input-group'>
                     <input class='form-control' type='text' name='searchquery' placeholder='" . _("Search Text Goes Here...") . "' />
@@ -186,7 +186,7 @@ class AtaPaginator extends Paginator {
                 </div>
             </div>";
         }
-        $result.=" </div>
+        $result .= " </div>
             </form>
             ";
         return $result;
@@ -223,17 +223,18 @@ class AtaPaginator extends Paginator {
             <table class='table table-bordered table-striped table-condensed mb-none '>
                 <tr>";
 
+
         // add each fileds
         foreach ($this->getTableHeaders() as $value) {
             $result .= "<th>$value</th>";
         }
 
         // add action box
-        if (isset($this->editUrl) && strlen($this->editUrl) > 0 && isset($this->deleteUrl) && strlen($this->deleteUrl) > 0) {
+        if ((isset($this->editUrl) && strlen($this->editUrl) > 0)) {
             $result .= "<th>" . _("Action") . "</th>";
         }
         // close the table fields
-        $result .= "<tr>";
+        $result .= "</tr>";
 
 
         // add each item
@@ -263,15 +264,15 @@ class AtaPaginator extends Paginator {
                 }
             }
             // add action bar
-            if (isset($this->editUrl) && strlen($this->editUrl) > 0 && isset($this->deleteUrl) && strlen($this->deleteUrl) > 0) {
+            if ((isset($this->editUrl) && strlen($this->editUrl) > 0)) {
                 $result .= "
                 <td>";
                 if (isset($this->editUrl)) {
-                    $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row'><i class='fa fa-pencil' title='" . _("View/Edit") . "'></i></a>";
+                    $result .= "<a href='$this->editUrl/$item->id' class='on-default edit-row btn btn-sm btn-primary' >مشاهده</a>";
                 }
-                if (isset($this->deleteUrl)) {
-                    $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='" . _("Delete") . "'></i></a>";
-                }
+//                if (isset($this->deleteUrl)) {
+//                    $result .= "&nbsp;<a href='$this->deleteUrl/$item->id' class='on-default remove-row'><i class='fa fa-trash-o' title='" . _("Delete") . "'></i></a>";
+//                }
                 $result .= "</td>";
             }
             $result .= "</tr>";
@@ -281,8 +282,6 @@ class AtaPaginator extends Paginator {
         // close the table
         $result .= "</table>
         </div>";
-
-
 
 
         // return the result

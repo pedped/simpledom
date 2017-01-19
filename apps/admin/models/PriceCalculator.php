@@ -8,12 +8,12 @@ class PriceCalculator {
         // first, calc the products costs
         $cost = self::calcProdcutsCost($products);
         $discount = self::calcProductDiscount($products);
-        
+
         $result = new stdClass();
         $result->totalordercosts = $cost;
         $result->shippingcosts = 0;
         $result->specialdiscount = $discount;
-        $result->yourcach = 0;
+        $result->yourcach = 100;
 
 
 

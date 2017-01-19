@@ -96,4 +96,12 @@ class Helper {
         return $html;
     }
 
+    public static function GetHumanPrice($amount) {
+        if (!isset($amount)) {
+            return "فاقد قیمت";
+        } else {
+            return ($amount / 10 ) . " تومان";
+        }
+    }
+
 }

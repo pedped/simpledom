@@ -30,9 +30,8 @@ class ProductspecificationController extends ControllerBase {
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
                 // form is valid
-                
-                 // find product id for each item
-                 $pids = explode(",", $this->request->getPost('productid', 'string'));
+                // find product id for each item
+                $pids = explode(",", $this->request->getPost('productid', 'string'));
                 $prlist = array();
                 foreach ($pids as $item) {
                     $k = \Product::findFirst(array("title = :title:", "bind" => array("title" => $item)));
@@ -41,7 +40,7 @@ class ProductspecificationController extends ControllerBase {
                     }
                 }
 
-          
+
                 foreach ($prlist as $value) {
                     $productspecification = new \ProductSpecification();
                     $productspecification->productid = $value;

@@ -74,9 +74,9 @@ a:active {
 
 /* Layout Base - Page Header */
 .page-header {
-    background: #171717;
+    background: #2c5282;
     border-bottom: none;
-    border-left: 1px solid #3a3a3a;
+    border-left: 1px solid #2b5180;
     box-shadow: 1px 3px 0 1px #cccccc;
     height: 50px;
     margin: -40px -40px 40px -40px;
@@ -103,7 +103,7 @@ a:active {
 }
 /* Layout Base - Sidebar Right */
 .sidebar-right {
-    background: #171717;
+    background: #2c5282;
     bottom: 0;
     margin-right: -300px;
     min-height: 100vh;
@@ -1407,11 +1407,11 @@ html.fixed .visible-xl-inline-block {
 
 /* Header */
 .header {
-    background-color: #f6f6f6;
-    background-image: -webkit-linear-gradient(#f6f6f6 0%, white 45%);
-    background-image: linear-gradient(#f6f6f6 0%, white 45%);
+    background-color: #ffffff;
+    /* background-image: -webkit-linear-gradient(#f6f6f6 0%, white 45%); */
+    /* background-image: linear-gradient(#f6f6f6 0%, white 45%); */
     border-bottom: 1px solid #E9E9E6;
-    border-top: 3px solid #EDEDED;
+    border-top: 3px solid #2c5282;
     z-index: 1000;
 }
 
@@ -1982,7 +1982,8 @@ html.inner-menu-opened .inner-menu-content {
 }
 
 ul.nav-main {
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-top: 6px;
 }
 
 ul.nav-main > li > a {
@@ -1990,7 +1991,7 @@ ul.nav-main > li > a {
 }
 
 ul.nav-main > li > a:hover, ul.nav-main > li > a:focus {
-    background-color: #21262d;
+    background: #04254e;
 }
 
 ul.nav-main > li.nav-active > a {
@@ -2006,13 +2007,13 @@ ul.nav-main > li.nav-active > i {
 }
 
 ul.nav-main > li.nav-expanded > a {
-    background: #21262d;
+    background: #0d2f5a;
 }
 
 ul.nav-main li a {
     font-size: 13px;
     font-size: 1.3rem;
-    color: #abb4be;
+    color: #ffffff;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -2040,7 +2041,8 @@ ul.nav-main li i {
     font-size: 18px;
     font-size: 1.8rem;
     width: 1.1em;
-    margin-right: 0.5em;
+    margin-left: 0.5em;
+    margin-right: .5em;
     text-align: center;
     vertical-align: middle;
 }
@@ -2074,7 +2076,7 @@ ul.nav-main li.nav-parent.nav-expanded ul.nav-children {
 }
 
 ul.nav-main li .nav-children {
-    background: #191c21;
+    background: #04254e;
     box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
     display: none;
     padding: 10px 0;
@@ -2085,7 +2087,7 @@ ul.nav-main li .nav-children li a {
 }
 
 ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus {
-    background: #191c21;
+    background: #04254e;
 }
 
 ul.nav-main li .nav-children li.nav-active > a {
@@ -3786,7 +3788,7 @@ html.no-overflowscrolling .nano > .nano-pane {
     bottom: 0;
     position: absolute;
     opacity: .01;
-    right: 0;
+    left: 0;
     top: 0;
     visibility: hidden\9;
     /* Target only IE7 and IE8 with this hack */

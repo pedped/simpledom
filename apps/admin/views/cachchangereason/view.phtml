@@ -1,38 +1,47 @@
 <div class='row'>
-    <div class='col-md-12'>
-        <?php echo $this->getContent() ?>
-    </div>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View Cachchangereason</h2>
+                                                <p class='panel-subtitle'Use this form to edit your Cachchangereason</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD کد !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD نام !-->
+                                <?php $form->renderInfo('name'); ?> 
+
+                                <!--  ADD توضیحات !-->
+                                <?php $form->renderInfo('description'); ?> 
+
+                                <!--  ADD تاریخ !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+                                <!--  ADD افزایشی !-->
+                                <?php $form->renderInfo('increase'); ?> 
+
+                                <!--  ADD هدیه می باشد !-->
+                                <?php $form->renderInfo('isgift'); ?> 
+
+                                <!--  ADD تصویر !-->
+                                <?php $form->renderInfo('imageid'); ?> 
+
+
 </div>
-<form method='post'>
-    <div class='row'>
-        <div class='col-lg-12'>
-            <section class='panel panel-primary'>
-                <header class='panel-heading'>
-                    <div class='panel-actions'>
-                        <a href='#' class='fa fa-caret-down'></a>
-                        <a href='#' class='fa fa-times'></a>
-                    </div>
-                    <h2 class='panel-title'>View CachChangeReason</h2>
-                    <p class='panel-subtitle'Use this form to edit your CachChangeReason</p>
-                </header>
-                <div class='panel-body'>
-
-
-
-                    <!--  ADD ID !-->
-                    <?php $form->renderInfo('id'); ?> 
-
-                    <!--  ADD Name !-->
-                    <?php $form->renderInfo('name'); ?> 
-
-                    <!--  ADD Description !-->
-                    <?php $form->renderInfo('description'); ?> 
-
-                    <!--  ADD Date !-->
-                    <?php $form->renderInfo('date'); ?> 
-
-
-                </div>
             </section>
         </div>
     </div>

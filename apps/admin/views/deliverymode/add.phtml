@@ -1,0 +1,96 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <?php echo $this->getContent() ?>
+    </div>
+</div>
+<form method='post'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <section class='panel'>
+                <header class='panel-heading'>
+                    <div class='panel-actions'>
+                        <a href='#' class='fa fa-caret-down'></a>
+                        <a href='#' class='fa fa-times'></a>
+                    </div>
+
+                    <h2 class='panel-title'>افزودن نحوه ارسال جدید</h2>
+                </header>
+                <div class='panel-body'>
+
+
+                    <h3>اطلاعات کلی</h3>
+                    <p>در این قسمت اطلاعات کلی را قرار دهید</p>
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <!--  ADD Description !-->
+                            <?php $form->renderDecorated('description'); ?> 
+                        </div>
+                        <div class="col-md-4">
+                            <!--  ADD Title !-->
+                            <?php $form->renderDecorated('title'); ?> 
+                        </div>
+                    </div>
+
+                    <hr/>
+
+
+                    <p>متن توضیحاتی که برای کاربر در هنگام استفاده از کلید توضیحات بیشتر می باشد را وارد نمایید</p>
+
+                    <!--  ADD Full Introduction !-->
+                    <?php $form->renderDecorated('full_introduction'); ?> 
+
+                    <hr/>
+
+                    <h3>محدودیت ها</h3>
+                    <p>در صورتی که برای استفاده از این امکان دارای محدودیت خاصی می باشد، اطلاعات زیر را وارید نمایید</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--  ADD Min Count !-->
+                            <?php $form->renderDecorated('max_price'); ?> 
+                        </div>
+
+                        <div class="col-md-6">
+                            <!--  ADD Max Count !-->
+                            <?php $form->renderDecorated('min_price'); ?> 
+                        </div>
+                    </div>
+
+                    <hr/>
+         
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--  ADD Min Count !-->
+                            <?php $form->renderDecorated('max_count'); ?> 
+                        </div>
+
+                        <div class="col-md-6">
+                            <!--  ADD Max Count !-->
+                            <?php $form->renderDecorated('min_count'); ?> 
+
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <p>وضعیت استفاده از این حالت را هم اکنون مشخص نمایید</p>
+                    <!--  ADD Status !-->
+                    <?php $form->renderDecorated('status'); ?> 
+
+                    <hr/>
+
+                    <!--  ADD Base Cost !-->
+                    <?php $form->renderDecorated('basecost'); ?> 
+
+
+                    <!-- Submit Button !-->
+                    <br/>
+                    <?php $form->renderDecorated('submit'); ?>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

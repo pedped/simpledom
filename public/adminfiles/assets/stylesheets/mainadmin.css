@@ -14,6 +14,12 @@ body{
 }
 
 
+tspan,
+text
+{
+    font-family: b yekan;
+}
+
 th {
     text-align: right;
 }

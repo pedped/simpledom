@@ -1,0 +1,53 @@
+<div class='row'>
+                                <div class='col-md-12'>
+                                    <?php echo $this->getContent() ?>
+                                </div>
+                            </div>
+                            <form method='post'>
+                                <div class='row'>
+                                    <div class='col-lg-12'>
+                                        <section class='panel panel-primary'>
+                                            <header class='panel-heading'>
+                                                <div class='panel-actions'>
+                                                    <a href='#' class='fa fa-caret-down'></a>
+                                                    <a href='#' class='fa fa-times'></a>
+                                                </div>
+                                                <h2 class='panel-title'>View DeliveryModeOption</h2>
+                                                <p class='panel-subtitle'Use this form to edit your DeliveryModeOption</p>
+                                            </header>
+                                            <div class='panel-body'>
+
+                             
+
+                                <!--  ADD کد !-->
+                                <?php $form->renderInfo('id'); ?> 
+
+                                <!--  ADD تیتر !-->
+                                <?php $form->renderInfo('title'); ?> 
+
+                                <!--  ADD نحوه ارسال مربوطه !-->
+                                <?php $form->renderInfo('delivery_mode_id'); ?> 
+
+                                <!--  ADD توضیحات !-->
+                                <?php $form->renderInfo('description'); ?> 
+
+                                <!--  ADD وضعیت !-->
+                                <?php $form->renderInfo('status'); ?> 
+
+                                <!--  ADD ساعت شروع !-->
+                                <?php $form->renderInfo('time_start'); ?> 
+
+                                <!--  ADD ساعت پایان !-->
+                                <?php $form->renderInfo('time_end'); ?> 
+
+                                <!--  ADD تاریخ !-->
+                                <?php $form->renderInfo('date'); ?> 
+
+
+</div>
+            </section>
+        </div>
+    </div>
+</form>
+
+

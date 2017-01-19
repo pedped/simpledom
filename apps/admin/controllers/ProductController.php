@@ -10,6 +10,8 @@ use ProductForm;
 use ProductFormImages;
 use ProductFormVoice;
 use ProductGallery;
+use ProductSpecification;
+use ProductSpecificationForm;
 use Simpledom\Admin\BaseControllers\ControllerBase;
 use Simpledom\Core\AtaForm;
 use Simpledom\Core\Classes\Config;
@@ -48,7 +50,14 @@ class ProductController extends ControllerBase {
                 $product->timestamp = $this->request->getPost('timestamp', 'string');
                 $product->description = $this->request->getPost('description', 'string');
                 $product->voicepath = $this->request->getPost('voicepath', 'string');
-                $product->barcode = $this->request->getPost('barcode', 'string');
+
+                $product->price_purchase = $this->request->getPost('price_purchase', 'string');
+                $product->price_sale = $this->request->getPost('price_sale', 'string');
+
+                if ($this->request->has("barcode") && intval($this->request->get("barcode") > 0)) {
+                    $product->barcode = $this->request->getPost('barcode', 'string');
+                }
+
                 $product->status = $this->request->getPost('status', 'string');
                 $product->height = $this->request->getPost('height', 'string');
                 $product->weight = $this->request->getPost('weight', 'string');
@@ -120,13 +129,13 @@ class ProductController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'Title', 'دسته', 'بارکد', 'وضعیت',
+                    'کد', 'تصویر', 'نام', 'دسته', 'قیمت فروش', 'وضعیت',
                 ))->
                 setFields(array(
-                    'id', 'title', 'getCategoryName()', 'barcode', 'status',
+                    'id', 'getImageElement()', 'title', 'getCategoryName()', 'getSaleHumanPrice()', 'getStatusLabel()',
                 ))->
                 setEditUrl(
-                        'edit'
+                        'product/edit'
                 )->
                 setDeleteUrl(
                         'delete'
@@ -134,6 +143,11 @@ class ProductController extends ControllerBase {
                 'product/list');
 
         $this->view->list = $paginator->getPaginate();
+
+
+        $this->view->totalProducts = Product::count();
+        $this->view->existProducts = Product::count(array("status = :status:", "bind" => array("status" => PRODUCT_STATUS_ACTIVE)));
+        $this->view->unavailableProducts = Product::count(array("status = :status:", "bind" => array("status" => PRODUCT_STATUS_OUTOFSTOCK)));
     }
 
     public function deleteAction($id) {
@@ -194,8 +208,12 @@ class ProductController extends ControllerBase {
                 break;
             case "removevoice" :
                 $this->viewTabRemoveVoice($id);
+                break;
             case "stock" :
                 $this->viewTabStock($id);
+                break;
+            case "specification" :
+                $this->viewTabSpecification($id);
                 break;
             default :
                 var_dump("invalid tab");
@@ -230,8 +248,9 @@ class ProductController extends ControllerBase {
 
                 $product->description = $this->request->getPost('description', 'string');
 
-                $product->barcode = $this->request->getPost('barcode', 'string');
-
+                if ($this->request->has("barcode") && intval($this->request->get("barcode") > 0)) {
+                    $product->barcode = $this->request->getPost('barcode', 'string');
+                }
                 $product->status = $this->request->getPost('status', 'string');
 
                 $product->height = $this->request->getPost('height', 'string');
@@ -242,6 +261,9 @@ class ProductController extends ControllerBase {
 
                 $product->subtitle = $this->request->getPost('subtitle', 'string');
 
+                $product->price_purchase = $this->request->getPost('price_purchase', 'string');
+
+                $product->price_sale = $this->request->getPost('price_sale', 'string');
 
                 if (!$product->save()) {
                     $product->showErrorMessages($this);
@@ -265,6 +287,9 @@ class ProductController extends ControllerBase {
             $fr->get('weight')->setDefault($productItem->weight);
             $fr->get('depth')->setDefault($productItem->depth);
             $fr->get('subtitle')->setDefault($productItem->subtitle);
+
+            $fr->get('price_purchase')->setDefault($productItem->price_purchase);
+            $fr->get('price_sale')->setDefault($productItem->price_sale);
         }
 
 
@@ -475,6 +500,73 @@ class ProductController extends ControllerBase {
         // set view form
         $this->view->form = $form;
         $this->handleFormScripts($form);
+    }
+
+    public function viewTabSpecification($id, $page = 1) {
+
+
+
+
+        $fr = new ProductSpecificationForm();
+        $this->handleFormScripts($fr);
+        if ($this->request->isPost()) {
+            if ($fr->isValid($_POST)) {
+                // form is valid
+                $productspecification = new \ProductSpecification();
+                $productspecification->productid = $id;
+                $productspecification->title = $this->request->getPost('title', 'string');
+                $productspecification->value = $this->request->getPost('value', 'string');
+                $productspecification->orderid = 0;
+                $productspecification->create();
+
+                $productspecification->showSuccessMessages($this, 'مشخصه جدید با موفقیت اضافه گردید');
+                // clear the title and message so the user can add better info
+                $fr->clear();
+            } else {
+                // invalid
+                $fr->flashErrors($this);
+            }
+        }
+        $this->view->form = $fr;
+
+
+
+
+
+
+
+
+
+
+        // load the users
+        $productspecifications = ProductSpecification::find(
+                        array("productid = :productid:", "bind" => array("productid" => $id), 'order' => 'id DESC')
+        );
+
+
+        $numberPage = $page;
+
+        // create paginator
+        $paginator = new AtaPaginator(array(
+            'data' => $productspecifications,
+            'limit' => 1000,
+            'page' => $numberPage
+        ));
+
+
+        $paginator->
+                setTableHeaders(array(
+                    'تیتر', 'مقدار'
+                ))->
+                setFields(array(
+                    'title', 'value'
+                ))->
+                setDeleteUrl(
+                        'delete'
+                )->setListPath(
+                'list');
+
+        $this->view->list = $paginator->getPaginate();
     }
 
 }

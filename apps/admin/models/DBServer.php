@@ -98,4 +98,32 @@ class DBServer {
         return null;
     }
 
+    public static function GetUserRecivedGifts($userid) {
+        $sql = DBServer::_getConnection();
+        $stm = $sql->prepare("SELECT SUM(usercachchange.amount) FROM usercachchange JOIN cachchangereason ON  cachchangereason.id  = usercachchange.reasonid AND cachchangereason.isgift = 1 WHERE usercachchange.userid = ? ");
+        $stm->bind_param("i", $userid);
+
+        if ($stm->execute()) {
+            $stm->bind_result($result);
+            if ($stm->fetch()) {
+                return $result;
+            }
+        }
+        return 0;
+    }
+
+    public static function GetUserTotalGifts($userid) {
+        $sql = DBServer::_getConnection();
+        $stm = $sql->prepare("SELECT SUM(amount) FROM cachchangereason WHERE cachchangereason.isgift = 1");
+//        $stm->bind_param("i", $userid);
+
+        if ($stm->execute()) {
+            $stm->bind_result($result);
+            if ($stm->fetch()) {
+                return $result;
+            }
+        }
+        return 0;
+    }
+
 }

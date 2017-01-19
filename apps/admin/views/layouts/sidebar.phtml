@@ -33,26 +33,6 @@
 
 
                     <hr class="separator"/>
-
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>رمز خانوار</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('familycode/add'); ?>'>
-                                    افزودن
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('familycode/list'); ?>'>
-                                    لیست
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
                     <li class='nav-parent'>
                         <a>
                             <i class='fa fa-list' aria-hidden='true'></i>
@@ -91,25 +71,165 @@
                             </li>
                         </ul>
                     </li>
-                    
+
+                    <!--                    <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>مشخصه های محصول</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('productspecification/add'); ?>'>
+                                                        افزودن
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('productspecification/list'); ?>'>
+                                                        لیست
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>-->
+                    <hr class="separator"/>
+
                     <li class='nav-parent'>
                         <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>مشخصه های محصول</span>
+                            <i class='fa fa-phone' aria-hidden='true'></i>
+                            <span>درخواست تماس</span>
                         </a>
                         <ul class='nav nav-children'>
                             <li>
-                                <a href='<?php echo $this->url->get('productspecification/add'); ?>'>
-                                    افزودن
+                                <a href='<?php echo $this->url->get('feedback/list'); ?>'>
+                                    لیست درخواست ها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <hr class="separator"/>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-car' aria-hidden='true'></i>
+                            <span>نحوه ارسال</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('deliverymode/add'); ?>'>
+                                    افزودن مورد جدید
                                 </a>
                             </li>
                             <li>
-                                <a href='<?php echo $this->url->get('productspecification/list'); ?>'>
+                                <a href='<?php echo $this->url->get('deliverymode/list'); ?>'>
+                                    لیست حالت ها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-openid' aria-hidden='true'></i>
+                            <span>گزینه های نحوه ارسال</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('deliverymodeoption/add'); ?>'>
+                                    افزودن لیست جدید
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('deliverymodeoption/list'); ?>'>
                                     لیست
                                 </a>
                             </li>
                         </ul>
                     </li>
+
+                    <hr class="separator"/>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-money' aria-hidden='true'></i>
+                            <span>دلایل تغییرات اعتبار و هدیه</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('cachchangereason/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('cachchangereason/list'); ?>'>
+                                    لیست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-money' aria-hidden='true'></i>
+                            <span>تغییرات اعتبار</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('usercachchange/add'); ?>'>
+                                    افزودن
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('usercachchange/list'); ?>'>
+                                    لبست
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <hr class="separator"/>
+
+
+                    <li class='nav-parent'>
+                        <a>
+                            <i class='fa fa-bullhorn' aria-hidden='true'></i>
+                            <span>تخفیف ها</span>
+                        </a>
+                        <ul class='nav nav-children'>
+                            <li>
+                                <a href='<?php echo $this->url->get('promotion/add'); ?>'>
+                                    افزودن تخفیف جدید
+                                </a>
+                            </li>
+                            <li>
+                                <a href='<?php echo $this->url->get('promotion/list'); ?>'>
+                                    لیست تخفیف ها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <hr class="separator"/>
+                    <!--                    <li class='nav-parent'>
+                                            <a>
+                                                <i class='fa fa-question' aria-hidden='true'></i>
+                                                <span>رمز خانوار</span>
+                                            </a>
+                                            <ul class='nav nav-children'>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('familycode/add'); ?>'>
+                                                        افزودن
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href='<?php echo $this->url->get('familycode/list'); ?>'>
+                                                        لیست
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>-->
+
+
+
 
                     <li class='nav-parent hidden'>
                         <a>
@@ -204,6 +324,10 @@
 
                     <hr class="separator"/>
 
+
+
+
+
                     <li class='nav-parent'>
                         <a>
                             <i class='fa fa-hospital-o' aria-hidden='true'></i>
@@ -278,7 +402,6 @@
                     </li>
 
 
-
                     <hr class="separator"/>
                     <li class="nav-parent">
                         <a>
@@ -292,32 +415,12 @@
                                 </a>
                             </li>
                             <!--                            <li>
-                                                            <a href="<?php // echo $this->url->get("searchhistory/most");   ?>">
+                                                            <a href="<?php // echo $this->url->get("searchhistory/most");             ?>">
                                                                 Statistics
                                                             </a>
                                                         </li>-->
                         </ul>
                     </li>
-
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>درخواست تماس</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('feedback/add'); ?>'>
-                                    افزودن
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('feedback/list'); ?>'>
-                                    لیست درخواست ها
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
 
 
                     <hr class="separator"/>
@@ -344,24 +447,7 @@
                     </li>
 
 
-                    <li class='nav-parent'>
-                        <a>
-                            <i class='fa fa-question' aria-hidden='true'></i>
-                            <span>تخفیف ها</span>
-                        </a>
-                        <ul class='nav nav-children'>
-                            <li>
-                                <a href='<?php echo $this->url->get('promotion/add'); ?>'>
-                                    افزودن تخفیف جدید
-                                </a>
-                            </li>
-                            <li>
-                                <a href='<?php echo $this->url->get('promotion/list'); ?>'>
-                                    لیست تخفیف ها
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
 
 
                     <li class="nav-parent">
@@ -382,6 +468,9 @@
                             </li>
                         </ul>
                     </li>
+
+
+
 
                     <!--                    <li class='nav-parent'>
                                             <a>
@@ -604,24 +693,6 @@
                                                 <li>
                                                     <a href='<?php echo $this->url->get('usertransaction/list'); ?>'>
                                                         List
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class='nav-parent'>
-                                            <a>
-                                                <i class='fa fa-bars' aria-hidden='true'></i>
-                                                <span>User Cach Change's</span>
-                                            </a>
-                                            <ul class='nav nav-children'>
-                                                <li>
-                                                    <a href='<?php echo $this->url->get('usercachchange/add'); ?>'>
-                                                        Increase Decrease User Cach
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href='<?php echo $this->url->get('usercachchange/list'); ?>'>
-                                                        View List
                                                     </a>
                                                 </li>
                                             </ul>

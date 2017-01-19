@@ -340,6 +340,7 @@ class Invoice extends AtaModel {
         $result->DeliverDate = isset($this->deliverdate) ? $this->deliverdate : 0;
         $result->DeliveryTimeMode = $this->deliverytimemode;
         $result->Products = array();
+        $result->Name = $this->getUserName();
 
         $k = $this->getProductList();
         foreach ($k as $item) {
@@ -377,7 +378,10 @@ class Invoice extends AtaModel {
     public $offcost;
     public $gift;
     public $giftcalced;
-    
+    public $printuserid;
+    public $printdate;
+    public $warehouseid;
+
     public function columnMap() {
         // Keys are the real names in the table and
         // the values their names in the application
@@ -402,7 +406,9 @@ class Invoice extends AtaModel {
             'delivercost' => 'delivercost',
             'offcost' => 'offcost',
             'gift' => 'gift',
-            'giftcalced' => 'giftcalced',
+            'printuserid' => 'printuserid',
+            'printdate' => 'printdate',
+            'warehouseid' => 'warehouseid',
         );
     }
 

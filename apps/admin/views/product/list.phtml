@@ -3,6 +3,73 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-dark">
+                            <i class="fa fa-empire"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">محصولات ناموجود</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $unavailableProducts; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-success">
+                            <i class="fa fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">محصولات موجود</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $existProducts; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-primary">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">کل محصولات</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalProducts; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
 <section class='panel'>
     <header class='panel-heading'>
         <div class='panel-actions'>

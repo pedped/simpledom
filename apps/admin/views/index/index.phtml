@@ -5,7 +5,7 @@
 </div>
 
 <!-- User Charts !-->
-<!--<div class="row">
+<div class="row">
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
@@ -14,16 +14,16 @@
                     <a href="#" class="fa fa-times"></a>
                 </div>
 
-                <h2 class="panel-title">User Register Chart</h2>
-                <p class="panel-subtitle">Here you can see join count at each day to the site</p>
+                <h2 class="panel-title">آمار</h2>
             </header>
             <div class="panel-body">
-<?php // $form->renderDecorated('registerchart'); ?> 
+                <?php $form->renderDecorated('registerchart'); ?> 
+                <?php $form->renderDecorated('invoicecount'); ?> 
             </div>
         </section>
     </div>
 
-</div>-->
+</div>
 
 <div class="row">
     <!-- Total Users !-->
@@ -38,13 +38,13 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Total Users</h4>
+                            <h4 class="title">تعداد کاربران</h4>
                             <div class="info">
                                 <strong class="amount"><?php echo $totalUsers ?></strong>
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a href="<?php echo $this->url->get("user/list"); ?>" class="text-muted text-uppercase">(View All)</a>
+                            <a href="<?php echo $this->url->get("user/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
                         </div>
                     </div>
                 </div>
@@ -64,14 +64,14 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Support Questions</h4>
+                            <h4 class="title">تعداد درخواست های تماس</h4>
                             <div class="info">
                                 <strong class="amount"><?php echo $totalContacts; ?></strong>
-                                <span class="text-primary">(<?php echo $totalContactsUnanswered; ?> unanswered)</span>
+                                <span class="text-primary">(<?php echo $totalContactsUnanswered; ?> منتظر تماس)</span>
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
+                            <a href="<?php echo $this->url->get("feedback/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
                         </div>
                     </div>
                 </div>
@@ -91,13 +91,13 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Opinions</h4>
+                            <h4 class="title">تعداد محصولات</h4>
                             <div class="info">
                                 <strong class="amount"><?php echo $totalOpinions; ?></strong>
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
+                            <a href="<?php echo $this->url->get("product/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
                         </div>
                     </div>
                 </div>
@@ -117,13 +117,13 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">Total Orders</h4>
+                            <h4 class="title">تعداد سفارشات</h4>
                             <div class="info">
-                                <strong class="amount"><?php echo $totalProdcutSale; ?> Orders</strong>
+                                <strong class="amount"><?php echo $totalProdcutSale; ?> سفارش</strong>
                             </div>
                         </div>
                         <div class="summary-footer">
-                            <a class="text-muted text-uppercase">(view all)</a>
+                            <a href="<?php echo $this->url->get("invoice/list"); ?>" class="text-muted text-uppercase">(مشاهده همه)</a>
                         </div>
                     </div>
                 </div>

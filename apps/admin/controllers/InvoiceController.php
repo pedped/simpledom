@@ -6,6 +6,7 @@ use AtaPaginator;
 use Invoice;
 use InvoiceForm;
 use InvoiceProducts;
+use InvoiceStatusForm;
 use Simpledom\Admin\BaseControllers\ControllerBase;
 
 class InvoiceController extends ControllerBase {
@@ -90,47 +91,48 @@ class InvoiceController extends ControllerBase {
                     'id', 'userid', 'price', 'address', 'mobile', 'deliverdate', 'getDate()', 'getStatusLabel()'
                 ))->
                 setEditUrl(
-                        'edit'
-                )->
-                setDeleteUrl(
-                        'delete'
+                        'invoice/edit'
                 )->setListPath(
                 'invoice/list');
 
         $this->view->list = $paginator->getPaginate();
+
+        $this->view->totalInvoices = Invoice::count();
+        $this->view->totalWaiting = Invoice::count(array("status = :status:", "bind" => array("status" => INVOICESTATUS_REQUESTED)));
+        $this->view->totalDelivered = Invoice::count(array("status = :status:", "bind" => array("status" => INVOICESTATUS_RECEIVED)));
     }
 
-    public function deleteAction($id) {
-
-        if (!$this->ValidateAccess($id)) {
-            // user do not have permission to remove this object
-            return $this->response->setStatusCode('403', 'You do not have permission to access this page');
-        }
-
-        // check if item exist
-        $item = Invoice::findFirst($id);
-        if (!$item) {
-            // item is not exist any more
-            return $this->dispatcher->forward(array(
-                        'controller' => 'invoice',
-                        'action' => 'list'
-            ));
-        }
-
-        // check if user want to remove it
-        if ($this->request->isPost()) {
-            $result = Invoice::findFirst($id)->delete();
-            if (!$result) {
-                $this->flash->error('unable to remove this Invoice item');
-            } else {
-                $this->flash->success('Invoice item deleted successfully');
-                return $this->dispatcher->forward(array(
-                            'controller' => 'invoice',
-                            'action' => 'list'
-                ));
-            }
-        }
-    }
+//    public function deleteAction($id) {
+//
+//        if (!$this->ValidateAccess($id)) {
+//            // user do not have permission to remove this object
+//            return $this->response->setStatusCode('403', 'You do not have permission to access this page');
+//        }
+//
+//        // check if item exist
+//        $item = Invoice::findFirst($id);
+//        if (!$item) {
+//            // item is not exist any more
+//            return $this->dispatcher->forward(array(
+//                        'controller' => 'invoice',
+//                        'action' => 'list'
+//            ));
+//        }
+//
+//        // check if user want to remove it
+//        if ($this->request->isPost()) {
+//            $result = Invoice::findFirst($id)->delete();
+//            if (!$result) {
+//                $this->flash->error('unable to remove this Invoice item');
+//            } else {
+//                $this->flash->success('Invoice item deleted successfully');
+//                return $this->dispatcher->forward(array(
+//                            'controller' => 'invoice',
+//                            'action' => 'list'
+//                ));
+//            }
+//        }
+//    }
 
     public function editAction($id, $tab = "info", $page = 1) {
 
@@ -143,8 +145,12 @@ class InvoiceController extends ControllerBase {
         switch ($tab) {
             case "info" :
                 $this->viewTabInfo($id);
+                break;
             case "products" :
                 $this->viewTabProducts($id, $page);
+                break;
+            case "status" :
+                $this->viewTabStatus($id, $page);
                 break;
             default :
                 var_dump("invalid tab");
@@ -240,6 +246,35 @@ class InvoiceController extends ControllerBase {
                 'product/list');
 
         $this->view->list = $paginator->getPaginate();
+    }
+
+    public function viewTabStatus($id, $page) {
+
+        // create form
+        $fr = new InvoiceStatusForm();
+        $this->handleFormScripts($fr);
+        // check for post request
+        if ($this->request->isPost()) {
+            if ($fr->isValid($_POST)) {
+                // form is valid
+                $invoice = Invoice::findFirst($id);
+
+                $invoice->status = $this->request->getPost('status', 'string');
+                $invoice->user_status = $this->request->getPost('status', 'string');
+
+                if (!$invoice->save()) {
+                    $invoice->showErrorMessages($this);
+                } else {
+                    $invoice->showSuccessMessages($this, 'وضعیت فاکتور با موفقیت ذخیره گردید');
+                }
+            } else {
+                // invalid
+                $fr->flashErrors($this);
+            }
+        }
+        $invoiceItem = Invoice::findFirst($id);
+        $fr->get("status")->setDefault($invoiceItem->status);
+        $this->view->form = $fr;
     }
 
 }

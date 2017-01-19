@@ -4,8 +4,6 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 use Simpledom\Core\AtaModel;
 
-
-
 class Promotion extends AtaModel {
 
     public function initialize() {

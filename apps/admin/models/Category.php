@@ -265,4 +265,15 @@ class Category extends AtaModel {
         return $result;
     }
 
+    public function getStatus() {
+        switch ($this->active) {
+            case 1:
+                return "<span class='label label-success'>فعال</span>";
+            case 0:
+                return "<span class='label label-danger'>غیر فعال</span>";
+            default :
+                return "<هشدار : این وضعیت تعریف نشده>";
+        }
+    }
+
 }

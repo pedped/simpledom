@@ -4,6 +4,8 @@ namespace Simpledom\Core\Classes;
 
 class Config {
 
+    public static $baseUrl = "";
+
     public static function generateRandomString($length = 32) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -21,6 +23,7 @@ class Config {
 
         return $_SERVER["DOCUMENT_ROOT"] . "/public/userupload/image";
     }
+
     /**
      * return the path we have to use for upload
      * @return string
@@ -37,8 +40,7 @@ class Config {
     public static function getMaxUserImageFileSizeUploadLimit() {
         return 1024 * 1024 * 8;
     }
-    
-    
+
     /**
      * return the maximum file size
      * @return type
@@ -59,16 +61,17 @@ class Config {
         return "adxcv-zzadq-polkjsad-opp13opoz-1sdf455aadzmck1244567";
         //return "d7625-87fe2-3280d-33c4a-91f8960a31e673c0e8be11314a82";
     }
-    
-    public static function GetRecaptchaPublicKey(){
+
+    public static function GetRecaptchaPublicKey() {
         return "6Lc_ffwSAAAAAK5eQq9lHLdGR8F-l98MQtXEL1GH";
     }
-    public static function GetRecaptchaPrivateKey(){
+
+    public static function GetRecaptchaPrivateKey() {
         return "6Lc_ffwSAAAAAJpg5DyYeRiPWhlBvBTojn8ETwUh";
     }
 
     public static function CheckForSMSCreditOnAdminPanel() {
-        return false; 
+        return false;
     }
 
     public static function TopSalesDayLimit() {
@@ -78,8 +81,8 @@ class Config {
     public static function TopUserUsualPurchaseLimit() {
         return 50;
     }
-    
-    public static function getAppImageLink(){
+
+    public static function getAppImageLink() {
         return "http://www.mascaratbeach.com/wp-content/uploads/2015/05/shopping.jpg";
     }
 

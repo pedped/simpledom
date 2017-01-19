@@ -3,6 +3,75 @@
         <?php echo $this->getContent() ?>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-success">
+                            <i class="fa fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">تحویل داده شده</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalDelivered; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-warning">
+                            <i class="fa fa-pause"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">در انتظار</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalWaiting; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-4 col-lg-4 col-xl-4">
+        <section class="panel panel-featured-left panel-featured-primary">
+            <div class="panel-body">
+                <div class="widget-summary">
+                    <div class="widget-summary-col widget-summary-col-icon">
+                        <div class="summary-icon bg-primary">
+                            <i class="fa fa-list"></i>
+                        </div>
+                    </div>
+                    <div class="widget-summary-col">
+                        <div class="summary">
+                            <h4 class="title">کل سفارشات</h4>
+                            <div class="info">
+                                <strong class="amount"><?php echo $totalInvoices; ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
 <section class='panel'>
     <header class='panel-heading'>
         <div class='panel-actions'>
