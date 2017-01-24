@@ -17,7 +17,6 @@ class ProductForm extends AtaForm {
         $id->setAttribute('class', 'form-control');
         $this->add($id);
 
-
         // Title
         $title = new TextElement('title');
         $title->setLabel('نام محصول');
@@ -27,13 +26,20 @@ class ProductForm extends AtaForm {
         )));
         $this->add($title);
 
-
         // Subtitle
         $subtitle = new TextElement('subtitle');
         $subtitle->setLabel('زیرنویس محصول');
         //$subtitle->setAttribute('placeholder', 'Enter your Title');
         $subtitle->setAttribute('class', 'form-control');
         $this->add($subtitle);
+        
+        
+        
+        // ّFile
+        $file = new FileElement('file');
+        $file->setLabel('تصویر');
+        $this->add($file);
+
 
 
         // Category ID

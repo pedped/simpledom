@@ -42,6 +42,7 @@ class ProductController extends ControllerBase {
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
+                
                 // form is valid
                 $product = new \Product();
 
@@ -63,9 +64,36 @@ class ProductController extends ControllerBase {
                 $product->height = $this->request->getPost('height', 'string');
                 $product->weight = $this->request->getPost('weight', 'string');
                 $product->depth = $this->request->getPost('depth', 'string');
+
+//                $product->flag_homepage = $this->request->getPost('showinhomepage', 'string');
+//                $product->flag_offpage = $this->request->getPost('showinoffpage', 'string');
+//                $product->flag_special = $this->request->getPost('showinfeaturelist', 'string');
+
+                $product->brand = $this->request->getPost('brand', 'string');
+
                 if (!$product->create()) {
                     $product->showErrorMessages($this);
                 } else {
+
+                    if ($this->request->hasFiles() && strlen($this->request->getUploadedFiles()[0]->getName()) > 0) {
+                        // valid request, load the files
+                        $file = $this->request->getUploadedFiles()[0];
+                        $image = FileManager::HandleImageUpload($this->errors, $file, $outputname, $realtiveloaction);
+                        if ($image) {
+                            // unable to upload file
+                            $image->link = $this->url->publicurl . "" . $realtiveloaction;
+                            $image->save();
+
+                            // create new Product Gallery Item
+                            $product->AddImage($image);
+
+                            // show success message
+                            $this->flash->success("تصویر با موفقیت افزوده گردید");
+                        } else {
+                            $this->flash->error("خطا در هنگام ارسال فایل");
+                        }
+                    }
+
                     $product->showSuccessMessages($this, 'محصول با موفقیت افزوده گردید');
 
                     // clear the title and message so the user can add better info
@@ -123,7 +151,7 @@ class ProductController extends ControllerBase {
         // create paginator
         $paginator = new AtaPaginator(array(
             'data' => $products,
-            'limit' => 10,
+            'limit' => 50,
             'page' => $numberPage
         ));
 
@@ -265,12 +293,12 @@ class ProductController extends ControllerBase {
                 $product->price_purchase = $this->request->getPost('price_purchase', 'string');
 
                 $product->price_sale = $this->request->getPost('price_sale', 'string');
-                
-                
+
+
                 $product->flag_homepage = $this->request->getPost('showinhomepage', 'string');
                 $product->flag_offpage = $this->request->getPost('showinoffpage', 'string');
                 $product->flag_special = $this->request->getPost('showinfeaturelist', 'string');
-                
+
                 $product->brand = $this->request->getPost('brand', 'string');
 
                 if (!$product->save()) {
@@ -298,12 +326,12 @@ class ProductController extends ControllerBase {
 
             $fr->get('price_purchase')->setDefault($productItem->price_purchase);
             $fr->get('price_sale')->setDefault($productItem->price_sale);
-            
-            
+
+
             $fr->get('showinfeaturelist')->setDefault($productItem->flag_special);
             $fr->get('showinhomepage')->setDefault($productItem->flag_homepage);
             $fr->get('showinoffpage')->setDefault($productItem->flag_offpage);
-            
+
             $fr->get('brand')->setDefault($productItem->brand);
         }
 
@@ -356,7 +384,6 @@ class ProductController extends ControllerBase {
                 $fr->flashErrors($this);
             }
         }
-
 
         // find images
         $this->view->images = ProductGallery::find(array("product_id = :productid:", "bind" => array("productid" => $id)));
