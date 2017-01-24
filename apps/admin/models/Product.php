@@ -308,6 +308,7 @@ class Product extends AtaModel {
     public $flag_offpage;
     public $price_purchase;
     public $price_sale;
+    public $brand;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -330,6 +331,7 @@ class Product extends AtaModel {
             'flag_offpage' => 'flag_offpage',
             'price_purchase' => 'price_purchase',
             'price_sale' => 'price_sale',
+            'brand' => 'brand',
         );
     }
 

@@ -135,6 +135,25 @@
                                 </div>
 
                                 <hr/>
+                                <h3>نمایش ویژه</h3>
+                                <p>برنامه در چه بخش هایی نمایش داده شود؟</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <!--  ADD Title !-->
+                                        <?php $form->renderDecorated('showinfeaturelist'); ?> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--  ADD Category ID !-->
+                                        <?php $form->renderDecorated('showinhomepage'); ?> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!--  ADD Category ID !-->
+                                        <?php $form->renderDecorated('showinoffpage'); ?> 
+                                    </div>
+                                </div>
+
+
+                                <hr/>
                                 <h3>اطلاعات بارکد</h3>
                                 <p>بارکد یک کد 16 رقمی از محصول میباشد که شما میتوانید با دستگاه بارکد خان این کد را پیدا نمایید</p>
                                 <!--  ADD Barcode !-->
@@ -147,6 +166,7 @@
                                 <!--  ADD Description !-->
                                 <?php $form->renderDecorated('subtitle'); ?> 
                                 <?php $form->renderDecorated('description'); ?> 
+                                <?php $form->renderDecorated('brand'); ?> 
 
                                 <hr/>
 

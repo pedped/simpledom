@@ -50,6 +50,7 @@ class ProductController extends ControllerBase {
                 $product->timestamp = $this->request->getPost('timestamp', 'string');
                 $product->description = $this->request->getPost('description', 'string');
                 $product->voicepath = $this->request->getPost('voicepath', 'string');
+                $product->brand = $this->request->getPost('brand', 'string');
 
                 $product->price_purchase = $this->request->getPost('price_purchase', 'string');
                 $product->price_sale = $this->request->getPost('price_sale', 'string');
@@ -264,6 +265,13 @@ class ProductController extends ControllerBase {
                 $product->price_purchase = $this->request->getPost('price_purchase', 'string');
 
                 $product->price_sale = $this->request->getPost('price_sale', 'string');
+                
+                
+                $product->flag_homepage = $this->request->getPost('showinhomepage', 'string');
+                $product->flag_offpage = $this->request->getPost('showinoffpage', 'string');
+                $product->flag_special = $this->request->getPost('showinfeaturelist', 'string');
+                
+                $product->brand = $this->request->getPost('brand', 'string');
 
                 if (!$product->save()) {
                     $product->showErrorMessages($this);
@@ -290,6 +298,13 @@ class ProductController extends ControllerBase {
 
             $fr->get('price_purchase')->setDefault($productItem->price_purchase);
             $fr->get('price_sale')->setDefault($productItem->price_sale);
+            
+            
+            $fr->get('showinfeaturelist')->setDefault($productItem->flag_special);
+            $fr->get('showinhomepage')->setDefault($productItem->flag_homepage);
+            $fr->get('showinoffpage')->setDefault($productItem->flag_offpage);
+            
+            $fr->get('brand')->setDefault($productItem->brand);
         }
 
 

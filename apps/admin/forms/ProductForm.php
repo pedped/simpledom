@@ -46,13 +46,34 @@ class ProductForm extends AtaForm {
         $this->add($categoryid);
 
 
+        // Home Page
+        $showinoffpages = new EnableDisableElement('showinoffpage');
+        $showinoffpages->setLabel('نمایش در لیست تخفیف ها');
+        //$timestamp->setAttribute('placeholder', 'Enter your Timestamp');
+        $showinoffpages->setAttribute('class', 'form-control');
+        $this->add($showinoffpages);
+
+           // Home Page
+        $showinfeaturepages = new EnableDisableElement('showinfeaturelist');
+        $showinfeaturepages->setLabel('نمایش در صفحه دسته برنامه های ویژه');
+        //$timestamp->setAttribute('placeholder', 'Enter your Timestamp');
+        $showinfeaturepages->setAttribute('class', 'form-control');
+        $this->add($showinfeaturepages);
+
+        
+        // Home Page
+        $showhomepage = new EnableDisableElement('showinhomepage');
+        $showhomepage->setLabel('نمایش در صفحه اصلی برنامه');
+        //$timestamp->setAttribute('placeholder', 'Enter your Timestamp');
+        $showhomepage->setAttribute('class', 'form-control');
+        $this->add($showhomepage);
+
         // Timestamp
         $timestamp = new TextElement('timestamp');
         $timestamp->setLabel('Timestamp');
         //$timestamp->setAttribute('placeholder', 'Enter your Timestamp');
         $timestamp->setAttribute('class', 'form-control');
         $this->add($timestamp);
-
 
         // Description
         $description = new TextArea('description');
@@ -110,6 +131,14 @@ class ProductForm extends AtaForm {
 //        )));
         $this->add($depth);
 
+        $brand = new TextElement('brand');
+        $brand->setLabel('برند');
+        //$depth->setAttribute('placeholder', 'Enter your Depth');
+        $brand->setAttribute('class', 'form-control');
+//        $depth->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($brand);
+
         $purchaseprice = new TextElement('price_purchase');
         $purchaseprice->setLabel('قیمت خرید');
         //$depth->setAttribute('placeholder', 'Enter your Depth');
@@ -117,6 +146,7 @@ class ProductForm extends AtaForm {
 //        $depth->addValidator(new PresenceOf(array(
 //        )));
         $this->add($purchaseprice);
+
 
         $price_sale = new TextElement('price_sale');
         $price_sale->setLabel('قیمت فروش');
