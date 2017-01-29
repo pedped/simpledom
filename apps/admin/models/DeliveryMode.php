@@ -257,7 +257,7 @@ class DeliveryMode extends AtaModel {
         $result->Status = $this->status;
         
         // get delivery options
-        $deliveryOptions = DeliveryModeOption::find();
+        $deliveryOptions = DeliveryModeOption::find(array("delivery_mode_id = :deliverymodeid:", "bind" => array("deliverymodeid" => $this->id)));
         $items = array();
         foreach ($deliveryOptions as $item){
             $items[] = $item->getPublicResponse();

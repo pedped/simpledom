@@ -204,7 +204,7 @@ class Category extends AtaModel {
 
         $result = new stdClass();
         $result->ID = $this->id;
-        $result->ParentCategory = $this->parentcategory;
+        $result->ParentCategory = isset($this->parentcategory) ? $this->parentcategory : "";
         $result->Title = $this->title;
         $result->ImageID = $this->imageid;
         $result->ImageLink = $this->getImageLink();

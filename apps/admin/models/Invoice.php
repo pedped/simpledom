@@ -373,14 +373,14 @@ class Invoice extends AtaModel {
 
 
 
-    public $totalpurchase;
-    public $delivercost;
-    public $offcost;
-    public $gift;
-    public $giftcalced;
     public $printuserid;
     public $printdate;
     public $warehouseid;
+    public $shipping_cost;
+    public $products_costs;
+    public $user_cach;
+    public $user_gift;
+    public $discount;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -402,13 +402,14 @@ class Invoice extends AtaModel {
             'mobile' => 'mobile',
             'deliverdate' => 'deliverdate',
             'deliverytimemode' => 'deliverytimemode',
-            'totalpurchase' => 'totalpurchase',
-            'delivercost' => 'delivercost',
-            'offcost' => 'offcost',
-            'gift' => 'gift',
             'printuserid' => 'printuserid',
             'printdate' => 'printdate',
             'warehouseid' => 'warehouseid',
+            'shipping_cost' => 'shipping_cost',
+            'products_costs' => 'products_costs',
+            'user_cach' => 'user_cach',
+            'user_gift' => 'user_gift',
+            'discount' => 'discount',
         );
     }
 

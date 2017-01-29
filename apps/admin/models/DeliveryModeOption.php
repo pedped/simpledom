@@ -217,5 +217,9 @@ class DeliveryModeOption extends AtaModel {
             'date' => 'date',
         );
     }
+    
+    public function getShippingCost($user, $products){
+        return PriceCalculator::calcProdcutsCost($products) * 0.015 * $this->id;
+    }
 
 }

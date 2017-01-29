@@ -259,7 +259,7 @@ class Product extends AtaModel {
         $result->Timestamp = $this->timestamp;
         $result->Description = $this->description;
         $result->VoicePath = $this->voicepath;
-        $result->Barcode = $this->barcode;
+        $result->Barcode = isset($this->barcode) ? $this->barcode : 0;
         $result->Status = $this->status;
         $result->Height = $this->height;
         $result->Weight = $this->weight;
@@ -276,7 +276,8 @@ class Product extends AtaModel {
         // get the last price
         $result->FinalPrice = $this->GetFinalPrice();
         $result->InitialPrice = $this->GetInitialPrice();
-
+//        $result->FinalPrice = $this->GetFinalPrice();
+//        $result->InitialPrice = $this->GetInitialPrice();
         // Load Images
         $images = ProductGallery::find(array("product_id = :productid:", "bind" => array("productid" => $this->id)));
         $imagesArray = array();
@@ -309,6 +310,7 @@ class Product extends AtaModel {
     public $price_purchase;
     public $price_sale;
     public $brand;
+    public $price_discount;
 
     public function columnMap() {
         // Keys are the real names in the table and
@@ -332,6 +334,7 @@ class Product extends AtaModel {
             'price_purchase' => 'price_purchase',
             'price_sale' => 'price_sale',
             'brand' => 'brand',
+            'price_discount' => 'price_discount',
         );
     }
 
@@ -370,6 +373,9 @@ class Product extends AtaModel {
     }
 
     public function GetInitialPrice() {
+
+        return $this->price_sale;
+
         $stock = Stock::findFirst(array("productid = :productid: AND remain > 0", "bind" => array("productid" => $this->id), "order" => "id DESC"));
         if ($stock != FALSE) {
             $saleprice = $stock->sellprice;
@@ -381,6 +387,11 @@ class Product extends AtaModel {
 
     public function GetFinalPrice() {
 
+        if (isset($this->price_discount) && doubleval($this->price_discount) > 0) {
+            return $this->price_discount;
+        } else {
+            return $this->price_sale;
+        }
 
         $stock = Stock::findFirst(array("productid = :productid: AND remain > 0", "bind" => array("productid" => $this->id), "order" => "id DESC"));
         if ($stock != FALSE) {
@@ -415,7 +426,16 @@ class Product extends AtaModel {
     }
 
     public function getSaleHumanPrice() {
-        return Helper::GetHumanPrice($this->price_sale);
+        return Helper::GetHumanPrice($this->GetFinalPrice());
+    }
+
+    public function getBaseHumanPrice() {
+        if ($this->hasOff()) {
+             return "<span style='color: red;text-decoration: line-through;'>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
+        }else{
+             return "<span>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
+        }
+       
     }
 
     public function getStatusLabel() {

@@ -32,9 +32,9 @@ class ProductForm extends AtaForm {
         //$subtitle->setAttribute('placeholder', 'Enter your Title');
         $subtitle->setAttribute('class', 'form-control');
         $this->add($subtitle);
-        
-        
-        
+
+
+
         // ّFile
         $file = new FileElement('file');
         $file->setLabel('تصویر');
@@ -59,14 +59,14 @@ class ProductForm extends AtaForm {
         $showinoffpages->setAttribute('class', 'form-control');
         $this->add($showinoffpages);
 
-           // Home Page
+        // Home Page
         $showinfeaturepages = new EnableDisableElement('showinfeaturelist');
         $showinfeaturepages->setLabel('نمایش در صفحه دسته برنامه های ویژه');
         //$timestamp->setAttribute('placeholder', 'Enter your Timestamp');
         $showinfeaturepages->setAttribute('class', 'form-control');
         $this->add($showinfeaturepages);
 
-        
+
         // Home Page
         $showhomepage = new EnableDisableElement('showinhomepage');
         $showhomepage->setLabel('نمایش در صفحه اصلی برنامه');
@@ -154,6 +154,15 @@ class ProductForm extends AtaForm {
         $this->add($purchaseprice);
 
 
+        $price_discount = new TextElement('price_discount');
+        $price_discount->setLabel('قیمت با احتساب تخفیف');
+        //$depth->setAttribute('placeholder', 'Enter your Depth');
+        $price_discount->setAttribute('class', 'form-control');
+//        $depth->addValidator(new PresenceOf(array(
+//        )));
+        $this->add($price_discount);
+
+
         $price_sale = new TextElement('price_sale');
         $price_sale->setLabel('قیمت فروش');
         //$depth->setAttribute('placeholder', 'Enter your Depth');
@@ -161,8 +170,6 @@ class ProductForm extends AtaForm {
 //        $depth->addValidator(new PresenceOf(array(
 //        )));
         $this->add($price_sale);
-
-
 
         // Status
         $status = new SelectElement('status', array(

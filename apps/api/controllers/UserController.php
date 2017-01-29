@@ -26,11 +26,11 @@ class UserController extends ControllerBase {
     }
 
     public function loadgiftAction() {
-        
+
         $m = new \stdClass();
         $m->ReceivedGifts = DBServer::GetUserRecivedGifts($this->user->userid);
         $m->TotalGifts = DBServer::GetUserTotalGifts($this->user->userid);
-        
+
         $items = \Cachchangereason::find(array("isgift = 1"));
 
         $results = array();
@@ -51,7 +51,7 @@ class UserController extends ControllerBase {
             )));
             $results[] = $result;
         }
-        
+
         $m->Items = $results;
         return $this->getResponse($m);
     }
@@ -107,7 +107,7 @@ class UserController extends ControllerBase {
 
 
         // request price calculator calc the price
-        $cost = PriceCalculator::CalcCost($products, $deliverTime);
+        $cost = PriceCalculator::CalcCost($this->user, $products, $deliverTime);
 
         // create new invoice
         $invoice = new Invoice();
@@ -116,8 +116,18 @@ class UserController extends ControllerBase {
         $invoice->currency = "IRR";
         $invoice->mobile = $phone;
         $invoice->phone = $homephone;
-        $invoice->price = $cost->finalcost;
         $invoice->userid = $this->user->userid;
+        
+       
+        $invoice->shipping_cost = $cost->shippingcosts; 
+        $invoice->user_gift = $this->user->gift; 
+        $invoice->user_cach = $cost->yourcach; 
+        $invoice->discount = $cost->specialdiscount; 
+        $invoice->products_costs = $cost->totalordercosts; 
+        $invoice->price = $cost->finalcost; 
+
+        
+        
         if ($invoice->save()) {
             // we have to add items to the invoice products
             foreach ($products as $k) {
@@ -126,6 +136,8 @@ class UserController extends ControllerBase {
                 $item = new InvoiceProducts();
                 $item->invoiceid = $invoice->id;
                 $item->productid = $product->id;
+                $item->initial_price = $product->GetInitialPrice();
+                $item->final_price = $product->GetFinalPrice();
                 $item->count = $k->count;
                 if (!$item->save()) {
                     // unable to add 

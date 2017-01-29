@@ -1,6 +1,7 @@
 <?php
 
 use Simpledom\Core\AtaModel;
+use Simpledom\Core\Classes\Helper;
 
 class InvoiceProducts extends AtaModel {
 
@@ -184,6 +185,9 @@ class InvoiceProducts extends AtaModel {
         return $this->getProduct()->status;
     }
 
+    public $initial_price;
+    public $final_price;
+
     public function columnMap() {
         // Keys are the real names in the table and
         // the values their names in the application
@@ -193,7 +197,17 @@ class InvoiceProducts extends AtaModel {
             'date' => 'date',
             'count' => 'count',
             'message' => 'message',
+            'initial_price' => 'initial_price',
+            'final_price' => 'final_price',
         );
+    }
+
+    public function getInitalPrice() {
+        return Helper::GetHumanPrice($this->initial_price);
+    }
+
+    public function getFinalPrice() {
+        return Helper::GetHumanPrice($this->final_price);
     }
 
 }

@@ -42,7 +42,7 @@ class ProductController extends ControllerBase {
         $this->handleFormScripts($fr);
         if ($this->request->isPost()) {
             if ($fr->isValid($_POST)) {
-                
+
                 // form is valid
                 $product = new \Product();
 
@@ -55,6 +55,7 @@ class ProductController extends ControllerBase {
 
                 $product->price_purchase = $this->request->getPost('price_purchase', 'string');
                 $product->price_sale = $this->request->getPost('price_sale', 'string');
+                $product->price_discount = $this->request->getPost('price_discount', 'string');
 
                 if ($this->request->has("barcode") && intval($this->request->get("barcode") > 0)) {
                     $product->barcode = $this->request->getPost('barcode', 'string');
@@ -158,10 +159,10 @@ class ProductController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'تصویر', 'نام', 'دسته', 'قیمت فروش', 'وضعیت',
+                    'کد', 'تصویر', 'نام', 'دسته', 'قیمت پایه', 'قیمت فروش', 'وضعیت',
                 ))->
                 setFields(array(
-                    'id', 'getImageElement()', 'title', 'getCategoryName()', 'getSaleHumanPrice()', 'getStatusLabel()',
+                    'id', 'getImageElement()', 'title', 'getCategoryName()', 'getBaseHumanPrice()', 'getSaleHumanPrice()', 'getStatusLabel()',
                 ))->
                 setEditUrl(
                         'product/edit'
@@ -294,6 +295,8 @@ class ProductController extends ControllerBase {
 
                 $product->price_sale = $this->request->getPost('price_sale', 'string');
 
+                $product->price_discount = $this->request->getPost('price_discount', 'string');
+
 
                 $product->flag_homepage = $this->request->getPost('showinhomepage', 'string');
                 $product->flag_offpage = $this->request->getPost('showinoffpage', 'string');
@@ -331,6 +334,8 @@ class ProductController extends ControllerBase {
             $fr->get('showinfeaturelist')->setDefault($productItem->flag_special);
             $fr->get('showinhomepage')->setDefault($productItem->flag_homepage);
             $fr->get('showinoffpage')->setDefault($productItem->flag_offpage);
+
+            $fr->get('price_discount')->setDefault($productItem->price_discount);
 
             $fr->get('brand')->setDefault($productItem->brand);
         }

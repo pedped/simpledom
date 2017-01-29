@@ -232,10 +232,10 @@ class InvoiceController extends ControllerBase {
 
         $paginator->
                 setTableHeaders(array(
-                    'کد', 'نام کالا', 'دسته', 'تعداد', 'وضعیت کالا',
+                    'کد', 'نام کالا', 'دسته', 'تعداد', 'وضعیت کالا', 'قیمت بدون تخفیف' , 'قیمت نهایی'
                 ))->
                 setFields(array(
-                    'id', 'getProductTitle()', 'getCategoryName()', 'count', 'getProductStatus()',
+                    'id', 'getProductTitle()', 'getCategoryName()', 'count', 'getProductStatus()', 'getInitalPrice()' , 'getFinalPrice()'
                 ))->
                 setEditUrl(
                         'edit'

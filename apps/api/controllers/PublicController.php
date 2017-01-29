@@ -222,16 +222,7 @@ class PublicController extends ControllerBase {
         }
     }
 
-    public function calcordercostAction() {
-        $products = json_decode($_POST["products"]);
-        $deliverTime = $_POST["delivertime"];
-
-
-        // request price calculator calc the price
-        $finalPrice = PriceCalculator::CalcCost($products, $deliverTime);
-
-        return $this->getResponse($finalPrice);
-    }
+   
 
     public function mobileversionAction() {
 //        int version = json . getInt("versioncode");
@@ -241,7 +232,7 @@ class PublicController extends ControllerBase {
 //                . getString("downloadlink");
 
         $result = new stdClass();
-        $result->versioncode = 1;
+        $result->versioncode = 3;
         $result->versionname = 2.25;
         $result->md5 = "232656122152";
         $result->downloadlink = "http://www.google.com";
@@ -249,6 +240,7 @@ class PublicController extends ControllerBase {
     }
 
     public function loadappdataAction() {
+        
         // load categories 
         $categories = Category::GetList();
         $products = Product::GetList();
