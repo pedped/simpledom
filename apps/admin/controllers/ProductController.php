@@ -90,6 +90,9 @@ class ProductController extends ControllerBase {
 
                             // show success message
                             $this->flash->success("تصویر با موفقیت افزوده گردید");
+                            
+                           
+                            
                         } else {
                             $this->flash->error("خطا در هنگام ارسال فایل");
                         }

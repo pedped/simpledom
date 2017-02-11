@@ -14,7 +14,7 @@ class IndexController extends IndexControllerBase {
     public function testAction() {
         
         
-        var_dump(\Usercachchange::findFirst(9)->getPublicResponse());
+        var_dump(\Product::findFirst(5)->getPublicResponse());
         die();
 
 //        // we have to find the products top sales in last 3 days

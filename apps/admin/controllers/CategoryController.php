@@ -57,6 +57,9 @@ class CategoryController extends ControllerBase {
                         } else {
                             $category->showSuccessMessages($this, 'New Category added Successfully');
 
+                            // create the output to make a thumbnail
+                            $category->getPublicResponse();
+
                             // clear the title and message so the user can add better info
                             $fr->clear();
                         }

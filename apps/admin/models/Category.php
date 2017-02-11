@@ -206,8 +206,13 @@ class Category extends AtaModel {
         $result->ID = $this->id;
         $result->ParentCategory = isset($this->parentcategory) ? $this->parentcategory : "";
         $result->Title = $this->title;
-        $result->ImageID = $this->imageid;
-        $result->ImageLink = $this->getImageLink();
+
+
+        // we have to check if the image link is ended with _sm
+        $thumbnail = Thumbnail::GetThumbnail($this->imageid, 256);
+        $result->ImageID = $thumbnail->ImageID;
+        $result->ImageLink = $thumbnail->ImageLink;
+
         $result->Description = $this->description;
         $result->Date = $this->date;
         $result->Active = $this->active;

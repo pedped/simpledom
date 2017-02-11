@@ -282,10 +282,11 @@ class Product extends AtaModel {
         $images = ProductGallery::find(array("product_id = :productid:", "bind" => array("productid" => $this->id)));
         $imagesArray = array();
         foreach ($images as $image) {
-            $imagesArray[] = $image->getImageLink();
+            $imagesArray[] = Thumbnail::GetThumbnail($image->imageid, 1024)->ImageLink;
         }
         if (count($imagesArray) > 0) {
-            $result->ImageLink = $imagesArray[0];
+            $result->ImageLink = Thumbnail::GetThumbnail($images[0]->imageid, 256)->ImageLink;
+            ;
         } else {
             $result->ImageLink = Config::getPublicUrl() . "\img\default_product_icon.png";
         }
@@ -344,7 +345,11 @@ class Product extends AtaModel {
      * @return bool
      */
     public function AddImage($image) {
-        return ProductGallery::Add($this->id, $image);
+        $id = ProductGallery::Add($this->id, $image);
+        // get public response
+        $this->getPublicResponse();
+
+        return $id;
     }
 
     public function getRemainingCount() {
@@ -431,11 +436,10 @@ class Product extends AtaModel {
 
     public function getBaseHumanPrice() {
         if ($this->hasOff()) {
-             return "<span style='color: red;text-decoration: line-through;'>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
-        }else{
-             return "<span>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
+            return "<span style='color: red;text-decoration: line-through;'>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
+        } else {
+            return "<span>" . Helper::GetHumanPrice($this->price_sale) . "</span>";
         }
-       
     }
 
     public function getStatusLabel() {
